@@ -2,7 +2,6 @@
     package="com.drosak.drosak">
    <application
         android:label="drosak"
-        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
