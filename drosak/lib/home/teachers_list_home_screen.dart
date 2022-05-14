@@ -1,11 +1,11 @@
-
 import 'package:drosak/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class TeachersListHomeScreen extends StatefulWidget {
-  const TeachersListHomeScreen({Key? key, required this.title}) : super(key: key);
+  const TeachersListHomeScreen({Key? key, required this.title})
+      : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -41,7 +41,8 @@ class _TeachersListHomeScreenState extends State<TeachersListHomeScreen> {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -83,7 +84,7 @@ class _TeachersListHomeScreenState extends State<TeachersListHomeScreen> {
   //     print(userCredential.user.uid);
   //   });
   // }
-  loginWithPhone() async{
+  loginWithPhone() async {
     await auth.verifyPhoneNumber(
       phoneNumber: '+44 7123 123 456',
       verificationCompleted: (PhoneAuthCredential credential) async {
@@ -100,7 +101,7 @@ class _TeachersListHomeScreenState extends State<TeachersListHomeScreen> {
 
         // Handle other errors
       },
-      codeSent: (String verificationId, int? resendToken)async {
+      codeSent: (String verificationId, int? resendToken) async {
         //resendToken is only supported on Android devices,
         // iOS devices will always return a null value
 
@@ -108,7 +109,8 @@ class _TeachersListHomeScreenState extends State<TeachersListHomeScreen> {
         String smsCode = 'xxxx';
 
         // Create a PhoneAuthCredential with the code
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: verificationId, smsCode: smsCode);
 
         // Sign the user in (or link) with the credential
         await auth.signInWithCredential(credential);
