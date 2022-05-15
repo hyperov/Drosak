@@ -11,13 +11,18 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Color(0xFFFFC2C0),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
+          padding: const EdgeInsets.all(24.0),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
+                SizedBox(height: 100),
+                Image.asset('assets/launcher/logo2.png',height: 200,),
+                SizedBox(height: 30),
                 Text(
                   LocalizationKeys.enter_phone_number.tr,
                   style: Theme.of(context).textTheme.headline5,
@@ -30,8 +35,8 @@ class LoginScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    hintText: LocalizationKeys.phone_number.tr,
-                    label: Text(LocalizationKeys.phone_number_hint.tr),
+                    hintText: LocalizationKeys.phone_number_hint.tr,
+                    label: Text(LocalizationKeys.phone_number.tr),
                     alignLabelWithHint: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -43,17 +48,41 @@ class LoginScreen extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    focusedBorder: const OutlineInputBorder(
+                    focusedBorder:  OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(10)
                     ),
                   ),
                 ),
-                SignInButton(Buttons.Email,
-                    text: LocalizationKeys.app_login.tr, onPressed: () {}),
+                SizedBox(height: 30),
+                SignInButtonBuilder(
+                  text: LocalizationKeys.app_login.tr,
+                  textColor: Colors.black,
+                  icon: Icons.phone_android,
+                  iconColor: Colors.pinkAccent,
+                  backgroundColor: Colors.white,
+                  onPressed: () {},
+                  height: 50,
+                  elevation: 2,
+                  splashColor: Colors.white30,
+                  fontSize: 16,
+                  width: double.infinity,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
                 SignInButton(Buttons.FacebookNew,
-                    text: LocalizationKeys.login_facebook.tr, onPressed: () {}),
+                    padding: EdgeInsets.all(16),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    text: LocalizationKeys.login_facebook.tr,
+                    onPressed: () {}),
                 SignInButton(Buttons.Google,
-                    text: LocalizationKeys.login_google.tr, onPressed: () {}),
+                    padding: EdgeInsets.all(16),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    text: LocalizationKeys.login_google.tr,
+                    onPressed: () {}),
               ],
             ),
           ),
