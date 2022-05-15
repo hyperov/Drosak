@@ -1,6 +1,7 @@
-import 'package:drosak/home/teachers_list_home_screen.dart';
-import 'package:drosak/main.dart';
+import 'package:drosak/login/is_login_widget.dart';
+import 'package:drosak/utils/languages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class MainApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -22,7 +23,10 @@ class MainApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const TeachersListHomeScreen(title: 'Flutter Demo Home Page'),
+      home: const IsLoginWidget(),
+      debugShowCheckedModeBanner: true,
+      locale: const Locale('ar', 'EG'),
+      translations: Languages(),
     );
   }
 }

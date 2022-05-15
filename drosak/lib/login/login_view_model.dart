@@ -33,16 +33,5 @@ class LoginViewModel extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    checkLogin();
-  }
-
-  checkLogin() {
-    auth.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('User is currently signed out!');
-      } else {
-        print('User is signed in!');
-      }
-    });
   }
 }
