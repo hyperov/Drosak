@@ -41,6 +41,8 @@ class LocalizationKeys{
 
   static var login_facebook="login_facebook";
 
+  static var or="or";
+
 
 
 

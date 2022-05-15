@@ -16,11 +16,12 @@ class LoginScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: NeverScrollableScrollPhysics(),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            reverse: true,
             child: Column(
               children: [
-                SizedBox(height: 100),
+                SizedBox(height: 80),
                 Image.asset('assets/launcher/logo2.png',height: 200,),
                 SizedBox(height: 30),
                 Text(
@@ -32,6 +33,8 @@ class LoginScreen extends StatelessWidget {
                   height: 20,
                 ),
                 TextField(
+                  maxLength: 11,
+                  textInputAction: TextInputAction.done,
                   textAlign: TextAlign.start,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
@@ -57,30 +60,43 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 30),
                 SignInButtonBuilder(
                   text: LocalizationKeys.app_login.tr,
-                  textColor: Colors.black,
+                  textColor: Colors.white,
                   icon: Icons.phone_android,
-                  iconColor: Colors.pinkAccent,
-                  backgroundColor: Colors.white,
+                  iconColor: Colors.white,
+                  backgroundColor: Colors.deepPurple,
                   onPressed: () {},
                   height: 50,
                   elevation: 2,
+                  padding: EdgeInsets.all(10),
                   splashColor: Colors.white30,
-                  fontSize: 16,
-                  width: double.infinity,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                SignInButton(Buttons.FacebookNew,
-                    padding: EdgeInsets.all(16),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    text: LocalizationKeys.login_facebook.tr,
-                    onPressed: () {}),
+                Container(
+                  margin: EdgeInsets.only(top: 10, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(child: Text("--------------------------",style: TextStyle(fontSize: 20,color: Colors.black54),)),
+                      Text("  ${LocalizationKeys.or.tr}  ",style: TextStyle(fontSize: 20,),),
+                      Expanded(
+                          child: Text("---------------------------",style: TextStyle(fontSize: 20,color: Colors.black54))),
+                    ],
+                  ),
+                ),
+                Container(margin: EdgeInsets.only(top: 10, bottom: 10),
+                  child: SignInButton(Buttons.FacebookNew,
+                      padding: EdgeInsets.all(12),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      text: LocalizationKeys.login_facebook.tr,
+                      onPressed: () {}),
+                ),
                 SignInButton(Buttons.Google,
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.only(left: 12, right: 12, top: 7, bottom: 7),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(10)),
                     text: LocalizationKeys.login_google.tr,
                     onPressed: () {}),
               ],
