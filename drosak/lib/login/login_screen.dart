@@ -5,7 +5,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
-  final LoginViewModel viewModel = Get.put(LoginViewModel());
+  final LoginViewModel loginViewModel = Get.put(LoginViewModel());
 
   LoginScreen({Key? key}) : super(key: key);
 
@@ -37,6 +37,7 @@ class LoginScreen extends StatelessWidget {
                   textInputAction: TextInputAction.done,
                   textAlign: TextAlign.start,
                   keyboardType: TextInputType.phone,
+                  controller: loginViewModel.phoneController,
                   decoration: InputDecoration(
                     hintText: LocalizationKeys.phone_number_hint.tr,
                     label: Text(LocalizationKeys.phone_number.tr),

@@ -16,7 +16,7 @@ class LoginViewModel extends GetxController {
 
   void setLoggedIn(bool value) => _isLoggedIn.value = value;
 
-
+  final phoneController = TextEditingController();
 
   @override
   void onClose() {
@@ -33,5 +33,11 @@ class LoginViewModel extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    phoneController.dispose();
   }
 }
