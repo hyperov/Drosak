@@ -1,4 +1,3 @@
-import 'package:drosak/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -84,40 +83,6 @@ class _TeachersListHomeScreenState extends State<TeachersListHomeScreen> {
   //     print(userCredential.user.uid);
   //   });
   // }
-  loginWithPhone() async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: '+44 7123 123 456',
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        // ANDROID ONLY!
-
-        // Sign the user in (or link) with the auto-generated credential
-        await auth.signInWithCredential(credential);
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        // ERROR
-        if (e.code == 'invalid-phone-number') {
-          print('The provided phone number is not valid.');
-        }
-
-        // Handle other errors
-      },
-      codeSent: (String verificationId, int? resendToken) async {
-        //resendToken is only supported on Android devices,
-        // iOS devices will always return a null value
-
-        // goto sms screen and wait for the user to enter the code
-        String smsCode = 'xxxx';
-
-        // Create a PhoneAuthCredential with the code
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: smsCode);
-
-        // Sign the user in (or link) with the credential
-        await auth.signInWithCredential(credential);
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {},
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

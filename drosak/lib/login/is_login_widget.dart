@@ -1,12 +1,14 @@
 import 'package:drosak/home/teachers_list_home_screen.dart';
-import 'package:drosak/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'login_screen.dart';
+import 'login_phone_or_social_screen.dart';
 
 class IsLoginWidget extends StatelessWidget {
-  const IsLoginWidget({Key? key}) : super(key: key);
+  final FirebaseAuth auth = Get.put(FirebaseAuth.instance);
+
+  IsLoginWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class IsLoginWidget extends StatelessWidget {
         if (snapshot.hasData) {
           return const TeachersListHomeScreen(title: "drosak");
         } else {
-          return LoginScreen();
+          return PhoneOrSocialLoginScreen();
         }
       },
     );

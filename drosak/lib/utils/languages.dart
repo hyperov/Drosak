@@ -12,11 +12,16 @@ class Languages extends Translations {
           LocalizationKeys.phone_number: 'Phone number',
           LocalizationKeys.phone_number_hint: '01xxxxxxxxx',
           LocalizationKeys.phone_number_error: 'Phone number is wrong',
+          LocalizationKeys.phone_number_error_empty: 'Phone number is empty',
+          LocalizationKeys.phone_number_error_length:
+              'Phone number must be at least 11 digits',
+          LocalizationKeys.phone_number_error_format:
+              'Phone number must be in the format 01xxxxxxxxx',
           LocalizationKeys.app_login: 'Login with phone number',
           LocalizationKeys.app_logout: 'Logout',
           LocalizationKeys.login_google: 'Login with Google',
           LocalizationKeys.login_facebook: 'Login with Facebook',
-          LocalizationKeys.or: 'or',
+          LocalizationKeys.or: 'OR',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -24,10 +29,15 @@ class Languages extends Translations {
           LocalizationKeys.phone_number: 'رقم الهاتف',
           LocalizationKeys.phone_number_hint: '01xxxxxxxxx',
           LocalizationKeys.phone_number_error: 'رقم الهاتف غير صحيح',
+          LocalizationKeys.phone_number_error_empty: 'رقم الهاتف فاضي',
+          LocalizationKeys.phone_number_error_length:
+              'رقم الموبايل لازم يكون 11 رقم',
+          LocalizationKeys.phone_number_error_format:
+              'رقم الموبايل يجب أن يكون بالشكل 01xxxxxxxxx',
           LocalizationKeys.app_login: 'تسجيل الدخول بالموبايل',
           LocalizationKeys.app_logout: 'تسجيل الخروج',
-          LocalizationKeys.login_google: 'تسجيل الدخول بحساب جوجل',
-          LocalizationKeys.login_facebook: 'تسجيل الدخول بحساب فيسبوك',
+          LocalizationKeys.login_google: 'سجل الدخول بحساب جوجل',
+          LocalizationKeys.login_facebook: 'سجل الدخول بحساب فيسبوك',
           LocalizationKeys.or: 'أو',
         },
       };

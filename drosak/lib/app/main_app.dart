@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const IsLoginWidget(),
+      home: IsLoginWidget(),
       debugShowCheckedModeBanner: true,
       locale: const Locale('ar', 'EG'),
       translations: Languages(),
