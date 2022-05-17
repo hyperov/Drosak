@@ -11,6 +11,8 @@ class LoginViewModel extends GetxController {
   RxString verificationId = "".obs;
   //
   final errMessage = RxnString();
+  RxBool errorSnackBarShow = false.obs;
+
   RxString phoneNumber = "".obs;
 
   RxBool isCodeSent = false.obs;
@@ -46,8 +48,8 @@ class LoginViewModel extends GetxController {
             print(e);
           }
           errMessage.value = e.message!;
+          errorSnackBarShow.value = true;
         }
-        errMessage.value = null;
         isLoading.value = false;
       },
       verificationFailed: (FirebaseAuthException e) {
@@ -92,6 +94,7 @@ class LoginViewModel extends GetxController {
         }
         // Handle other errors
         errMessage.value = e.message!;
+        errorSnackBarShow.value = true;
       },
       codeSent: (String verificationId, int? resendToken) async {
         //resendToken is only supported on Android devices,
@@ -123,17 +126,21 @@ class LoginViewModel extends GetxController {
     var phone = phoneController.text;
     if (phone.isEmpty) {
       errMessage.value = LocalizationKeys.phone_number_error_empty.tr;
+      errorSnackBarShow.value = true;
       return LocalizationKeys.phone_number_error_empty.tr;
     }
     if (phone.length != 11) {
       errMessage.value = LocalizationKeys.phone_number_error_length.tr;
+      errorSnackBarShow.value = true;
       return LocalizationKeys.phone_number_error_length.tr;
     }
     if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
       errMessage.value = LocalizationKeys.phone_number_error_format.tr;
+      errorSnackBarShow.value = true;
       return LocalizationKeys.phone_number_error_format.tr;
     }
     errMessage.value = null;
+    errorSnackBarShow = true.obs;
     return null;
   }
 

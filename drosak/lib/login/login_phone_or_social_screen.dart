@@ -13,19 +13,22 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ever(loginViewModel.errMessage, (callback) {
-      if (loginViewModel.errMessage.value != null) {
+    ever(loginViewModel.errorSnackBarShow, (callback) {
+      if (loginViewModel.errMessage.value != null &&
+          loginViewModel.errorSnackBarShow.value) {
         Get.snackbar(
           loginViewModel.errMessage.value!,
           loginViewModel.errMessage.value!,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.redAccent,
           dismissDirection: DismissDirection.up,
+          duration: const Duration(seconds: 2),
+          shouldIconPulse: true,
           icon: const Icon(
             Icons.error,
             color: Colors.white,
           ),
         );
-        // loginViewModel.errMessage.value = null;
+        loginViewModel.errorSnackBarShow.value = false;
       }
     });
 
@@ -74,6 +77,8 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                     init: loginViewModel,
                     builder: (context) => TextField(
                           maxLength: 11,
+                          onChanged: (value) =>
+                              loginViewModel.errMessage.value = null,
                           textInputAction: TextInputAction.done,
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.phone,
