@@ -4,11 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginViewModel extends GetxController {
   final LoginRepo _loginRepository = Get.put(LoginRepo());
 
   RxString verificationId = "".obs;
+
   //
   final errMessage = RxnString();
   RxBool errorSnackBarShow = false.obs;
@@ -112,15 +114,6 @@ class LoginViewModel extends GetxController {
     );
   }
 
-  sendSmsAndLogin() async {
-    // Create a PhoneAuthCredential with the code
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId.value, smsCode: smsCode.value);
-
-    // Sign the user in (or link) with the credential
-    await _loginRepository.signInWithCredential(credential);
-  }
-
   String? validatePhone() {
     var phone = phoneController.text;
     if (phone.isEmpty) {
@@ -141,6 +134,46 @@ class LoginViewModel extends GetxController {
     errMessage.value = null;
     errorSnackBarShow = true.obs;
     return null;
+  }
+
+  sendSmsAndLogin() async {
+    // Create a PhoneAuthCredential with the code
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId.value, smsCode: smsCode.value);
+
+    // Sign the user in (or link) with the credential
+    await _loginRepository.signInWithCredential(credential);
+  }
+
+  signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    try {
+      // Once signed in, return the UserCredential
+      var user =
+          await _loginRepository.getInstance.signInWithCredential(credential);
+
+      _loginRepository.insertUser(user);
+      isLoggedIn.value = true;
+    } on FirebaseAuthException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      errMessage.value = e.message!;
+      errorSnackBarShow.value = true;
+    }
+    isLoading.value = false;
   }
 
   @override

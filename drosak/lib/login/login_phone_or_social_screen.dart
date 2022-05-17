@@ -35,7 +35,6 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
     ever(loginViewModel.isCodeSent, (callback) => Get.to(EnterSmsCodeScreen()));
     ever(loginViewModel.isLoggedIn, (callback) {
       if (loginViewModel.isLoggedIn.value) {
-        Get.to(const TeachersListHomeScreen(title: "Drosak"));
         Get.snackbar(
           "Success",
           "You are logged in",
@@ -46,6 +45,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
             color: Colors.white,
           ),
         );
+        Get.to(const TeachersListHomeScreen(title: "Drosak"));
       }
     });
     return Scaffold(
@@ -166,8 +166,9 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    text: LocalizationKeys.login_google.tr,
-                    onPressed: () {}),
+                    text: LocalizationKeys.login_google.tr, onPressed: () {
+                  loginViewModel.signInWithGoogle();
+                }),
               ],
             ),
           ),
