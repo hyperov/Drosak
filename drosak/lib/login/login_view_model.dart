@@ -13,8 +13,6 @@ class LoginViewModel extends GetxController {
   final errMessage = RxnString();
   RxBool errorSnackBarShow = false.obs;
 
-  RxString phoneNumber = "".obs;
-
   RxBool isCodeSent = false.obs;
   RxString smsCode = "".obs;
 
@@ -32,11 +30,12 @@ class LoginViewModel extends GetxController {
 
   loginWithPhone() async {
     isLoading.value = true;
+    var phoneNumber = phoneController.text;
     await _loginRepository.getInstance.verifyPhoneNumber(
-      phoneNumber: '+2$phoneNumber',
+      phoneNumber: "+2 $phoneNumber",
       verificationCompleted: (PhoneAuthCredential credential) async {
         // ANDROID ONLY!
-
+        printInfo(info: "firebase auth verify completed");
         try {
           var user = await _loginRepository.getInstance
               .signInWithCredential(credential);
@@ -93,8 +92,8 @@ class LoginViewModel extends GetxController {
           errMessage.value = 'The phone number session is invalid.';
         }
         // Handle other errors
-        errMessage.value = e.message!;
         errorSnackBarShow.value = true;
+        errMessage.value = e.message!;
       },
       codeSent: (String verificationId, int? resendToken) async {
         //resendToken is only supported on Android devices,
@@ -102,7 +101,7 @@ class LoginViewModel extends GetxController {
         errMessage.value = null;
         this.verificationId.value = verificationId;
         if (kDebugMode) {
-          print("code sent in sms");
+          printInfo(info: "code sent in sms");
         }
         // The SMS code has been sent to the provided phone number, we
         // now need to let the user enter the code from the UI.

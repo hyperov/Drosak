@@ -28,7 +28,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: controller.sendSmsAndLogin(),
+                onPressed: () => controller.sendSmsAndLogin(),
                 child: const Text('Submit'),
               ),
             ],
