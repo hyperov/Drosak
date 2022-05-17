@@ -25,6 +25,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
             color: Colors.white,
           ),
         );
+        // loginViewModel.errMessage.value = null;
       }
     });
 
@@ -69,33 +70,41 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  maxLength: 11,
-                  textInputAction: TextInputAction.done,
-                  textAlign: TextAlign.start,
-                  keyboardType: TextInputType.phone,
-                  controller: loginViewModel.phoneController,
-                  decoration: InputDecoration(
-                    hintText: LocalizationKeys.phone_number_hint.tr,
-                    label: Text(LocalizationKeys.phone_number.tr),
-                    errorText: loginViewModel.errMessage.value,
-                    alignLabelWithHint: true,
-                    prefixIcon: const Icon(Icons.phone_android),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.deepPurple)),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.deepPurple),
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                ),
+                GetX<LoginViewModel>(
+                    init: loginViewModel,
+                    builder: (context) => TextField(
+                          maxLength: 11,
+                          textInputAction: TextInputAction.done,
+                          textAlign: TextAlign.start,
+                          keyboardType: TextInputType.phone,
+                          controller: loginViewModel.phoneController,
+                          decoration: InputDecoration(
+                            hintText: LocalizationKeys.phone_number_hint.tr,
+                            label: Text(LocalizationKeys.phone_number.tr),
+                            errorText: loginViewModel.errMessage.value,
+                            alignLabelWithHint: true,
+                            prefixIcon: const Icon(Icons.phone_android),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    const BorderSide(color: Colors.deepPurple)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    const BorderSide(color: Colors.deepPurple)),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                color: Colors.red,
+                                width: 2,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.deepPurple),
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                        )),
                 const SizedBox(height: 30),
                 SignInButtonBuilder(
                   text: LocalizationKeys.app_login.tr,
