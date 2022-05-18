@@ -142,7 +142,14 @@ class LoginViewModel extends GetxController {
         verificationId: verificationId.value, smsCode: smsCode.value);
 
     // Sign the user in (or link) with the credential
-    await _loginRepository.signInWithCredential(credential);
+    var user = await _loginRepository.signInWithCredential(credential);
+
+    _loginRepository.insertUser(user!);
+    isLoggedIn.value = true;
+
+    if (kDebugMode) {
+      printInfo(info: "user logged in");
+    }
   }
 
   signInWithGoogle() async {

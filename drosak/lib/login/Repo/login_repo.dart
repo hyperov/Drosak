@@ -9,6 +9,7 @@ class LoginRepo {
   Future<User?> signInWithCredential(AuthCredential credential) async {
     var userCredential = await _auth.signInWithCredential(credential);
     return userCredential.user;
+
     // insertUser(userCredential.user!);
   }
 
