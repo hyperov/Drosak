@@ -9,15 +9,5 @@ class LoginRepo {
   Future<User?> signInWithCredential(AuthCredential credential) async {
     var userCredential = await _auth.signInWithCredential(credential);
     return userCredential.user;
-
-    // insertUser(userCredential.user!);
-  }
-
-  insertUser(User user) async {
-    // await _auth.updateProfile(
-    //   UserUpdateInfo()
-    //     ..displayName = user.displayName
-    //     ..photoUrl = user.photoUrl
-    // );
   }
 }
