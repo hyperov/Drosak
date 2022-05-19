@@ -5,7 +5,7 @@ import 'package:drosak/utils/firestore_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserRepo {
-  insertUser(User user) async {
+  Future<void> insertUser(User user) async {
     var student = user.toStudent();
 
     var documentReference = FirebaseFirestore.instance
@@ -16,6 +16,6 @@ class UserRepo {
           toFirestore: (model, _) => model.toJson(),
         );
 
-    documentReference.set(student, SetOptions(merge: true));
+    return documentReference.set(student, SetOptions(merge: true));
   }
 }

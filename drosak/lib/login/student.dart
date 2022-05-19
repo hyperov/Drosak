@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestoreh.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Student {
   String id;

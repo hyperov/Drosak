@@ -14,11 +14,11 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ever(loginViewModel.errorSnackBarShow, (callback) {
-      if (loginViewModel.errMessage.value != null &&
+      if (loginViewModel.errMessageSnackBar.value.isNotEmpty &&
           loginViewModel.errorSnackBarShow.value) {
         Get.snackbar(
-          loginViewModel.errMessage.value!,
-          loginViewModel.errMessage.value!,
+          loginViewModel.errMessageSnackBar.value,
+          loginViewModel.errMessageSnackBar.value,
           backgroundColor: Colors.redAccent,
           dismissDirection: DismissDirection.up,
           duration: const Duration(seconds: 2),
@@ -77,8 +77,8 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                     init: loginViewModel,
                     builder: (context) => TextField(
                           maxLength: 11,
-                          onChanged: (value) =>
-                              loginViewModel.errMessage.value = null,
+                          onChanged: (value) => loginViewModel
+                              .errMessagePhoneTextField.value = null,
                           textInputAction: TextInputAction.done,
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.phone,
@@ -86,7 +86,8 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             hintText: LocalizationKeys.phone_number_hint.tr,
                             label: Text(LocalizationKeys.phone_number.tr),
-                            errorText: loginViewModel.errMessage.value,
+                            errorText:
+                                loginViewModel.errMessagePhoneTextField.value,
                             alignLabelWithHint: true,
                             prefixIcon: const Icon(Icons.phone_android),
                             border: OutlineInputBorder(

@@ -22,6 +22,7 @@ class Languages extends Translations {
           LocalizationKeys.login_google: 'Login with Google',
           LocalizationKeys.login_facebook: 'Login with Facebook',
           LocalizationKeys.or: 'OR',
+          LocalizationKeys.login_error: 'Login error happened !',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -39,6 +40,7 @@ class Languages extends Translations {
           LocalizationKeys.login_google: 'سجل الدخول بحساب جوجل',
           LocalizationKeys.login_facebook: 'سجل الدخول بحساب فيسبوك',
           LocalizationKeys.or: 'أو',
+          LocalizationKeys.login_error: 'حدث خطأ في تسجيل الدخول !',
         },
       };
 }

@@ -47,4 +47,6 @@ class LocalizationKeys {
   static var phone_number_error_length = "phone_number_error_length";
 
   static var phone_number_error_format = "phone_number_error_format";
+
+  static var login_error = "login_error";
 }

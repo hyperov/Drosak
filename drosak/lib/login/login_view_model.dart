@@ -1,4 +1,5 @@
 import 'package:drosak/login/Repo/login_repo.dart';
+import 'package:drosak/login/Repo/user_repo.dart';
 import 'package:drosak/utils/localization_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -8,11 +9,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginViewModel extends GetxController {
   final LoginRepo _loginRepository = Get.put(LoginRepo());
+  final UserRepo _userRepo = Get.put(UserRepo());
 
   RxString verificationId = "".obs;
 
   //
-  final errMessage = RxnString();
+  final errMessagePhoneTextField = RxnString();
+  final errMessageSnackBar = "".obs;
   RxBool errorSnackBarShow = false.obs;
 
   RxBool isCodeSent = false.obs;
@@ -42,13 +45,14 @@ class LoginViewModel extends GetxController {
           var user = await _loginRepository.getInstance
               .signInWithCredential(credential);
 
-          _loginRepository.insertUser(user);
+          _userRepo.insertUser(user);
           isLoggedIn.value = true;
         } on FirebaseAuthException catch (e) {
           if (kDebugMode) {
             print(e);
           }
-          errMessage.value = e.message!;
+          errMessagePhoneTextField.value = e.message!;
+          errMessageSnackBar.value = e.message!;
           errorSnackBarShow.value = true;
         }
         isLoading.value = false;
@@ -91,16 +95,19 @@ class LoginViewModel extends GetxController {
         }
         if (e.code == 'phone format is incorrect') {
           printError(info: 'The phone number session is invalid.');
-          errMessage.value = 'The phone number session is invalid.';
+          errMessagePhoneTextField.value =
+              'The phone number session is invalid.';
         }
         // Handle other errors
         errorSnackBarShow.value = true;
-        errMessage.value = e.message!;
+        errMessagePhoneTextField.value = e.message!;
+        errMessageSnackBar.value = e.message!;
       },
       codeSent: (String verificationId, int? resendToken) async {
         //resendToken is only supported on Android devices,
         // iOS devices will always return a null value
-        errMessage.value = null;
+        errMessagePhoneTextField.value = null;
+        errMessageSnackBar.value = "";
         this.verificationId.value = verificationId;
         if (kDebugMode) {
           printInfo(info: "code sent in sms");
@@ -117,22 +124,29 @@ class LoginViewModel extends GetxController {
   String? validatePhone() {
     var phone = phoneController.text;
     if (phone.isEmpty) {
-      errMessage.value = LocalizationKeys.phone_number_error_empty.tr;
+      errMessagePhoneTextField.value =
+          LocalizationKeys.phone_number_error_empty.tr;
+      errMessageSnackBar.value = LocalizationKeys.phone_number_error_empty.tr;
       errorSnackBarShow.value = true;
       return LocalizationKeys.phone_number_error_empty.tr;
     }
     if (phone.length != 11) {
-      errMessage.value = LocalizationKeys.phone_number_error_length.tr;
+      errMessagePhoneTextField.value =
+          LocalizationKeys.phone_number_error_length.tr;
+      errMessageSnackBar.value = LocalizationKeys.phone_number_error_length.tr;
       errorSnackBarShow.value = true;
       return LocalizationKeys.phone_number_error_length.tr;
     }
     if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
-      errMessage.value = LocalizationKeys.phone_number_error_format.tr;
+      errMessagePhoneTextField.value =
+          LocalizationKeys.phone_number_error_format.tr;
+      errMessageSnackBar.value = LocalizationKeys.phone_number_error_format.tr;
       errorSnackBarShow.value = true;
       return LocalizationKeys.phone_number_error_format.tr;
     }
-    errMessage.value = null;
-    errorSnackBarShow = true.obs;
+    errMessagePhoneTextField.value = null;
+    errMessageSnackBar.value = "";
+    errorSnackBarShow = false.obs;
     return null;
   }
 
@@ -144,12 +158,17 @@ class LoginViewModel extends GetxController {
     // Sign the user in (or link) with the credential
     var user = await _loginRepository.signInWithCredential(credential);
 
-    _loginRepository.insertUser(user!);
-    isLoggedIn.value = true;
+    _userRepo.insertUser(user!).then((value) {
+      isLoggedIn.value = true;
 
-    if (kDebugMode) {
-      printInfo(info: "user logged in");
-    }
+      if (kDebugMode) {
+        printInfo(info: "user logged in");
+      }
+    }).onError((error, stackTrace) {
+      printError(info: "insert user firestore error");
+      errMessageSnackBar.value = LocalizationKeys.login_error.tr;
+      errorSnackBarShow.value = true;
+    });
   }
 
   signInWithGoogle() async {
@@ -171,13 +190,19 @@ class LoginViewModel extends GetxController {
       var user =
           await _loginRepository.getInstance.signInWithCredential(credential);
 
-      _loginRepository.insertUser(user);
-      isLoggedIn.value = true;
+      _userRepo.insertUser(user).then((value) {
+        isLoggedIn.value = true;
+      }).onError((error, stackTrace) {
+        printError(info: "insert user firestore error");
+        errMessageSnackBar.value = LocalizationKeys.login_error.tr;
+        errorSnackBarShow.value = true;
+      });
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
         print(e);
       }
-      errMessage.value = e.message!;
+      errMessagePhoneTextField.value = e.message!;
+      errMessageSnackBar.value = e.message!;
       errorSnackBarShow.value = true;
     }
     isLoading.value = false;
