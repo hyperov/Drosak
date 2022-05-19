@@ -23,6 +23,12 @@ class Languages extends Translations {
           LocalizationKeys.login_facebook: 'Login with Facebook',
           LocalizationKeys.or: 'OR',
           LocalizationKeys.login_error: 'Login error happened !',
+          LocalizationKeys.network_error: 'Network error happened !',
+          LocalizationKeys.network_error_message:
+              'Please check your internet connection and try again',
+          LocalizationKeys.network_success: 'Network success !',
+          LocalizationKeys.network_success_message:
+              'You are connected to the internet',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -41,6 +47,11 @@ class Languages extends Translations {
           LocalizationKeys.login_facebook: 'سجل الدخول بحساب فيسبوك',
           LocalizationKeys.or: 'أو',
           LocalizationKeys.login_error: 'حدث خطأ في تسجيل الدخول !',
+          LocalizationKeys.network_error: 'حدث خطأ في الشبكة',
+          LocalizationKeys.network_error_message:
+              'يرجى التأكد من اتصالك بالشبكة وحاول مرة أخرى',
+          LocalizationKeys.network_success: 'تم الاتصال بالشبكة',
+          LocalizationKeys.network_success_message: 'لقد قمت بالاتصال بالشبكة',
         },
       };
 }

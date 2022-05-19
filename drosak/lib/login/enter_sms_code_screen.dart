@@ -1,10 +1,12 @@
 import 'package:drosak/login/login_view_model.dart';
+import 'package:drosak/login/viewmodel/NetworkViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EnterSmsCodeScreen extends StatelessWidget {
   EnterSmsCodeScreen({Key? key}) : super(key: key);
   final LoginViewModel loginViewModel = Get.put(LoginViewModel());
+  final NetworkViewModel _networkViewModel = Get.put(NetworkViewModel());
 
   @override
   Widget build(BuildContext context) {

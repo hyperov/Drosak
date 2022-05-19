@@ -6,19 +6,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 
+import 'viewmodel/NetworkViewModel.dart';
+
 class PhoneOrSocialLoginScreen extends StatelessWidget {
-  final LoginViewModel loginViewModel = Get.put(LoginViewModel());
+  final LoginViewModel _loginViewModel = Get.put(LoginViewModel());
+  final NetworkViewModel _networkViewModel = Get.put(NetworkViewModel());
 
   PhoneOrSocialLoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ever(loginViewModel.errorSnackBarShow, (callback) {
-      if (loginViewModel.errMessageSnackBar.value.isNotEmpty &&
-          loginViewModel.errorSnackBarShow.value) {
+    ever(_networkViewModel.isConnected, (callback) {
+      if (!_networkViewModel.isConnected.value) {
+        if (Get.isSnackbarOpen == false) {
+          showNoInternetConnectionDialog();
+        }
+      } else {
+        if (Get.isSnackbarOpen == false) {
+          Get.snackbar(
+            LocalizationKeys.network_success.tr,
+            LocalizationKeys.network_success_message.tr,
+            icon: const Icon(Icons.signal_wifi_4_bar),
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            duration: const Duration(seconds: 2),
+          );
+        }
+      }
+    });
+
+    ever(_loginViewModel.errorSnackBarShow, (callback) {
+      if (_loginViewModel.errMessageSnackBar.value.isNotEmpty &&
+          _loginViewModel.errorSnackBarShow.value) {
         Get.snackbar(
-          loginViewModel.errMessageSnackBar.value,
-          loginViewModel.errMessageSnackBar.value,
+          _loginViewModel.errMessageSnackBar.value,
+          _loginViewModel.errMessageSnackBar.value,
           backgroundColor: Colors.redAccent,
           dismissDirection: DismissDirection.up,
           duration: const Duration(seconds: 2),
@@ -28,13 +50,14 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
             color: Colors.white,
           ),
         );
-        loginViewModel.errorSnackBarShow.value = false;
+        _loginViewModel.errorSnackBarShow.value = false;
       }
     });
 
-    ever(loginViewModel.isCodeSent, (callback) => Get.to(EnterSmsCodeScreen()));
-    ever(loginViewModel.isLoggedIn, (callback) {
-      if (loginViewModel.isLoggedIn.value) {
+    ever(
+        _loginViewModel.isCodeSent, (callback) => Get.to(EnterSmsCodeScreen()));
+    ever(_loginViewModel.isLoggedIn, (callback) {
+      if (_loginViewModel.isLoggedIn.value) {
         Get.snackbar(
           "Success",
           "You are logged in",
@@ -74,20 +97,20 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                   height: 20,
                 ),
                 GetX<LoginViewModel>(
-                    init: loginViewModel,
+                    init: _loginViewModel,
                     builder: (context) => TextField(
                           maxLength: 11,
-                          onChanged: (value) => loginViewModel
+                          onChanged: (value) => _loginViewModel
                               .errMessagePhoneTextField.value = null,
                           textInputAction: TextInputAction.done,
                           textAlign: TextAlign.start,
                           keyboardType: TextInputType.phone,
-                          controller: loginViewModel.phoneController,
+                          controller: _loginViewModel.phoneController,
                           decoration: InputDecoration(
                             hintText: LocalizationKeys.phone_number_hint.tr,
                             label: Text(LocalizationKeys.phone_number.tr),
                             errorText:
-                                loginViewModel.errMessagePhoneTextField.value,
+                                _loginViewModel.errMessagePhoneTextField.value,
                             alignLabelWithHint: true,
                             prefixIcon: const Icon(Icons.phone_android),
                             border: OutlineInputBorder(
@@ -119,7 +142,11 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                   iconColor: Colors.white,
                   backgroundColor: Colors.deepPurple,
                   onPressed: () {
-                    phoneSignInOnPressed();
+                    if (_networkViewModel.isConnected.value) {
+                      phoneSignInOnPressed();
+                    } else {
+                      showNoInternetConnectionDialog();
+                    }
                   },
                   height: 50,
                   elevation: 2,
@@ -159,8 +186,14 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                           vertical: 12, horizontal: 20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      text: LocalizationKeys.login_facebook.tr,
-                      onPressed: () {}),
+                      text: LocalizationKeys.login_facebook.tr, onPressed: () {
+                    if (_networkViewModel.isConnected.isTrue) {
+                      // _networkViewModel.loginWithFacebook();
+                      // facebookSignInOnPressed();
+                    } else {
+                      showNoInternetConnectionDialog();
+                    }
+                  }),
                 ),
                 SignInButton(Buttons.Google,
                     padding:
@@ -168,7 +201,11 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     text: LocalizationKeys.login_google.tr, onPressed: () {
-                  loginViewModel.signInWithGoogle();
+                  if (_networkViewModel.isConnected.isTrue) {
+                    _loginViewModel.signInWithGoogle();
+                  } else {
+                    showNoInternetConnectionDialog();
+                  }
                 }),
               ],
             ),
@@ -179,18 +216,19 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
   }
 
   phoneSignInOnPressed() {
-    if (loginViewModel.validatePhone() == null) {
-      loginViewModel.loginWithPhone();
+    if (_loginViewModel.validatePhone() == null) {
+      _loginViewModel.loginWithPhone();
     }
   }
 
-  error(String message) => Get.snackbar(message, '',
+  void showNoInternetConnectionDialog() {
+    Get.snackbar(
+      LocalizationKeys.network_error.tr,
+      LocalizationKeys.network_error_message.tr,
+      icon: const Icon(Icons.signal_wifi_off),
       backgroundColor: Colors.red,
-      snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 2));
-
-  success(String message) => Get.snackbar(message, '',
-      backgroundColor: Colors.green,
-      snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 2));
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+    );
+  }
 }

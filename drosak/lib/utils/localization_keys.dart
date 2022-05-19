@@ -49,4 +49,12 @@ class LocalizationKeys {
   static var phone_number_error_format = "phone_number_error_format";
 
   static var login_error = "login_error";
+
+  static var network_error = "network_error";
+
+  static var network_error_message = "network_error_message";
+
+  static var network_success = "network_success";
+
+  static var network_success_message = "network_success_message";
 }
