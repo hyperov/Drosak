@@ -45,8 +45,15 @@ class LoginViewModel extends GetxController {
           var user = await _loginRepository.getInstance
               .signInWithCredential(credential);
 
-          _userRepo.insertUser(user);
-          isLoggedIn.value = true;
+          _userRepo.insertUser(user).then((value) {
+            isLoggedIn.value = true;
+            isLoading.value = false;
+          }).onError((error, stackTrace) {
+            printError(info: "insert user firestore error");
+            errMessageSnackBar.value = LocalizationKeys.login_error.tr;
+            isLoading.value = false;
+            errorSnackBarShow.value = true;
+          });
         } on FirebaseAuthException catch (e) {
           if (kDebugMode) {
             print(e);
@@ -160,6 +167,7 @@ class LoginViewModel extends GetxController {
 
     _userRepo.insertUser(user!).then((value) {
       isLoggedIn.value = true;
+      isLoading.value = false;
 
       if (kDebugMode) {
         printInfo(info: "user logged in");
@@ -192,6 +200,7 @@ class LoginViewModel extends GetxController {
 
       _userRepo.insertUser(user).then((value) {
         isLoggedIn.value = true;
+        isLoading.value = false;
       }).onError((error, stackTrace) {
         printError(info: "insert user firestore error");
         errMessageSnackBar.value = LocalizationKeys.login_error.tr;

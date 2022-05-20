@@ -18,9 +18,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ever(_networkViewModel.isConnected, (callback) {
       if (!_networkViewModel.isConnected.value) {
-        if (Get.isSnackbarOpen == false) {
-          showNoInternetConnectionDialog();
-        }
+        showNoInternetConnectionDialog();
       } else {
         if (Get.isSnackbarOpen == false) {
           Get.snackbar(
@@ -222,13 +220,16 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
   }
 
   void showNoInternetConnectionDialog() {
-    Get.snackbar(
-      LocalizationKeys.network_error.tr,
-      LocalizationKeys.network_error_message.tr,
-      icon: const Icon(Icons.signal_wifi_off),
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-      duration: const Duration(seconds: 2),
-    );
+    if (Get.isSnackbarOpen == false) {
+      Get.snackbar(
+        LocalizationKeys.network_error.tr,
+        LocalizationKeys.network_error_message.tr,
+        icon: const Icon(Icons.signal_wifi_off, color: Colors.white),
+        dismissDirection: DismissDirection.horizontal,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: const Duration(milliseconds: 800),
+      );
+    }
   }
 }
