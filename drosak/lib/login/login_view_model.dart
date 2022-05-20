@@ -73,7 +73,7 @@ class LoginViewModel extends GetxController {
           if (kDebugMode) {
             print(e);
           }
-          _onSnackBarError(Messages.firebase_auth_error_login,
+          _onSnackBarError("{$Messages.firebase_auth_error_login} ${e.message}",
               LocalizationKeys.login_error.tr);
           return;
         }
@@ -82,7 +82,8 @@ class LoginViewModel extends GetxController {
           isLoggedIn.value = true;
           isLoading.value = false;
         }).onError((error, stackTrace) {
-          _onSnackBarError(Messages.firestore_error_insert_user,
+          _onSnackBarError(
+              "{$Messages.firestore_error_insert_user} ${error.toString()}",
               LocalizationKeys.login_error.tr);
         });
       },
@@ -129,7 +130,7 @@ class LoginViewModel extends GetxController {
         }
         // Handle other errors
         errMessagePhoneTextField.value = e.message!;
-        _onSnackBarError(Messages.firebase_auth_error_login,
+        _onSnackBarError("{$Messages.firebase_auth_error_login} ${e.message}",
             LocalizationKeys.login_error.tr);
       },
       codeSent: (String verificationId, int? resendToken) async {
@@ -191,8 +192,8 @@ class LoginViewModel extends GetxController {
       if (kDebugMode) {
         print(e);
       }
-      _onSnackBarError(
-          Messages.firebase_auth_error_login, LocalizationKeys.login_error.tr);
+      _onSnackBarError("${Messages.firebase_auth_error_login} ${e.message}",
+          LocalizationKeys.login_error.tr);
       return;
     }
 
@@ -204,7 +205,8 @@ class LoginViewModel extends GetxController {
         printInfo(info: "user logged in");
       }
     }).onError((error, stackTrace) {
-      _onSnackBarError(Messages.firestore_error_insert_user,
+      _onSnackBarError(
+          "${Messages.firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
     });
   }
@@ -233,8 +235,8 @@ class LoginViewModel extends GetxController {
         print(e);
       }
 
-      _onSnackBarError(
-          Messages.firebase_auth_error_login, LocalizationKeys.login_error.tr);
+      _onSnackBarError("${Messages.firebase_auth_error_login} ${e.message}",
+          LocalizationKeys.login_error.tr);
       return;
     }
 
@@ -242,7 +244,8 @@ class LoginViewModel extends GetxController {
       isLoggedIn.value = true;
       isLoading.value = false;
     }).onError((error, stackTrace) {
-      _onSnackBarError(Messages.firestore_error_insert_user,
+      _onSnackBarError(
+          "${Messages.firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
     });
   }
@@ -265,7 +268,7 @@ class LoginViewModel extends GetxController {
         if (kDebugMode) {
           print(e);
         }
-        _onSnackBarError(Messages.firebase_auth_error_login,
+        _onSnackBarError("${Messages.firebase_auth_error_login} ${e.message}",
             LocalizationKeys.login_error.tr);
         return;
       }
@@ -274,7 +277,8 @@ class LoginViewModel extends GetxController {
         isLoggedIn.value = true;
         isLoading.value = false;
       }).onError((error, stackTrace) {
-        _onSnackBarError(Messages.firestore_error_insert_user,
+        _onSnackBarError(
+            "${Messages.firestore_error_insert_user} ${error.toString()}",
             LocalizationKeys.login_error.tr);
       });
     } else {
