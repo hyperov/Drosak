@@ -29,6 +29,8 @@ class Languages extends Translations {
           LocalizationKeys.network_success: 'Network success !',
           LocalizationKeys.network_success_message:
               'You are connected to the internet',
+          LocalizationKeys.facebook_login_error:
+              'Login with Facebook error happened !',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -52,6 +54,8 @@ class Languages extends Translations {
               'يرجى التأكد من اتصالك بالشبكة وحاول مرة أخرى',
           LocalizationKeys.network_success: 'تم الاتصال بالشبكة',
           LocalizationKeys.network_success_message: 'لقد قمت بالاتصال بالشبكة',
+          LocalizationKeys.facebook_login_error:
+              'حدث خطأ في تسجيل الدخول بحساب فيسبوك',
         },
       };
 }

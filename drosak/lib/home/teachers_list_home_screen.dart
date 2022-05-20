@@ -33,37 +33,6 @@ class _TeachersListHomeScreenState extends State<TeachersListHomeScreen> {
     });
   }
 
-  // fun signInWithFacebook() {
-  //   // Trigger the authentication flow
-  //   final FacebookLogin facebookLogin = FacebookLogin();
-  //   facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-  //   facebookLogin.logInWithReadPermissions(['email']).then((result) {
-  //     switch (result.status) {
-  //       case FacebookLoginStatus.loggedIn:
-  //         final token = result.accessToken.token;
-  //         final credential = FacebookAuthProvider.credential(token);
-  //         FirebaseAuth.instance.signInWithCredential(credential);
-  //         break;
-  //       case FacebookLoginStatus.cancelledByUser:
-  //         print('User cancelled login.');
-  //         break;
-  //       case FacebookLoginStatus.error:
-  //         print('Something went wrong with the login process.\n'
-  //             'Here\'s the error Facebook gave us: ${result.errorMessage}');
-  //         break;
-  //     }
-  //   });
-  // }
-
-  // fun loginwithGoogle() {
-  //   signInWithGoogle().then((userCredential) {
-  //     print(userCredential.user.displayName);
-  //     print(userCredential.user.email);
-  //     print(userCredential.user.photoUrl);
-  //     print(userCredential.user.uid);
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

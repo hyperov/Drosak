@@ -1,4 +1,3 @@
-import 'package:drosak/home/teachers_list_home_screen.dart';
 import 'package:drosak/login/enter_sms_code_screen.dart';
 import 'package:drosak/login/login_view_model.dart';
 import 'package:drosak/utils/localization_keys.dart';
@@ -9,8 +8,8 @@ import 'package:get/get.dart';
 import 'viewmodel/NetworkViewModel.dart';
 
 class PhoneOrSocialLoginScreen extends StatelessWidget {
-  final LoginViewModel _loginViewModel = Get.put(LoginViewModel());
-  final NetworkViewModel _networkViewModel = Get.put(NetworkViewModel());
+  final LoginViewModel _loginViewModel = Get.find();
+  final NetworkViewModel _networkViewModel = Get.find();
 
   PhoneOrSocialLoginScreen({Key? key}) : super(key: key);
 
@@ -37,21 +36,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
 
     ever(
         _loginViewModel.isCodeSent, (callback) => Get.to(EnterSmsCodeScreen()));
-    ever(_loginViewModel.isLoggedIn, (callback) {
-      if (_loginViewModel.isLoggedIn.value) {
-        Get.snackbar(
-          "Success",
-          "You are logged in",
-          backgroundColor: Colors.green,
-          dismissDirection: DismissDirection.up,
-          icon: const Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-        );
-        Get.to(const TeachersListHomeScreen(title: "Drosak"));
-      }
-    });
+
     return Scaffold(
       backgroundColor: const Color(0xFFFFC2C0),
       body: SafeArea(
@@ -170,7 +155,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                       text: LocalizationKeys.login_facebook.tr, onPressed: () {
                     if (_networkViewModel.isConnected.isTrue) {
                       // _networkViewModel.loginWithFacebook();
-                      // facebookSignInOnPressed();
+                      _loginViewModel.signInWithFacebook();
                     } else {
                       _networkViewModel.showNoInternetConnectionDialog();
                     }
@@ -202,17 +187,17 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
     }
   }
 
-  // void showNoInternetConnectionDialog() {
-  //   if (Get.isSnackbarOpen == false) {
-  //     Get.snackbar(
-  //       LocalizationKeys.network_error.tr,
-  //       LocalizationKeys.network_error_message.tr,
-  //       icon: const Icon(Icons.signal_wifi_off, color: Colors.white),
-  //       dismissDirection: DismissDirection.horizontal,
-  //       backgroundColor: Colors.red,
-  //       colorText: Colors.white,
-  //       duration: const Duration(milliseconds: 800),
-  //     );
-  //   }
-  // }
+// void showNoInternetConnectionDialog() {
+//   if (Get.isSnackbarOpen == false) {
+//     Get.snackbar(
+//       LocalizationKeys.network_error.tr,
+//       LocalizationKeys.network_error_message.tr,
+//       icon: const Icon(Icons.signal_wifi_off, color: Colors.white),
+//       dismissDirection: DismissDirection.horizontal,
+//       backgroundColor: Colors.red,
+//       colorText: Colors.white,
+//       duration: const Duration(milliseconds: 800),
+//     );
+//   }
+// }
 }

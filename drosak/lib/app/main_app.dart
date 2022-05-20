@@ -1,3 +1,4 @@
+import 'package:drosak/bindings/initial_bindings.dart';
 import 'package:drosak/login/is_login_widget.dart';
 import 'package:drosak/utils/languages.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: true,
       locale: const Locale('ar', 'EG'),
       translations: Languages(),
+      initialBinding: InitialBindings(),
     );
   }
 }

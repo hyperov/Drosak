@@ -1,9 +1,11 @@
+import 'package:drosak/home/teachers_list_home_screen.dart';
 import 'package:drosak/login/Repo/login_repo.dart';
 import 'package:drosak/login/Repo/user_repo.dart';
 import 'package:drosak/utils/localization_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -27,6 +29,26 @@ class LoginViewModel extends GetxController {
   final phoneController = TextEditingController();
 
   @override
+  void onReady() {
+    super.onReady();
+    ever(isLoggedIn, (callback) {
+      if (isLoggedIn.value) {
+        Get.snackbar(
+          "Success",
+          "You are logged in",
+          backgroundColor: Colors.green,
+          dismissDirection: DismissDirection.up,
+          icon: const Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+        );
+        Get.to(const TeachersListHomeScreen(title: "Drosak"));
+      }
+    });
+  }
+
+  @override
   void onClose() {
     super.onClose();
     isLoading.value = false;
@@ -36,14 +58,14 @@ class LoginViewModel extends GetxController {
   loginWithPhone() async {
     isLoading.value = true;
     var phoneNumber = phoneController.text;
-    await _loginRepository.getInstance.verifyPhoneNumber(
+    await _loginRepository.auth.verifyPhoneNumber(
       phoneNumber: "+2 $phoneNumber",
       verificationCompleted: (PhoneAuthCredential credential) async {
         // ANDROID ONLY!
         printInfo(info: "firebase auth verify completed");
         try {
-          var user = await _loginRepository.getInstance
-              .signInWithCredential(credential);
+          var user =
+              await _loginRepository.auth.signInWithCredential(credential);
 
           _userRepo.insertUser(user).then((value) {
             isLoggedIn.value = true;
@@ -190,8 +212,7 @@ class LoginViewModel extends GetxController {
 
     try {
       // Once signed in, return the UserCredential
-      var user =
-          await _loginRepository.getInstance.signInWithCredential(credential);
+      var user = await _loginRepository.auth.signInWithCredential(credential);
 
       _userRepo.insertUser(user).then((value) {
         isLoggedIn.value = true;
@@ -208,6 +229,47 @@ class LoginViewModel extends GetxController {
       errorSnackBarShow.value = true;
     }
     isLoading.value = false;
+  }
+
+  signInWithFacebook() async {
+    isLoading.value = true;
+    final LoginResult result = await FacebookAuth.instance.login();
+
+    if (result.status == LoginStatus.success) {
+      // Create a credential from the access token
+      final OAuthCredential credential =
+          FacebookAuthProvider.credential(result.accessToken!.token);
+
+      try {
+        // Once signed in, return the UserCredential
+        var user = await _loginRepository.auth.signInWithCredential(credential);
+
+        _userRepo.insertUser(user).then((value) {
+          isLoggedIn.value = true;
+          isLoading.value = false;
+        }).onError((error, stackTrace) {
+          _onInsertUserToDatabaseError();
+        });
+      } on FirebaseAuthException catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    } else {
+      isLoading.value = false;
+      isLoggedIn.value = false;
+      errMessageSnackBar.value = LocalizationKeys.facebook_login_error.tr;
+      errorSnackBarShow.value = true;
+
+      if (kDebugMode) {
+        print(result.status);
+        print(result.message);
+      }
+    }
+  }
+
+  signOutFacebook() async {
+    await FacebookAuth.instance.logOut();
   }
 
   @override

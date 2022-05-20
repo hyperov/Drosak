@@ -57,4 +57,6 @@ class LocalizationKeys {
   static var network_success = "network_success";
 
   static var network_success_message = "network_success_message";
+
+  static var facebook_login_error = "facebook_login_error";
 }

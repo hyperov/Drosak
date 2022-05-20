@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 class EnterSmsCodeScreen extends StatelessWidget {
   EnterSmsCodeScreen({Key? key}) : super(key: key);
-  final LoginViewModel loginViewModel = Get.put(LoginViewModel());
-  final NetworkViewModel _networkViewModel = Get.put(NetworkViewModel());
+  final LoginViewModel loginViewModel = Get.find();
+  final NetworkViewModel _networkViewModel = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,13 @@ class EnterSmsCodeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () => controller.sendSmsAndLogin(),
+                onPressed: () {
+                  if (_networkViewModel.isConnected.value) {
+                    controller.sendSmsAndLogin();
+                  } else {
+                    _networkViewModel.showNoInternetConnectionDialog();
+                  }
+                },
                 child: const Text('Submit'),
               ),
             ],
