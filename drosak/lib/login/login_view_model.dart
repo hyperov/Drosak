@@ -49,10 +49,7 @@ class LoginViewModel extends GetxController {
             isLoggedIn.value = true;
             isLoading.value = false;
           }).onError((error, stackTrace) {
-            printError(info: "insert user firestore error");
-            errMessageSnackBar.value = LocalizationKeys.login_error.tr;
-            isLoading.value = false;
-            errorSnackBarShow.value = true;
+            _onInsertUserToDatabaseError();
           });
         } on FirebaseAuthException catch (e) {
           if (kDebugMode) {
@@ -173,9 +170,7 @@ class LoginViewModel extends GetxController {
         printInfo(info: "user logged in");
       }
     }).onError((error, stackTrace) {
-      printError(info: "insert user firestore error");
-      errMessageSnackBar.value = LocalizationKeys.login_error.tr;
-      errorSnackBarShow.value = true;
+      _onInsertUserToDatabaseError();
     });
   }
 
@@ -202,9 +197,7 @@ class LoginViewModel extends GetxController {
         isLoggedIn.value = true;
         isLoading.value = false;
       }).onError((error, stackTrace) {
-        printError(info: "insert user firestore error");
-        errMessageSnackBar.value = LocalizationKeys.login_error.tr;
-        errorSnackBarShow.value = true;
+        _onInsertUserToDatabaseError();
       });
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
@@ -221,5 +214,12 @@ class LoginViewModel extends GetxController {
   void dispose() {
     super.dispose();
     phoneController.dispose();
+  }
+
+  void _onInsertUserToDatabaseError() {
+    printError(info: "insert user firestore error");
+    errMessageSnackBar.value = LocalizationKeys.login_error.tr;
+    isLoading.value = false;
+    errorSnackBarShow.value = true;
   }
 }

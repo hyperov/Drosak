@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:drosak/utils/localization_keys.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +25,22 @@ class NetworkViewModel extends GetxController {
     super.onReady();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    ever(isConnected, (callback) {
+      if (!isConnected.value) {
+        showNoInternetConnectionDialog();
+      } else {
+        if (Get.isSnackbarOpen == false) {
+          Get.snackbar(
+            LocalizationKeys.network_success.tr,
+            LocalizationKeys.network_success_message.tr,
+            icon: const Icon(Icons.signal_wifi_4_bar),
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            duration: const Duration(seconds: 2),
+          );
+        }
+      }
+    });
   }
 
   @override
@@ -54,5 +72,19 @@ class NetworkViewModel extends GetxController {
       isConnected.value = false;
     }
     // return isConnected.value;
+  }
+
+  void showNoInternetConnectionDialog() {
+    if (Get.isSnackbarOpen == false) {
+      Get.snackbar(
+        LocalizationKeys.network_error.tr,
+        LocalizationKeys.network_error_message.tr,
+        icon: const Icon(Icons.signal_wifi_off, color: Colors.white),
+        dismissDirection: DismissDirection.horizontal,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: const Duration(milliseconds: 800),
+      );
+    }
   }
 }
