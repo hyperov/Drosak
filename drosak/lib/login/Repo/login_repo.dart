@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginRepo {
-  get auth => FirebaseAuth.instance;
+  FirebaseAuth get auth => FirebaseAuth.instance;
 
   Future<User?> signInWithCredential(AuthCredential credential) async {
     var userCredential = await auth.signInWithCredential(credential);

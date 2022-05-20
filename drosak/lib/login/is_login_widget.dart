@@ -16,7 +16,7 @@ class IsLoginWidget extends StatelessWidget {
       initialData: _auth.currentUser,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const TeachersListHomeScreen(title: "drosak");
+          return TeachersListHomeScreen(title: "drosak");
         } else {
           return PhoneOrSocialLoginScreen();
         }

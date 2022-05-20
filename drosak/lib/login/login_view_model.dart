@@ -2,6 +2,7 @@ import 'package:drosak/home/teachers_list_home_screen.dart';
 import 'package:drosak/login/Repo/login_repo.dart';
 import 'package:drosak/login/Repo/user_repo.dart';
 import 'package:drosak/utils/localization_keys.dart';
+import 'package:drosak/utils/messages/messages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class LoginViewModel extends GetxController {
             color: Colors.white,
           ),
         );
-        Get.to(const TeachersListHomeScreen(title: "Drosak"));
+        Get.to(TeachersListHomeScreen(title: "Drosak"));
       }
     });
   }
@@ -58,30 +59,32 @@ class LoginViewModel extends GetxController {
   loginWithPhone() async {
     isLoading.value = true;
     var phoneNumber = phoneController.text;
+
     await _loginRepository.auth.verifyPhoneNumber(
       phoneNumber: "+2 $phoneNumber",
       verificationCompleted: (PhoneAuthCredential credential) async {
         // ANDROID ONLY!
         printInfo(info: "firebase auth verify completed");
-        try {
-          var user =
-              await _loginRepository.auth.signInWithCredential(credential);
 
-          _userRepo.insertUser(user).then((value) {
-            isLoggedIn.value = true;
-            isLoading.value = false;
-          }).onError((error, stackTrace) {
-            _onInsertUserToDatabaseError();
-          });
+        late User? user;
+        try {
+          user = await _loginRepository.signInWithCredential(credential);
         } on FirebaseAuthException catch (e) {
           if (kDebugMode) {
             print(e);
           }
-          errMessagePhoneTextField.value = e.message!;
-          errMessageSnackBar.value = e.message!;
-          errorSnackBarShow.value = true;
+          _onSnackBarError(Messages.firebase_auth_error_login,
+              LocalizationKeys.login_error.tr);
+          return;
         }
-        isLoading.value = false;
+
+        _userRepo.insertUser(user!).then((value) {
+          isLoggedIn.value = true;
+          isLoading.value = false;
+        }).onError((error, stackTrace) {
+          _onSnackBarError(Messages.firestore_error_insert_user,
+              LocalizationKeys.login_error.tr);
+        });
       },
       verificationFailed: (FirebaseAuthException e) {
         isLoading.value = false;
@@ -125,9 +128,9 @@ class LoginViewModel extends GetxController {
               'The phone number session is invalid.';
         }
         // Handle other errors
-        errorSnackBarShow.value = true;
         errMessagePhoneTextField.value = e.message!;
-        errMessageSnackBar.value = e.message!;
+        _onSnackBarError(Messages.firebase_auth_error_login,
+            LocalizationKeys.login_error.tr);
       },
       codeSent: (String verificationId, int? resendToken) async {
         //resendToken is only supported on Android devices,
@@ -181,8 +184,17 @@ class LoginViewModel extends GetxController {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId.value, smsCode: smsCode.value);
 
-    // Sign the user in (or link) with the credential
-    var user = await _loginRepository.signInWithCredential(credential);
+    late User? user;
+    try {
+      user = await _loginRepository.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      _onSnackBarError(
+          Messages.firebase_auth_error_login, LocalizationKeys.login_error.tr);
+      return;
+    }
 
     _userRepo.insertUser(user!).then((value) {
       isLoggedIn.value = true;
@@ -192,11 +204,13 @@ class LoginViewModel extends GetxController {
         printInfo(info: "user logged in");
       }
     }).onError((error, stackTrace) {
-      _onInsertUserToDatabaseError();
+      _onSnackBarError(Messages.firestore_error_insert_user,
+          LocalizationKeys.login_error.tr);
     });
   }
 
   signInWithGoogle() async {
+    isLoading.value = true;
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -210,56 +224,62 @@ class LoginViewModel extends GetxController {
       idToken: googleAuth?.idToken,
     );
 
+    late User? user;
     try {
       // Once signed in, return the UserCredential
-      var user = await _loginRepository.auth.signInWithCredential(credential);
-
-      _userRepo.insertUser(user).then((value) {
-        isLoggedIn.value = true;
-        isLoading.value = false;
-      }).onError((error, stackTrace) {
-        _onInsertUserToDatabaseError();
-      });
+      user = await _loginRepository.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
         print(e);
       }
-      errMessagePhoneTextField.value = e.message!;
-      errMessageSnackBar.value = e.message!;
-      errorSnackBarShow.value = true;
+
+      _onSnackBarError(
+          Messages.firebase_auth_error_login, LocalizationKeys.login_error.tr);
+      return;
     }
-    isLoading.value = false;
+
+    _userRepo.insertUser(user!).then((value) {
+      isLoggedIn.value = true;
+      isLoading.value = false;
+    }).onError((error, stackTrace) {
+      _onSnackBarError(Messages.firestore_error_insert_user,
+          LocalizationKeys.login_error.tr);
+    });
   }
 
   signInWithFacebook() async {
     isLoading.value = true;
-    final LoginResult result = await FacebookAuth.instance.login();
+    final LoginResult result = await FacebookAuth.instance
+        .login(loginBehavior: LoginBehavior.nativeWithFallback);
 
     if (result.status == LoginStatus.success) {
       // Create a credential from the access token
       final OAuthCredential credential =
           FacebookAuthProvider.credential(result.accessToken!.token);
 
+      late User? user;
       try {
         // Once signed in, return the UserCredential
-        var user = await _loginRepository.auth.signInWithCredential(credential);
-
-        _userRepo.insertUser(user).then((value) {
-          isLoggedIn.value = true;
-          isLoading.value = false;
-        }).onError((error, stackTrace) {
-          _onInsertUserToDatabaseError();
-        });
+        user = await _loginRepository.signInWithCredential(credential);
       } on FirebaseAuthException catch (e) {
         if (kDebugMode) {
           print(e);
         }
+        _onSnackBarError(Messages.firebase_auth_error_login,
+            LocalizationKeys.login_error.tr);
+        return;
       }
+
+      _userRepo.insertUser(user!).then((value) {
+        isLoggedIn.value = true;
+        isLoading.value = false;
+      }).onError((error, stackTrace) {
+        _onSnackBarError(Messages.firestore_error_insert_user,
+            LocalizationKeys.login_error.tr);
+      });
     } else {
-      isLoading.value = false;
-      isLoggedIn.value = false;
-      errMessageSnackBar.value = LocalizationKeys.facebook_login_error.tr;
-      errorSnackBarShow.value = true;
+      _onSnackBarError(
+          Messages.facebook_login_error, LocalizationKeys.login_error.tr);
 
       if (kDebugMode) {
         print(result.status);
@@ -278,10 +298,11 @@ class LoginViewModel extends GetxController {
     phoneController.dispose();
   }
 
-  void _onInsertUserToDatabaseError() {
-    printError(info: "insert user firestore error");
-    errMessageSnackBar.value = LocalizationKeys.login_error.tr;
+  void _onSnackBarError(String errorMessage, String errorMessageSnackBar) {
+    printError(info: errorMessage);
+    errMessageSnackBar.value = errorMessageSnackBar;
     isLoading.value = false;
+    isLoggedIn.value = false;
     errorSnackBarShow.value = true;
   }
 }
