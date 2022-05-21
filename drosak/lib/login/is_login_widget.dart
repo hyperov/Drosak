@@ -2,7 +2,7 @@ import 'package:drosak/home/teachers_list_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'login_phone_or_social_screen.dart';
+import 'view/login_phone_or_social_screen.dart';
 
 class IsLoginWidget extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;

@@ -1,8 +1,8 @@
 import 'package:drosak/home/teachers_list_home_screen.dart';
-import 'package:drosak/login/Repo/login_repo.dart';
-import 'package:drosak/login/Repo/user_repo.dart';
-import 'package:drosak/utils/localization_keys.dart';
-import 'package:drosak/utils/messages/messages.dart';
+import 'package:drosak/login/model/Repo/firebase_user_repo.dart';
+import 'package:drosak/login/model/Repo/login_repo.dart';
+import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:drosak/utils/messages/logs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginViewModel extends GetxController {
   final LoginRepo _loginRepository = Get.put(LoginRepo());
-  final UserRepo _userRepo = Get.put(UserRepo());
+  final FirebaseUserRepo _userRepo = Get.put(FirebaseUserRepo());
 
   RxString verificationId = "".obs;
 
@@ -73,7 +73,7 @@ class LoginViewModel extends GetxController {
           if (kDebugMode) {
             print(e);
           }
-          _onSnackBarError("{$Messages.firebase_auth_error_login} ${e.message}",
+          _onSnackBarError("{$Logs.firebase_auth_error_login} ${e.message}",
               LocalizationKeys.login_error.tr);
           return;
         }
@@ -83,7 +83,7 @@ class LoginViewModel extends GetxController {
           isLoading.value = false;
         }).onError((error, stackTrace) {
           _onSnackBarError(
-              "{$Messages.firestore_error_insert_user} ${error.toString()}",
+              "{$Logs.firestore_error_insert_user} ${error.toString()}",
               LocalizationKeys.login_error.tr);
         });
       },
@@ -130,7 +130,7 @@ class LoginViewModel extends GetxController {
         }
         // Handle other errors
         errMessagePhoneTextField.value = e.message!;
-        _onSnackBarError("{$Messages.firebase_auth_error_login} ${e.message}",
+        _onSnackBarError("{$Logs.firebase_auth_error_login} ${e.message}",
             LocalizationKeys.login_error.tr);
       },
       codeSent: (String verificationId, int? resendToken) async {
@@ -192,7 +192,7 @@ class LoginViewModel extends GetxController {
       if (kDebugMode) {
         print(e);
       }
-      _onSnackBarError("${Messages.firebase_auth_error_login} ${e.message}",
+      _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
           LocalizationKeys.login_error.tr);
       return;
     }
@@ -206,7 +206,7 @@ class LoginViewModel extends GetxController {
       }
     }).onError((error, stackTrace) {
       _onSnackBarError(
-          "${Messages.firestore_error_insert_user} ${error.toString()}",
+          "${Logs.log_firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
     });
   }
@@ -235,7 +235,7 @@ class LoginViewModel extends GetxController {
         print(e);
       }
 
-      _onSnackBarError("${Messages.firebase_auth_error_login} ${e.message}",
+      _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
           LocalizationKeys.login_error.tr);
       return;
     }
@@ -245,7 +245,7 @@ class LoginViewModel extends GetxController {
       isLoading.value = false;
     }).onError((error, stackTrace) {
       _onSnackBarError(
-          "${Messages.firestore_error_insert_user} ${error.toString()}",
+          "${Logs.log_firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
     });
   }
@@ -268,7 +268,7 @@ class LoginViewModel extends GetxController {
         if (kDebugMode) {
           print(e);
         }
-        _onSnackBarError("${Messages.firebase_auth_error_login} ${e.message}",
+        _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
             LocalizationKeys.login_error.tr);
         return;
       }
@@ -278,12 +278,12 @@ class LoginViewModel extends GetxController {
         isLoading.value = false;
       }).onError((error, stackTrace) {
         _onSnackBarError(
-            "${Messages.firestore_error_insert_user} ${error.toString()}",
+            "${Logs.log_firestore_error_insert_user} ${error.toString()}",
             LocalizationKeys.login_error.tr);
       });
     } else {
       _onSnackBarError(
-          Messages.facebook_login_error, LocalizationKeys.login_error.tr);
+          Logs.log_facebook_login_error, LocalizationKeys.login_error.tr);
 
       if (kDebugMode) {
         print(result.status);

@@ -1,6 +1,6 @@
 import 'package:drosak/bindings/initial_bindings.dart';
 import 'package:drosak/login/is_login_widget.dart';
-import 'package:drosak/utils/languages.dart';
+import 'package:drosak/utils/localization/languages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

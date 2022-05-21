@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/extensions/repo_extensions.dart';
-import 'package:drosak/login/student.dart';
+import 'package:drosak/login/model/entity/student.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class UserRepo {
+class FirebaseUserRepo {
   Future<void> insertUser(User user) async {
     var student = user.toStudent();
 

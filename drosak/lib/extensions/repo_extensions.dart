@@ -1,4 +1,4 @@
-import 'package:drosak/login/student.dart';
+import 'package:drosak/login/model/entity/student.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 extension ConvertUserToStudent on User {

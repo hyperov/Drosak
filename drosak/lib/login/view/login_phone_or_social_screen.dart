@@ -1,11 +1,11 @@
-import 'package:drosak/login/enter_sms_code_screen.dart';
-import 'package:drosak/login/login_view_model.dart';
-import 'package:drosak/utils/localization_keys.dart';
+import 'package:drosak/login/viewmodel/login_view_model.dart';
+import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 
-import 'viewmodel/NetworkViewModel.dart';
+import '../../common/viewmodel/NetworkViewModel.dart';
+import 'enter_sms_code_screen.dart';
 
 class PhoneOrSocialLoginScreen extends StatelessWidget {
   final LoginViewModel _loginViewModel = Get.find();
