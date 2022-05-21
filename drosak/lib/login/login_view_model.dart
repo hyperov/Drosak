@@ -33,7 +33,7 @@ class LoginViewModel extends GetxController {
   void onReady() {
     super.onReady();
     ever(isLoggedIn, (callback) {
-      if (isLoggedIn.value) {
+      if (isLoggedIn.isTrue) {
         Get.snackbar(
           "Success",
           "You are logged in",

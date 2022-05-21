@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Student {
   String id;
   String name;
@@ -10,8 +8,8 @@ class Student {
   String city; //cairo or giza
   String area; //dokki or saft or zamalek
 
-  Timestamp lastSignInTime; //March 26, 2022 at 8:11:20 PM UTC+3
-  Timestamp createdAt; //March 26, 2022 at 8:11:20 PM UTC+3
+  DateTime lastSignInTime; //March 26, 2022 at 8:11:20 PM UTC+3
+  DateTime createdAt; //March 26, 2022 at 8:11:20 PM UTC+3
 
   bool male;
   bool isLoggedIn;
@@ -118,8 +116,8 @@ class Student {
     String? photoUrl,
     String? city,
     String? area,
-    Timestamp? lastSignInTime,
-    Timestamp? createdAt,
+    DateTime? lastSignInTime,
+    DateTime? createdAt,
     bool? male,
     bool? isLoggedIn,
     String? educationalLevel,
@@ -177,8 +175,8 @@ class Student {
       email: map['email'] as String,
       phone: map['phone'] as String?,
       photoUrl: map['photoUrL'] as String,
-      lastSignInTime: map['lastSignInTime'] as Timestamp,
-      createdAt: map['createdAt'] as Timestamp,
+      lastSignInTime: map['lastSignInTime'] as DateTime,
+      createdAt: map['createdAt'] as DateTime,
       male: map['male'] as bool,
       isLoggedIn: map['isLoggedIn'] as bool,
       educationalLevel: map['educationalLevel'] as String,
