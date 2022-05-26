@@ -16,6 +16,7 @@ showListBottomSheet(
                 selected: selectedText.value == texts[index],
                 onTap: () {
                   selectedText.value = texts[index];
+                  Get.back();
                 },
               ));
         }),
