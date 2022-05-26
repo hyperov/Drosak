@@ -1,4 +1,4 @@
-import 'package:drosak/home/teachers_list_home_screen.dart';
+import 'package:drosak/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class IsLoginWidget extends StatelessWidget {
       initialData: _auth.currentUser,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return TeachersListHomeScreen(title: "drosak");
+          return HomeScreen(title: "drosak");
         } else {
           return PhoneOrSocialLoginScreen();
         }

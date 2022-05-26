@@ -59,4 +59,29 @@ class LocalizationKeys {
   static var network_success_message = "network_success_message";
 
   static var facebook_login_error = "facebook_login_error";
+  static var choose_government = "choose_government";
+  static var choose_area = "choose_area";
+  static var choose_sex = "choose_sex";
+  static var choose_education = "choose_education";
+  static var choose_class = "choose_class";
+
+  static var government_cairo = "government_cairo";
+  static var government_giza = "government_giza";
+
+  static var area_saft = "area_saft";
+  static var area_dokki = "area_dokki";
+
+  static var male = "male";
+  static var female = "female";
+
+  static var education_secondary = 'education_secondary';
+  static var education_prep = 'education_prep';
+
+  static var class_level = 'class_level';
+
+  static var class_level_one = 'class_level_one';
+  static var class_level_two = 'class_level_two';
+  static var class_level_three = 'class_level_three';
+
+  static var education = 'education';
 }

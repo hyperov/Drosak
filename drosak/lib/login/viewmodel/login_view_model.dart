@@ -1,4 +1,4 @@
-import 'package:drosak/home/teachers_list_home_screen.dart';
+import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/login/model/Repo/firebase_user_repo.dart';
 import 'package:drosak/login/model/Repo/login_repo.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
@@ -44,7 +44,7 @@ class LoginViewModel extends GetxController {
             color: Colors.white,
           ),
         );
-        Get.to(TeachersListHomeScreen(title: "Drosak"));
+        Get.to(HomeScreen(title: "Drosak"));
       }
     });
   }
