@@ -1,6 +1,6 @@
+import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/common/widgets/fullwidth_textfield.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
-import 'package:drosak/utils/bottomsheet.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

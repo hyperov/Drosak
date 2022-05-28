@@ -64,6 +64,7 @@ class LocalizationKeys {
   static var choose_sex = "choose_sex";
   static var choose_education = "choose_education";
   static var choose_class = "choose_class";
+  static var choose_material = "choose_material";
 
   static var government_cairo = "government_cairo";
   static var government_giza = "government_giza";
@@ -83,5 +84,29 @@ class LocalizationKeys {
   static var class_level_two = 'class_level_two';
   static var class_level_three = 'class_level_three';
 
-  static var education = 'education';
+  static var home = 'home';
+  static var notifications = 'notifications';
+  static var profile = 'profile';
+  static var follows = 'follows';
+
+  static var price_avg = 'price_avg';
+
+  //material
+  static var arabic = 'arabic';
+  static var english = 'english';
+  static var math = 'math';
+  static var science = 'science';
+  static var history = 'history';
+  static var geography = 'geography';
+  static var physics = 'physics';
+  static var chemistry = 'chemistry';
+  static var biology = 'biology';
+  static var french = 'french';
+  static var german = 'german';
+  static var spanish = 'spanish';
+
+  static var social = 'social';
+
+  static var filter_apply = 'apply';
+  static var filter_clear_all = 'clear_all';
 }

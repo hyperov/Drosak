@@ -1,6 +1,9 @@
+import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
+import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/main_profile_screen.dart';
 import 'package:drosak/teachers/teachers_list_screen.dart';
+import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   final LoginViewModel _loginViewModel = Get.find();
   final HomeViewModel _homeViewModel = Get.find();
+  final FilterViewModel _filterViewModel = Get.find();
 
   final String title;
 
@@ -21,31 +25,57 @@ class HomeScreen extends StatelessWidget {
     ProfileScreen(),
   ];
 
+  final widgetTitles = [
+    LocalizationKeys.home.tr,
+    LocalizationKeys.follows.tr,
+    LocalizationKeys.notifications.tr,
+    LocalizationKeys.profile.tr,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("hello"),
+        toolbarHeight: 60,
+        title: Obx(() => Text(widgetTitles
+            .elementAt(_homeViewModel.bottomNavigationIndex.value))),
+        actions: [
+          IconButton(
+            icon: Obx(() => Visibility(
+                  visible: _homeViewModel.bottomNavigationIndex.value == 0,
+                  child: const Tooltip(
+                    message: "Filter",
+                    showDuration: Duration(seconds: 1),
+                    child: Icon(
+                      Icons.filter_list,
+                    ),
+                  ),
+                )),
+            onPressed: () {
+              showFilterBottomSheet(_filterViewModel);
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: SafeArea(
         child: GetX<HomeViewModel>(builder: (context) {
           return BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Colors.black),
-                label: 'Home',
+                icon: const Icon(Icons.home, color: Colors.black),
+                label: LocalizationKeys.home.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.people, color: Colors.black),
-                label: 'Business',
+                icon: const Icon(Icons.people, color: Colors.black),
+                label: LocalizationKeys.follows.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications, color: Colors.black),
-                label: 'notifications',
+                icon: const Icon(Icons.notifications, color: Colors.black),
+                label: LocalizationKeys.notifications.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Colors.black),
-                label: 'Profile',
+                icon: const Icon(Icons.person, color: Colors.black),
+                label: LocalizationKeys.profile.tr,
               )
             ],
             currentIndex: _homeViewModel.bottomNavigationIndex.value,
