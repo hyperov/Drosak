@@ -2,7 +2,7 @@ import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'personal_profile_screen.dart';
+import 'view/personal_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -132,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
               onTap: () {
                 Get.to(PersonalProfileScreen());
               }),
-          InkWell(
+          const InkWell(
             child: Card(
               color: Colors.white,
               child: ListTile(

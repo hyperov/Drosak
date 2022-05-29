@@ -6,16 +6,16 @@ class TeachersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 20),
       margin: const EdgeInsets.only(left: 16, right: 16),
       child: ListView.builder(itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {},
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
+        return Card(
+          elevation: 6,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: InkWell(
+            onTap: () {},
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
               child: Stack(
@@ -46,7 +46,7 @@ class TeachersList extends StatelessWidget {
                                 Icon(Icons.star,
                                     size: 20, color: Colors.blue.shade800),
                                 const Text('4.5',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 10, color: Colors.black)),
                               ]),
                             ),
@@ -56,7 +56,7 @@ class TeachersList extends StatelessWidget {
                       ),
                       const SizedBox(width: 32),
                       Column(
-                        children: [
+                        children: const [
                           Text("اسلام حسام"),
                           Text("مدرس فيزياء"),
                           Text("ثانوى"),
@@ -70,7 +70,7 @@ class TeachersList extends StatelessWidget {
                     top: 16,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text("70-80 "),
                         Text("متوسط"),
                       ],
