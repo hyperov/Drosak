@@ -6,7 +6,8 @@ class FilterViewModel extends GetxController {
   RxBool selectEducationSecondary = false.obs;
   RxBool selectEducationPrep = false.obs;
 
-  RxDouble sliderValue = 0.0.obs;
+  RxDouble sliderStartValue = 20.0.obs;
+  RxDouble sliderEndValue = 90.0.obs;
 
   var materials = [
     FilterModel(name: LocalizationKeys.arabic.tr.obs, isSelected: false.obs)
@@ -35,4 +36,18 @@ class FilterViewModel extends GetxController {
     FilterModel(name: LocalizationKeys.english.tr.obs, isSelected: false.obs)
         .obs,
   ];
+
+  void applyFilter() {}
+
+  void resetFilters() {
+    selectEducationSecondary.value = false;
+    selectEducationPrep.value = false;
+
+    sliderStartValue.value = 20.0;
+    sliderEndValue.value = 90.0;
+
+    for (var filterModel in materials) {
+      filterModel.value.isSelected.value = false;
+    }
+  }
 }

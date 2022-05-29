@@ -29,64 +29,65 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
   Get.bottomSheet(
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
           LocalizationKeys.choose_education.tr,
           textAlign: TextAlign.start,
         ).marginSymmetric(horizontal: 16),
-        Obx(() => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FilterChip(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Obx(() => FilterChip(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   label: Text(
                     LocalizationKeys.education_secondary.tr,
                     style: filterViewModel.selectEducationSecondary.value
-                        ? TextStyle(color: Colors.white)
-                        : TextStyle(color: Colors.black),
+                        ? const TextStyle(color: Colors.white)
+                        : const TextStyle(color: Colors.black),
                   ),
-                  avatar: Icon(Icons.school),
+                  avatar: const Icon(Icons.school),
                   selected: filterViewModel.selectEducationSecondary.value,
                   showCheckmark: false,
                   backgroundColor: Colors.transparent,
                   elevation: 2,
                   pressElevation: 6,
-                  shape: StadiumBorder(side: BorderSide()),
+                  shape: const StadiumBorder(side: const BorderSide()),
                   avatarBorder:
-                      CircleBorder(side: BorderSide(color: Colors.grey)),
+                      const CircleBorder(side: BorderSide(color: Colors.grey)),
                   onSelected: (bool selected) {
                     filterViewModel.selectEducationSecondary.value = selected;
                   },
                   selectedColor: Colors.blue,
-                ).marginSymmetric(horizontal: 16),
-                FilterChip(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
+                ).marginSymmetric(horizontal: 16)),
+            Obx(() => FilterChip(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   label: Text(
                     LocalizationKeys.education_prep.tr,
                     style: filterViewModel.selectEducationPrep.value
-                        ? TextStyle(color: Colors.white)
-                        : TextStyle(color: Colors.black),
+                        ? const TextStyle(color: Colors.white)
+                        : const TextStyle(color: Colors.black),
                   ),
-                  avatar: Icon(Icons.school),
+                  avatar: const Icon(Icons.school),
                   selected: filterViewModel.selectEducationPrep.value,
                   showCheckmark: false,
                   backgroundColor: Colors.transparent,
                   elevation: 2,
                   pressElevation: 6,
-                  shape: StadiumBorder(side: BorderSide()),
-                  avatarBorder:
-                      CircleBorder(side: BorderSide(color: Colors.grey)),
+                  shape: const StadiumBorder(side: const BorderSide()),
+                  avatarBorder: const CircleBorder(
+                      side: const BorderSide(color: Colors.grey)),
                   onSelected: (bool selected) {
                     filterViewModel.selectEducationPrep.value = selected;
                   },
                   selectedColor: Colors.blue,
-                ).marginSymmetric(horizontal: 16),
-              ],
-            ).marginSymmetric(horizontal: 16)),
-        SizedBox(
+                ).marginSymmetric(horizontal: 16)),
+          ],
+        ).marginSymmetric(horizontal: 16),
+        const SizedBox(
           height: 20,
         ),
         Text(
@@ -98,24 +99,24 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
           child: ListView.builder(
               itemBuilder: (context, index) {
                 return Obx(() => FilterChip(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       label: Text(
                         filterViewModel.materials[index].value.name.value,
                         style: filterViewModel
                                 .materials[index].value.isSelected.isTrue
-                            ? TextStyle(color: Colors.white)
-                            : TextStyle(color: Colors.black),
+                            ? const TextStyle(color: Colors.white)
+                            : const TextStyle(color: Colors.black),
                       ),
-                      avatar: Icon(Icons.school),
+                      avatar: const Icon(Icons.school),
                       selected: filterViewModel
                           .materials[index].value.isSelected.value,
                       showCheckmark: false,
                       backgroundColor: Colors.transparent,
                       elevation: 2,
                       pressElevation: 6,
-                      shape: StadiumBorder(side: BorderSide()),
-                      avatarBorder:
-                          CircleBorder(side: BorderSide(color: Colors.grey)),
+                      shape: const StadiumBorder(side: const BorderSide()),
+                      avatarBorder: const CircleBorder(
+                          side: const BorderSide(color: Colors.grey)),
                       onSelected: (bool selected) {
                         filterViewModel
                             .materials[index].value.isSelected.value = selected;
@@ -127,24 +128,45 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
               scrollDirection: Axis.horizontal,
               shrinkWrap: true),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Text(
           LocalizationKeys.price_avg.tr,
           textAlign: TextAlign.start,
         ).marginSymmetric(horizontal: 16),
-        Obx(() => Slider(
-            value: filterViewModel.sliderValue.value,
-            min: 0,
-            max: 100,
-            inactiveColor: Colors.blue,
-            activeColor: Colors.purple,
-            thumbColor: Colors.deepPurple,
-            onChanged: (value) {
-              filterViewModel.sliderValue.value = value;
-            })),
-        SizedBox(
+        Obx(() => Stack(
+              children: [
+                PositionedDirectional(
+                    child: Text(filterViewModel.sliderStartValue.value
+                        .toInt()
+                        .toString()),
+                    bottom: 40,
+                    start: 24),
+                PositionedDirectional(
+                    child: Text(filterViewModel.sliderEndValue.value
+                        .toInt()
+                        .toString()),
+                    bottom: 40,
+                    end: 24),
+                RangeSlider(
+                    min: 0,
+                    max: 100,
+                    inactiveColor: Colors.blue,
+                    activeColor: Colors.purple,
+                    divisions: 20,
+                    values: RangeValues(filterViewModel.sliderStartValue.value,
+                        filterViewModel.sliderEndValue.value),
+                    labels: RangeLabels(
+                        filterViewModel.sliderStartValue.value.toString(),
+                        filterViewModel.sliderEndValue.value.toString()),
+                    onChanged: (RangeValues values) {
+                      filterViewModel.sliderStartValue.value = values.start;
+                      filterViewModel.sliderEndValue.value = values.end;
+                    }).marginSymmetric(horizontal: 16).marginOnly(top: 40)
+              ],
+            )),
+        const SizedBox(
           height: 20,
         ),
         Row(
@@ -153,11 +175,11 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   primary: Colors.blue,
-                  textStyle: TextStyle(color: Colors.white),
+                  textStyle: const TextStyle(color: Colors.white),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
               onPressed: () {
-                // filterViewModel.applyFilter();
+                filterViewModel.applyFilter();
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -167,24 +189,27 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
             OutlinedButton(
               style: OutlinedButton.styleFrom(
                   primary: Colors.white,
-                  side: BorderSide(color: Colors.blue, width: 1),
+                  side: const BorderSide(color: Colors.blue, width: 1),
                   // textStyle: TextStyle(color: Colors.blue),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
               onPressed: () {
-                // filterViewModel.applyFilter();
+                filterViewModel.resetFilters();
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(LocalizationKeys.filter_clear_all.tr,
-                    style: TextStyle(color: Colors.blue)),
+                    style: const TextStyle(color: Colors.blue)),
               ),
             ).marginSymmetric(horizontal: 16),
           ],
-        ),
+        ).marginOnly(bottom: 32),
         //todo: add government and area filter
       ],
     ),
     backgroundColor: Colors.white,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16), topRight: const Radius.circular(16))),
   );
 }
