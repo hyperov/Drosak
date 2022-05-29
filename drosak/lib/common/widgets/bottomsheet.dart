@@ -188,11 +188,12 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
             ).marginSymmetric(horizontal: 16),
             OutlinedButton(
               style: OutlinedButton.styleFrom(
-                  primary: Colors.white,
-                  side: const BorderSide(color: Colors.blue, width: 1),
-                  // textStyle: TextStyle(color: Colors.blue),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8))),
+                primary: Colors.white,
+                side: const BorderSide(color: Colors.blue, width: 1),
+                // textStyle: TextStyle(color: Colors.blue),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
               onPressed: () {
                 filterViewModel.resetFilters();
               },

@@ -1,5 +1,6 @@
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/common/widgets/bottomsheet.dart';
+import 'package:drosak/follows/follows_screen.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/main_profile_screen.dart';
 import 'package:drosak/teachers/teachers_list_screen.dart';
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
 
   final widgetOptions = [
     const TeachersList(),
-    ProfileScreen(),
+    FollowsScreen(),
     ProfileScreen(),
     ProfileScreen(),
   ];

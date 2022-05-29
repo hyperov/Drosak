@@ -115,7 +115,7 @@ class Languages extends Translations {
           LocalizationKeys.class_level_two: 'الصف الدراسي الثاني',
           LocalizationKeys.class_level_three: 'الصف الدراسي الثالث',
           LocalizationKeys.home: 'الرئيسية',
-          LocalizationKeys.follows: 'المتابعون',
+          LocalizationKeys.follows: 'اتابعهم',
           LocalizationKeys.notifications: 'الإشعارات',
           LocalizationKeys.profile: 'الحساب',
           LocalizationKeys.choose_material: 'اختر المادة',
