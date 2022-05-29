@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Get.to(PersonalProfileScreen());
+                Get.to(() => PersonalProfileScreen());
               }),
           InkWell(
               child: Card(
@@ -100,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Get.to(PersonalProfileScreen());
+                Get.to(() => PersonalProfileScreen());
               }),
           InkWell(
               child: Card(
@@ -115,7 +115,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Get.to(PersonalProfileScreen());
+                Get.to(() => PersonalProfileScreen());
               }),
           InkWell(
               child: Card(
@@ -130,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Get.to(PersonalProfileScreen());
+                Get.to(() => PersonalProfileScreen());
               }),
           const InkWell(
             child: Card(

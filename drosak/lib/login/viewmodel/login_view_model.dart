@@ -44,7 +44,7 @@ class LoginViewModel extends GetxController {
             color: Colors.white,
           ),
         );
-        Get.to(HomeScreen(title: "Drosak"));
+        Get.to(() => HomeScreen(title: "Drosak"));
       }
     });
   }

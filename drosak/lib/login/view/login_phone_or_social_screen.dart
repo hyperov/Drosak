@@ -34,8 +34,8 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
       }
     });
 
-    ever(
-        _loginViewModel.isCodeSent, (callback) => Get.to(EnterSmsCodeScreen()));
+    ever(_loginViewModel.isCodeSent,
+        (callback) => Get.to(() => EnterSmsCodeScreen()));
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFC2C0),
