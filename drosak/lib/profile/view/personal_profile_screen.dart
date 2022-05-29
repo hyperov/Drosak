@@ -201,7 +201,20 @@ class PersonalProfileScreen extends StatelessWidget {
                         LocalizationKeys.class_level_one.tr,
                         LocalizationKeys.class_level_two.tr,
                         LocalizationKeys.class_level_three.tr,
-                      ], selectedText: _profileViewModel.selectedClass)
+                      ], selectedText: _profileViewModel.selectedClass),
+                      SizedBox(height: 32),
+                      ElevatedButton(
+                          onPressed: () {
+                            _profileViewModel.updateProfile();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            onPrimary: Colors.blue,
+                          ),
+                          child: Text(
+                            LocalizationKeys.save.tr,
+                            style: TextStyle(color: Colors.white),
+                          )),
+                      SizedBox(height: 32),
                     ]),
               ))),
     );

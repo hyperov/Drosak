@@ -109,4 +109,5 @@ class LocalizationKeys {
 
   static var filter_apply = 'apply';
   static var filter_clear_all = 'clear_all';
+  static var save = 'save';
 }

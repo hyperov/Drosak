@@ -69,6 +69,7 @@ class Languages extends Translations {
           LocalizationKeys.german: 'German',
           LocalizationKeys.spanish: 'Spanish',
           LocalizationKeys.social: 'Social',
+          LocalizationKeys.save: 'save',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -134,6 +135,7 @@ class Languages extends Translations {
           LocalizationKeys.german: 'الألمانية',
           LocalizationKeys.spanish: 'الإسبانية',
           LocalizationKeys.price_avg: 'متوسط سعر الحصة',
+          LocalizationKeys.save: 'حفظ',
         },
       };
 }

@@ -10,4 +10,6 @@ class ProfileViewModel extends GetxController {
   RxString selectedEducation = LocalizationKeys.education_secondary.tr.obs;
 
   RxString selectedClass = LocalizationKeys.class_level_one.tr.obs;
+
+  void updateProfile() {}
 }
