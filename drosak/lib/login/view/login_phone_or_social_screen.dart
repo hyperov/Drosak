@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 
-import '../../common/viewmodel/NetworkViewModel.dart';
+import '../../common/viewmodel/network_viewmodel.dart';
 import 'enter_sms_code_screen.dart';
 
 class PhoneOrSocialLoginScreen extends StatelessWidget {
@@ -54,6 +54,13 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                   height: 200,
                 ),
                 const SizedBox(height: 30),
+                Text(
+                  'تطبيق الطالب',
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Text(
                   LocalizationKeys.enter_phone_number.tr,
                   style: Theme.of(context).textTheme.headline5,

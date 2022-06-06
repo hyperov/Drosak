@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'teacher_details_screen.dart';
 
 class TeachersList extends StatelessWidget {
   const TeachersList({Key? key}) : super(key: key);
@@ -15,7 +18,9 @@ class TeachersList extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => TeacherDetailsScreen());
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
               child: Stack(

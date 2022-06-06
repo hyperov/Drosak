@@ -88,6 +88,7 @@ class LocalizationKeys {
   static var notifications = 'notifications';
   static var profile = 'profile';
   static var follows = 'follows';
+  static var followers = 'followers';
 
   static var price_avg = 'price_avg';
 
@@ -110,4 +111,10 @@ class LocalizationKeys {
   static var filter_apply = 'apply';
   static var filter_clear_all = 'clear_all';
   static var save = 'save';
+
+  static var rating = 'rating';
+  static var reviews = 'reviews';
+  static var no_reviews = 'no_reviews';
+  static var lectures = 'lectures';
+  static var app_student = 'app_student';
 }
