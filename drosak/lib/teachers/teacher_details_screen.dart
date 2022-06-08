@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,34 +46,34 @@ class TeacherDetailsScreen extends StatelessWidget {
                 blankSpace: 20,
               ),
             ),
-            SizedBox(
-              height: 40,
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  TyperAnimatedText(
-                    ' ثانوى ',
-                    textStyle: const TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    speed: const Duration(milliseconds: 100),
-                  ),
-                  TyperAnimatedText(
-                    'اعدادى',
-                    textStyle: const TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    speed: const Duration(milliseconds: 100),
-                  ),
-                ],
-                totalRepeatCount: 4,
-                pause: const Duration(milliseconds: 300),
-                displayFullTextOnTap: true,
-                stopPauseOnTap: true,
-                repeatForever: true,
-              ),
-            ),
+            // SizedBox(
+            //   height: 40,
+            //   child: AnimatedTextKit(
+            //     animatedTexts: [
+            //       TyperAnimatedText(
+            //         ' ثانوى ',
+            //         textStyle: const TextStyle(
+            //           fontSize: 24.0,
+            //           fontWeight: FontWeight.w300,
+            //         ),
+            //         speed: const Duration(milliseconds: 100),
+            //       ),
+            //       TyperAnimatedText(
+            //         'اعدادى',
+            //         textStyle: const TextStyle(
+            //           fontSize: 24.0,
+            //           fontWeight: FontWeight.w300,
+            //         ),
+            //         speed: const Duration(milliseconds: 100),
+            //       ),
+            //     ],
+            //     totalRepeatCount: 4,
+            //     pause: const Duration(milliseconds: 300),
+            //     displayFullTextOnTap: true,
+            //     stopPauseOnTap: true,
+            //     repeatForever: true,
+            //   ),
+            // ),
             Text(LocalizationKeys.math.tr,
                 style: const TextStyle(fontSize: 20)),
             Row(
@@ -134,41 +133,47 @@ class TeacherDetailsScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Column(
-                      children: [
-                        const Icon(Icons.people, color: Colors.blue),
-                        const SizedBox(height: 8),
-                        Text(LocalizationKeys.followers.tr,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.grey)),
-                        const SizedBox(height: 8),
-                        const Text("120",
-                            style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ],
+                    child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          const Icon(Icons.people, color: Colors.blue),
+                          const SizedBox(height: 8),
+                          Text(LocalizationKeys.followers.tr,
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.grey)),
+                          const SizedBox(height: 8),
+                          const Text("120",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ).paddingSymmetric(horizontal: 16, vertical: 16),
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        const Icon(Icons.star, color: Colors.blue),
-                        const SizedBox(height: 8),
-                        Text(LocalizationKeys.rating.tr,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.grey)),
-                        const SizedBox(height: 8),
-                        const Text("4.5",
-                            style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ],
+                    child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          const Icon(Icons.star, color: Colors.blue),
+                          const SizedBox(height: 8),
+                          Text(LocalizationKeys.rating.tr,
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.grey)),
+                          const SizedBox(height: 8),
+                          const Text("4.5",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ).paddingSymmetric(horizontal: 16, vertical: 16),
                     ),
                   ),
                 ],
-              ).paddingSymmetric(horizontal: 16, vertical: 16),
+              ),
             ).marginSymmetric(horizontal: 65),
             const SizedBox(height: 48),
             // TabBar(tabs: [

@@ -116,7 +116,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                   backgroundColor: Colors.deepPurple,
                   onPressed: () {
                     if (_networkViewModel.isConnected.value) {
-                      phoneSignInOnPressed();
+                      clickPhoneSignInButton();
                     } else {
                       _networkViewModel.showNoInternetConnectionDialog();
                     }
@@ -188,7 +188,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
     );
   }
 
-  phoneSignInOnPressed() {
+  clickPhoneSignInButton() {
     if (_loginViewModel.validatePhone() == null) {
       _loginViewModel.loginWithPhone();
     }

@@ -78,14 +78,7 @@ class LoginViewModel extends GetxController {
           return;
         }
 
-        _userRepo.insertUser(user!).then((value) {
-          isLoggedIn.value = true;
-          isLoading.value = false;
-        }).onError((error, stackTrace) {
-          _onSnackBarError(
-              "{$Logs.firestore_error_insert_user} ${error.toString()}",
-              LocalizationKeys.login_error.tr);
-        });
+        _insertUserToFirestore(user);
       },
       verificationFailed: (FirebaseAuthException e) {
         isLoading.value = false;
@@ -136,6 +129,8 @@ class LoginViewModel extends GetxController {
       codeSent: (String verificationId, int? resendToken) async {
         //resendToken is only supported on Android devices,
         // iOS devices will always return a null value
+
+        //now code is sent to mobile in sms message
         errMessagePhoneTextField.value = null;
         errMessageSnackBar.value = "";
         this.verificationId.value = verificationId;
@@ -197,18 +192,7 @@ class LoginViewModel extends GetxController {
       return;
     }
 
-    _userRepo.insertUser(user!).then((value) {
-      isLoggedIn.value = true;
-      isLoading.value = false;
-
-      if (kDebugMode) {
-        printInfo(info: "user logged in");
-      }
-    }).onError((error, stackTrace) {
-      _onSnackBarError(
-          "${Logs.log_firestore_error_insert_user} ${error.toString()}",
-          LocalizationKeys.login_error.tr);
-    });
+    _insertUserToFirestore(user);
   }
 
   signInWithGoogle() async {
@@ -240,14 +224,7 @@ class LoginViewModel extends GetxController {
       return;
     }
 
-    _userRepo.insertUser(user!).then((value) {
-      isLoggedIn.value = true;
-      isLoading.value = false;
-    }).onError((error, stackTrace) {
-      _onSnackBarError(
-          "${Logs.log_firestore_error_insert_user} ${error.toString()}",
-          LocalizationKeys.login_error.tr);
-    });
+    _insertUserToFirestore(user);
   }
 
   signInWithFacebook() async {
@@ -273,14 +250,7 @@ class LoginViewModel extends GetxController {
         return;
       }
 
-      _userRepo.insertUser(user!).then((value) {
-        isLoggedIn.value = true;
-        isLoading.value = false;
-      }).onError((error, stackTrace) {
-        _onSnackBarError(
-            "${Logs.log_firestore_error_insert_user} ${error.toString()}",
-            LocalizationKeys.login_error.tr);
-      });
+      _insertUserToFirestore(user!);
     } else {
       _onSnackBarError(
           Logs.log_facebook_login_error, LocalizationKeys.login_error.tr);
@@ -308,5 +278,20 @@ class LoginViewModel extends GetxController {
     isLoading.value = false;
     isLoggedIn.value = false;
     errorSnackBarShow.value = true;
+  }
+
+  void _insertUserToFirestore(User? user) {
+    _userRepo.insertUser(user!).then((value) {
+      isLoggedIn.value = true;
+      isLoading.value = false;
+
+      if (kDebugMode) {
+        printInfo(info: "user logged in");
+      }
+    }).onError((error, stackTrace) {
+      _onSnackBarError(
+          "{$Logs.firestore_error_insert_user} ${error.toString()}",
+          LocalizationKeys.login_error.tr);
+    });
   }
 }
