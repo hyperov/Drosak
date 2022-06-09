@@ -76,6 +76,7 @@ class Languages extends Translations {
           LocalizationKeys.no_reviews: 'No Reviews Yet',
           LocalizationKeys.lectures: 'Lectures',
           LocalizationKeys.app_student: 'Student App',
+          LocalizationKeys.enter_sms_code: 'Enter SMS Code',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -148,6 +149,7 @@ class Languages extends Translations {
           LocalizationKeys.no_reviews: 'لا يوجد تقييمات حتى الآن',
           LocalizationKeys.lectures: 'الحصص',
           LocalizationKeys.app_student: 'تطبيق الطالب',
+          LocalizationKeys.enter_sms_code: 'أدخل رسالة التأكيد',
         },
       };
 }

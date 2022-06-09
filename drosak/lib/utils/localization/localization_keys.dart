@@ -117,4 +117,7 @@ class LocalizationKeys {
   static var no_reviews = 'no_reviews';
   static var lectures = 'lectures';
   static var app_student = 'app_student';
+
+  static var sms_code_empty = 'sms_code_empty';
+  static var sms_code_length = 'sms_code_length';
 }

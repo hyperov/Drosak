@@ -22,12 +22,12 @@ class LoginViewModel extends GetxController {
   RxBool errorSnackBarShow = false.obs;
 
   RxBool isCodeSent = false.obs;
-  RxString smsCode = "".obs;
 
   final RxBool isLoading = false.obs;
   final RxBool isLoggedIn = false.obs;
 
   final phoneController = TextEditingController();
+  final smsCodeController = TextEditingController();
 
   @override
   void onReady() {
@@ -178,7 +178,7 @@ class LoginViewModel extends GetxController {
   sendSmsAndLogin() async {
     // Create a PhoneAuthCredential with the code
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId.value, smsCode: smsCode.value);
+        verificationId: verificationId.value, smsCode: smsCodeController.text);
 
     late User? user;
     try {
@@ -270,6 +270,7 @@ class LoginViewModel extends GetxController {
   void dispose() {
     super.dispose();
     phoneController.dispose();
+    smsCodeController.dispose();
   }
 
   void _onSnackBarError(String errorMessage, String errorMessageSnackBar) {
@@ -293,5 +294,20 @@ class LoginViewModel extends GetxController {
           "{$Logs.firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
     });
+  }
+
+  String? validateSmsCode() {
+    var smsCode = smsCodeController.text;
+    if (smsCode.isEmpty) {
+      _onSnackBarError(
+          Logs.log_ui_sms_code_empty, LocalizationKeys.sms_code_empty.tr);
+      return Logs.log_ui_sms_code_empty;
+    }
+    if (smsCode.length != 6) {
+      _onSnackBarError(
+          Logs.sms_code_length, LocalizationKeys.sms_code_length.tr);
+      return Logs.sms_code_length;
+    }
+    return null;
   }
 }

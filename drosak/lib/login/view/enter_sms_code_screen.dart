@@ -3,6 +3,8 @@ import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../utils/localization/localization_keys.dart';
+
 class EnterSmsCodeScreen extends StatelessWidget {
   EnterSmsCodeScreen({Key? key}) : super(key: key);
   final LoginViewModel loginViewModel = Get.find();
@@ -10,7 +12,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoginViewModel>(
+    return GetX<LoginViewModel>(
       init: loginViewModel,
       builder: (controller) => Scaffold(
         appBar: AppBar(
@@ -23,9 +25,18 @@ class EnterSmsCodeScreen extends StatelessWidget {
               const Text('Enter the code sent to you by SMS'),
               const SizedBox(height: 16),
               TextField(
-                onChanged: controller.smsCode,
-                decoration: const InputDecoration(
+                controller: controller.smsCodeController,
+                maxLength: 6,
+                textInputAction: TextInputAction.send,
+                textAlign: TextAlign.start,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
                   hintText: 'SMS Code',
+                  label: Text(LocalizationKeys.enter_sms_code.tr),
+                  alignLabelWithHint: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black)),
                 ),
               ),
               const SizedBox(height: 16),

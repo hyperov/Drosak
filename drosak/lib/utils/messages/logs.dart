@@ -5,4 +5,7 @@ class Logs {
       "firebase auth error login";
 
   static const String log_facebook_login_error = "facebook login error";
+
+  static const String log_ui_sms_code_empty = "sms code empty";
+  static const String sms_code_length = "sms code length";
 }
