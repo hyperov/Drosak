@@ -73,6 +73,13 @@ class PersonalProfileScreen extends StatelessWidget {
                         )),
                       ]),
                       const SizedBox(height: 20),
+                      TextField(
+                          decoration: InputDecoration(
+                              labelText: LocalizationKeys.phone_number.tr,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(color: Colors.blue)))),
+                      const SizedBox(height: 20),
                       Row(children: [
                         Expanded(
                             child: Column(

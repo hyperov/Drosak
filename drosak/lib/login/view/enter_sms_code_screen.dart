@@ -7,51 +7,48 @@ import '../../utils/localization/localization_keys.dart';
 
 class EnterSmsCodeScreen extends StatelessWidget {
   EnterSmsCodeScreen({Key? key}) : super(key: key);
-  final LoginViewModel loginViewModel = Get.find();
+  final LoginViewModel _loginViewModel = Get.find();
   final NetworkViewModel _networkViewModel = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return GetX<LoginViewModel>(
-      init: loginViewModel,
-      builder: (controller) => Scaffold(
-        appBar: AppBar(
-          title: const Text('SMS Code'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Enter the code sent to you by SMS'),
-              const SizedBox(height: 16),
-              TextField(
-                controller: controller.smsCodeController,
-                maxLength: 6,
-                textInputAction: TextInputAction.send,
-                textAlign: TextAlign.start,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: 'SMS Code',
-                  label: Text(LocalizationKeys.enter_sms_code.tr),
-                  alignLabelWithHint: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black)),
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('SMS Code'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Enter the code sent to you by SMS'),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _loginViewModel.smsCodeController,
+              maxLength: 6,
+              textInputAction: TextInputAction.send,
+              textAlign: TextAlign.start,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                hintText: 'SMS Code',
+                label: Text(LocalizationKeys.enter_sms_code.tr),
+                alignLabelWithHint: true,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
               ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  if (_networkViewModel.isConnected.value) {
-                    controller.sendSmsAndLogin();
-                  } else {
-                    _networkViewModel.showNoInternetConnectionDialog();
-                  }
-                },
-                child: const Text('Submit'),
-              ),
-            ],
-          ),
+            ).marginSymmetric(horizontal: 16),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                if (_networkViewModel.isConnected.value) {
+                  _loginViewModel.sendSmsAndLogin();
+                } else {
+                  _networkViewModel.showNoInternetConnectionDialog();
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ],
         ),
       ),
     );
