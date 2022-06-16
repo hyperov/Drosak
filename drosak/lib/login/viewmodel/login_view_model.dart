@@ -310,4 +310,6 @@ class LoginViewModel extends GetxController {
     }
     return null;
   }
+
+  void logout() {}
 }

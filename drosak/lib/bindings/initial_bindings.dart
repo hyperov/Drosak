@@ -10,7 +10,7 @@ class InitialBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<NetworkViewModel>(() => NetworkViewModel());
-    Get.lazyPut<ProfileViewModel>(() => ProfileViewModel());
+    Get.lazyPut<ProfileViewModel>(() => ProfileViewModel(), fenix: true);
     Get.lazyPut<FilterViewModel>(() => FilterViewModel());
     Get.lazyPut<FollowsViewModel>(() => FollowsViewModel());
     Get.put(LoginViewModel());

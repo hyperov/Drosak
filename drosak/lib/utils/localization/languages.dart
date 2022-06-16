@@ -55,6 +55,7 @@ class Languages extends Translations {
           LocalizationKeys.followers: 'Followers',
           LocalizationKeys.notifications: 'Notifications',
           LocalizationKeys.profile: 'Profile',
+          LocalizationKeys.personal_info: 'Personal Info',
           LocalizationKeys.price_avg: 'Avg Price',
           //material
           LocalizationKeys.arabic: 'Arabic',
@@ -127,6 +128,7 @@ class Languages extends Translations {
           LocalizationKeys.followers: 'المتابعين',
           LocalizationKeys.notifications: 'الإشعارات',
           LocalizationKeys.profile: 'الحساب',
+          LocalizationKeys.personal_info: 'المعلومات الشخصية',
           LocalizationKeys.choose_material: 'اختر المادة',
           //material
           LocalizationKeys.arabic: 'العربية',

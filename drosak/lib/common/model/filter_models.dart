@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-class FilterModel {
+class FilterChipModel {
   RxString name;
   RxBool isSelected;
 
-  FilterModel({required this.name, required this.isSelected});
+  FilterChipModel({required this.name, required this.isSelected});
 }

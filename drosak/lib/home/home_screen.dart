@@ -3,7 +3,7 @@ import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/follows/view/follows_screen.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/notifications/notifictations_screen.dart';
-import 'package:drosak/profile/main_profile_screen.dart';
+import 'package:drosak/profile/view/main_profile_screen.dart';
 import 'package:drosak/teachers/teachers_list_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:flutter/material.dart';

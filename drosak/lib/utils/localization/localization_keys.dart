@@ -90,6 +90,8 @@ class LocalizationKeys {
   static var follows = 'follows';
   static var followers = 'followers';
 
+  static var personal_info = 'personal_info';
+
   static var price_avg = 'price_avg';
 
   //material
