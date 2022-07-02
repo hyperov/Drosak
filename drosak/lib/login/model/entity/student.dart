@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Student {
   String id;
   String name;
@@ -159,12 +161,12 @@ class Student {
       'lastSignInTime': lastSignInTime,
       'createdAt': createdAt,
       'male': male,
-      'isLoggedIn': isLoggedIn,
-      'educationalLevel': educationalLevel,
-      'classRoom': classRoom,
-      'totalBookings': totalBookings,
-      'totalBookingsCanceled': totalBookingsCanceled,
-      'hasFavorite': hasFavorite,
+      'isLogin': isLoggedIn,
+      'eduLevel': educationalLevel,
+      'class': classRoom,
+      'bookings': totalBookings,
+      'bookings_canceled': totalBookingsCanceled,
+      'hasFav': hasFavorite,
     };
   }
 
@@ -175,15 +177,15 @@ class Student {
       email: map['email'] as String,
       phone: map['phone'] as String?,
       photoUrl: map['photoUrL'] as String,
-      lastSignInTime: map['lastSignInTime'] as DateTime,
-      createdAt: map['createdAt'] as DateTime,
+      lastSignInTime: (map['lastSignInTime'] as Timestamp).toDate(),
+      createdAt: (map['createdAt'] as Timestamp).toDate(),
       male: map['male'] as bool,
-      isLoggedIn: map['isLoggedIn'] as bool,
-      educationalLevel: map['educationalLevel'] as String,
-      classRoom: map['classRoom'] as int,
-      totalBookings: map['totalBookings'] as int,
-      totalBookingsCanceled: map['totalBookingsCanceled'] as int,
-      hasFavorite: map['hasFavorite'] as bool,
+      isLoggedIn: map['isLogin'] as bool,
+      educationalLevel: map['eduLevel'] as String,
+      classRoom: map['class'] as int,
+      totalBookings: map['bookings'] as int,
+      totalBookingsCanceled: map['bookings_canceled'] as int,
+      hasFavorite: map['hasFav'] as bool,
     );
   }
 }

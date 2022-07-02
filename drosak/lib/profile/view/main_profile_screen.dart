@@ -1,4 +1,5 @@
 import 'package:drosak/login/viewmodel/login_view_model.dart';
+import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,8 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
 
   final LoginViewModel _loginViewModel = Get.find();
+
+  ProfileViewModel get _profileViewModel => Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +25,13 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           const Text('احمد على'),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
             Icon(Icons.location_pin, color: Colors.blue),
-            const Text('القاهرة - '),
-            const Text('مدينة نصر'),
+            Text('القاهرة - '),
+            Text('مدينة نصر'),
           ]),
           const SizedBox(height: 10),
-          Text('الصف الأول الثانوى'),
+          const Text('الصف الأول الثانوى'),
           InkWell(
               child: Card(
                 color: Colors.white,
@@ -37,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: Icon(Icons.person),
+                  leading: const Icon(Icons.person),
                   title: Text(LocalizationKeys.personal_info.tr),
                 ),
               ),
@@ -105,16 +108,38 @@ class ProfileScreen extends StatelessWidget {
                 Get.to(() => PersonalProfileScreen());
               }),
           InkWell(
-            child: Card(
+            child: const Card(
               color: Colors.white,
-              margin: const EdgeInsets.all(10),
+              margin: EdgeInsets.all(10),
               child: ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('تسجيل الخروج'),
               ),
             ),
             onTap: () {
-              _loginViewModel.logout();
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(LocalizationKeys.app_logout.tr),
+                      content: Text(LocalizationKeys.logout_confirmation.tr),
+                      actions: [
+                        ElevatedButton(
+                          child: Text(LocalizationKeys.app_cancel.tr),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        ElevatedButton(
+                          child: Text(LocalizationKeys.app_logout.tr),
+                          onPressed: () {
+                            Get.back();
+                            _profileViewModel.logout();
+                          },
+                        ),
+                      ],
+                    );
+                  });
             },
           ),
         ],

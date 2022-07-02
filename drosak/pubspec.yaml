@@ -52,6 +52,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.1.0
   timer_button: ^2.0.0
+  get_storage: ^2.0.3
 
 flutter_icons:
   ios: false
@@ -87,6 +88,7 @@ flutter:
   assets:
     - assets/
     - assets/launcher/
+    - assets/images/
 #     - images/logo.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

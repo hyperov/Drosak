@@ -82,6 +82,11 @@ class Languages extends Translations {
           LocalizationKeys.enter_sms_code: 'Enter the code sent to you by SMS',
           LocalizationKeys.resend_sms_code: 'Resend SMS Code',
           LocalizationKeys.sms_code_not_sent_question: 'SMS Code not sent ?',
+          LocalizationKeys.app_cancel: 'Cancel',
+          LocalizationKeys.app_ok: 'Ok',
+          LocalizationKeys.logout_confirmation:
+              'Are you sure you want to logout ?',
+          LocalizationKeys.confirm: 'Confirm',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -160,6 +165,10 @@ class Languages extends Translations {
               'ادخل الكود المكون من 6 ارقام',
           LocalizationKeys.resend_sms_code: 'إعادة إرسال الكود',
           LocalizationKeys.sms_code_not_sent_question: 'لم يتم إرسال الكود؟',
+          LocalizationKeys.app_cancel: 'إلغاء',
+          LocalizationKeys.app_ok: 'موافق',
+          LocalizationKeys.logout_confirmation: 'هل أنت متأكد من تسجيل الخروج؟',
+          LocalizationKeys.confirm: 'تأكيد',
         },
       };
 }

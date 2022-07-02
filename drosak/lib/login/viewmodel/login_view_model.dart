@@ -1,18 +1,21 @@
 import 'package:drosak/home/home_screen.dart';
-import 'package:drosak/login/model/Repo/firebase_user_repo.dart';
 import 'package:drosak/login/model/Repo/login_repo.dart';
+import 'package:drosak/login/model/Repo/user_repo.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/messages/logs.dart';
+import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginViewModel extends GetxController {
   final LoginRepo _loginRepository = Get.put(LoginRepo());
-  final FirebaseUserRepo _userRepo = Get.put(FirebaseUserRepo());
+  final UserRepo _userRepo = Get.put(UserRepo());
+  final _storage = GetStorage();
 
   RxString verificationId = "".obs;
 
@@ -94,7 +97,7 @@ class LoginViewModel extends GetxController {
           return;
         }
 
-        _insertUserToFirestore(user);
+        loginUserToFireStore(user!);
       },
       verificationFailed: (FirebaseAuthException e) {
         isLoading.value = false;
@@ -164,6 +167,17 @@ class LoginViewModel extends GetxController {
     );
   }
 
+  void loginUserToFireStore(User user) {
+    var isFirstTimeLogin = user.metadata.creationTime!
+        .isAtSameMomentAs(user.metadata.lastSignInTime!);
+
+    if (isFirstTimeLogin) {
+      _insertUserToFirestore(user);
+    } else {
+      _updateUserToFirestore(user);
+    }
+  }
+
   String? validatePhone() {
     var phone = phoneController.text;
     if (phone.isEmpty) {
@@ -217,7 +231,7 @@ class LoginViewModel extends GetxController {
       return;
     }
 
-    _insertUserToFirestore(user);
+    loginUserToFireStore(user!);
   }
 
   signInWithGoogle() async {
@@ -249,7 +263,7 @@ class LoginViewModel extends GetxController {
       return;
     }
 
-    _insertUserToFirestore(user);
+    loginUserToFireStore(user!);
   }
 
   signInWithFacebook() async {
@@ -287,10 +301,6 @@ class LoginViewModel extends GetxController {
     }
   }
 
-  signOutFacebook() async {
-    await FacebookAuth.instance.logOut();
-  }
-
   @override
   void dispose() {
     super.dispose();
@@ -320,9 +330,11 @@ class LoginViewModel extends GetxController {
   }
 
   void _insertUserToFirestore(User? user) {
-    _userRepo.insertUser(user!).then((value) {
+    _userRepo.insertUserFirstTime(user!).then((value) async {
       isLoggedIn.value = true;
       isLoading.value = false;
+
+      await _storage.write(StorageKeys.studentId, user.uid);
 
       if (kDebugMode) {
         printInfo(info: "user logged in");
@@ -369,10 +381,25 @@ class LoginViewModel extends GetxController {
     return null;
   }
 
-  void logout() {}
-
   Future<void> resendSmsCode() async {
     isResend.value = true;
     await loginWithPhone();
+  }
+
+  void _updateUserToFirestore(User user) {
+    _userRepo.updateUserLoginStatus(user).then((value) async {
+      isLoggedIn.value = true;
+      isLoading.value = false;
+
+      await _storage.write(StorageKeys.studentId, user.uid);
+
+      if (kDebugMode) {
+        printInfo(info: "user logged in");
+      }
+    }).onError((error, stackTrace) {
+      _onSnackBarError(
+          "{$Logs.firestore_error_insert_user} ${error.toString()}",
+          LocalizationKeys.login_error.tr);
+    });
   }
 }
