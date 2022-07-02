@@ -26,7 +26,6 @@ class Student {
   bool hasFavorite;
 
 //<editor-fold desc="Data Methods">
-
   Student({
     required this.id,
     required this.name,
@@ -39,8 +38,8 @@ class Student {
     required this.createdAt,
     this.male = true,
     this.isLoggedIn = true,
-    required this.educationalLevel,
-    required this.classRoom,
+    this.educationalLevel = "",
+    this.classRoom = 0,
     this.totalBookings = 0,
     this.totalBookingsCanceled = 0,
     this.hasFavorite = false,

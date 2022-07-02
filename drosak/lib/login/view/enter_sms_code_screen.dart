@@ -257,20 +257,6 @@ class EnterSmsCodeScreen extends StatelessWidget {
                       decoration: TextDecoration.underline,
                     ),
                   )
-                  // TextButton(
-                  //     onPressed: () async {
-                  //       await _loginViewModel.resendSmsCode();
-                  //     },
-                  //     child: Text(
-                  //       LocalizationKeys.resend_sms_code.tr,
-                  //       style: const TextStyle(
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.w500,
-                  //         decoration: TextDecoration.underline,
-                  //         color: Colors.deepPurpleAccent,
-                  //         decorationColor: Colors.blue,
-                  //       ),
-                  //     )),
                 ],
               ),
               const SizedBox(height: 48),

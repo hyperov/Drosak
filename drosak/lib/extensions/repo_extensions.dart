@@ -1,9 +1,9 @@
-import 'package:drosak/login/model/entity/first_time_login_student_model.dart';
+import 'package:drosak/login/model/entity/student.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 extension ConvertUserToStudent on User {
-  FirstTimeLoginStudentModel toFirstTimeLoginStudentModel() {
-    return FirstTimeLoginStudentModel(
+  Student toStudent() {
+    return Student(
         id: uid,
         name: displayName ?? '',
         email: email ?? '',

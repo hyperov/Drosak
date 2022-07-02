@@ -9,4 +9,12 @@ class FireStoreNames {
   static const String collectionStudentFollows = 'follows';
   static const String collectionStudentFavs = 'favs';
   static const String collectionStudentBookings = 'bookings';
+
+  //login fields
+  static const String studentDocFieldIsLogin = 'isLogin';
+  static const String studentDocFieldLastSignInTime = 'lastSignInTime';
+
+  //reviews fields
+  static const String collectionTeacherReviewsSortFieldDate = 'date';
+  static const String collectionTeacherReviewsSortFieldRating = 'rating';
 }

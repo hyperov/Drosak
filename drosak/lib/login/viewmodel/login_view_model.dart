@@ -168,10 +168,10 @@ class LoginViewModel extends GetxController {
   }
 
   void loginUserToFireStore(User user) {
-    var isFirstTimeLogin = user.metadata.creationTime!
-        .isAtSameMomentAs(user.metadata.lastSignInTime!);
+    var isFirstTimeLogin =
+        user.metadata.creationTime!.compareTo(user.metadata.lastSignInTime!);
 
-    if (isFirstTimeLogin) {
+    if (isFirstTimeLogin == 0) {
       _insertUserToFirestore(user);
     } else {
       _updateUserToFirestore(user);
