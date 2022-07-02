@@ -1,0 +1,19 @@
+class AssetsManager {
+  static const String fontFamily = 'Roboto';
+
+  static const String _assetsFolder = 'assets/';
+  static const String _imagesFolder = _assetsFolder + 'images/';
+
+  static const String logo = _assetsFolder + 'launcher/logo.png';
+  static const String logo2 = _assetsFolder + 'launcher/logo2.png';
+  static const String logo3 = _imagesFolder + 'logo3.svg';
+  static const String qrCodeImage = _imagesFolder + 'ic_qr_code.svg';
+  static const String profilePlaceHolder = _imagesFolder + 'ic_person2.svg';
+  static const String pin = _imagesFolder + 'ic_pin.svg';
+  static const String appbarBackGround =
+      _imagesFolder + 'ic_appbar_background.svg';
+  static const String smsScreenBackground =
+      _imagesFolder + 'ic_sms_code_background_image.svg';
+  static const String teacherCodeScreenBackground =
+      _imagesFolder + 'ic_teacher_code_background_image.svg';
+}

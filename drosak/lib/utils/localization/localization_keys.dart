@@ -122,4 +122,23 @@ class LocalizationKeys {
 
   static var sms_code_empty = 'sms_code_empty';
   static var sms_code_length = 'sms_code_length';
+
+  static const String edit = 'edit';
+
+  static const String sms_code_not_sent_question = "sms_code_not_sent_question";
+
+  static const String profile_image_updated_successfully =
+      'profile_image_updated_successfully';
+
+  static const String profile_image_updated_error =
+      'profile_image_updated_error';
+
+  static const String gallery = 'gallery';
+  static const String camera = 'camera';
+
+  static const String app_logout_error = 'app_logout_error';
+
+  static const String logout_confirmation = 'logout_confirmation';
+  static const String confirm = 'confirm';
+  static const String enter_six_digits_code = "enter_six_digits_code";
 }

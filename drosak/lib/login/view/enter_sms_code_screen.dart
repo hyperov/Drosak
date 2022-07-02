@@ -1,7 +1,11 @@
 import 'package:drosak/common/viewmodel/network_viewmodel.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
+import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:timer_button/timer_button.dart';
 
 import '../../utils/localization/localization_keys.dart';
 
@@ -16,41 +20,299 @@ class EnterSmsCodeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('SMS Code'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Enter the code sent to you by SMS'),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _loginViewModel.smsCodeController,
-              maxLength: 6,
-              textInputAction: TextInputAction.send,
-              textAlign: TextAlign.start,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: 'SMS Code',
-                label: Text(LocalizationKeys.enter_sms_code.tr),
-                alignLabelWithHint: true,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.black)),
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        reverse: true,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: Get.height * 0.1,
               ),
-            ).marginSymmetric(horizontal: 16),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                if (_networkViewModel.isConnected.value) {
-                  _loginViewModel.sendSmsAndLogin();
-                } else {
-                  _networkViewModel.showNoInternetConnectionDialog();
-                }
-              },
-              child: const Text('Submit'),
-            ),
-          ],
+              SvgPicture.asset(
+                AssetsManager.smsScreenBackground,
+                // height: 100,
+              ),
+              Text(LocalizationKeys.enter_sms_code.tr,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+              Text(LocalizationKeys.enter_six_digits_code.tr,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey)),
+              const SizedBox(height: 20),
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                direction: Axis.horizontal,
+                textDirection: TextDirection.ltr,
+                spacing: 14,
+                children: [
+                  SizedBox(
+                    width: 40,
+                    child: TextField(
+                      maxLength: 1,
+                      showCursor: false,
+                      controller: _loginViewModel.smsCodeControllerFirst,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        if (_loginViewModel
+                                .smsCodeControllerFirst.text.length ==
+                            1) {
+                          _loginViewModel.smsCodeFocusNodeSecond.requestFocus();
+                        }
+                      },
+                      focusNode: _loginViewModel.smsCodeFocusNodeFirst,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(1),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 40,
+                    child: TextField(
+                      maxLength: 1,
+                      showCursor: false,
+                      controller: _loginViewModel.smsCodeControllerSecond,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _loginViewModel.smsCodeFocusNodeSecond,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(1),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
+                      onChanged: (value) {
+                        if (_loginViewModel
+                                .smsCodeControllerSecond.text.length ==
+                            1) {
+                          _loginViewModel.smsCodeFocusNodeThird.requestFocus();
+                        } else if (_loginViewModel
+                            .smsCodeControllerSecond.text.isEmpty) {
+                          _loginViewModel.smsCodeFocusNodeFirst.requestFocus();
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 40,
+                    child: TextField(
+                      maxLength: 1,
+                      showCursor: false,
+                      controller: _loginViewModel.smsCodeControllerThird,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _loginViewModel.smsCodeFocusNodeThird,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(1),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
+                      onChanged: (value) {
+                        if (_loginViewModel
+                                .smsCodeControllerThird.text.length ==
+                            1) {
+                          _loginViewModel.smsCodeFocusNodeFourth.requestFocus();
+                        } else if (_loginViewModel
+                            .smsCodeControllerThird.text.isEmpty) {
+                          _loginViewModel.smsCodeFocusNodeSecond.requestFocus();
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 40,
+                    child: TextField(
+                      maxLength: 1,
+                      showCursor: false,
+                      controller: _loginViewModel.smsCodeControllerFourth,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _loginViewModel.smsCodeFocusNodeFourth,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(1),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
+                      onChanged: (value) {
+                        if (_loginViewModel
+                                .smsCodeControllerFourth.text.length ==
+                            1) {
+                          _loginViewModel.smsCodeFocusNodeFifth.requestFocus();
+                        } else if (_loginViewModel
+                            .smsCodeControllerFourth.text.isEmpty) {
+                          _loginViewModel.smsCodeFocusNodeThird.requestFocus();
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 40,
+                    child: TextField(
+                      maxLength: 1,
+                      showCursor: false,
+                      controller: _loginViewModel.smsCodeControllerFifth,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _loginViewModel.smsCodeFocusNodeFifth,
+                      textAlign: TextAlign.start,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(1),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
+                      onChanged: (value) {
+                        if (_loginViewModel
+                                .smsCodeControllerFifth.text.length ==
+                            1) {
+                          _loginViewModel.smsCodeFocusNodeSixth.requestFocus();
+                        } else if (_loginViewModel
+                            .smsCodeControllerFifth.text.isEmpty) {
+                          _loginViewModel.smsCodeFocusNodeFourth.requestFocus();
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 40,
+                    child: TextField(
+                      maxLength: 1,
+                      showCursor: false,
+                      controller: _loginViewModel.smsCodeControllerSixth,
+                      textInputAction: TextInputAction.done,
+                      textAlign: TextAlign.start,
+                      focusNode: _loginViewModel.smsCodeFocusNodeSixth,
+                      onChanged: (value) {
+                        if (_loginViewModel
+                            .smsCodeControllerSixth.text.isEmpty) {
+                          _loginViewModel.smsCodeFocusNodeFifth.requestFocus();
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(1),
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                      ],
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    LocalizationKeys.sms_code_not_sent_question.tr,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  TimerButton(
+                    label: LocalizationKeys.resend_sms_code.tr,
+                    timeOutInSeconds: 30,
+                    onPressed: () {
+                      _loginViewModel.resendSmsCode();
+                    },
+                    disabledColor: Colors.transparent,
+                    color: Colors.transparent,
+                    resetTimerOnPressed: true,
+                    buttonType: ButtonType.TextButton,
+                    disabledTextStyle: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                    activeTextStyle: const TextStyle(
+                      color: Colors.deepPurpleAccent,
+                      fontSize: 16,
+                      decoration: TextDecoration.underline,
+                    ),
+                  )
+                  // TextButton(
+                  //     onPressed: () async {
+                  //       await _loginViewModel.resendSmsCode();
+                  //     },
+                  //     child: Text(
+                  //       LocalizationKeys.resend_sms_code.tr,
+                  //       style: const TextStyle(
+                  //         fontSize: 16,
+                  //         fontWeight: FontWeight.w500,
+                  //         decoration: TextDecoration.underline,
+                  //         color: Colors.deepPurpleAccent,
+                  //         decorationColor: Colors.blue,
+                  //       ),
+                  //     )),
+                ],
+              ),
+              const SizedBox(height: 48),
+              Container(
+                width: double.infinity,
+                height: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 24),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurpleAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (_networkViewModel.isConnected.value) {
+                      clickSendSmsButton(_loginViewModel);
+                    } else {
+                      _networkViewModel.showNoInternetConnectionDialog();
+                    }
+                  },
+                  child: Text(LocalizationKeys.confirm.tr,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void clickSendSmsButton(LoginViewModel controller) {
+    if (_loginViewModel.validateSmsCode() == null) {
+      controller.sendSmsAndLogin();
+    }
   }
 }

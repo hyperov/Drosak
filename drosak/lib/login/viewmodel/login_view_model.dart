@@ -26,8 +26,24 @@ class LoginViewModel extends GetxController {
   final RxBool isLoading = false.obs;
   final RxBool isLoggedIn = false.obs;
 
+  RxInt resendToken = 0.obs;
+  RxBool isResend = false.obs;
+
   final phoneController = TextEditingController();
-  final smsCodeController = TextEditingController();
+
+  final smsCodeControllerFirst = TextEditingController();
+  final smsCodeControllerSecond = TextEditingController();
+  final smsCodeControllerThird = TextEditingController();
+  final smsCodeControllerFourth = TextEditingController();
+  final smsCodeControllerFifth = TextEditingController();
+  final smsCodeControllerSixth = TextEditingController();
+
+  FocusNode smsCodeFocusNodeFirst = FocusNode();
+  FocusNode smsCodeFocusNodeSecond = FocusNode();
+  FocusNode smsCodeFocusNodeThird = FocusNode();
+  FocusNode smsCodeFocusNodeFourth = FocusNode();
+  FocusNode smsCodeFocusNodeFifth = FocusNode();
+  FocusNode smsCodeFocusNodeSixth = FocusNode();
 
   @override
   void onReady() {
@@ -134,6 +150,7 @@ class LoginViewModel extends GetxController {
         errMessagePhoneTextField.value = null;
         errMessageSnackBar.value = "";
         this.verificationId.value = verificationId;
+        this.resendToken.value = resendToken!;
         if (kDebugMode) {
           printInfo(info: "code sent in sms");
         }
@@ -143,6 +160,7 @@ class LoginViewModel extends GetxController {
         isCodeSent.value = true;
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
+      forceResendingToken: resendToken.value,
     );
   }
 
@@ -176,9 +194,16 @@ class LoginViewModel extends GetxController {
   }
 
   sendSmsAndLogin() async {
+    isLoading.value = true;
     // Create a PhoneAuthCredential with the code
+    var smsCode = smsCodeControllerFirst.text +
+        smsCodeControllerSecond.text +
+        smsCodeControllerThird.text +
+        smsCodeControllerFourth.text +
+        smsCodeControllerFifth.text +
+        smsCodeControllerSixth.text;
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId.value, smsCode: smsCodeController.text);
+        verificationId: verificationId.value, smsCode: smsCode);
 
     late User? user;
     try {
@@ -270,7 +295,20 @@ class LoginViewModel extends GetxController {
   void dispose() {
     super.dispose();
     phoneController.dispose();
-    smsCodeController.dispose();
+
+    smsCodeControllerFirst.dispose();
+    smsCodeControllerSecond.dispose();
+    smsCodeControllerThird.dispose();
+    smsCodeControllerFourth.dispose();
+    smsCodeControllerFifth.dispose();
+    smsCodeControllerSixth.dispose();
+
+    smsCodeControllerFirst.dispose();
+    smsCodeControllerSecond.dispose();
+    smsCodeControllerThird.dispose();
+    smsCodeControllerFourth.dispose();
+    smsCodeControllerFifth.dispose();
+    smsCodeControllerSixth.dispose();
   }
 
   void _onSnackBarError(String errorMessage, String errorMessageSnackBar) {
@@ -297,13 +335,33 @@ class LoginViewModel extends GetxController {
   }
 
   String? validateSmsCode() {
-    var smsCode = smsCodeController.text;
-    if (smsCode.isEmpty) {
+    var smsCode1 = smsCodeControllerFirst.text;
+    var smsCode2 = smsCodeControllerSecond.text;
+    var smsCode3 = smsCodeControllerThird.text;
+    var smsCode4 = smsCodeControllerFourth.text;
+    var smsCode5 = smsCodeControllerFifth.text;
+    var smsCode6 = smsCodeControllerSixth.text;
+
+    var isAllSmsCodeFieldsEmpty = smsCode1.isEmpty &&
+        smsCode2.isEmpty &&
+        smsCode3.isEmpty &&
+        smsCode4.isEmpty &&
+        smsCode5.isEmpty &&
+        smsCode6.isEmpty;
+
+    var isAtLeastOneSmsCodeFieldIsEmpty = smsCode1.isEmpty ||
+        smsCode2.isEmpty ||
+        smsCode3.isEmpty ||
+        smsCode4.isEmpty ||
+        smsCode5.isEmpty ||
+        smsCode6.isEmpty;
+
+    if (isAllSmsCodeFieldsEmpty) {
       _onSnackBarError(
           Logs.log_ui_sms_code_empty, LocalizationKeys.sms_code_empty.tr);
       return Logs.log_ui_sms_code_empty;
     }
-    if (smsCode.length != 6) {
+    if (isAtLeastOneSmsCodeFieldIsEmpty) {
       _onSnackBarError(
           Logs.sms_code_length, LocalizationKeys.sms_code_length.tr);
       return Logs.sms_code_length;
@@ -312,4 +370,9 @@ class LoginViewModel extends GetxController {
   }
 
   void logout() {}
+
+  Future<void> resendSmsCode() async {
+    isResend.value = true;
+    await loginWithPhone();
+  }
 }

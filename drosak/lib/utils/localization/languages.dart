@@ -77,7 +77,11 @@ class Languages extends Translations {
           LocalizationKeys.no_reviews: 'No Reviews Yet',
           LocalizationKeys.lectures: 'Lectures',
           LocalizationKeys.app_student: 'Student App',
-          LocalizationKeys.enter_sms_code: 'Enter SMS Code',
+          LocalizationKeys.sms_code: 'SMS Code',
+          LocalizationKeys.enter_six_digits_code: 'Enter 6 digits code',
+          LocalizationKeys.enter_sms_code: 'Enter the code sent to you by SMS',
+          LocalizationKeys.resend_sms_code: 'Resend SMS Code',
+          LocalizationKeys.sms_code_not_sent_question: 'SMS Code not sent ?',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -151,7 +155,11 @@ class Languages extends Translations {
           LocalizationKeys.no_reviews: 'لا يوجد تقييمات حتى الآن',
           LocalizationKeys.lectures: 'الحصص',
           LocalizationKeys.app_student: 'تطبيق الطالب',
-          LocalizationKeys.enter_sms_code: 'أدخل رسالة التأكيد',
+          LocalizationKeys.enter_sms_code: 'ادخل الكود المرسل اليك',
+          LocalizationKeys.enter_six_digits_code:
+              'ادخل الكود المكون من 6 ارقام',
+          LocalizationKeys.resend_sms_code: 'إعادة إرسال الكود',
+          LocalizationKeys.sms_code_not_sent_question: 'لم يتم إرسال الكود؟',
         },
       };
 }
