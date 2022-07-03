@@ -141,4 +141,8 @@ class LocalizationKeys {
   static const String logout_confirmation = 'logout_confirmation';
   static const String confirm = 'confirm';
   static const String enter_six_digits_code = "enter_six_digits_code";
+  static const String price_average = "price_average";
+
+  static var secondary = 'high_school';
+  static var prep = 'mid_school';
 }

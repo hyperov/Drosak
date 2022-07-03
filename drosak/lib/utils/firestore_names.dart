@@ -1,6 +1,6 @@
 class FireStoreNames {
   static const String collectionStudents = 'students';
-  static const String collectionTeachers = 'notes';
+  static const String collectionTeachers = 'teachers';
 
   static const String collectionTeacherPosts = 'posts';
   static const String collectionTeacherReviews = 'reviews';
@@ -17,4 +17,11 @@ class FireStoreNames {
   //reviews fields
   static const String collectionTeacherReviewsSortFieldDate = 'date';
   static const String collectionTeacherReviewsSortFieldRating = 'rating';
+
+  //teacher fields
+  static const String teacherDocFieldIsActive = 'active';
+
+  //education field values
+  static const String educationLevelSecondaryValue = 'high_school';
+  static const String educationLevelPrepValue = 'mid_school';
 }

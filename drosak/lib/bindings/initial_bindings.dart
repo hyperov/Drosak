@@ -6,6 +6,8 @@ import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:get/get.dart';
 
+import '../teachers/viewmodel/teachers_list_viewmodel.dart';
+
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
@@ -15,5 +17,7 @@ class InitialBindings extends Bindings {
     Get.lazyPut<FollowsViewModel>(() => FollowsViewModel());
     Get.put(LoginViewModel());
     Get.put(HomeViewModel());
+    Get.lazyPut<TeachersListViewModel>(() => TeachersListViewModel(),
+        fenix: true);
   }
 }

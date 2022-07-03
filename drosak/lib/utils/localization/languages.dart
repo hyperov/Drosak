@@ -45,7 +45,9 @@ class Languages extends Translations {
           LocalizationKeys.male: 'Male',
           LocalizationKeys.female: 'Female',
           LocalizationKeys.education_secondary: 'Secondary',
-          LocalizationKeys.education_prep: 'Secondary',
+          LocalizationKeys.education_prep: 'Prep',
+          LocalizationKeys.secondary: 'Secondary',
+          LocalizationKeys.prep: 'Prep',
           LocalizationKeys.class_level: 'class level',
           LocalizationKeys.class_level_one: 'One',
           LocalizationKeys.class_level_two: 'Two',
@@ -87,6 +89,7 @@ class Languages extends Translations {
           LocalizationKeys.logout_confirmation:
               'Are you sure you want to logout ?',
           LocalizationKeys.confirm: 'Confirm',
+          LocalizationKeys.price_average: 'Average Price',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -127,6 +130,9 @@ class Languages extends Translations {
           LocalizationKeys.female: 'أنثى',
           LocalizationKeys.education_secondary: 'المرحلة الثانوية',
           LocalizationKeys.education_prep: 'المرحلة الاعداداية',
+
+          LocalizationKeys.secondary: 'ثانوى',
+          LocalizationKeys.prep: 'اعدادي',
           // LocalizationKeys.education: 'المرحلة الدراسية',
           LocalizationKeys.class_level: 'الصف الدراسي',
           LocalizationKeys.class_level_one: 'الصف الدراسي الأول',
@@ -169,6 +175,7 @@ class Languages extends Translations {
           LocalizationKeys.app_ok: 'موافق',
           LocalizationKeys.logout_confirmation: 'هل أنت متأكد من تسجيل الخروج؟',
           LocalizationKeys.confirm: 'تأكيد',
+          LocalizationKeys.price_average: 'متوسط السعر',
         },
       };
 }
