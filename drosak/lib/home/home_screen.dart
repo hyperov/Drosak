@@ -14,13 +14,11 @@ import 'package:get/get.dart';
 import 'HomeViewModel.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key, required this.title}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   final LoginViewModel _loginViewModel = Get.find();
   final HomeViewModel _homeViewModel = Get.find();
   final FilterViewModel _filterViewModel = Get.find();
-
-  final String title;
 
   final widgetOptions = [
     const TeachersListScreen(),
@@ -81,28 +79,32 @@ class HomeScreen extends StatelessWidget {
             ),
             child: GetX<HomeViewModel>(builder: (context) {
               return BottomNavigationBar(
+                selectedItemColor: Colors.deepPurple,
+                unselectedItemColor: Colors.grey,
+                showUnselectedLabels: true,
+                elevation: 0,
+                iconSize: 30,
+                selectedFontSize: 18,
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    icon: const Icon(Icons.home, color: Colors.black),
+                    icon: const Icon(Icons.home),
                     label: LocalizationKeys.home.tr,
                   ),
                   BottomNavigationBarItem(
-                    icon: const Icon(Icons.people, color: Colors.black),
+                    icon: const Icon(Icons.people),
                     label: LocalizationKeys.follows.tr,
                   ),
                   BottomNavigationBarItem(
-                    icon: const Icon(Icons.notifications, color: Colors.black),
+                    icon: const Icon(Icons.notifications),
                     label: LocalizationKeys.notifications.tr,
                   ),
                   BottomNavigationBarItem(
-                    icon: const Icon(Icons.person, color: Colors.black),
+                    icon: const Icon(Icons.person),
                     label: LocalizationKeys.profile.tr,
                   )
                 ],
                 currentIndex: _homeViewModel.bottomNavigationIndex.value,
-                selectedItemColor: Colors.amber[800],
                 onTap: (int index) {
-                  print(index);
                   _homeViewModel.bottomNavigationIndex.value = index;
                 },
               );

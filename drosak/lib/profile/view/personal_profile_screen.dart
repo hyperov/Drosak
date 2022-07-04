@@ -2,7 +2,9 @@ import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/common/widgets/fullwidth_textfield.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class PersonalProfileScreen extends StatelessWidget {
@@ -14,7 +16,25 @@ class PersonalProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Personal Profile'),
+        title: Stack(children: [
+          SvgPicture.asset(
+            AssetsManager.appbarBackGround,
+          ),
+          Container(
+            child: Text(
+              LocalizationKeys.personal_info.tr,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            alignment: AlignmentDirectional.centerStart,
+          ),
+        ], alignment: Alignment.center),
+        toolbarHeight: 100,
+        titleTextStyle: const TextStyle(fontSize: 20),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -24,25 +44,57 @@ class PersonalProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 50),
-                      Stack(
-                        alignment: Alignment.center,
-                        clipBehavior: Clip.none,
-                        children: const [
-                          CircleAvatar(
-                            backgroundColor: Colors.blue,
-                            child: Icon(Icons.person, size: 50),
-                            radius: 50,
-                          ),
-                          Positioned(
-                            child: CircleAvatar(
-                              child: Icon(Icons.add,
-                                  size: 20, color: Colors.white),
-                              radius: 20,
-                              backgroundColor: Colors.green,
+                      Hero(
+                        tag: 'profile_image_tag',
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => openGalleryOrCameraSelectorSheet(),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              clipBehavior: Clip.none,
+                              children: [
+                                Card(
+                                    color: Colors.deepPurple,
+                                    elevation: 4,
+                                    clipBehavior: Clip.hardEdge,
+                                    shape: const CircleBorder(),
+                                    child: Obx(() => _profileViewModel
+                                            .selectedProfileImageUrl.isBlank!
+                                        ? SvgPicture.asset(
+                                            AssetsManager.profilePlaceHolder,
+                                            width: 70,
+                                            height: 70,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.network(
+                                            _profileViewModel
+                                                .selectedProfileImageUrl.value,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover, errorBuilder:
+                                                (context, error, stackTrace) {
+                                            return SvgPicture.asset(
+                                              AssetsManager.profilePlaceHolder,
+                                              width: 70,
+                                              height: 70,
+                                              color: Colors.white,
+                                              fit: BoxFit.cover,
+                                            ).marginAll(16);
+                                          }))),
+                                Positioned(
+                                  child: CircleAvatar(
+                                    child: Icon(Icons.add,
+                                        size: 20, color: Colors.white),
+                                    radius: 20,
+                                    backgroundColor: Colors.green,
+                                  ),
+                                  bottom: -20,
+                                ),
+                              ],
                             ),
-                            bottom: -20,
                           ),
-                        ],
+                        ),
                       ),
                       const SizedBox(height: 30),
                       const Text('Ahmed Ali'),
@@ -226,4 +278,6 @@ class PersonalProfileScreen extends StatelessWidget {
               ))),
     );
   }
+
+  openGalleryOrCameraSelectorSheet() {}
 }

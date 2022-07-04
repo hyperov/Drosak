@@ -1,32 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Student {
-  String id;
-  String name;
-  String email;
+  String? id;
+  String? name;
+  String? email;
   String? phone;
-  String photoUrl;
+  String? photoUrl;
 
-  String city; //cairo or giza
-  String area; //dokki or saft or zamalek
+  String? city; //cairo or giza
+  String? area; //dokki or saft or zamalek
 
-  DateTime lastSignInTime; //March 26, 2022 at 8:11:20 PM UTC+3
-  DateTime createdAt; //March 26, 2022 at 8:11:20 PM UTC+3
+  DateTime? lastSignInTime; //March 26, 2022 at 8:11:20 PM UTC+3
+  DateTime? createdAt; //March 26, 2022 at 8:11:20 PM UTC+3
 
-  bool male;
-  bool isLoggedIn;
+  bool? male;
+  bool? isLoggedIn;
 
-  String educationalLevel; //”high_school” or ”middle_school”**
+  String? educationalLevel; //”high_school” or ”middle_school”**
 
-  int classRoom; // لو ثانوى يبقى الصف الاول الثانوى ولو اعدادى يبقى الصف الاول الاعدادى وهكذا
+  int?
+      classRoom; // لو ثانوى يبقى الصف الاول الثانوى ولو اعدادى يبقى الصف الاول الاعدادى وهكذا
 
-  int totalBookings;
-  int totalBookingsCanceled;
+  int? totalBookings;
+  int? totalBookingsCanceled;
 
-  bool hasFavorite;
+  bool? hasFavorite;
 
-//<editor-fold desc="Data Methods">
-  Student({
+  Student();
+  //<editor-fold desc="Data Methods">
+  Student.def({
     required this.id,
     required this.name,
     required this.email,
@@ -127,7 +129,7 @@ class Student {
     int? totalBookingsCanceled,
     bool? hasFavorite,
   }) {
-    return Student(
+    return Student.def(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -170,12 +172,12 @@ class Student {
   }
 
   factory Student.fromJson(Map<String, dynamic> map) {
-    return Student(
+    return Student.def(
       id: map['id'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
       phone: map['phone'] as String?,
-      photoUrl: map['photoUrL'] as String,
+      photoUrl: map['photoUrL'],
       lastSignInTime: (map['lastSignInTime'] as Timestamp).toDate(),
       createdAt: (map['createdAt'] as Timestamp).toDate(),
       male: map['male'] as bool,

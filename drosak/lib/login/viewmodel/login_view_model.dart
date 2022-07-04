@@ -1,6 +1,7 @@
 import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/login/model/Repo/login_repo.dart';
 import 'package:drosak/login/model/Repo/user_repo.dart';
+import 'package:drosak/profile/view/personal_profile_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/messages/logs.dart';
 import 'package:drosak/utils/storage_keys.dart';
@@ -63,7 +64,17 @@ class LoginViewModel extends GetxController {
             color: Colors.white,
           ),
         );
-        Get.to(() => HomeScreen(title: "Drosak"));
+
+        var isFirstTimeUserLogin =
+            _storage.read<bool>(StorageKeys.isFirstTimeLogin);
+
+        // if (isFirstTimeUserLogin!) {
+        if (true) {
+          //debug
+          Get.off(() => PersonalProfileScreen());
+        } else {
+          Get.off(() => HomeScreen());
+        }
       }
     });
   }
@@ -170,6 +181,8 @@ class LoginViewModel extends GetxController {
   void loginUserToFireStore(User user) {
     var isFirstTimeLogin =
         user.metadata.creationTime!.compareTo(user.metadata.lastSignInTime!);
+
+    _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin == 0);
 
     if (isFirstTimeLogin == 0) {
       _insertUserToFirestore(user);

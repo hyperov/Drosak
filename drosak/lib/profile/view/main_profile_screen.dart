@@ -1,9 +1,13 @@
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
+import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:marquee/marquee.dart';
 
 import '../../utils/localization/localization_keys.dart';
+import '../../utils/managers/assets_manager.dart';
 import 'personal_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -15,134 +19,155 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(height: 50),
-          const CircleAvatar(
-            child: Icon(Icons.person, size: 50),
-            radius: 50,
-          ),
-          const SizedBox(height: 10),
-          const Text('احمد على'),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-            Icon(Icons.location_pin, color: Colors.blue),
-            Text('القاهرة - '),
-            Text('مدينة نصر'),
-          ]),
-          const SizedBox(height: 10),
-          const Text('الصف الأول الثانوى'),
-          InkWell(
-              child: Card(
+    return Scaffold(
+      backgroundColor: ColorManager.redOrangeLight,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Hero(
+                    tag: 'profile_image_tag',
+                    child: Card(
+                        color: Colors.deepPurple,
+                        elevation: 4,
+                        clipBehavior: Clip.hardEdge,
+                        shape: const CircleBorder(),
+                        child: Obx(() => _profileViewModel
+                                .selectedProfileImageUrl.isBlank!
+                            ? SvgPicture.asset(
+                                AssetsManager.profilePlaceHolder,
+                                width: 70,
+                                height: 70,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                _profileViewModel.selectedProfileImageUrl.value,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                return SvgPicture.asset(
+                                  AssetsManager.profilePlaceHolder,
+                                  width: 70,
+                                  height: 70,
+                                  color: Colors.white,
+                                  fit: BoxFit.cover,
+                                ).marginAll(16);
+                              }))),
+                  ),
+                ),
+                Obx(() => Text(_profileViewModel.nameObserver.value,
+                    style: const TextStyle(fontSize: 30))),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  child: Obx(() => Marquee(
+                        text: _profileViewModel.classesObserver.isBlank!
+                            ? 'لا يوجد صف'
+                            : _profileViewModel.classesObserver
+                                .toString()
+                                .replaceAll('[', '')
+                                .replaceAll(']', '')
+                                .replaceAll(',', ' - '),
+                        style: const TextStyle(fontSize: 20),
+                        scrollAxis: Axis.horizontal,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        blankSpace: 20,
+                      )),
+                ),
+              ]),
+              const SizedBox(height: 24),
+              Card(
                 color: Colors.white,
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: ListTile(
-                  leading: const Icon(Icons.person),
-                  title: Text(LocalizationKeys.personal_info.tr),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(() => PersonalProfileScreen());
+                  },
+                  child: ListTile(
+                    leading: const Icon(Icons.person),
+                    title: Text(LocalizationKeys.personal_info.tr),
+                  ),
                 ),
               ),
-              onTap: () {
-                Get.to(() => PersonalProfileScreen());
-              }),
-          InkWell(
-              child: Card(
+              Card(
                 color: Colors.white,
-                margin: const EdgeInsets.all(10),
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const ListTile(
-                  leading: Icon(Icons.bookmark),
-                  title: Text('الحجوزات'),
+                child: InkWell(
+                  onTap: () {
+                    // Get.to(() => const SettingsScreen());
+                  },
+                  child: ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: Text(LocalizationKeys.settings.tr),
+                  ),
                 ),
               ),
-              onTap: () {
-                Get.to(() => PersonalProfileScreen());
-              }),
-          InkWell(
-              child: Card(
+              Card(
                 color: Colors.white,
-                margin: const EdgeInsets.all(10),
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const ListTile(
-                  leading: Icon(Icons.favorite),
-                  title: const Text('المفضلة'),
+                child: InkWell(
+                  onTap: () {},
+                  child: const ListTile(
+                    leading: Icon(Icons.help),
+                    title: Text('مساعدة'),
+                  ),
                 ),
               ),
-              onTap: () {
-                Get.to(() => PersonalProfileScreen());
-              }),
-          InkWell(
-              child: Card(
+              Card(
                 color: Colors.white,
-                margin: const EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('الاعدادات'),
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(LocalizationKeys.app_logout.tr),
+                            content:
+                                Text(LocalizationKeys.logout_confirmation.tr),
+                            actions: [
+                              ElevatedButton(
+                                child: Text(LocalizationKeys.app_cancel.tr),
+                                onPressed: () {
+                                  Get.back();
+                                },
+                              ),
+                              ElevatedButton(
+                                child: Text(LocalizationKeys.app_logout.tr),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  _profileViewModel.logout();
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  },
+                  child: ListTile(
+                    leading: const Icon(Icons.exit_to_app),
+                    title: Text(LocalizationKeys.app_logout.tr),
+                  ),
                 ),
               ),
-              onTap: () {
-                Get.to(() => PersonalProfileScreen());
-              }),
-          InkWell(
-              child: Card(
-                color: Colors.white,
-                margin: const EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const ListTile(
-                  leading: Icon(Icons.help),
-                  title: Text('مساعدة'),
-                ),
-              ),
-              onTap: () {
-                Get.to(() => PersonalProfileScreen());
-              }),
-          InkWell(
-            child: const Card(
-              color: Colors.white,
-              margin: EdgeInsets.all(10),
-              child: ListTile(
-                leading: Icon(Icons.exit_to_app),
-                title: Text('تسجيل الخروج'),
-              ),
-            ),
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(LocalizationKeys.app_logout.tr),
-                      content: Text(LocalizationKeys.logout_confirmation.tr),
-                      actions: [
-                        ElevatedButton(
-                          child: Text(LocalizationKeys.app_cancel.tr),
-                          onPressed: () {
-                            Get.back();
-                          },
-                        ),
-                        ElevatedButton(
-                          child: Text(LocalizationKeys.app_logout.tr),
-                          onPressed: () {
-                            Get.back();
-                            _profileViewModel.logout();
-                          },
-                        ),
-                      ],
-                    );
-                  });
-            },
-          ),
-        ],
+            ],
+          ).marginOnly(bottom: 16),
+        ),
       ),
     );
   }

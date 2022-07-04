@@ -145,4 +145,8 @@ class LocalizationKeys {
 
   static var secondary = 'high_school';
   static var prep = 'mid_school';
+
+  static var settings = 'settings';
+
+  static var bookings = 'bookings';
 }

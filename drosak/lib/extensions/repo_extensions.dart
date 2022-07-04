@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 extension ConvertUserToStudent on User {
   Student toStudent() {
-    return Student(
+    return Student.def(
         id: uid,
         name: displayName ?? '',
         email: email ?? '',

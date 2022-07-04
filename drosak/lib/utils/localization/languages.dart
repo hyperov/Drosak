@@ -90,6 +90,8 @@ class Languages extends Translations {
               'Are you sure you want to logout ?',
           LocalizationKeys.confirm: 'Confirm',
           LocalizationKeys.price_average: 'Average Price',
+          LocalizationKeys.settings: 'Settings',
+          LocalizationKeys.bookings: 'Bookings',
         },
         'ar_EG': {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
@@ -176,6 +178,8 @@ class Languages extends Translations {
           LocalizationKeys.logout_confirmation: 'هل أنت متأكد من تسجيل الخروج؟',
           LocalizationKeys.confirm: 'تأكيد',
           LocalizationKeys.price_average: 'متوسط السعر',
+          LocalizationKeys.settings: 'الإعدادات',
+          LocalizationKeys.bookings: 'الحجوزات',
         },
       };
 }

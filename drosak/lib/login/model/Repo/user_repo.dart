@@ -39,4 +39,13 @@ class UserRepo {
       FireStoreNames.studentDocFieldLastSignInTime: DateTime.now()
     });
   }
+
+  Future<DocumentSnapshot<Student>> getStudent() => FirebaseFirestore.instance
+      .collection(FireStoreNames.collectionStudents)
+      .doc(_storage.read(StorageKeys.studentId))
+      .withConverter<Student>(
+        fromFirestore: (snapshot, _) => Student.fromJson(snapshot.data()!),
+        toFirestore: (model, _) => model.toJson(),
+      )
+      .get();
 }
