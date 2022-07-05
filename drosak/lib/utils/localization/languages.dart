@@ -6,6 +6,7 @@ class Languages extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          LocalizationKeys.email: 'Email',
           LocalizationKeys.enter_phone_number: 'Enter your phone number',
           LocalizationKeys.phone_confirmation:
               'you will receive a confirmation code on your phone',
@@ -49,9 +50,12 @@ class Languages extends Translations {
           LocalizationKeys.secondary: 'Secondary',
           LocalizationKeys.prep: 'Prep',
           LocalizationKeys.class_level: 'class level',
-          LocalizationKeys.class_level_one: 'One',
-          LocalizationKeys.class_level_two: 'Two',
-          LocalizationKeys.class_level_three: 'Three',
+          LocalizationKeys.secondary_class_level_one: 'First grade secondary',
+          LocalizationKeys.secondary_class_level_two: 'Second grade secondary',
+          LocalizationKeys.secondary_class_level_three: 'Third grade secondary',
+          LocalizationKeys.prep_class_level_one: 'First grade prep',
+          LocalizationKeys.prep_class_level_two: 'Second grade prep',
+          LocalizationKeys.prep_class_level_three: 'Third grade prep',
           LocalizationKeys.home: 'Home',
           LocalizationKeys.follows: 'Follows',
           LocalizationKeys.followers: 'Followers',
@@ -92,8 +96,13 @@ class Languages extends Translations {
           LocalizationKeys.price_average: 'Average Price',
           LocalizationKeys.settings: 'Settings',
           LocalizationKeys.bookings: 'Bookings',
+
+          LocalizationKeys.profile_updated_error: 'Profile Updated Error',
+          LocalizationKeys.profile_updated_successfully:
+              'Profile Updated Successfully',
         },
         'ar_EG': {
+          LocalizationKeys.email: 'البريد الإلكتروني',
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
           LocalizationKeys.phone_confirmation: 'هيجيلك رسالة تأكيد على موبايلك',
           LocalizationKeys.phone_number: 'رقم الهاتف',
@@ -137,9 +146,12 @@ class Languages extends Translations {
           LocalizationKeys.prep: 'اعدادي',
           // LocalizationKeys.education: 'المرحلة الدراسية',
           LocalizationKeys.class_level: 'الصف الدراسي',
-          LocalizationKeys.class_level_one: 'الصف الدراسي الأول',
-          LocalizationKeys.class_level_two: 'الصف الدراسي الثاني',
-          LocalizationKeys.class_level_three: 'الصف الدراسي الثالث',
+          LocalizationKeys.secondary_class_level_one: 'الصف الأول الثانوى',
+          LocalizationKeys.secondary_class_level_two: 'الصف الثانى الثانوى',
+          LocalizationKeys.secondary_class_level_three: 'الصف الثالث الثانوى',
+          LocalizationKeys.prep_class_level_one: 'الصف الأول الاعدادى',
+          LocalizationKeys.prep_class_level_two: 'الصف الثانى الاعدادى',
+          LocalizationKeys.prep_class_level_three: 'الصف الثالث الاعدادى',
           LocalizationKeys.home: 'الرئيسية',
           LocalizationKeys.follows: 'اتابعهم',
           LocalizationKeys.followers: 'المتابعين',
@@ -180,6 +192,11 @@ class Languages extends Translations {
           LocalizationKeys.price_average: 'متوسط السعر',
           LocalizationKeys.settings: 'الإعدادات',
           LocalizationKeys.bookings: 'الحجوزات',
+
+          LocalizationKeys.profile_updated_error:
+              'حدث خطأ أثناء تحديث الملف الشخصي',
+          LocalizationKeys.profile_updated_successfully:
+              'تم تحديث الملف الشخصي بنجاح',
         },
       };
 }

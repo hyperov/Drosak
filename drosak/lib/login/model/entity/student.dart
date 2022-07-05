@@ -7,7 +7,7 @@ class Student {
   String? phone;
   String? photoUrl;
 
-  String? city; //cairo or giza
+  String? government; //cairo or giza
   String? area; //dokki or saft or zamalek
 
   DateTime? lastSignInTime; //March 26, 2022 at 8:11:20 PM UTC+3
@@ -25,8 +25,11 @@ class Student {
   int? totalBookingsCanceled;
 
   bool? hasFavorite;
+  int? followsCount;
+  int? favCount;
 
   Student();
+
   //<editor-fold desc="Data Methods">
   Student.def({
     required this.id,
@@ -34,7 +37,7 @@ class Student {
     required this.email,
     required this.phone,
     this.photoUrl = "",
-    this.city = "",
+    this.government = "",
     this.area = "",
     required this.lastSignInTime,
     required this.createdAt,
@@ -45,6 +48,8 @@ class Student {
     this.totalBookings = 0,
     this.totalBookingsCanceled = 0,
     this.hasFavorite = false,
+    this.followsCount = 0,
+    this.favCount = 0,
   });
 
 //if @override
@@ -58,7 +63,7 @@ class Student {
           email == other.email &&
           phone == other.phone &&
           photoUrl == other.photoUrl &&
-          city == other.city &&
+          government == other.government &&
           area == other.area &&
           lastSignInTime == other.lastSignInTime &&
           createdAt == other.createdAt &&
@@ -77,7 +82,7 @@ class Student {
       email.hashCode ^
       phone.hashCode ^
       photoUrl.hashCode ^
-      city.hashCode ^
+      government.hashCode ^
       area.hashCode ^
       lastSignInTime.hashCode ^
       createdAt.hashCode ^
@@ -97,7 +102,7 @@ class Student {
         ' email: $email,' +
         ' phone: $phone,' +
         ' photoUrl: $photoUrl,' +
-        ' city: $city,' +
+        ' city: $government,' +
         ' area: $area,' +
         ' lastSignInTime: $lastSignInTime,' +
         ' createdAt: $createdAt,' +
@@ -117,7 +122,7 @@ class Student {
     String? email,
     String? phone,
     String? photoUrl,
-    String? city,
+    String? government,
     String? area,
     DateTime? lastSignInTime,
     DateTime? createdAt,
@@ -128,6 +133,8 @@ class Student {
     int? totalBookings,
     int? totalBookingsCanceled,
     bool? hasFavorite,
+    followsCount,
+    favCount,
   }) {
     return Student.def(
       id: id ?? this.id,
@@ -135,7 +142,7 @@ class Student {
       email: email ?? this.email,
       phone: phone ?? this.phone,
       photoUrl: photoUrl ?? this.photoUrl,
-      city: city ?? this.city,
+      government: government ?? this.government,
       area: area ?? this.area,
       lastSignInTime: lastSignInTime ?? this.lastSignInTime,
       createdAt: createdAt ?? this.createdAt,
@@ -147,6 +154,8 @@ class Student {
       totalBookingsCanceled:
           totalBookingsCanceled ?? this.totalBookingsCanceled,
       hasFavorite: hasFavorite ?? this.hasFavorite,
+      followsCount: followsCount ?? this.followsCount,
+      favCount: favCount ?? this.favCount,
     );
   }
 
@@ -157,7 +166,7 @@ class Student {
       'email': email,
       'phone': phone,
       'photoUrl': photoUrl,
-      'city': city,
+      'gov': government,
       'area': area,
       'lastSignInTime': lastSignInTime,
       'createdAt': createdAt,
@@ -168,6 +177,8 @@ class Student {
       'bookings': totalBookings,
       'bookings_canceled': totalBookingsCanceled,
       'hasFav': hasFavorite,
+      'follows': followsCount,
+      'favs': favCount,
     };
   }
 
@@ -178,6 +189,8 @@ class Student {
       email: map['email'] as String,
       phone: map['phone'] as String?,
       photoUrl: map['photoUrL'],
+      government: map['gov'] as String,
+      area: map['area'] as String,
       lastSignInTime: (map['lastSignInTime'] as Timestamp).toDate(),
       createdAt: (map['createdAt'] as Timestamp).toDate(),
       male: map['male'] as bool,
@@ -187,6 +200,8 @@ class Student {
       totalBookings: map['bookings'] as int,
       totalBookingsCanceled: map['bookings_canceled'] as int,
       hasFavorite: map['hasFav'] as bool,
+      followsCount: map['follows'] as int,
+      favCount: map['favs'] as int,
     );
   }
 }

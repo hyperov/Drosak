@@ -15,26 +15,26 @@ class ProfileViewModel extends GetxController {
 
   Rx<Student> student = Student().obs;
 
-  RxString selectedGovernmentName = "اختر المحافظة".obs;
-  RxString selectedAreaName = "اختر المنطقة".obs;
-
-  RxString selectedType = LocalizationKeys.male.tr.obs;
-
-  RxString selectedEducation = LocalizationKeys.education_secondary.tr.obs;
-
-  RxString selectedClass = LocalizationKeys.class_level_one.tr.obs;
+  // profile Ui texts
+  RxString selectedGovernmentName = LocalizationKeys.choose_government.tr.obs;
+  RxString selectedAreaName = LocalizationKeys.choose_area.tr.obs;
+  RxString selectedEducation =
+      LocalizationKeys.education_secondary.tr.obs; // ثانوى
+  RxString selectedClass =
+      LocalizationKeys.secondary_class_level_one.tr.obs; // الصف الاول الثانوى
+  RxString selectedGender = LocalizationKeys.male.tr.obs;
 
   //personal profile screen text controllers
   var nameController = TextEditingController().obs;
   var phoneController = TextEditingController().obs;
+  var emailController = TextEditingController().obs;
 
-  var classesObserver = <String>[].obs;
-  var bookingsObserver = 0.obs;
-  var followersObserver = 0.obs;
-  var ratingObserver = 0.obs;
   var nameObserver = "".obs;
+
+  var followsCountObserver = 0.obs;
+  var favCountObserver = 0.obs;
+  var bookingsCountObserver = 0.obs;
   var selectedProfileImageUrl = "".obs;
-  RxString selectedGender = LocalizationKeys.male.tr.obs;
 
   //gallery and camera picker bottomsheet options
   final List<Icon> galleryPickerSheetLeadingIcons = const [
@@ -56,7 +56,41 @@ class ProfileViewModel extends GetxController {
     super.onInit();
   }
 
-  void updateProfile() {}
+  void updateProfile() {
+    nameObserver.value = nameController.value.text;
+
+    // teacherProfile.teacherName = nameController.value.text;
+    // teacherProfile.teacherPhone = phoneController.value.text;
+    // teacherProfile.isTeacherMale =
+    //     selectedGender.value == LocalizationKeys.male.tr;
+    // teacherProfile.teacherMaterial = selectedMaterialIndex.value != null
+    //     ? materialsUI[selectedMaterialIndex.value!].value
+    //     : "";
+    // teacherProfile.teacherPhotoUrl = selectedProfileImageUrl.value;
+    // teacherProfile.teacherClasses = classes;
+
+    classObserver.value = classes;
+
+    _userRepo.updateStudentProfile(teacherProfile).then((value) async {
+      Get.snackbar(
+        'Success',
+        LocalizationKeys.profile_updated_successfully.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
+      );
+      await getStudent();
+      readStudentProfileDataFromStorage();
+    }).catchError((error) {
+      Get.snackbar(
+        'Error',
+        LocalizationKeys.profile_updated_error.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      );
+    });
+  }
 
   Future<void> getStudent() async {
     var studentDoc = await _userRepo.getStudent();
@@ -70,7 +104,7 @@ class ProfileViewModel extends GetxController {
         StorageKeys.studentBookingsNum, student.value.totalBookings);
     await _storage.write(StorageKeys.studentIsMale, student.value.male);
     await _storage.write(StorageKeys.studentArea, student.value.area);
-    await _storage.write(StorageKeys.studentCity, student.value.city);
+    await _storage.write(StorageKeys.studentCity, student.value.government);
     await _storage.write(StorageKeys.studentClass, student.value.classRoom);
     await _storage.write(
         StorageKeys.studentEducationalLevel, student.value.educationalLevel);
@@ -89,21 +123,50 @@ class ProfileViewModel extends GetxController {
     var studentEmail = _storage.read(StorageKeys.studentEmail);
     var studentPhone = _storage.read(StorageKeys.studentPhone);
     var studentBookingsNum = _storage.read(StorageKeys.studentBookingsNum);
+    var followsCount = _storage.read(StorageKeys.studentBookingsNum);
+    var favCount = _storage.read(StorageKeys.studentBookingsNum);
     var studentClass = _storage.read(StorageKeys.studentClass)!; //1,2,3
     var studentEducationalLevel =
         _storage.read(StorageKeys.studentEducationalLevel)!; // sec,prep
+    var studentGovernment =
+        _storage.read(StorageKeys.studentGovernment)!; //cairo
+    var studentArea = _storage.read(StorageKeys.studentArea)!; //dokki
 
     if (studentEducationalLevel ==
         FireStoreNames.educationLevelSecondaryValue) {
       selectedEducation = LocalizationKeys.education_secondary.tr.obs;
+      switch (studentClass) {
+        case 1:
+          selectedClass = LocalizationKeys.secondary_class_level_one.tr.obs;
+          break;
+        case 2:
+          selectedClass = LocalizationKeys.secondary_class_level_two.tr.obs;
+          break;
+        case 3:
+          selectedClass = LocalizationKeys.secondary_class_level_three.tr.obs;
+          break;
+      }
     } else {
       selectedEducation = LocalizationKeys.education_prep.tr.obs;
+      switch (studentClass) {
+        case 1:
+          selectedClass = LocalizationKeys.prep_class_level_one.tr.obs;
+          break;
+        case 2:
+          selectedClass = LocalizationKeys.prep_class_level_two.tr.obs;
+          break;
+        case 3:
+          selectedClass = LocalizationKeys.prep_class_level_three.tr.obs;
+          break;
+      }
     }
 
-    nameObserver.value = studentName;
     nameController.value.text = studentName;
     phoneController.value.text = studentPhone;
-    bookingsObserver.value = studentBookingsNum;
+    emailController.value.text = studentEmail;
+
+    nameObserver.value = studentName;
+    bookingsCountObserver.value = studentBookingsNum;
     selectedProfileImageUrl.value = studentPhotoUrl ?? "";
 
     selectedGender.value =

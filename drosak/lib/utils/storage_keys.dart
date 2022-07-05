@@ -7,7 +7,7 @@ class StorageKeys {
   static const String studentPhone = 'student_phone';
   static const String studentIsMale = 'student_is_male';
   static const String studentArea = 'student_area';
-  static const String studentCity = 'student_city';
+  static const String studentGovernment = 'student_government';
   static const String studentBookingsNum = 'student_bookings_num';
   static const String studentClass = 'student_class'; //1,2,3
   static const String studentEducationalLevel =

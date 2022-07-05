@@ -80,9 +80,13 @@ class LocalizationKeys {
 
   static var class_level = 'class_level';
 
-  static var class_level_one = 'class_level_one';
-  static var class_level_two = 'class_level_two';
-  static var class_level_three = 'class_level_three';
+  static const secondary_class_level_one = 'secondary_class_level_one';
+  static const secondary_class_level_two = 'secondary_class_level_two';
+  static const secondary_class_level_three = 'secondary_class_level_three';
+
+  static const prep_class_level_one = 'prep_class_level_one';
+  static const prep_class_level_two = 'prep_class_level_two';
+  static const prep_class_level_three = 'prep_class_level_three';
 
   static var home = 'home';
   static var notifications = 'notifications';
@@ -149,4 +153,9 @@ class LocalizationKeys {
   static var settings = 'settings';
 
   static var bookings = 'bookings';
+
+  static var profile_updated_error = 'profile_updated_error';
+  static var profile_updated_successfully = 'profile_updated_successfully';
+
+  static var email = 'email';
 }
