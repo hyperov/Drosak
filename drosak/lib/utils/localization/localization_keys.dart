@@ -158,4 +158,14 @@ class LocalizationKeys {
   static var profile_updated_successfully = 'profile_updated_successfully';
 
   static var email = 'email';
+
+  static var email_error_empty = 'email_error_empty';
+  static var email_error_format = 'email_error_format';
+
+  static var name_error_empty = 'name_error_empty';
+
+  static var app_error_update_data = 'app_error_update_data';
+
+  static var choose_government_error = 'choose_government_error';
+  static var choose_area_error = 'choose_area_error';
 }

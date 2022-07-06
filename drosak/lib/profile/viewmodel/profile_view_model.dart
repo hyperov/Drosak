@@ -29,7 +29,7 @@ class ProfileViewModel extends GetxController {
   var phoneController = TextEditingController().obs;
   var emailController = TextEditingController().obs;
 
-  var nameObserver = "".obs;
+  var nameObserver = "الاسم".obs;
 
   var followsCountObserver = 0.obs;
   var favCountObserver = 0.obs;
@@ -48,6 +48,10 @@ class ProfileViewModel extends GetxController {
   ];
 
   RxString selectedGalleryPickerSheetText = LocalizationKeys.gallery.tr.obs;
+
+  final errMessagePhoneTextField = RxnString();
+  final errMessageEmailTextField = RxnString();
+  final errMessageNameTextField = RxnString();
 
   @override
   Future<void> onInit() async {
@@ -69,27 +73,25 @@ class ProfileViewModel extends GetxController {
     // teacherProfile.teacherPhotoUrl = selectedProfileImageUrl.value;
     // teacherProfile.teacherClasses = classes;
 
-    classObserver.value = classes;
-
-    _userRepo.updateStudentProfile(teacherProfile).then((value) async {
-      Get.snackbar(
-        'Success',
-        LocalizationKeys.profile_updated_successfully.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        duration: const Duration(seconds: 2),
-      );
-      await getStudent();
-      readStudentProfileDataFromStorage();
-    }).catchError((error) {
-      Get.snackbar(
-        'Error',
-        LocalizationKeys.profile_updated_error.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        duration: const Duration(seconds: 2),
-      );
-    });
+    // _userRepo.updateStudentProfile(teacherProfile).then((value) async {
+    //   Get.snackbar(
+    //     'Success',
+    //     LocalizationKeys.profile_updated_successfully.tr,
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     backgroundColor: Colors.green,
+    //     duration: const Duration(seconds: 2),
+    //   );
+    //   await getStudent();
+    //   readStudentProfileDataFromStorage();
+    // }).catchError((error) {
+    //   Get.snackbar(
+    //     'Error',
+    //     LocalizationKeys.profile_updated_error.tr,
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     backgroundColor: Colors.red,
+    //     duration: const Duration(seconds: 2),
+    //   );
+    // });
   }
 
   Future<void> getStudent() async {
@@ -104,7 +106,8 @@ class ProfileViewModel extends GetxController {
         StorageKeys.studentBookingsNum, student.value.totalBookings);
     await _storage.write(StorageKeys.studentIsMale, student.value.male);
     await _storage.write(StorageKeys.studentArea, student.value.area);
-    await _storage.write(StorageKeys.studentCity, student.value.government);
+    await _storage.write(
+        StorageKeys.studentGovernment, student.value.government);
     await _storage.write(StorageKeys.studentClass, student.value.classRoom);
     await _storage.write(
         StorageKeys.studentEducationalLevel, student.value.educationalLevel);
@@ -123,14 +126,20 @@ class ProfileViewModel extends GetxController {
     var studentEmail = _storage.read(StorageKeys.studentEmail);
     var studentPhone = _storage.read(StorageKeys.studentPhone);
     var studentBookingsNum = _storage.read(StorageKeys.studentBookingsNum);
-    var followsCount = _storage.read(StorageKeys.studentBookingsNum);
-    var favCount = _storage.read(StorageKeys.studentBookingsNum);
+    var followsCount = _storage.read(StorageKeys.followsCount);
+    var favCount = _storage.read(StorageKeys.favCount);
     var studentClass = _storage.read(StorageKeys.studentClass)!; //1,2,3
     var studentEducationalLevel =
         _storage.read(StorageKeys.studentEducationalLevel)!; // sec,prep
     var studentGovernment =
         _storage.read(StorageKeys.studentGovernment)!; //cairo
     var studentArea = _storage.read(StorageKeys.studentArea)!; //dokki
+
+    nameController.value.text = studentName;
+    phoneController.value.text = studentPhone.isBlank
+        ? ""
+        : studentPhone.toString().replaceAll("+2", "");
+    emailController.value.text = studentEmail;
 
     if (studentEducationalLevel ==
         FireStoreNames.educationLevelSecondaryValue) {
@@ -161,16 +170,20 @@ class ProfileViewModel extends GetxController {
       }
     }
 
-    nameController.value.text = studentName;
-    phoneController.value.text = studentPhone;
-    emailController.value.text = studentEmail;
+    selectedGender.value =
+        isStudentMale ? LocalizationKeys.male.tr : LocalizationKeys.female.tr;
+
+    selectedGovernmentName.value = studentGovernment.isBlank
+        ? LocalizationKeys.choose_government.tr
+        : studentGovernment;
+
+    selectedAreaName.value =
+        studentArea.isBlank ? LocalizationKeys.choose_area.tr : studentArea;
 
     nameObserver.value = studentName;
     bookingsCountObserver.value = studentBookingsNum;
+    followsCountObserver.value = followsCount;
     selectedProfileImageUrl.value = studentPhotoUrl ?? "";
-
-    selectedGender.value =
-        isStudentMale ? LocalizationKeys.male.tr : LocalizationKeys.female.tr;
   }
 
   void logout() {
@@ -189,5 +202,96 @@ class ProfileViewModel extends GetxController {
         duration: const Duration(seconds: 2),
       );
     });
+  }
+
+  String? validateProfile() {
+    if (_validateName() == null &&
+        _validatePhone() == null &&
+        _validateEmail() == null &&
+        _validateGovernment() == null &&
+        _validateArea() == null) {
+      return null;
+    }
+    return LocalizationKeys.profile_updated_error.tr;
+  }
+
+  String? _validatePhone() {
+    var phone = phoneController.value.text;
+    if (phone.isEmpty) {
+      errMessagePhoneTextField.value =
+          LocalizationKeys.phone_number_error_empty.tr;
+      return LocalizationKeys.phone_number_error_empty.tr;
+    }
+    if (phone.length != 11) {
+      errMessagePhoneTextField.value =
+          LocalizationKeys.phone_number_error_length.tr;
+      return LocalizationKeys.phone_number_error_length.tr;
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
+      errMessagePhoneTextField.value =
+          LocalizationKeys.phone_number_error_format.tr;
+      return LocalizationKeys.phone_number_error_format.tr;
+    }
+    errMessagePhoneTextField.value = null;
+    return null;
+  }
+
+  String? _validateEmail() {
+    var email = emailController.value.text;
+    if (email.isEmpty) {
+      errMessageEmailTextField.value = LocalizationKeys.email_error_empty.tr;
+      return LocalizationKeys.email_error_empty.tr;
+    }
+    if (!RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        .hasMatch(email)) {
+      errMessageEmailTextField.value = LocalizationKeys.email_error_format.tr;
+      return LocalizationKeys.email_error_format.tr;
+    }
+    errMessageEmailTextField.value = null;
+    return null;
+  }
+
+  String? _validateName() {
+    var name = nameController.value.text;
+    if (name.isEmpty) {
+      errMessageNameTextField.value = LocalizationKeys.name_error_empty.tr;
+      return LocalizationKeys.name_error_empty.tr;
+    }
+    errMessageNameTextField.value = null;
+    return null;
+  }
+
+  String? _validateGovernment() {
+    var government = selectedGovernmentName.value;
+    if (government != LocalizationKeys.choose_government.tr) {
+      return null;
+    } else {
+      Get.snackbar(
+        LocalizationKeys.app_error_update_data.tr,
+        LocalizationKeys.choose_government_error.tr,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 2),
+      );
+      return LocalizationKeys.choose_government.tr;
+    }
+  }
+
+  String? _validateArea() {
+    var area = selectedAreaName.value;
+    if (area != LocalizationKeys.choose_area.tr) {
+      return null;
+    } else {
+      Get.snackbar(
+        LocalizationKeys.app_error_update_data.tr,
+        LocalizationKeys.choose_area_error.tr,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 2),
+      );
+      return LocalizationKeys.choose_area.tr;
+    }
   }
 }

@@ -100,6 +100,14 @@ class Languages extends Translations {
           LocalizationKeys.profile_updated_error: 'Profile Updated Error',
           LocalizationKeys.profile_updated_successfully:
               'Profile Updated Successfully',
+
+          LocalizationKeys.email_error_empty: 'Email is empty',
+          LocalizationKeys.email_error_format: 'Email in wrong format',
+          LocalizationKeys.name_error_empty: 'Name is empty',
+          LocalizationKeys.app_error_update_data: 'Error updating data',
+          LocalizationKeys.choose_government_error:
+              'you must choose government',
+          LocalizationKeys.choose_area_error: 'you must choose area',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -197,6 +205,12 @@ class Languages extends Translations {
               'حدث خطأ أثناء تحديث الملف الشخصي',
           LocalizationKeys.profile_updated_successfully:
               'تم تحديث الملف الشخصي بنجاح',
+          LocalizationKeys.email_error_empty: 'البريد الإلكتروني فاضى',
+          LocalizationKeys.email_error_format: 'البريد الإلكتروني مش صح',
+          LocalizationKeys.name_error_empty: 'الاسم فاضى',
+          LocalizationKeys.app_error_update_data: 'خطأ في تحديث البيانات',
+          LocalizationKeys.choose_government_error: 'يجب اختيار المحافظة',
+          LocalizationKeys.choose_area_error: 'يجب اختيار المنطقة',
         },
       };
 }

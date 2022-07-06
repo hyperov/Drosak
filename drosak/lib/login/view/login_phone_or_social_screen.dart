@@ -80,8 +80,8 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                           keyboardType: TextInputType.phone,
                           controller: _loginViewModel.phoneController,
                           decoration: InputDecoration(
-                            hintText: LocalizationKeys.phone_number_hint.tr,
                             label: Text(LocalizationKeys.phone_number.tr),
+                            hintText: LocalizationKeys.phone_number_hint.tr,
                             errorText:
                                 _loginViewModel.errMessagePhoneTextField.value,
                             alignLabelWithHint: true,

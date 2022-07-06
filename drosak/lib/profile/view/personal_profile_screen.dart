@@ -1,4 +1,3 @@
-import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/common/widgets/fullwidth_textfield.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
@@ -78,7 +77,7 @@ class PersonalProfileScreen extends StatelessWidget {
                                 ).marginAll(16);
                               }))),
                     const Positioned(
-                      child: const CircleAvatar(
+                      child: CircleAvatar(
                         child: Icon(Icons.add, size: 20, color: Colors.white),
                         radius: 20,
                         backgroundColor: Colors.green,
@@ -93,30 +92,50 @@ class PersonalProfileScreen extends StatelessWidget {
           const SizedBox(height: 30),
           const Text('اضف صورة'),
           const SizedBox(height: 20),
-          TextField(
+          Obx(() => TextField(
               controller: _profileViewModel.nameController.value,
+              onChanged: (value) =>
+                  _profileViewModel.errMessageNameTextField.value = null,
+              textInputAction: TextInputAction.next,
+              textAlign: TextAlign.start,
+              keyboardType: TextInputType.name,
               decoration: InputDecoration(
                   labelText: 'الاسم الكامل',
                   hintText: 'الاسم الكامل ثلاثى',
+                  errorText: _profileViewModel.errMessageNameTextField.value,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.blue)))),
+                      borderSide: const BorderSide(color: Colors.blue))))),
           const SizedBox(height: 20),
-          TextField(
+          Obx(() => TextField(
               controller: _profileViewModel.phoneController.value,
+              onChanged: (value) =>
+                  _profileViewModel.errMessagePhoneTextField.value = null,
+              textInputAction: TextInputAction.next,
+              textAlign: TextAlign.start,
+              keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                   labelText: LocalizationKeys.phone_number.tr,
+                  hintText: '011xxxxxxxx',
+                  errorText: _profileViewModel.errMessagePhoneTextField.value,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.blue)))),
+                      borderSide: const BorderSide(color: Colors.blue))))),
           const SizedBox(height: 20),
-          TextField(
+          Obx(() => TextField(
               controller: _profileViewModel.emailController.value,
+              onChanged: (value) =>
+                  _profileViewModel.errMessageEmailTextField.value = null,
+              textInputAction: TextInputAction.next,
+              textAlign: TextAlign.start,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                   labelText: LocalizationKeys.email.tr,
+                  hintText: 'ali@gmail.com',
+                  errorText: _profileViewModel.errMessageEmailTextField.value,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.blue)))),
+                      borderSide: const BorderSide(color: Colors.blue))))),
           const SizedBox(height: 20),
           Row(children: [
             Expanded(
@@ -125,36 +144,19 @@ class PersonalProfileScreen extends StatelessWidget {
               children: [
                 Text(LocalizationKeys.choose_government.tr),
                 const SizedBox(height: 8),
-                Container(
-                  //choose government
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(left: 16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.blue)),
-                  child: InkWell(
-                    onTap: () {
-                      showListBottomSheet(
-                          leadingIcons: [
-                            const Icon(Icons.location_city,
-                                color: Colors.blue, size: 20),
-                            const Icon(Icons.location_city,
-                                color: Colors.blue, size: 20)
-                          ],
-                          texts: [
-                            LocalizationKeys.government_cairo.tr,
-                            LocalizationKeys.government_giza.tr
-                          ],
-                          selectedText:
-                              _profileViewModel.selectedGovernmentName);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child:
-                          Text(_profileViewModel.selectedGovernmentName.value),
-                    ),
+                FullWidthTextField(leadingIcons: const [
+                  Icon(
+                    Icons.location_city,
+                    color: Colors.deepPurpleAccent,
                   ),
-                ),
+                  Icon(
+                    Icons.location_city,
+                    color: Colors.deepPurpleAccent,
+                  )
+                ], texts: [
+                  LocalizationKeys.government_cairo.tr,
+                  LocalizationKeys.government_giza.tr
+                ], selectedText: _profileViewModel.selectedGovernmentName),
               ],
             )),
             Expanded(
@@ -166,30 +168,19 @@ class PersonalProfileScreen extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 16),
                 ),
                 const SizedBox(height: 8),
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(right: 16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.blue)),
-                  child: InkWell(
-                    onTap: () {
-                      showListBottomSheet(leadingIcons: [
-                        const Icon(Icons.location_city,
-                            color: Colors.blue, size: 20),
-                        const Icon(Icons.location_city,
-                            color: Colors.blue, size: 20)
-                      ], texts: [
-                        LocalizationKeys.area_saft.tr,
-                        LocalizationKeys.area_dokki.tr
-                      ], selectedText: _profileViewModel.selectedAreaName);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(_profileViewModel.selectedAreaName.value),
-                    ),
+                FullWidthTextField(leadingIcons: const [
+                  Icon(
+                    Icons.location_city,
+                    color: Colors.deepPurpleAccent,
                   ),
-                ),
+                  Icon(
+                    Icons.location_city,
+                    color: Colors.deepPurpleAccent,
+                  )
+                ], texts: [
+                  LocalizationKeys.area_saft.tr,
+                  LocalizationKeys.area_dokki.tr
+                ], selectedText: _profileViewModel.selectedAreaName),
               ],
             )),
           ]),
@@ -202,7 +193,7 @@ class PersonalProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           FullWidthTextField(
-              leadingIcons: [const Icon(Icons.male), const Icon(Icons.female)],
+              leadingIcons: const [Icon(Icons.male), Icon(Icons.female)],
               texts: [LocalizationKeys.male.tr, LocalizationKeys.female.tr],
               selectedText: _profileViewModel.selectedGender),
           const SizedBox(height: 16),
@@ -214,9 +205,9 @@ class PersonalProfileScreen extends StatelessWidget {
             alignment: AlignmentDirectional.centerStart,
           ),
           const SizedBox(height: 8),
-          FullWidthTextField(leadingIcons: [
-            const Icon(Icons.school),
-            const Icon(Icons.school)
+          FullWidthTextField(leadingIcons: const [
+            Icon(Icons.school),
+            Icon(Icons.school)
           ], texts: [
             LocalizationKeys.education_secondary.tr,
             LocalizationKeys.education_prep.tr
@@ -230,19 +221,27 @@ class PersonalProfileScreen extends StatelessWidget {
             alignment: AlignmentDirectional.centerStart,
           ),
           const SizedBox(height: 8),
-          FullWidthTextField(leadingIcons: [
-            const Icon(Icons.class_),
-            const Icon(Icons.class_),
-            const Icon(Icons.class_)
+          FullWidthTextField(leadingIcons: const [
+            Icon(Icons.class_),
+            Icon(Icons.class_),
+            Icon(Icons.class_),
+            Icon(Icons.class_),
+            Icon(Icons.class_),
+            Icon(Icons.class_)
           ], texts: [
-            LocalizationKeys.class_level_one.tr,
-            LocalizationKeys.class_level_two.tr,
-            LocalizationKeys.class_level_three.tr,
+            LocalizationKeys.secondary_class_level_one.tr,
+            LocalizationKeys.secondary_class_level_two.tr,
+            LocalizationKeys.secondary_class_level_three.tr,
+            LocalizationKeys.prep_class_level_one.tr,
+            LocalizationKeys.prep_class_level_two.tr,
+            LocalizationKeys.prep_class_level_three.tr,
           ], selectedText: _profileViewModel.selectedClass),
           const SizedBox(height: 32),
           ElevatedButton(
               onPressed: () {
-                _profileViewModel.updateProfile();
+                if (_profileViewModel.validateProfile() == null) {
+                  _profileViewModel.updateProfile();
+                }
               },
               style: ElevatedButton.styleFrom(
                 onPrimary: Colors.blue,
