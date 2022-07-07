@@ -104,6 +104,9 @@ class ProfileViewModel extends GetxController {
     await _storage.write(StorageKeys.studentPhone, student.value.phone);
     await _storage.write(
         StorageKeys.studentBookingsNum, student.value.totalBookings);
+    await _storage.write(StorageKeys.followsCount, student.value.followsCount);
+    await _storage.write(StorageKeys.favCount, student.value.favCount);
+
     await _storage.write(StorageKeys.studentIsMale, student.value.male);
     await _storage.write(StorageKeys.studentArea, student.value.area);
     await _storage.write(
@@ -130,14 +133,14 @@ class ProfileViewModel extends GetxController {
     var favCount = _storage.read(StorageKeys.favCount);
     var studentClass = _storage.read(StorageKeys.studentClass)!; //1,2,3
     var studentEducationalLevel =
-        _storage.read(StorageKeys.studentEducationalLevel)!; // sec,prep
+        _storage.read<String>(StorageKeys.studentEducationalLevel)!; // sec,prep
     var studentGovernment =
-        _storage.read(StorageKeys.studentGovernment)!; //cairo
-    var studentArea = _storage.read(StorageKeys.studentArea)!; //dokki
+        _storage.read<String>(StorageKeys.studentGovernment)!; //cairo
+    var studentArea = _storage.read<String>(StorageKeys.studentArea)!; //dokki
 
     nameController.value.text = studentName;
-    phoneController.value.text = studentPhone.isBlank
-        ? ""
+    phoneController.value.text = (studentPhone as String).isEmpty
+        ? studentPhone
         : studentPhone.toString().replaceAll("+2", "");
     emailController.value.text = studentEmail;
 
@@ -173,12 +176,12 @@ class ProfileViewModel extends GetxController {
     selectedGender.value =
         isStudentMale ? LocalizationKeys.male.tr : LocalizationKeys.female.tr;
 
-    selectedGovernmentName.value = studentGovernment.isBlank
+    selectedGovernmentName.value = studentGovernment.isEmpty
         ? LocalizationKeys.choose_government.tr
         : studentGovernment;
 
     selectedAreaName.value =
-        studentArea.isBlank ? LocalizationKeys.choose_area.tr : studentArea;
+        studentArea.isEmpty ? LocalizationKeys.choose_area.tr : studentArea;
 
     nameObserver.value = studentName;
     bookingsCountObserver.value = studentBookingsNum;

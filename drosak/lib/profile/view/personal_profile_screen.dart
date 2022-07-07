@@ -36,8 +36,7 @@ class PersonalProfileScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-          child: Obx(
-        () => Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           const SizedBox(height: 50),
           Hero(
             tag: 'profile_image_tag',
@@ -260,7 +259,7 @@ class PersonalProfileScreen extends StatelessWidget {
               )),
           const SizedBox(height: 32),
         ]).marginSymmetric(horizontal: 16),
-      )),
+      ),
     );
   }
 

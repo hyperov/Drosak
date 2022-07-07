@@ -71,7 +71,7 @@ class LoginViewModel extends GetxController {
         // if (isFirstTimeUserLogin!) {
         if (true) {
           //debug
-          Get.off(() => PersonalProfileScreen());
+          Get.offAll(() => PersonalProfileScreen());
         } else {
           Get.off(() => HomeScreen());
         }

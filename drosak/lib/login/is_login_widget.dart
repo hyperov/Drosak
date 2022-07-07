@@ -1,6 +1,4 @@
-import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/profile/view/personal_profile_screen.dart';
-import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,12 +18,15 @@ class IsLoginWidget extends StatelessWidget {
       initialData: _auth.currentUser,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var isFirstTimeLogin =
-              _storage.read<bool>(StorageKeys.isFirstTimeLogin);
-          if (isFirstTimeLogin == null) {
-            return HomeScreen();
-          }
-          return isFirstTimeLogin ? PersonalProfileScreen() : HomeScreen();
+          //debug only
+
+          // var isFirstTimeLogin =
+          //     _storage.read<bool>(StorageKeys.isFirstTimeLogin);
+          // if (isFirstTimeLogin == null) {
+          //   return HomeScreen();
+          // }
+          // return isFirstTimeLogin ? PersonalProfileScreen() : HomeScreen();
+          return PersonalProfileScreen();
         } else {
           return PhoneOrSocialLoginScreen();
         }

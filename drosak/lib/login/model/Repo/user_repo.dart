@@ -42,7 +42,7 @@ class UserRepo {
 
   Future<DocumentSnapshot<Student>> getStudent() => FirebaseFirestore.instance
       .collection(FireStoreNames.collectionStudents)
-      .doc(_storage.read(StorageKeys.studentId))
+      .doc(FirebaseAuth.instance.currentUser?.uid)
       .withConverter<Student>(
         fromFirestore: (snapshot, _) => Student.fromJson(snapshot.data()!),
         toFirestore: (model, _) => model.toJson(),
