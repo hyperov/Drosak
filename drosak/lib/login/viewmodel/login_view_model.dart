@@ -68,8 +68,8 @@ class LoginViewModel extends GetxController {
         var isFirstTimeUserLogin =
             _storage.read<bool>(StorageKeys.isFirstTimeLogin);
 
-        // if (isFirstTimeUserLogin!) {
-        if (true) {
+        if (isFirstTimeUserLogin!) {
+          // if (true) {
           //debug
           Get.offAll(() => PersonalProfileScreen());
         } else {
@@ -108,7 +108,7 @@ class LoginViewModel extends GetxController {
           return;
         }
 
-        loginUserToFireStore(user!);
+        await loginUserToFireStore(user!);
       },
       verificationFailed: (FirebaseAuthException e) {
         isLoading.value = false;
@@ -178,11 +178,11 @@ class LoginViewModel extends GetxController {
     );
   }
 
-  void loginUserToFireStore(User user) {
+  Future<void> loginUserToFireStore(User user) async {
     var isFirstTimeLogin =
         user.metadata.creationTime!.compareTo(user.metadata.lastSignInTime!);
 
-    _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin == 0);
+    await _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin == 0);
 
     if (isFirstTimeLogin == 0) {
       _insertUserToFirestore(user);
@@ -244,7 +244,7 @@ class LoginViewModel extends GetxController {
       return;
     }
 
-    loginUserToFireStore(user!);
+    await loginUserToFireStore(user!);
   }
 
   signInWithGoogle() async {
@@ -276,7 +276,7 @@ class LoginViewModel extends GetxController {
       return;
     }
 
-    loginUserToFireStore(user!);
+    await loginUserToFireStore(user!);
   }
 
   signInWithFacebook() async {
@@ -354,7 +354,7 @@ class LoginViewModel extends GetxController {
       }
     }).onError((error, stackTrace) {
       _onSnackBarError(
-          "{$Logs.firestore_error_insert_user} ${error.toString()}",
+          "${Logs.log_firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
     });
   }
