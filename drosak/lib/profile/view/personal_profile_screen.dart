@@ -36,6 +36,7 @@ class PersonalProfileScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           const SizedBox(height: 50),
           Hero(
