@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FullWidthTextField extends StatelessWidget {
-  FullWidthTextField(
+  const FullWidthTextField(
       {Key? key,
       required this.leadingIcons,
       required this.texts,

@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileViewModel extends GetxController {
   final UserRepo _userRepo = Get.find();
@@ -55,6 +56,7 @@ class ProfileViewModel extends GetxController {
   final errMessageNameTextField = RxnString();
 
   late StudentProfileUiModel studentProfile;
+  final ImagePicker _imagePicker = ImagePicker();
 
   var studentClass;
 
@@ -121,19 +123,20 @@ class ProfileViewModel extends GetxController {
           FireStoreNames.educationLevelPrepValue;
     }
 
-    switch (selectedClassText.value) {
-      case LocalizationKeys.secondary_class_level_one:
-      case LocalizationKeys.prep_class_level_one:
-        studentProfile.studentClass = 1;
-        break;
-      case LocalizationKeys.secondary_class_level_two:
-      case LocalizationKeys.prep_class_level_two:
-        studentProfile.studentClass = 2;
-        break;
-      case LocalizationKeys.secondary_class_level_three:
-      case LocalizationKeys.prep_class_level_three:
-        studentProfile.studentClass = 3;
-        break;
+    if (selectedClassText.value ==
+            LocalizationKeys.secondary_class_level_one.tr ||
+        selectedClassText.value == LocalizationKeys.prep_class_level_one.tr) {
+      studentProfile.studentClass = 1;
+    }
+    if (selectedClassText.value ==
+            LocalizationKeys.secondary_class_level_two.tr ||
+        selectedClassText.value == LocalizationKeys.prep_class_level_two.tr) {
+      studentProfile.studentClass = 2;
+    }
+    if (selectedClassText.value ==
+            LocalizationKeys.secondary_class_level_three.tr ||
+        selectedClassText.value == LocalizationKeys.prep_class_level_three.tr) {
+      studentProfile.studentClass = 3;
     }
 
     studentProfile.studentGovernment = selectedGovernmentName.value;
@@ -262,7 +265,7 @@ class ProfileViewModel extends GetxController {
     bookingsCountObserver.value = studentBookingsNum;
     followsCountObserver.value = followsCount;
     favCountObserver.value = favCount;
-    selectedProfileImageUrl.value = studentPhotoUrl ?? "";
+    selectedProfileImageUrl.value = studentPhotoUrl;
 
     studentProfile = StudentProfileUiModel(
         studentId: studentId,
@@ -383,6 +386,42 @@ class ProfileViewModel extends GetxController {
         duration: Duration(seconds: 2),
       );
       return LocalizationKeys.choose_area.tr;
+    }
+  }
+
+  pickImage() async {
+    var imageSource =
+        selectedGalleryPickerSheetText.value == LocalizationKeys.camera.tr
+            ? ImageSource.camera
+            : ImageSource.gallery;
+    var image = await _imagePicker.pickImage(
+      source: imageSource,
+      imageQuality: 30,
+    );
+
+    if (image != null) {
+      _userRepo.uploadStudentImage(image).then((imageUrl) {
+        selectedProfileImageUrl.value = imageUrl;
+        Get.snackbar(
+          'Success',
+          LocalizationKeys.profile_image_updated_successfully.tr,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 2),
+        );
+        // await _homeViewModel.getTeacher();
+        // readTeacherProfileDataFromStorage();
+      }).catchError(
+        (error) {
+          Get.snackbar(
+            'Error',
+            LocalizationKeys.profile_image_updated_error.tr,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+          );
+        },
+      );
     }
   }
 }

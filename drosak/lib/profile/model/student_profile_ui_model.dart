@@ -26,7 +26,7 @@ class StudentProfileUiModel {
     return StudentProfileUiModel(
       studentId: json['id'],
       studentName: json['name'],
-      studentPhotoUrl: json['photoUrL'],
+      studentPhotoUrl: json['photoUrl'],
       studentEmail: json['email'],
       studentPhone: json['phone'],
       studentGovernment: json['gov'],
@@ -41,7 +41,7 @@ class StudentProfileUiModel {
     return {
       'id': studentId,
       'name': studentName,
-      'photoUrL': studentPhotoUrl,
+      'photoUrl': studentPhotoUrl,
       'email': studentEmail,
       'phone': studentPhone,
       'gov': studentGovernment,

@@ -53,6 +53,8 @@ dependencies:
   flutter_svg: ^1.1.0
   timer_button: ^2.0.0
   get_storage: ^2.0.3
+  image_picker: ^0.8.5+3
+  firebase_storage: ^10.3.1
 
 flutter_icons:
   ios: false

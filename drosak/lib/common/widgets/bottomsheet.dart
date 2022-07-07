@@ -6,24 +6,32 @@ import 'package:get/get.dart';
 showListBottomSheet(
     {required List<Icon> leadingIcons,
     required List<String> texts,
-    required RxString selectedText}) {
+    required RxString selectedText,
+    Function()? onTapAction}) {
   Get.bottomSheet(
-    ListView.builder(
-        itemCount: leadingIcons.length,
-        itemBuilder: (context, index) {
-          return Obx(() => ListTile(
-                leading: leadingIcons[index],
-                title: Text(texts[index]),
-                selected: selectedText.value == texts[index],
-                onTap: () {
-                  selectedText.value = texts[index];
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  Get.back();
-                },
-              ));
-        }),
-    backgroundColor: Colors.white,
-  );
+      ListView.builder(
+          shrinkWrap: true,
+          itemCount: leadingIcons.length,
+          itemBuilder: (context, index) {
+            return Obx(() => ListTile(
+                  leading: leadingIcons[index],
+                  title: Text(texts[index]),
+                  selected: selectedText.value == texts[index],
+                  onTap: () {
+                    selectedText.value = texts[index];
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    Get.back();
+                    if (onTapAction != null) {
+                      onTapAction();
+                    }
+                  },
+                ));
+          }),
+      backgroundColor: Colors.white,
+      isDismissible: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ));
 }
 
 showFilterBottomSheet(FilterViewModel filterViewModel) {

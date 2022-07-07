@@ -1,3 +1,4 @@
+import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/common/widgets/fullwidth_textfield.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
@@ -55,11 +56,12 @@ class PersonalProfileScreen extends StatelessWidget {
                         clipBehavior: Clip.hardEdge,
                         shape: const CircleBorder(),
                         child: Obx(() => _profileViewModel
-                                .selectedProfileImageUrl.isBlank!
+                                .selectedProfileImageUrl.isEmpty
                             ? SvgPicture.asset(
                                 AssetsManager.profilePlaceHolder,
-                                width: 70,
-                                height: 70,
+                                width: 100,
+                                height: 100,
+                                color: Colors.white,
                                 fit: BoxFit.cover,
                               )
                             : Image.network(
@@ -78,9 +80,9 @@ class PersonalProfileScreen extends StatelessWidget {
                               }))),
                     const Positioned(
                       child: CircleAvatar(
-                        child: Icon(Icons.add, size: 20, color: Colors.white),
+                        child: Icon(Icons.add, size: 25, color: Colors.white),
                         radius: 20,
-                        backgroundColor: Colors.green,
+                        backgroundColor: Colors.deepPurpleAccent,
                       ),
                       bottom: -20,
                     ),
@@ -268,5 +270,11 @@ class PersonalProfileScreen extends StatelessWidget {
     );
   }
 
-  openGalleryOrCameraSelectorSheet() {}
+  void openGalleryOrCameraSelectorSheet() {
+    showListBottomSheet(
+        leadingIcons: _profileViewModel.galleryPickerSheetLeadingIcons,
+        texts: _profileViewModel.galleryPickerSheetLeadingLeadingTexts,
+        selectedText: _profileViewModel.selectedGalleryPickerSheetText,
+        onTapAction: () => _profileViewModel.pickImage());
+  }
 }

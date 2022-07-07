@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/extensions/repo_extensions.dart';
 import 'package:drosak/login/model/entity/student.dart';
@@ -5,7 +7,9 @@ import 'package:drosak/profile/model/student_profile_ui_model.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserRepo {
   final _storage = GetStorage();
@@ -55,5 +59,15 @@ class UserRepo {
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .set(studentProfile.toJson(), SetOptions(merge: true));
+  }
+
+  Future<String> uploadStudentImage(XFile? image) async {
+    var file = File(image!.path);
+
+    final storageRef = FirebaseStorage.instance.ref();
+    final imagesTeacherProfileRef =
+        storageRef.child("student_profiles/profile.jpg");
+    var taskSnapshot = await imagesTeacherProfileRef.putFile(file);
+    return taskSnapshot.ref.getDownloadURL();
   }
 }
