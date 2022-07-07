@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/extensions/repo_extensions.dart';
 import 'package:drosak/login/model/entity/student.dart';
+import 'package:drosak/profile/model/student_profile_ui_model.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,4 +49,11 @@ class UserRepo {
         toFirestore: (model, _) => model.toJson(),
       )
       .get();
+
+  Future<void> updateStudentProfile(StudentProfileUiModel studentProfile) {
+    return FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionStudents)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .set(studentProfile.toJson(), SetOptions(merge: true));
+  }
 }

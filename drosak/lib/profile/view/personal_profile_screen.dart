@@ -211,7 +211,7 @@ class PersonalProfileScreen extends StatelessWidget {
           ], texts: [
             LocalizationKeys.education_secondary.tr,
             LocalizationKeys.education_prep.tr
-          ], selectedText: _profileViewModel.selectedEducation),
+          ], selectedText: _profileViewModel.selectedEducationText),
           const SizedBox(height: 16),
           Align(
             //choose education
@@ -221,21 +221,25 @@ class PersonalProfileScreen extends StatelessWidget {
             alignment: AlignmentDirectional.centerStart,
           ),
           const SizedBox(height: 8),
-          FullWidthTextField(leadingIcons: const [
-            Icon(Icons.class_),
-            Icon(Icons.class_),
-            Icon(Icons.class_),
-            Icon(Icons.class_),
-            Icon(Icons.class_),
-            Icon(Icons.class_)
-          ], texts: [
-            LocalizationKeys.secondary_class_level_one.tr,
-            LocalizationKeys.secondary_class_level_two.tr,
-            LocalizationKeys.secondary_class_level_three.tr,
-            LocalizationKeys.prep_class_level_one.tr,
-            LocalizationKeys.prep_class_level_two.tr,
-            LocalizationKeys.prep_class_level_three.tr,
-          ], selectedText: _profileViewModel.selectedClass),
+          Obx(() => FullWidthTextField(
+                  leadingIcons: const [
+                    Icon(Icons.class_),
+                    Icon(Icons.class_),
+                    Icon(Icons.class_)
+                  ],
+                  texts: _profileViewModel.selectedEducationText.value ==
+                          LocalizationKeys.education_secondary.tr
+                      ? [
+                          LocalizationKeys.secondary_class_level_one.tr,
+                          LocalizationKeys.secondary_class_level_two.tr,
+                          LocalizationKeys.secondary_class_level_three.tr,
+                        ]
+                      : [
+                          LocalizationKeys.prep_class_level_one.tr,
+                          LocalizationKeys.prep_class_level_two.tr,
+                          LocalizationKeys.prep_class_level_three.tr,
+                        ],
+                  selectedText: _profileViewModel.selectedClassText)),
           const SizedBox(height: 32),
           ElevatedButton(
               onPressed: () {

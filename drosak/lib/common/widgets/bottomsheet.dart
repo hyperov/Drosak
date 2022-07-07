@@ -17,6 +17,7 @@ showListBottomSheet(
                 selected: selectedText.value == texts[index],
                 onTap: () {
                   selectedText.value = texts[index];
+                  FocusManager.instance.primaryFocus?.unfocus();
                   Get.back();
                 },
               ));

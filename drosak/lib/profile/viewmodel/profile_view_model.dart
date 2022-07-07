@@ -1,6 +1,7 @@
 import 'package:drosak/login/is_login_widget.dart';
 import 'package:drosak/login/model/Repo/user_repo.dart';
 import 'package:drosak/login/model/entity/student.dart';
+import 'package:drosak/profile/model/student_profile_ui_model.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/storage_keys.dart';
@@ -18,9 +19,9 @@ class ProfileViewModel extends GetxController {
   // profile Ui texts
   RxString selectedGovernmentName = LocalizationKeys.choose_government.tr.obs;
   RxString selectedAreaName = LocalizationKeys.choose_area.tr.obs;
-  RxString selectedEducation =
+  RxString selectedEducationText =
       LocalizationKeys.education_secondary.tr.obs; // ثانوى
-  RxString selectedClass =
+  RxString selectedClassText =
       LocalizationKeys.secondary_class_level_one.tr.obs; // الصف الاول الثانوى
   RxString selectedGender = LocalizationKeys.male.tr.obs;
 
@@ -53,6 +54,10 @@ class ProfileViewModel extends GetxController {
   final errMessageEmailTextField = RxnString();
   final errMessageNameTextField = RxnString();
 
+  late StudentProfileUiModel studentProfile;
+
+  var studentClass;
+
   @override
   Future<void> onInit() async {
     await getStudent();
@@ -60,38 +65,102 @@ class ProfileViewModel extends GetxController {
     super.onInit();
   }
 
+  @override
+  onReady() async {
+    super.onReady();
+    ever(selectedEducationText, (callback) {
+      if (selectedEducationText.value ==
+          LocalizationKeys.education_secondary.tr) {
+        switch (studentClass) {
+          case 1:
+            selectedClassText.value =
+                LocalizationKeys.secondary_class_level_one.tr;
+            break;
+          case 2:
+            selectedClassText.value =
+                LocalizationKeys.secondary_class_level_two.tr;
+            break;
+          case 3:
+            selectedClassText.value =
+                LocalizationKeys.secondary_class_level_three.tr;
+            break;
+        }
+      } else {
+        switch (studentClass) {
+          case 1:
+            selectedClassText.value = LocalizationKeys.prep_class_level_one.tr;
+            break;
+          case 2:
+            selectedClassText.value = LocalizationKeys.prep_class_level_two.tr;
+            break;
+          case 3:
+            selectedClassText.value =
+                LocalizationKeys.prep_class_level_three.tr;
+            break;
+        }
+      }
+    });
+  }
+
   void updateProfile() {
+    //update ui locally
     nameObserver.value = nameController.value.text;
 
-    // teacherProfile.teacherName = nameController.value.text;
-    // teacherProfile.teacherPhone = phoneController.value.text;
-    // teacherProfile.isTeacherMale =
-    //     selectedGender.value == LocalizationKeys.male.tr;
-    // teacherProfile.teacherMaterial = selectedMaterialIndex.value != null
-    //     ? materialsUI[selectedMaterialIndex.value!].value
-    //     : "";
-    // teacherProfile.teacherPhotoUrl = selectedProfileImageUrl.value;
-    // teacherProfile.teacherClasses = classes;
+    //update student profile ui model
+    studentProfile.studentName = nameController.value.text;
+    studentProfile.studentPhone = phoneController.value.text;
+    studentProfile.studentEmail = emailController.value.text;
+    studentProfile.studentPhotoUrl = selectedProfileImageUrl.value;
 
-    // _userRepo.updateStudentProfile(teacherProfile).then((value) async {
-    //   Get.snackbar(
-    //     'Success',
-    //     LocalizationKeys.profile_updated_successfully.tr,
-    //     snackPosition: SnackPosition.BOTTOM,
-    //     backgroundColor: Colors.green,
-    //     duration: const Duration(seconds: 2),
-    //   );
-    //   await getStudent();
-    //   readStudentProfileDataFromStorage();
-    // }).catchError((error) {
-    //   Get.snackbar(
-    //     'Error',
-    //     LocalizationKeys.profile_updated_error.tr,
-    //     snackPosition: SnackPosition.BOTTOM,
-    //     backgroundColor: Colors.red,
-    //     duration: const Duration(seconds: 2),
-    //   );
-    // });
+    if (selectedEducationText.value ==
+        LocalizationKeys.education_secondary.tr) {
+      studentProfile.studentEducationalLevel =
+          FireStoreNames.educationLevelSecondaryValue;
+    } else {
+      studentProfile.studentEducationalLevel =
+          FireStoreNames.educationLevelPrepValue;
+    }
+
+    switch (selectedClassText.value) {
+      case LocalizationKeys.secondary_class_level_one:
+      case LocalizationKeys.prep_class_level_one:
+        studentProfile.studentClass = 1;
+        break;
+      case LocalizationKeys.secondary_class_level_two:
+      case LocalizationKeys.prep_class_level_two:
+        studentProfile.studentClass = 2;
+        break;
+      case LocalizationKeys.secondary_class_level_three:
+      case LocalizationKeys.prep_class_level_three:
+        studentProfile.studentClass = 3;
+        break;
+    }
+
+    studentProfile.studentGovernment = selectedGovernmentName.value;
+    studentProfile.studentArea = selectedAreaName.value;
+
+    studentProfile.isStudentMale =
+        selectedGender.value == LocalizationKeys.male.tr;
+
+    _userRepo.updateStudentProfile(studentProfile).then((value) async {
+      Get.snackbar(
+        'Success',
+        LocalizationKeys.profile_updated_successfully.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
+      );
+      await getStudent();
+      readStudentProfileDataFromStorage();
+    }).catchError((error) {
+      Get.snackbar(
+        'Error',
+        LocalizationKeys.profile_updated_error.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      );
+    });
   }
 
   Future<void> getStudent() async {
@@ -131,44 +200,50 @@ class ProfileViewModel extends GetxController {
     var studentBookingsNum = _storage.read(StorageKeys.studentBookingsNum);
     var followsCount = _storage.read(StorageKeys.followsCount);
     var favCount = _storage.read(StorageKeys.favCount);
-    var studentClass = _storage.read(StorageKeys.studentClass)!; //1,2,3
+    studentClass = _storage.read(StorageKeys.studentClass)!; //1,2,3
     var studentEducationalLevel =
         _storage.read<String>(StorageKeys.studentEducationalLevel)!; // sec,prep
     var studentGovernment =
         _storage.read<String>(StorageKeys.studentGovernment)!; //cairo
     var studentArea = _storage.read<String>(StorageKeys.studentArea)!; //dokki
 
+    //set ui controllers and observables
     nameController.value.text = studentName;
     phoneController.value.text = (studentPhone as String).isEmpty
         ? studentPhone
         : studentPhone.toString().replaceAll("+2", "");
     emailController.value.text = studentEmail;
 
-    if (studentEducationalLevel ==
+    if (studentEducationalLevel.isEmpty) {
+      selectedEducationText.value = LocalizationKeys.education_secondary.tr;
+    } else if (studentEducationalLevel ==
         FireStoreNames.educationLevelSecondaryValue) {
-      selectedEducation = LocalizationKeys.education_secondary.tr.obs;
+      selectedEducationText.value = LocalizationKeys.education_secondary.tr;
       switch (studentClass) {
         case 1:
-          selectedClass = LocalizationKeys.secondary_class_level_one.tr.obs;
+          selectedClassText.value =
+              LocalizationKeys.secondary_class_level_one.tr;
           break;
         case 2:
-          selectedClass = LocalizationKeys.secondary_class_level_two.tr.obs;
+          selectedClassText.value =
+              LocalizationKeys.secondary_class_level_two.tr;
           break;
         case 3:
-          selectedClass = LocalizationKeys.secondary_class_level_three.tr.obs;
+          selectedClassText.value =
+              LocalizationKeys.secondary_class_level_three.tr;
           break;
       }
     } else {
-      selectedEducation = LocalizationKeys.education_prep.tr.obs;
+      selectedEducationText.value = LocalizationKeys.education_prep.tr;
       switch (studentClass) {
         case 1:
-          selectedClass = LocalizationKeys.prep_class_level_one.tr.obs;
+          selectedClassText.value = LocalizationKeys.prep_class_level_one.tr;
           break;
         case 2:
-          selectedClass = LocalizationKeys.prep_class_level_two.tr.obs;
+          selectedClassText.value = LocalizationKeys.prep_class_level_two.tr;
           break;
         case 3:
-          selectedClass = LocalizationKeys.prep_class_level_three.tr.obs;
+          selectedClassText.value = LocalizationKeys.prep_class_level_three.tr;
           break;
       }
     }
@@ -186,7 +261,20 @@ class ProfileViewModel extends GetxController {
     nameObserver.value = studentName;
     bookingsCountObserver.value = studentBookingsNum;
     followsCountObserver.value = followsCount;
+    favCountObserver.value = favCount;
     selectedProfileImageUrl.value = studentPhotoUrl ?? "";
+
+    studentProfile = StudentProfileUiModel(
+        studentId: studentId,
+        studentName: studentName,
+        studentPhotoUrl: studentPhotoUrl,
+        studentEmail: studentEmail,
+        studentPhone: studentPhone,
+        studentGovernment: studentGovernment,
+        studentArea: studentArea,
+        isStudentMale: isStudentMale,
+        studentClass: studentClass,
+        studentEducationalLevel: studentEducationalLevel);
   }
 
   void logout() {

@@ -7,7 +7,7 @@ class StudentProfileUiModel {
   String studentGovernment;
   String studentArea;
   bool isStudentMale;
-  String studentClass;
+  int studentClass;
   String studentEducationalLevel;
 
   StudentProfileUiModel(

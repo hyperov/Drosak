@@ -75,9 +75,9 @@ class ProfileScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.05,
               child: Obx(() => Marquee(
-                    text: _profileViewModel.selectedClass.isBlank!
+                    text: _profileViewModel.selectedClassText.isBlank!
                         ? 'لا يوجد صف'
-                        : _profileViewModel.selectedClass.value,
+                        : _profileViewModel.selectedClassText.value,
                     style: const TextStyle(fontSize: 20),
                     scrollAxis: Axis.horizontal,
                     crossAxisAlignment: CrossAxisAlignment.center,
