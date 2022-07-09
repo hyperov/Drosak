@@ -1,3 +1,5 @@
+import 'package:drosak/bindings/initial_bindings.dart';
+import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/login/is_login_widget.dart';
 import 'package:drosak/login/model/Repo/user_repo.dart';
 import 'package:drosak/login/model/entity/student.dart';
@@ -155,6 +157,8 @@ class ProfileViewModel extends GetxController {
       );
       await getStudent();
       readStudentProfileDataFromStorage();
+      await _storage.write(StorageKeys.isFirstTimeLogin, false);
+      Get.off(() => HomeScreen(), binding: HomeBindings());
     }).catchError((error) {
       Get.snackbar(
         'Error',

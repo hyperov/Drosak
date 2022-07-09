@@ -92,7 +92,6 @@ class Languages extends Translations {
           LocalizationKeys.app_ok: 'Ok',
           LocalizationKeys.logout_confirmation:
               'Are you sure you want to logout ?',
-          LocalizationKeys.confirm: 'Confirm',
           LocalizationKeys.price_average: 'Average Price',
           LocalizationKeys.settings: 'Settings',
           LocalizationKeys.bookings: 'Bookings',
@@ -100,6 +99,13 @@ class Languages extends Translations {
           LocalizationKeys.profile_updated_error: 'Profile Updated Error',
           LocalizationKeys.profile_updated_successfully:
               'Profile Updated Successfully',
+          LocalizationKeys.profile_image_updated_successfully:
+              'Profile Image Updated Successfully',
+          LocalizationKeys.profile_image_updated_error:
+              'Profile Image Updated Error',
+          LocalizationKeys.gallery: 'choose from gallery',
+          LocalizationKeys.camera: 'take a photo',
+          LocalizationKeys.confirm: 'Confirm',
 
           LocalizationKeys.email_error_empty: 'Email is empty',
           LocalizationKeys.email_error_format: 'Email in wrong format',
@@ -108,6 +114,7 @@ class Languages extends Translations {
           LocalizationKeys.choose_government_error:
               'you must choose government',
           LocalizationKeys.choose_area_error: 'you must choose area',
+          LocalizationKeys.fav: 'favourite',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -205,12 +212,19 @@ class Languages extends Translations {
               'حدث خطأ أثناء تحديث الملف الشخصي',
           LocalizationKeys.profile_updated_successfully:
               'تم تحديث الملف الشخصي بنجاح',
+          LocalizationKeys.profile_image_updated_successfully:
+              'تم تحديث صورة الملف الشخصي بنجاح',
+          LocalizationKeys.profile_image_updated_error:
+              'حدث خطأ أثناء تحديث صورة الملف الشخصي',
+          LocalizationKeys.gallery: 'اختر من مكتبة الصور',
+          LocalizationKeys.camera: 'اختر من الكاميرا',
           LocalizationKeys.email_error_empty: 'البريد الإلكتروني فاضى',
           LocalizationKeys.email_error_format: 'البريد الإلكتروني مش صح',
           LocalizationKeys.name_error_empty: 'الاسم فاضى',
           LocalizationKeys.app_error_update_data: 'خطأ في تحديث البيانات',
           LocalizationKeys.choose_government_error: 'يجب اختيار المحافظة',
           LocalizationKeys.choose_area_error: 'يجب اختيار المنطقة',
+          LocalizationKeys.fav: 'المفضلة',
         },
       };
 }

@@ -16,8 +16,14 @@ class InitialBindings extends Bindings {
     Get.lazyPut<FilterViewModel>(() => FilterViewModel());
     Get.lazyPut<FollowsViewModel>(() => FollowsViewModel());
     Get.put(LoginViewModel());
-    Get.put(HomeViewModel());
     Get.lazyPut<TeachersListViewModel>(() => TeachersListViewModel(),
         fenix: true);
+  }
+}
+
+class HomeBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<HomeViewModel>(() => HomeViewModel(), fenix: true);
   }
 }

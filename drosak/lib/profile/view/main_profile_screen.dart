@@ -4,7 +4,6 @@ import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:marquee/marquee.dart';
 
 import '../../utils/localization/localization_keys.dart';
 import '../../utils/managers/assets_manager.dart';
@@ -36,12 +35,13 @@ class ProfileScreen extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   shape: const CircleBorder(),
                   child: Obx(() =>
-                      _profileViewModel.selectedProfileImageUrl.isBlank!
+                      _profileViewModel.selectedProfileImageUrl.isEmpty
                           ? SvgPicture.asset(
                               AssetsManager.profilePlaceHolder,
-                              width: 70,
-                              height: 70,
+                              width: 100,
+                              height: 100,
                               fit: BoxFit.cover,
+                              color: Colors.white,
                             )
                           : Image.network(
                               _profileViewModel.selectedProfileImageUrl.value,
@@ -71,19 +71,12 @@ class ProfileScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 20))),
               ],
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.05,
-              child: Obx(() => Marquee(
-                    text: _profileViewModel.selectedClassText.isBlank!
-                        ? 'لا يوجد صف'
-                        : _profileViewModel.selectedClassText.value,
-                    style: const TextStyle(fontSize: 20),
-                    scrollAxis: Axis.horizontal,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    blankSpace: 20,
-                  )),
-            ),
+            Obx(() => Text(
+                  _profileViewModel.selectedClassText.isBlank!
+                      ? 'لا يوجد صف'
+                      : _profileViewModel.selectedClassText.value,
+                  style: const TextStyle(fontSize: 20),
+                )),
             const SizedBox(height: 24),
             Card(
               color: Colors.white,
@@ -98,6 +91,46 @@ class ProfileScreen extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.person),
                   title: Text(LocalizationKeys.personal_info.tr),
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: InkWell(
+                onTap: () {
+                  // Get.to(() => PersonalProfileScreen());
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.calendar_month),
+                  title: Text(LocalizationKeys.bookings.tr),
+                  trailing: Text(
+                    _profileViewModel.bookingsCountObserver.value.toString(),
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: InkWell(
+                onTap: () {
+                  // Get.to(() => PersonalProfileScreen());
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.favorite),
+                  title: Text(LocalizationKeys.fav.tr),
+                  trailing: Text(
+                    _profileViewModel.favCountObserver.value.toString(),
+                    style: const TextStyle(fontSize: 20),
+                  ),
                 ),
               ),
             ),

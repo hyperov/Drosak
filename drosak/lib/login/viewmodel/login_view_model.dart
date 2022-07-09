@@ -1,3 +1,4 @@
+import 'package:drosak/bindings/initial_bindings.dart';
 import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/login/model/Repo/login_repo.dart';
 import 'package:drosak/login/model/Repo/user_repo.dart';
@@ -52,7 +53,7 @@ class LoginViewModel extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    ever(isLoggedIn, (callback) {
+    ever(isLoggedIn, (callback) async {
       if (isLoggedIn.isTrue) {
         Get.snackbar(
           "Success",
@@ -69,11 +70,9 @@ class LoginViewModel extends GetxController {
             _storage.read<bool>(StorageKeys.isFirstTimeLogin);
 
         if (isFirstTimeUserLogin!) {
-          // if (true) {
-          //debug
           Get.offAll(() => PersonalProfileScreen());
         } else {
-          Get.off(() => HomeScreen());
+          Get.off(() => HomeScreen(), binding: HomeBindings());
         }
       }
     });

@@ -24,4 +24,6 @@ class FireStoreNames {
   //education field values
   static const String educationLevelSecondaryValue = 'high_school';
   static const String educationLevelPrepValue = 'mid_school';
+
+  static Object followDocFieldTeacherName = 'name';
 }

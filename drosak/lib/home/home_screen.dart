@@ -1,6 +1,6 @@
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
+import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/follows/view/follows_screen.dart';
-import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/notifications/notifictations_screen.dart';
 import 'package:drosak/profile/view/main_profile_screen.dart';
 import 'package:drosak/teachers/teachers_list_screen.dart';
@@ -16,14 +16,13 @@ import 'HomeViewModel.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
-  final LoginViewModel _loginViewModel = Get.find();
   final HomeViewModel _homeViewModel = Get.find();
   final FilterViewModel _filterViewModel = Get.find();
 
   final widgetOptions = [
     const TeachersListScreen(),
     FollowsScreen(),
-    NotificationsScreen(),
+    const NotificationsScreen(),
     ProfileScreen(),
   ];
 
@@ -60,6 +59,17 @@ class HomeScreen extends StatelessWidget {
               bottom: Radius.circular(30),
             ),
           ),
+          actions: [
+            _homeViewModel.bottomNavigationIndex.value == 0
+                ? IconButton(
+                    icon:
+                        const Icon(Icons.filter_list_alt, color: Colors.white),
+                    onPressed: () {
+                      showFilterBottomSheet(_filterViewModel);
+                    },
+                  )
+                : Container(),
+          ],
         ),
         bottomNavigationBar: SafeArea(
             child: Container(
