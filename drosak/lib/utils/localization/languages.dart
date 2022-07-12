@@ -115,6 +115,8 @@ class Languages extends Translations {
               'you must choose government',
           LocalizationKeys.choose_area_error: 'you must choose area',
           LocalizationKeys.fav: 'favourite',
+          LocalizationKeys.following: 'follow',
+          LocalizationKeys.posts: 'Posts',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -225,6 +227,8 @@ class Languages extends Translations {
           LocalizationKeys.choose_government_error: 'يجب اختيار المحافظة',
           LocalizationKeys.choose_area_error: 'يجب اختيار المنطقة',
           LocalizationKeys.fav: 'المفضلة',
+          LocalizationKeys.following: 'متابعة',
+          LocalizationKeys.posts: 'الاخبار',
         },
       };
 }

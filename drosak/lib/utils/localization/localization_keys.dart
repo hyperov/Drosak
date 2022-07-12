@@ -170,4 +170,8 @@ class LocalizationKeys {
   static var choose_area_error = 'choose_area_error';
 
   static var fav = 'fav';
+
+  static var following = 'following';
+
+  static var posts = 'posts';
 }

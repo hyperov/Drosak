@@ -12,6 +12,8 @@ class TeachersListViewModel extends GetxController {
 
   final _storage = GetStorage();
 
+  Teacher selectedTeacher = Teacher();
+
   @override
   Future<void> onReady() async {
     super.onReady();

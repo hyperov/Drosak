@@ -30,6 +30,8 @@ class TeachersListScreen extends StatelessWidget {
                             ),
                             child: InkWell(
                               onTap: () {
+                                _teachersListViewModel.selectedTeacher =
+                                    _teachersListViewModel.teachersList[index];
                                 Get.to(() => TeacherDetailsScreen());
                               },
                               child: Container(
