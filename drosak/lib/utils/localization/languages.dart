@@ -96,6 +96,7 @@ class Languages extends Translations {
           LocalizationKeys.settings: 'Settings',
           LocalizationKeys.bookings: 'Bookings',
           LocalizationKeys.booking: 'Booking',
+          LocalizationKeys.confirm_booking: 'confirm booking',
 
           LocalizationKeys.profile_updated_error: 'Profile Updated Error',
           LocalizationKeys.profile_updated_successfully:
@@ -211,6 +212,7 @@ class Languages extends Translations {
           LocalizationKeys.settings: 'الإعدادات',
           LocalizationKeys.bookings: 'الحجوزات',
           LocalizationKeys.booking: 'حجز',
+          LocalizationKeys.confirm_booking: 'تأكيد الحجز',
 
           LocalizationKeys.profile_updated_error:
               'حدث خطأ أثناء تحديث الملف الشخصي',

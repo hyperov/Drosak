@@ -42,7 +42,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
   Get.bottomSheet(
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+      // mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(
           height: 20,
@@ -232,27 +232,78 @@ showConfirmBookingDialog(BuildContext context,
     LecturesViewModel lecturesViewModel, int index, Teacher teacher) {
   Get.bottomSheet(
     Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
       elevation: 0,
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.min,
           children: [
-            Image.network(teacher.photoUrl!,
-                width: 70,
-                height: 70,
-                fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
-              return SvgPicture.asset(
-                AssetsManager.profilePlaceHolder,
-                width: 70,
-                height: 70,
-                color: Colors.white,
-                fit: BoxFit.cover,
-              ).marginAll(16);
-            }),
+            const SizedBox(
+              height: 20,
+            ),
+            Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                Card(
+                    color: Colors.deepPurple,
+                    elevation: 4,
+                    clipBehavior: Clip.hardEdge,
+                    shape: const CircleBorder(
+                        side: BorderSide(
+                            color: Colors.deepPurpleAccent, width: 1)),
+                    child: Image.network(teacher.photoUrl!,
+                        width: 80, height: 80, fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                      return SvgPicture.asset(
+                        AssetsManager.profilePlaceHolder,
+                        width: 70,
+                        height: 70,
+                        color: Colors.white,
+                        fit: BoxFit.cover,
+                      ).marginAll(16);
+                    })),
+                Positioned(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.deepPurpleAccent),
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(16),
+                          right: Radius.circular(16)),
+                    ),
+                    child: Row(children: [
+                      SvgPicture.asset(
+                        AssetsManager.star,
+                        width: 16,
+                        height: 16,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(teacher.avgRating.toString(),
+                          style: const TextStyle(
+                              fontSize: 10, color: Colors.black)),
+                    ]),
+                  ),
+                  bottom: -5,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(teacher.name!,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black)),
+            const SizedBox(height: 4),
+            Container(
+                width: double.infinity,
+                height: 1,
+                color: Colors.grey,
+                margin: const EdgeInsets.symmetric(horizontal: 100)),
+            const SizedBox(height: 4),
             Card(
                 elevation: 4,
                 margin:
@@ -282,7 +333,9 @@ showConfirmBookingDialog(BuildContext context,
                 Text(lecturesViewModel.lectures[index].area),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 4),
+            Text(lecturesViewModel.lectures[index].address),
+            const SizedBox(height: 4),
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Column(
                 children: [
@@ -314,12 +367,18 @@ showConfirmBookingDialog(BuildContext context,
                 ],
               )
             ]),
+            const SizedBox(height: 8),
             Container(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              height: 48,
+              margin: const EdgeInsets.symmetric(horizontal: 32),
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text(LocalizationKeys.booking.tr),
+                child: Text(LocalizationKeys.confirm_booking.tr,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold)),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.deepPurple,
                   shape: RoundedRectangleBorder(
@@ -331,7 +390,7 @@ showConfirmBookingDialog(BuildContext context,
           ]),
     ),
     backgroundColor: Colors.white,
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(32),
       ),

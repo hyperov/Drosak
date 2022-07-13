@@ -196,4 +196,5 @@ class LocalizationKeys {
   static const lectures_not_found = 'lectures_not_found';
 
   static var booking = 'booking';
+  static var confirm_booking = 'confirm_booking';
 }
