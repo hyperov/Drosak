@@ -95,6 +95,7 @@ class Languages extends Translations {
           LocalizationKeys.price_average: 'Average Price',
           LocalizationKeys.settings: 'Settings',
           LocalizationKeys.bookings: 'Bookings',
+          LocalizationKeys.booking: 'Booking',
 
           LocalizationKeys.profile_updated_error: 'Profile Updated Error',
           LocalizationKeys.profile_updated_successfully:
@@ -209,6 +210,7 @@ class Languages extends Translations {
           LocalizationKeys.price_average: 'متوسط السعر',
           LocalizationKeys.settings: 'الإعدادات',
           LocalizationKeys.bookings: 'الحجوزات',
+          LocalizationKeys.booking: 'حجز',
 
           LocalizationKeys.profile_updated_error:
               'حدث خطأ أثناء تحديث الملف الشخصي',

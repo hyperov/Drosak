@@ -194,4 +194,6 @@ class LocalizationKeys {
   static const String minute = 'minute';
 
   static const lectures_not_found = 'lectures_not_found';
+
+  static var booking = 'booking';
 }

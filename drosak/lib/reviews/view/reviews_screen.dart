@@ -10,10 +10,11 @@ import '../../utils/firestore_names.dart';
 import '../viewmodel/reviews_viewmodel.dart';
 
 class ReviewsScreen extends StatelessWidget {
-  ReviewsScreen({Key? key}) : super(key: key);
+  ReviewsScreen({Key? key, required this.scrollController}) : super(key: key);
 
   ReviewsViewModel get _reviewsViewModel => Get.put(ReviewsViewModel());
   final _storage = GetStorage();
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +96,7 @@ class ReviewsScreen extends StatelessWidget {
               ).paddingSymmetric(horizontal: 16, vertical: 16)),
           Expanded(
             child: Obx(() => ListView.builder(
+                controller: scrollController,
                 itemBuilder: (context, index) {
                   return Card(
                     margin:

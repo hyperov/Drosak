@@ -40,65 +40,8 @@ class TeacherDetailsScreen extends StatelessWidget {
               bottom: Radius.circular(30),
             ),
           )),
-      body: SlidingUpPanel(
-        minHeight: 120,
-        parallaxEnabled: true,
-        parallaxOffset: .5,
-        maxHeight: MediaQuery.of(context).size.height,
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(42),
-        ),
-        border: Border.all(
-          color: Colors.deepPurpleAccent,
-          width: 1,
-        ),
-        panel: DefaultTabController(
-          length: 3,
-          child: Column(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: ColorManager.greyLight,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(48),
-                  ),
-                ),
-                child: TabBar(
-                  labelColor: Colors.deepPurple,
-                  unselectedLabelColor: Colors.grey,
-                  indicatorColor: Colors.deepPurpleAccent,
-                  indicatorWeight: 3,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  tabs: [
-                    Tab(
-                      text: LocalizationKeys.lectures.tr,
-                      icon: const Icon(Icons.school_outlined),
-                    ),
-                    Tab(
-                      text: LocalizationKeys.reviews.tr,
-                      icon: const Icon(Icons.star_outlined),
-                    ),
-                    Tab(
-                      text: LocalizationKeys.posts.tr,
-                      icon: const Icon(Icons.theater_comedy),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    const LecturesScreen(),
-                    ReviewsScreen(),
-                    const PostsScreen(),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: Column(
+      body: Stack(children: [
+        Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 32),
@@ -240,7 +183,68 @@ class TeacherDetailsScreen extends StatelessWidget {
             ).marginSymmetric(horizontal: 65)
           ],
         ),
-      ),
+        SlidingUpPanel(
+          minHeight: 120,
+          parallaxEnabled: true,
+          parallaxOffset: .5,
+          maxHeight: MediaQuery.of(context).size.height * 0.8,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(42),
+          ),
+          border: Border.all(
+            color: Colors.deepPurpleAccent,
+            width: 1,
+          ),
+          panelBuilder: (scrollController) {
+            return DefaultTabController(
+              length: 3,
+              child: Column(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: ColorManager.greyLight,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(48),
+                      ),
+                    ),
+                    child: TabBar(
+                      labelColor: Colors.deepPurple,
+                      unselectedLabelColor: Colors.grey,
+                      indicatorColor: Colors.deepPurpleAccent,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      tabs: [
+                        Tab(
+                          text: LocalizationKeys.lectures.tr,
+                          icon: const Icon(Icons.school_outlined),
+                        ),
+                        Tab(
+                          text: LocalizationKeys.reviews.tr,
+                          icon: const Icon(Icons.star_outlined),
+                        ),
+                        Tab(
+                          text: LocalizationKeys.posts.tr,
+                          icon: const Icon(Icons.theater_comedy),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        LecturesScreen(
+                            scrollController: scrollController,
+                            teacher: _teachersListViewModel.selectedTeacher),
+                        ReviewsScreen(scrollController: scrollController),
+                        PostsScreen(scrollController: scrollController),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ]),
     );
   }
 }

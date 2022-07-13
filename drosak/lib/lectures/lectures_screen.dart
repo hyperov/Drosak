@@ -1,13 +1,19 @@
+import 'package:drosak/common/widgets/bottomsheet.dart';
+import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 import '../utils/localization/localization_keys.dart';
 import 'viewmodel/lectures_viewmodel.dart';
 
 class LecturesScreen extends StatelessWidget {
-  const LecturesScreen({Key? key}) : super(key: key);
+  const LecturesScreen(
+      {Key? key, required this.scrollController, required this.teacher})
+      : super(key: key);
+
+  final ScrollController scrollController;
+  final Teacher teacher;
 
   LecturesViewModel get _lecturesViewModel => Get.put(LecturesViewModel());
 
@@ -19,174 +25,115 @@ class LecturesScreen extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               : _lecturesViewModel.lectures.isNotEmpty
                   ? ListView.builder(
+                      controller: scrollController,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return Slidable(
-                          startActionPane: ActionPane(
-                              motion: const ScrollMotion(),
-                              extentRatio: 0.25,
-                              // A pane can dismiss the Slidable.
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Card(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 16),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
+                        return Stack(children: [
+                          Card(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 24),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            elevation: 0,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: 42),
+                                  Text(_lecturesViewModel
+                                      .lectures[index].centerName),
+                                  const SizedBox(height: 0),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(_lecturesViewModel
+                                          .lectures[index].classLevel),
+                                      const Text(' / '),
+                                      Text(_lecturesViewModel
+                                          .lectures[index].material),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(Icons.location_pin),
+                                      Text(_lecturesViewModel
+                                          .lectures[index].city),
+                                      const Text(' - '),
+                                      Text(_lecturesViewModel
+                                          .lectures[index].area),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Expanded(
-                                          child: InkWell(
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  const Icon(Icons.edit,
-                                                      color: Colors.deepPurple),
-                                                  Text(
-                                                    LocalizationKeys.edit.tr,
-                                                    style: const TextStyle(
-                                                        color:
-                                                            Colors.deepPurple,
-                                                        fontSize: 16),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            onTap: () {},
-                                          ),
+                                        Column(
+                                          children: [
+                                            const Icon(Icons.calendar_today),
+                                            Text(_lecturesViewModel
+                                                .lectures[index].day),
+                                          ],
                                         ),
                                         Container(
                                           height: 1,
-                                          color: Colors.deepPurple,
+                                          width: 60,
+                                          color: Colors.black,
                                         ),
-                                        Expanded(
-                                          child: InkWell(
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  const Icon(Icons.delete,
-                                                      color: Colors.red),
-                                                  Text(
-                                                    LocalizationKeys
-                                                        .app_delete.tr,
-                                                    style: const TextStyle(
-                                                        color: Colors.red,
-                                                        fontSize: 16),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            onTap: () {},
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                          child: Stack(children: [
-                            Card(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 24),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              elevation: 0,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const SizedBox(height: 16),
-                                      Text(_lecturesViewModel
-                                          .lectures[index].centerName),
-                                      const SizedBox(height: 16),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(_lecturesViewModel
-                                              .lectures[index].classLevel),
-                                          const Text(' / '),
-                                          Text(_lecturesViewModel
-                                              .lectures[index].material),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Icon(Icons.location_pin),
-                                          Text(_lecturesViewModel
-                                              .lectures[index].city),
-                                          const Text(' - '),
-                                          Text(_lecturesViewModel
-                                              .lectures[index].area),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                        Column(
                                           children: [
-                                            Column(
-                                              children: [
-                                                const Icon(
-                                                    Icons.calendar_today),
-                                                Text(_lecturesViewModel
-                                                    .lectures[index].day),
-                                              ],
-                                            ),
-                                            Container(
-                                              height: 1,
-                                              width: 60,
-                                              color: Colors.black,
-                                            ),
-                                            Column(
-                                              children: [
-                                                const Icon(Icons.punch_clock),
-                                                Text(_lecturesViewModel
-                                                    .lectures[index].time),
-                                              ],
-                                            ),
-                                            Container(
-                                              height: 1,
-                                              width: 60,
-                                              color: Colors.black,
-                                            ),
-                                            Column(
-                                              children: [
-                                                const Icon(Icons.money),
-                                                Text(
-                                                    "${_lecturesViewModel.lectures[index].price.toString()}ج "),
-                                              ],
-                                            )
-                                          ]),
-                                      const SizedBox(height: 16),
-                                    ]),
-                              ),
-                            ),
-                            PositionedDirectional(
-                                child: Center(
-                                    child: Card(
-                                        elevation: 4,
-                                        color: Colors.white,
-                                        child: const Icon(Icons.school)
-                                            .marginAll(6),
+                                            const Icon(Icons.punch_clock),
+                                            Text(_lecturesViewModel
+                                                .lectures[index].time),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: 1,
+                                          width: 60,
+                                          color: Colors.black,
+                                        ),
+                                        Column(
+                                          children: [
+                                            const Icon(Icons.money),
+                                            Text(
+                                                "${_lecturesViewModel.lectures[index].price.toString()}ج "),
+                                          ],
+                                        )
+                                      ]),
+                                  Container(
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 32, vertical: 16),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        showConfirmBookingDialog(context,
+                                            _lecturesViewModel, index, teacher);
+                                      },
+                                      child: Text(LocalizationKeys.booking.tr),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.deepPurple,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                        )))),
-                          ]),
-                        );
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                          ),
+                          PositionedDirectional(
+                              child: Center(
+                                  child: Card(
+                                      elevation: 4,
+                                      color: Colors.white,
+                                      child: const Icon(Icons.school)
+                                          .marginAll(14),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      )))),
+                        ]);
                       },
                       itemCount: _lecturesViewModel.lectures.length,
                       physics: const BouncingScrollPhysics(),

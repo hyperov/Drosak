@@ -1,6 +1,10 @@
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
+import 'package:drosak/lectures/viewmodel/lectures_viewmodel.dart';
+import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 showListBottomSheet(
@@ -220,6 +224,117 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
     backgroundColor: Colors.white,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16), topRight: const Radius.circular(16))),
+            topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+  );
+}
+
+showConfirmBookingDialog(BuildContext context,
+    LecturesViewModel lecturesViewModel, int index, Teacher teacher) {
+  Get.bottomSheet(
+    Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      elevation: 0,
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.network(teacher.photoUrl!,
+                width: 70,
+                height: 70,
+                fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
+              return SvgPicture.asset(
+                AssetsManager.profilePlaceHolder,
+                width: 70,
+                height: 70,
+                color: Colors.white,
+                fit: BoxFit.cover,
+              ).marginAll(16);
+            }),
+            Card(
+                elevation: 4,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                color: Colors.white,
+                child: const Icon(Icons.school).marginAll(14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                )),
+            Text(lecturesViewModel.lectures[index].centerName),
+            const SizedBox(height: 0),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(lecturesViewModel.lectures[index].classLevel),
+                const Text(' / '),
+                Text(lecturesViewModel.lectures[index].material),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.location_pin),
+                Text(lecturesViewModel.lectures[index].city),
+                const Text(' - '),
+                Text(lecturesViewModel.lectures[index].area),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Column(
+                children: [
+                  const Icon(Icons.calendar_today),
+                  Text(lecturesViewModel.lectures[index].day),
+                ],
+              ),
+              Container(
+                height: 1,
+                width: 60,
+                color: Colors.black,
+              ),
+              Column(
+                children: [
+                  const Icon(Icons.punch_clock),
+                  Text(lecturesViewModel.lectures[index].time),
+                ],
+              ),
+              Container(
+                height: 1,
+                width: 60,
+                color: Colors.black,
+              ),
+              Column(
+                children: [
+                  const Icon(Icons.money),
+                  Text(
+                      "${lecturesViewModel.lectures[index].price.toString()}ج "),
+                ],
+              )
+            ]),
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(LocalizationKeys.booking.tr),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+          ]),
+    ),
+    backgroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(32),
+      ),
+    ),
   );
 }
