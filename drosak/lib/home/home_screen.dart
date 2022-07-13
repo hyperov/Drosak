@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
   final FilterViewModel _filterViewModel = Get.find();
 
   final widgetOptions = [
-    const TeachersListScreen(),
+    TeachersListScreen(),
     FollowsScreen(),
     const NotificationsScreen(),
     ProfileScreen(),

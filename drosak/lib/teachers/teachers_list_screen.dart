@@ -2,17 +2,20 @@ import 'package:drosak/extensions/teacher_extensions.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:drosak/utils/storage_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../utils/managers/assets_manager.dart';
 import 'teacher_details_screen.dart';
 
 class TeachersListScreen extends StatelessWidget {
-  const TeachersListScreen({Key? key}) : super(key: key);
+  TeachersListScreen({Key? key}) : super(key: key);
 
   TeachersListViewModel get _teachersListViewModel => Get.find();
+  final _storage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +32,15 @@ class TeachersListScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 _teachersListViewModel.selectedTeacher =
                                     _teachersListViewModel.teachersList[index];
+                                await _storage.write(StorageKeys.teacherId,
+                                    _teachersListViewModel.selectedTeacher.id);
+                                await _storage.write(
+                                    StorageKeys.teacherRating,
+                                    _teachersListViewModel
+                                        .selectedTeacher.avgRating);
                                 Get.to(() => TeacherDetailsScreen());
                               },
                               child: Container(

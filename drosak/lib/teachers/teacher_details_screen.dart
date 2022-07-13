@@ -1,6 +1,5 @@
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
-import 'package:drosak/profile/view/main_profile_screen.dart';
-import 'package:drosak/teachers/teachers_list_screen.dart';
+import 'package:drosak/lectures/lectures_screen.dart';
+import 'package:drosak/reviews/view/reviews_screen.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
@@ -11,17 +10,10 @@ import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../posts/view/posts_screen.dart';
+
 class TeacherDetailsScreen extends StatelessWidget {
-  final _bottomSheetController =
-      BottomBarWithSheetController(initialIndex: 0, sheetOpened: true);
-
   TeacherDetailsScreen({Key? key}) : super(key: key);
-
-  var bottomSheetWidgets = [
-    const TeachersListScreen(),
-    const TeachersListScreen(),
-    const TeachersListScreen(),
-  ];
 
   final TeachersListViewModel _teachersListViewModel = Get.find();
 
@@ -95,10 +87,11 @@ class TeacherDetailsScreen extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(
+                  physics: const BouncingScrollPhysics(),
                   children: [
-                    ProfileScreen(),
-                    ProfileScreen(),
-                    ProfileScreen(),
+                    const LecturesScreen(),
+                    ReviewsScreen(),
+                    const PostsScreen(),
                   ],
                 ),
               ),

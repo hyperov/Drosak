@@ -174,4 +174,24 @@ class LocalizationKeys {
   static var following = 'following';
 
   static var posts = 'posts';
+
+  static const String title = 'title';
+  static const String post_content = 'post_content';
+
+  static const String choose_day = 'choose_day';
+
+  static const String sunday = 'sunday';
+  static const String monday = 'monday';
+  static const String tuesday = 'tuesday';
+  static const String wednesday = 'wednesday';
+  static const String thursday = 'thursday';
+  static const String friday = 'friday';
+  static const String saturday = 'saturday';
+
+  static const String choose_time = 'choose_time';
+
+  static const String hour = 'hour';
+  static const String minute = 'minute';
+
+  static const lectures_not_found = 'lectures_not_found';
 }
