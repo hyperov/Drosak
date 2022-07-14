@@ -1,3 +1,4 @@
+import 'package:drosak/follows/view/follow_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,23 +41,17 @@ class FollowsViewModel extends GetxController {
   Future<void> unfollowTeacher(String teacherName, int index) async {
     isLoading.value = true;
     await _followRepo.deleteFollowDoc(teacherName);
+    follows.removeAt(index);
     followAnimatedListKey.currentState?.removeItem(index, (context, animation) {
       return FadeTransition(
         opacity: animation,
         child: SizeTransition(
           sizeFactor: animation,
-          child: const Card(
-            child: ListTile(
-              title: Text(
-                "item",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ),
+          child: FollowItem(followsViewModel: this, index: index),
         ),
       );
     });
     isLoading.value = false;
-    getFollows();
+    // getFollows();
   }
 }
