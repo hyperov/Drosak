@@ -21,7 +21,7 @@ class Teacher {
   bool? active; //if the teacher is active or not (if the teacher is deleted)
   bool? isPaid; //if the teacher is paying or in free month
   int? fees;
-  int? avgRating;
+  double? avgRating;
   int? totalReviews;
   int? followers;
   int? priceMin;
@@ -79,7 +79,7 @@ class Teacher {
         active: json['active'],
         isPaid: json['isPaid'],
         fees: json['fees'],
-        avgRating: json['avgRating'],
+        avgRating: (json['avgRating'] as int).toDouble(),
         totalReviews: json['totRevs'],
         followers: json['followers'],
         priceMin: json['price_min'],

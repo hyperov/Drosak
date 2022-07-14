@@ -107,7 +107,9 @@ class TeacherDetailsScreen extends StatelessWidget {
                       LocalizationKeys.following.tr,
                       style: const TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await _teachersListViewModel.followTeacher();
+                    },
                   ).marginSymmetric(horizontal: 4),
                 ),
                 ElevatedButton(

@@ -8,8 +8,7 @@ class Follow {
   String teacherPhotoUrl;
   String material;
   List<String> educationalLevel;
-  String rating;
-  bool isFollowing = true;
+  double rating;
 
   Follow({
     required this.teacherName,
@@ -44,7 +43,7 @@ class Follow {
       teacherPhotoUrl: json['pic'],
       material: json['material'],
       educationalLevel: List<String>.from(json['eduLevel']),
-      rating: json['rating'],
+      rating: (json['rating']).toDouble(),
     );
   }
 

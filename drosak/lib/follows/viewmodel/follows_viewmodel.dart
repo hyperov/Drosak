@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../model/entity/Follow.dart';
+import '../model/entity/follow.dart';
 import '../model/repo/follow_repo.dart';
 
 class FollowsViewModel extends GetxController {
@@ -37,15 +37,15 @@ class FollowsViewModel extends GetxController {
     follows.addAll(followsDocs);
   }
 
-  Future<void> unfollow(String teacherName, int index) async {
+  Future<void> unfollowTeacher(String teacherName, int index) async {
     isLoading.value = true;
-    await _followRepo.unfollow(teacherName);
+    await _followRepo.deleteFollowDoc(teacherName);
     followAnimatedListKey.currentState?.removeItem(index, (context, animation) {
       return FadeTransition(
         opacity: animation,
         child: SizeTransition(
           sizeFactor: animation,
-          child: Card(
+          child: const Card(
             child: ListTile(
               title: Text(
                 "item",

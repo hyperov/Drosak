@@ -14,7 +14,7 @@ class Lecture {
   String teacherName;
   String teacherImageUrl;
   DateTime? bookingDate;
-  int? teacherRating;
+  double? teacherRating;
 
   Lecture(
       {required this.centerName,

@@ -1,10 +1,14 @@
+import 'package:drosak/follows/model/repo/follow_repo.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/teachers/model/teachers_repo.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../follows/model/entity/follow.dart';
+
 class TeachersListViewModel extends GetxController {
   final TeachersRepo _teachersRepo = Get.put(TeachersRepo());
+  final FollowRepo _followRepo = Get.put(FollowRepo());
 
   final RxList<Teacher> teachersList = <Teacher>[].obs;
 
@@ -34,5 +38,18 @@ class TeachersListViewModel extends GetxController {
     isLoading.value = false;
     teachersList.clear();
     teachersList.addAll(teachersDocs);
+  }
+
+  Future<void> followTeacher() async {
+    final follow = Follow(
+      teacherId: selectedTeacher.id!,
+      teacherName: selectedTeacher.name!,
+      teacherPhotoUrl: selectedTeacher.photoUrl!,
+      rating: selectedTeacher.avgRating!,
+      material: selectedTeacher.material!,
+      educationalLevel: selectedTeacher.educationalLevel!,
+    );
+
+    await _followRepo.addFollow(follow);
   }
 }
