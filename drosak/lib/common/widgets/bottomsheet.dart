@@ -253,8 +253,11 @@ showConfirmBookingDialog(BuildContext context,
                     shape: const CircleBorder(
                         side: BorderSide(
                             color: Colors.deepPurpleAccent, width: 1)),
-                    child: Image.network(teacher.photoUrl!,
-                        width: 80, height: 80, fit: BoxFit.cover,
+                    child: Image.network(
+                        lecturesViewModel.lectures[index].teacherImageUrl,
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                       return SvgPicture.asset(
                         AssetsManager.profilePlaceHolder,
@@ -292,7 +295,7 @@ showConfirmBookingDialog(BuildContext context,
               ],
             ),
             const SizedBox(height: 8),
-            Text(teacher.name!,
+            Text(lecturesViewModel.lectures[index].teacherName,
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -373,7 +376,10 @@ showConfirmBookingDialog(BuildContext context,
               height: 48,
               margin: const EdgeInsets.symmetric(horizontal: 32),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await lecturesViewModel.bookLecture(index);
+                  Get.back();
+                },
                 child: Text(LocalizationKeys.confirm_booking.tr,
                     style: const TextStyle(
                         color: Colors.white,

@@ -97,6 +97,8 @@ class Languages extends Translations {
           LocalizationKeys.bookings: 'Bookings',
           LocalizationKeys.booking: 'Booking',
           LocalizationKeys.confirm_booking: 'confirm booking',
+          LocalizationKeys.lecture_booked:
+              'Lecture Booked! you can now go to your bookings to see the details',
 
           LocalizationKeys.profile_updated_error: 'Profile Updated Error',
           LocalizationKeys.profile_updated_successfully:
@@ -213,6 +215,8 @@ class Languages extends Translations {
           LocalizationKeys.bookings: 'الحجوزات',
           LocalizationKeys.booking: 'حجز',
           LocalizationKeys.confirm_booking: 'تأكيد الحجز',
+          LocalizationKeys.lecture_booked:
+              'تم حجز الحصة بنجاح! يمكنك الاطلاع على الحجز على الصفحة الخاصة بالحجز',
 
           LocalizationKeys.profile_updated_error:
               'حدث خطأ أثناء تحديث الملف الشخصي',

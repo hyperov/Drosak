@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Lecture {
   String? id;
   String centerName;
@@ -10,6 +12,9 @@ class Lecture {
   String time;
   int price;
   String teacherName;
+  String teacherImageUrl;
+  DateTime? bookingDate;
+  int? teacherRating;
 
   Lecture(
       {required this.centerName,
@@ -21,21 +26,28 @@ class Lecture {
       required this.day,
       required this.time,
       required this.price,
-      required this.teacherName});
+      required this.teacherName,
+      required this.teacherImageUrl,
+      this.bookingDate,
+      this.teacherRating});
 
   factory Lecture.fromJson(Map<String, dynamic> json) {
     return Lecture(
-      centerName: json['center'],
-      city: json['city'],
-      area: json['area'],
-      address: json['address'],
-      material: json['material'],
-      classLevel: json['level'],
-      day: json['day'],
-      time: json['time'],
-      price: json['price'],
-      teacherName: json['teacher'],
-    );
+        centerName: json['center'],
+        city: json['city'],
+        area: json['area'],
+        address: json['address'],
+        material: json['material'],
+        classLevel: json['level'],
+        day: json['day'],
+        time: json['time'],
+        price: json['price'],
+        teacherName: json['teacher'],
+        teacherImageUrl: json['pic'],
+        bookingDate: json['bookingDate'] == null
+            ? null
+            : (json['bookingDate'] as Timestamp).toDate(),
+        teacherRating: json['rating']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -49,5 +61,8 @@ class Lecture {
         'time': time,
         'price': price,
         'teacher': teacherName,
+        'pic': teacherImageUrl,
+        'book_date': bookingDate,
+        'rating': teacherRating,
       };
 }

@@ -197,4 +197,5 @@ class LocalizationKeys {
 
   static var booking = 'booking';
   static var confirm_booking = 'confirm_booking';
+  static var lecture_booked = 'lecture_booked';
 }

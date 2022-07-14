@@ -1,3 +1,4 @@
+import 'package:drosak/bookings/view/bookings_screen.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
@@ -102,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  // Get.to(() => PersonalProfileScreen());
+                  Get.to(() => BookingsScreen());
                 },
                 child: ListTile(
                   leading: const Icon(Icons.calendar_month),

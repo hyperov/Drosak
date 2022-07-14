@@ -7,7 +7,7 @@ class Follow {
   String teacherId;
   String teacherPhotoUrl;
   String material;
-  String educationalLevel;
+  List<String> educationalLevel;
   String rating;
   bool isFollowing = true;
 
@@ -21,9 +21,20 @@ class Follow {
   });
 
   String getEducationText() {
-    return educationalLevel == FireStoreNames.educationLevelSecondaryValue
-        ? LocalizationKeys.secondary.tr
-        : LocalizationKeys.prep.tr;
+    var isSec =
+        educationalLevel.contains(FireStoreNames.educationLevelSecondaryValue);
+    var isPrep =
+        educationalLevel.contains(FireStoreNames.educationLevelPrepValue);
+
+    String res = '';
+    if (isSec == true) {
+      res = LocalizationKeys.secondary.tr + ' - ';
+    }
+
+    if (isPrep == true) {
+      res += LocalizationKeys.prep.tr;
+    }
+    return res;
   }
 
   factory Follow.fromJson(Map<String, dynamic> json) {
@@ -32,7 +43,7 @@ class Follow {
       teacherId: json['id'],
       teacherPhotoUrl: json['pic'],
       material: json['material'],
-      educationalLevel: json['eduLevel'],
+      educationalLevel: List<String>.from(json['eduLevel']),
       rating: json['rating'],
     );
   }

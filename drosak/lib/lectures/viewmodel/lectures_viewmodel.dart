@@ -1,3 +1,5 @@
+import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -39,5 +41,28 @@ class LecturesViewModel extends GetxController {
     isLoading.value = false;
     lectures.clear();
     lectures.addAll(lecturesDocs);
+  }
+
+  Future<void> bookLecture(int index) async {
+    selectedLecture = lectures[index];
+    selectedIndex = index;
+    selectedLecture?.bookingDate = DateTime.now();
+    try {
+      await _lecturesRepo.bookLecture(selectedLecture!);
+      Get.snackbar(
+        'Success',
+        LocalizationKeys.lecture_booked.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 2),
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 }
