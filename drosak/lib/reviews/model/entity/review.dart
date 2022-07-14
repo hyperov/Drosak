@@ -16,7 +16,7 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) => Review(
         studentName: json["name"],
         body: json["review"],
-        rating: json["rating"],
+        rating: (json["rating"])?.toDouble(),
         date: (json["date"] as Timestamp).toDate(),
       );
 

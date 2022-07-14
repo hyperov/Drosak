@@ -74,7 +74,7 @@ class ReviewsScreen extends StatelessWidget {
                       '0'),
                   RatingBar.builder(
                     initialRating: _storage
-                            .read<int>(StorageKeys.teacherRating)
+                            .read<double>(StorageKeys.teacherRating)
                             ?.toDouble() ??
                         0.0,
                     minRating: 1,

@@ -47,7 +47,7 @@ class Lecture {
         bookingDate: json['bookingDate'] == null
             ? null
             : (json['bookingDate'] as Timestamp).toDate(),
-        teacherRating: json['rating']);
+        teacherRating: (json['rating'])?.toDouble());
   }
 
   Map<String, dynamic> toJson() => {
