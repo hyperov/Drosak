@@ -15,7 +15,7 @@ class FollowRepo {
         .get();
   }
 
-  void unfollow(String teacherName) async {
+  Future<void> unfollow(String teacherName) async {
     var querySnapshot = await FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser!.uid)

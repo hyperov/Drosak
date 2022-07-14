@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/entity/Follow.dart';
@@ -11,6 +12,8 @@ class FollowsViewModel extends GetxController {
 
   RxBool isFollowingTeacher = false.obs;
   RxBool isLoading = false.obs;
+
+  final followAnimatedListKey = GlobalKey<AnimatedListState>();
 
   @override
   void onInit() {
@@ -34,9 +37,25 @@ class FollowsViewModel extends GetxController {
     follows.addAll(followsDocs);
   }
 
-  void unfollow(String teacherName) {
+  Future<void> unfollow(String teacherName, int index) async {
     isLoading.value = true;
-    _followRepo.unfollow(teacherName);
+    await _followRepo.unfollow(teacherName);
+    followAnimatedListKey.currentState?.removeItem(index, (context, animation) {
+      return FadeTransition(
+        opacity: animation,
+        child: SizeTransition(
+          sizeFactor: animation,
+          child: Card(
+            child: ListTile(
+              title: Text(
+                "item",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
     isLoading.value = false;
     getFollows();
   }
