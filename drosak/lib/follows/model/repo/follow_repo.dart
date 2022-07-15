@@ -41,13 +41,15 @@ class FollowRepo {
         .collection(FireStoreNames.collectionStudentFollows)
         .where(FireStoreNames.followDocFieldTeacherName, isEqualTo: teacherName)
         .get();
-    await querySnapshot.docs.first.reference.delete();
-  }
 
-  Future<void> decrementFollowsCountToStudent() async {
-    return FirebaseFirestore.instance
+    var batch = FirebaseFirestore.instance.batch();
+
+    batch.delete(querySnapshot.docs.first.reference);
+    var docStudent = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update({'follows': FieldValue.increment(-1)});
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    batch.update(docStudent, {'follows': FieldValue.increment(-1)});
+    await batch.commit();
   }
 }
