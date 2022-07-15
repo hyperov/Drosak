@@ -41,6 +41,7 @@ class FollowsViewModel extends GetxController {
   Future<void> unfollowTeacher(String teacherName, int index) async {
     isLoading.value = true;
     await _followRepo.deleteFollowDoc(teacherName);
+    await _followRepo.decrementFollowsCountToStudent();
     follows.removeAt(index);
     followAnimatedListKey.currentState?.removeItem(index, (context, animation) {
       return FadeTransition(
