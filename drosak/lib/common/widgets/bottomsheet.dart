@@ -6,6 +6,7 @@ import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:sliding_up_panel/src/panel.dart';
 
 showListBottomSheet(
     {required List<Icon> leadingIcons,
@@ -228,174 +229,196 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
   );
 }
 
-showConfirmBookingDialog(BuildContext context,
-    LecturesViewModel lecturesViewModel, int index, Teacher teacher) {
+showConfirmBookingDialog(
+    BuildContext context,
+    LecturesViewModel lecturesViewModel,
+    int index,
+    Teacher teacher,
+    PanelController slidingUpPanelController) {
   Get.bottomSheet(
-    Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      elevation: 0,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Stack(
-              alignment: Alignment.center,
-              clipBehavior: Clip.none,
-              children: [
-                Card(
-                    color: Colors.deepPurple,
-                    elevation: 4,
-                    clipBehavior: Clip.hardEdge,
-                    shape: const CircleBorder(
-                        side: BorderSide(
-                            color: Colors.deepPurpleAccent, width: 1)),
-                    child: Image.network(
-                        lecturesViewModel.lectures[index].teacherImageUrl,
-                        width: 80,
-                        height: 80,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                      return SvgPicture.asset(
-                        AssetsManager.profilePlaceHolder,
-                        width: 70,
-                        height: 70,
+    SingleChildScrollView(
+      child: Card(
+        elevation: 0,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Stack(
+                alignment: Alignment.center,
+                clipBehavior: Clip.none,
+                children: [
+                  Card(
+                      color: Colors.deepPurple,
+                      elevation: 4,
+                      clipBehavior: Clip.hardEdge,
+                      shape: const CircleBorder(
+                          side: BorderSide(
+                              color: Colors.deepPurpleAccent, width: 1)),
+                      child: Image.network(
+                          lecturesViewModel.lectures[index].teacherImageUrl,
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                        return SvgPicture.asset(
+                          AssetsManager.profilePlaceHolder,
+                          width: 60,
+                          height: 60,
+                          color: Colors.white,
+                          fit: BoxFit.cover,
+                        ).marginAll(16);
+                      })),
+                  Positioned(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
                         color: Colors.white,
-                        fit: BoxFit.cover,
-                      ).marginAll(16);
-                    })),
-                Positioned(
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.deepPurpleAccent),
-                      borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(16),
-                          right: Radius.circular(16)),
-                    ),
-                    child: Row(children: [
-                      SvgPicture.asset(
-                        AssetsManager.star,
-                        width: 16,
-                        height: 16,
+                        border: Border.all(color: Colors.deepPurpleAccent),
+                        borderRadius: const BorderRadius.horizontal(
+                            left: Radius.circular(16),
+                            right: Radius.circular(16)),
                       ),
-                      const SizedBox(width: 4),
-                      Text(teacher.avgRating.toString(),
-                          style: const TextStyle(
-                              fontSize: 10, color: Colors.black)),
-                    ]),
+                      child: Row(children: [
+                        SvgPicture.asset(
+                          AssetsManager.star,
+                          width: 16,
+                          height: 16,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(teacher.avgRating.toString(),
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black)),
+                      ]),
+                    ),
+                    bottom: -5,
                   ),
-                  bottom: -5,
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(lecturesViewModel.lectures[index].teacherName,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-            const SizedBox(height: 4),
-            Container(
-                width: double.infinity,
-                height: 1,
-                color: Colors.grey,
-                margin: const EdgeInsets.symmetric(horizontal: 100)),
-            const SizedBox(height: 4),
-            Card(
-                elevation: 4,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                color: Colors.white,
-                child: const Icon(Icons.school).marginAll(14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
-            Text(lecturesViewModel.lectures[index].centerName),
-            const SizedBox(height: 0),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(lecturesViewModel.lectures[index].classLevel),
-                const Text(' / '),
-                Text(lecturesViewModel.lectures[index].material),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.location_pin),
-                Text(lecturesViewModel.lectures[index].city),
-                const Text(' - '),
-                Text(lecturesViewModel.lectures[index].area),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(lecturesViewModel.lectures[index].address),
-            const SizedBox(height: 4),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Column(
-                children: [
-                  const Icon(Icons.calendar_today),
-                  Text(lecturesViewModel.lectures[index].day),
                 ],
               ),
+              const SizedBox(height: 8),
+              Text(lecturesViewModel.lectures[index].teacherName,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+              const SizedBox(height: 4),
               Container(
-                height: 1,
-                width: 60,
-                color: Colors.black,
-              ),
-              Column(
-                children: [
-                  const Icon(Icons.punch_clock),
-                  Text(lecturesViewModel.lectures[index].time),
-                ],
-              ),
-              Container(
-                height: 1,
-                width: 60,
-                color: Colors.black,
-              ),
-              Column(
-                children: [
-                  const Icon(Icons.money),
-                  Text(
-                      "${lecturesViewModel.lectures[index].price.toString()}ج "),
-                ],
-              )
-            ]),
-            const SizedBox(height: 8),
-            Container(
-              width: double.infinity,
-              height: 48,
-              margin: const EdgeInsets.symmetric(horizontal: 32),
-              child: ElevatedButton(
-                onPressed: () async {
-                  await lecturesViewModel.bookLecture(index);
-                  Get.back();
-                },
-                child: Text(LocalizationKeys.confirm_booking.tr,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold)),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.grey,
+                  margin: const EdgeInsets.symmetric(horizontal: 100)),
+              const SizedBox(height: 4),
+              Card(
+                  elevation: 4,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  color: Colors.white,
+                  child: const Icon(Icons.school).marginAll(14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+                  )),
+              Text(lecturesViewModel.lectures[index].centerName),
+              const SizedBox(height: 0),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(lecturesViewModel.lectures[index].classLevel),
+                  const Text(' / '),
+                  Text(lecturesViewModel.lectures[index].material),
+                ],
               ),
-            ),
-          ]),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.location_pin),
+                  Text(lecturesViewModel.lectures[index].city),
+                  const Text(' - '),
+                  Text(lecturesViewModel.lectures[index].area),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(lecturesViewModel.lectures[index].address),
+              const SizedBox(height: 4),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                Column(
+                  children: [
+                    const Icon(Icons.calendar_today),
+                    Text(lecturesViewModel.lectures[index].day),
+                  ],
+                ),
+                Container(
+                  height: 1,
+                  width: 60,
+                  color: Colors.black,
+                ),
+                Column(
+                  children: [
+                    const Icon(Icons.punch_clock),
+                    Text(lecturesViewModel.lectures[index].time),
+                  ],
+                ),
+                Container(
+                  height: 1,
+                  width: 60,
+                  color: Colors.black,
+                ),
+                Column(
+                  children: [
+                    const Icon(Icons.money),
+                    Text(
+                        "${lecturesViewModel.lectures[index].price.toString()}ج "),
+                  ],
+                )
+              ]),
+              const SizedBox(height: 8),
+              Container(
+                width: double.infinity,
+                height: 48,
+                margin: const EdgeInsets.symmetric(horizontal: 32),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await lecturesViewModel.bookLecture(index);
+                      Get.back();
+                      Get.back();
+                      slidingUpPanelController.close();
+                      Get.snackbar(
+                        'Success',
+                        LocalizationKeys.lecture_booked.tr,
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                      );
+                    } catch (e) {
+                      print(e);
+                      Get.snackbar('Error', e.toString(),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                          icon: const Icon(Icons.error));
+                    }
+                  },
+                  child: Text(LocalizationKeys.confirm_booking.tr,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ).marginOnly(bottom: 16),
+              ),
+            ]),
+      ),
     ),
     backgroundColor: Colors.white,
+    clipBehavior: Clip.hardEdge,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(32),

@@ -1,3 +1,4 @@
+import 'package:drosak/common/widgets/dialogs.dart';
 import 'package:drosak/follows/viewmodel/follows_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
@@ -99,9 +100,8 @@ class FollowItem extends StatelessWidget {
               top: 16,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  followsViewModel.unfollowTeacher(
-                      followsViewModel.follows[index].teacherName, index);
-                },
+                  openDeleteDialog(followsViewModel, index);
+                 },
                 icon: const Icon(
                   Icons.done,
                   color: Colors.deepPurpleAccent,

@@ -1,4 +1,6 @@
-class Lecture {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Booking {
   String? id;
   String centerName;
   String city; //cairo or giza
@@ -11,9 +13,11 @@ class Lecture {
   int price;
   String teacherName;
   String teacherImageUrl;
-  bool isEnabled =true;
+  DateTime bookingDate;
+  double teacherRating;
+  bool isCanceled;
 
-  Lecture(
+  Booking(
       {required this.centerName,
       required this.city,
       required this.area,
@@ -25,10 +29,12 @@ class Lecture {
       required this.price,
       required this.teacherName,
       required this.teacherImageUrl,
-      required this.isEnabled});
+      required this.bookingDate,
+      required this.teacherRating,
+      required this.isCanceled});
 
-  factory Lecture.fromJson(Map<String, dynamic> json) {
-    return Lecture(
+  factory Booking.fromJson(Map<String, dynamic> json) {
+    return Booking(
         centerName: json['center'],
         city: json['city'],
         area: json['area'],
@@ -40,7 +46,9 @@ class Lecture {
         price: json['price'],
         teacherName: json['teacher'],
         teacherImageUrl: json['pic'],
-        isEnabled: json['is_enabled']);
+        bookingDate: (json['book_date'] as Timestamp).toDate(),
+        teacherRating: (json['rating'])?.toDouble(),
+        isCanceled: json['is_canceled']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -55,6 +63,8 @@ class Lecture {
         'price': price,
         'teacher': teacherName,
         'pic': teacherImageUrl,
-        'is_enabled': isEnabled
+        'book_date': bookingDate,
+        'rating': teacherRating,
+        'is_canceled': isCanceled
       };
 }

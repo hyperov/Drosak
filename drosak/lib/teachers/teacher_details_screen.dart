@@ -13,6 +13,8 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../posts/view/posts_screen.dart';
 
 class TeacherDetailsScreen extends StatelessWidget {
+  final _slidingUpPanelController = PanelController();
+
   TeacherDetailsScreen({Key? key}) : super(key: key);
 
   final TeachersListViewModel _teachersListViewModel = Get.find();
@@ -45,18 +47,29 @@ class TeacherDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 32),
-            Image.network(_teachersListViewModel.selectedTeacher.photoUrl!,
-                width: 70,
-                height: 70,
-                fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
-              return SvgPicture.asset(
-                AssetsManager.profilePlaceHolder,
-                width: 70,
-                height: 70,
-                color: Colors.white,
-                fit: BoxFit.cover,
-              ).marginAll(16);
-            }),
+            Card(
+              clipBehavior: Clip.hardEdge,
+              shape: const CircleBorder(
+                side: BorderSide(
+                  color: Colors.deepPurpleAccent,
+                  width: 4,
+                ),
+              ),
+              child: Image.network(
+                  _teachersListViewModel.selectedTeacher.photoUrl!,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                return SvgPicture.asset(
+                  AssetsManager.profilePlaceHolder,
+                  width: 70,
+                  height: 70,
+                  color: Colors.white,
+                  fit: BoxFit.cover,
+                ).marginAll(16);
+              }),
+            ),
             Text(_teachersListViewModel.selectedTeacher.name!,
                 style: const TextStyle(fontSize: 30)),
             SizedBox(
@@ -186,6 +199,7 @@ class TeacherDetailsScreen extends StatelessWidget {
           ],
         ),
         SlidingUpPanel(
+          controller: _slidingUpPanelController,
           minHeight: 120,
           parallaxEnabled: true,
           parallaxOffset: .5,
@@ -235,6 +249,7 @@ class TeacherDetailsScreen extends StatelessWidget {
                       children: [
                         LecturesScreen(
                             scrollController: scrollController,
+                            slidingUpPanelController: _slidingUpPanelController,
                             teacher: _teachersListViewModel.selectedTeacher),
                         ReviewsScreen(scrollController: scrollController),
                         PostsScreen(scrollController: scrollController),

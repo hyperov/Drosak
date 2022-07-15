@@ -3,16 +3,21 @@ import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sliding_up_panel/src/panel.dart';
 
 import '../utils/localization/localization_keys.dart';
 import 'viewmodel/lectures_viewmodel.dart';
 
 class LecturesScreen extends StatelessWidget {
   const LecturesScreen(
-      {Key? key, required this.scrollController, required this.teacher})
+      {Key? key,
+      required this.scrollController,
+      required this.teacher,
+      required this.slidingUpPanelController})
       : super(key: key);
 
   final ScrollController scrollController;
+  final PanelController slidingUpPanelController;
   final Teacher teacher;
 
   LecturesViewModel get _lecturesViewModel => Get.put(LecturesViewModel());
@@ -106,17 +111,26 @@ class LecturesScreen extends StatelessWidget {
                                     width: double.infinity,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 32, vertical: 16),
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        showConfirmBookingDialog(context,
-                                            _lecturesViewModel, index, teacher);
-                                      },
-                                      child: Text(LocalizationKeys.booking.tr),
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.deepPurple,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                    child: Visibility(
+                                      visible: _lecturesViewModel
+                                          .lectures[index].isEnabled,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          showConfirmBookingDialog(
+                                              context,
+                                              _lecturesViewModel,
+                                              index,
+                                              teacher,
+                                              slidingUpPanelController);
+                                        },
+                                        child:
+                                            Text(LocalizationKeys.booking.tr),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.deepPurple,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
                                         ),
                                       ),
                                     ),

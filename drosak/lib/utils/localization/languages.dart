@@ -90,6 +90,9 @@ class Languages extends Translations {
           LocalizationKeys.sms_code_not_sent_question: 'SMS Code not sent ?',
           LocalizationKeys.app_cancel: 'Cancel',
           LocalizationKeys.app_ok: 'Ok',
+          LocalizationKeys.app_delete: 'Delete',
+          LocalizationKeys.app_yes: 'Yes',
+          LocalizationKeys.app_no: 'No',
           LocalizationKeys.logout_confirmation:
               'Are you sure you want to logout ?',
           LocalizationKeys.price_average: 'Average Price',
@@ -97,8 +100,14 @@ class Languages extends Translations {
           LocalizationKeys.bookings: 'Bookings',
           LocalizationKeys.booking: 'Booking',
           LocalizationKeys.confirm_booking: 'confirm booking',
+          LocalizationKeys.cancel_booking: 'cancel booking',
+          LocalizationKeys.delete_follow: 'Cancel follow',
           LocalizationKeys.lecture_booked:
               'Lecture Booked! you can now go to your bookings to see the details',
+          LocalizationKeys.follow_delete_question:
+              'Are you sure you want to unfollow this teacher?',
+          LocalizationKeys.booking_delete_question:
+              'Are you sure you want to cancel this booking?',
 
           LocalizationKeys.profile_updated_error: 'Profile Updated Error',
           LocalizationKeys.profile_updated_successfully:
@@ -208,6 +217,7 @@ class Languages extends Translations {
           LocalizationKeys.sms_code_not_sent_question: 'لم يتم إرسال الكود؟',
           LocalizationKeys.app_cancel: 'إلغاء',
           LocalizationKeys.app_ok: 'موافق',
+          LocalizationKeys.app_delete: 'حذف',
           LocalizationKeys.logout_confirmation: 'هل أنت متأكد من تسجيل الخروج؟',
           LocalizationKeys.confirm: 'تأكيد',
           LocalizationKeys.price_average: 'متوسط السعر',
@@ -215,6 +225,8 @@ class Languages extends Translations {
           LocalizationKeys.bookings: 'الحجوزات',
           LocalizationKeys.booking: 'حجز',
           LocalizationKeys.confirm_booking: 'تأكيد الحجز',
+          LocalizationKeys.cancel_booking: 'الغاء الحجز',
+          LocalizationKeys.delete_follow: 'الغاء المتابعة',
           LocalizationKeys.lecture_booked:
               'تم حجز الحصة بنجاح! يمكنك الاطلاع على الحجز على الصفحة الخاصة بالحجز',
 
@@ -237,6 +249,12 @@ class Languages extends Translations {
           LocalizationKeys.fav: 'المفضلة',
           LocalizationKeys.following: 'متابعة',
           LocalizationKeys.posts: 'الاخبار',
+          LocalizationKeys.follow_delete_question:
+              'هل أنت متأكد من الغاء المتابعة؟',
+          LocalizationKeys.booking_delete_question:
+              'هل أنت متأكد من الغاء الحجز؟',
+          LocalizationKeys.app_yes: 'نعم',
+          LocalizationKeys.app_no: 'لا',
         },
       };
 }

@@ -1,4 +1,5 @@
-import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:drosak/bookings/model/booking.dart';
+import 'package:drosak/bookings/model/bookings_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,6 +10,7 @@ import '../model/repo/lectures_repo.dart';
 
 class LecturesViewModel extends GetxController {
   final LecturesRepo _lecturesRepo = Get.put(LecturesRepo());
+  final BookingsRepo _bookingsRepo = Get.put(BookingsRepo());
 
   final RxList<Lecture> lectures = <Lecture>[].obs;
 
@@ -16,7 +18,7 @@ class LecturesViewModel extends GetxController {
 
   final _storage = GetStorage();
 
-  Lecture? selectedLecture;
+  late Lecture selectedLecture;
   int selectedIndex = -1;
 
   @override
@@ -46,16 +48,26 @@ class LecturesViewModel extends GetxController {
   Future<void> bookLecture(int index) async {
     selectedLecture = lectures[index];
     selectedIndex = index;
-    selectedLecture?.bookingDate = DateTime.now();
+
+    Booking _booking = Booking(
+      centerName: selectedLecture.centerName,
+      city: selectedLecture.city,
+      area: selectedLecture.area,
+      address: selectedLecture.address,
+      material: selectedLecture.material,
+      classLevel: selectedLecture.classLevel,
+      day: selectedLecture.day,
+      time: selectedLecture.time,
+      price: selectedLecture.price,
+      teacherName: selectedLecture.teacherName,
+      teacherImageUrl: selectedLecture.teacherImageUrl,
+      bookingDate: DateTime.now(),
+      teacherRating: _storage.read<double>(StorageKeys.teacherRating)!,
+      isCanceled: false,
+    );
+
     try {
-      await _lecturesRepo.bookLecture(selectedLecture!);
-      Get.snackbar(
-        'Success',
-        LocalizationKeys.lecture_booked.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        duration: Duration(seconds: 2),
-      );
+      await _bookingsRepo.addBooking(_booking);
     } catch (e) {
       Get.snackbar(
         'Error',

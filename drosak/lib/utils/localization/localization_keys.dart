@@ -197,5 +197,11 @@ class LocalizationKeys {
 
   static var booking = 'booking';
   static var confirm_booking = 'confirm_booking';
+  static var cancel_booking = 'delete_booking';
   static var lecture_booked = 'lecture_booked';
+
+  static var follow_delete_question = 'follow_delete_question';
+  static var booking_delete_question = 'booking_delete_question';
+
+  static var delete_follow = 'delete_follow';
 }
