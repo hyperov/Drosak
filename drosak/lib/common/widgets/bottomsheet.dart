@@ -229,7 +229,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
   );
 }
 
-showConfirmBookingDialog(
+showConfirmBookingBottomSheet(
     BuildContext context,
     LecturesViewModel lecturesViewModel,
     int index,

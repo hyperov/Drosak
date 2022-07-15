@@ -101,7 +101,7 @@ class FollowItem extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: () {
                   openDeleteDialog(followsViewModel, index);
-                 },
+                },
                 icon: const Icon(
                   Icons.done,
                   color: Colors.deepPurpleAccent,

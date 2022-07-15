@@ -116,7 +116,7 @@ class LecturesScreen extends StatelessWidget {
                                           .lectures[index].isEnabled,
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          showConfirmBookingDialog(
+                                          showConfirmBookingBottomSheet(
                                               context,
                                               _lecturesViewModel,
                                               index,

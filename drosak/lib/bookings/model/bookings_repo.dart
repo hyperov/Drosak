@@ -19,15 +19,6 @@ class BookingsRepo {
         .get();
   }
 
-  Future<void> updateBookingDocCancellation(String bookingId) async {
-    return FirebaseFirestore.instance
-        .collection(FireStoreNames.collectionStudents)
-        .doc(_storage.read(StorageKeys.studentId))
-        .collection(FireStoreNames.collectionStudentBookings)
-        .doc(bookingId)
-        .update({'is_canceled': true});
-  }
-
   Future<DocumentReference<Booking>> addBooking(Booking booking) {
     return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
@@ -37,5 +28,28 @@ class BookingsRepo {
             fromFirestore: (snapshot, _) => Booking.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
         .add(booking);
+  }
+
+  Future<void> incrementBookingCountToStudent() {
+    return FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionStudents)
+        .doc(_storage.read(StorageKeys.studentId))
+        .update({'bookings': FieldValue.increment(1)});
+  }
+
+  Future<void> updateBookingDocCancellation(String bookingId) async {
+    return FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionStudents)
+        .doc(_storage.read(StorageKeys.studentId))
+        .collection(FireStoreNames.collectionStudentBookings)
+        .doc(bookingId)
+        .update({'is_canceled': true});
+  }
+
+  Future<void> incrementCanceledBookingCountFromStudent() {
+    return FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionStudents)
+        .doc(_storage.read(StorageKeys.studentId))
+        .update({'bookings_canceled': FieldValue.increment(1)});
   }
 }

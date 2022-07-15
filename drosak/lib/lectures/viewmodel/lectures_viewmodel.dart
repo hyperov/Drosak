@@ -68,6 +68,7 @@ class LecturesViewModel extends GetxController {
 
     try {
       await _bookingsRepo.addBooking(_booking);
+      await _bookingsRepo.incrementBookingCountToStudent();
     } catch (e) {
       Get.snackbar(
         'Error',
