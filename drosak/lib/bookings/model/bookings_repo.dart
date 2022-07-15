@@ -38,18 +38,21 @@ class BookingsRepo {
   }
 
   Future<void> updateBookingDocCancellation(String bookingId) async {
-    return FirebaseFirestore.instance
+    var batch = FirebaseFirestore.instance.batch();
+
+    var docBooking = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(_storage.read(StorageKeys.studentId))
         .collection(FireStoreNames.collectionStudentBookings)
-        .doc(bookingId)
-        .update({'is_canceled': true});
-  }
+        .doc(bookingId);
 
-  Future<void> incrementCanceledBookingCountFromStudent() {
-    return FirebaseFirestore.instance
+    batch.update(docBooking, {'is_canceled': true});
+
+    var docStudent = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
-        .doc(_storage.read(StorageKeys.studentId))
-        .update({'bookings_canceled': FieldValue.increment(1)});
+        .doc(_storage.read(StorageKeys.studentId));
+    // increment canceled bookings count
+    batch.update(docStudent, {'bookings_canceled': FieldValue.increment(1)});
+    return batch.commit();
   }
 }

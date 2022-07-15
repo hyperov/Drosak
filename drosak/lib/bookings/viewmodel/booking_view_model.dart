@@ -37,7 +37,6 @@ class BookingsViewModel extends GetxController {
   Future<void> cancelBooking(String bookingId) async {
     isLoading.value = true;
     await _bookingRepo.updateBookingDocCancellation(bookingId);
-    await _bookingRepo.incrementCanceledBookingCountFromStudent();
     isLoading.value = false;
     await getBookings();
   }

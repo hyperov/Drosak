@@ -48,7 +48,7 @@ class FollowRepo {
     var docStudent = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser!.uid);
-
+    // decerement follows count
     batch.update(docStudent, {'follows': FieldValue.increment(-1)});
     await batch.commit();
   }
