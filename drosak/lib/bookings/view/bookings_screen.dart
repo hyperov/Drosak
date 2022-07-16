@@ -49,110 +49,155 @@ class BookingsScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return Stack(children: [
-                            Card(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 24),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              elevation: 0,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(height: 42),
-                                    Text(_bookingsViewModel
-                                        .bookings[index].centerName),
-                                    const SizedBox(height: 0),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(_bookingsViewModel
-                                            .bookings[index].classLevel),
-                                        const Text(' / '),
-                                        Text(_bookingsViewModel
-                                            .bookings[index].material),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Icon(Icons.location_pin),
-                                        Text(_bookingsViewModel
-                                            .bookings[index].city),
-                                        const Text(' - '),
-                                        Text(_bookingsViewModel
-                                            .bookings[index].area),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                            Stack(children: [
+                              Card(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 24),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                elevation: 0,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 42),
+                                      Text(_bookingsViewModel
+                                          .bookings[index].centerName),
+                                      const SizedBox(height: 0),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Column(
-                                            children: [
-                                              const Icon(Icons.calendar_today),
-                                              Text(_bookingsViewModel
-                                                  .bookings[index].day),
-                                            ],
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            width: 60,
-                                            color: Colors.black,
-                                          ),
-                                          Column(
-                                            children: [
-                                              const Icon(Icons.punch_clock),
-                                              Text(_bookingsViewModel
-                                                  .bookings[index].time),
-                                            ],
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            width: 60,
-                                            color: Colors.black,
-                                          ),
-                                          Column(
-                                            children: [
-                                              const Icon(Icons.money),
-                                              Text(
-                                                  "${_bookingsViewModel.bookings[index].price.toString()}ج "),
-                                            ],
-                                          )
-                                        ]),
-                                    Container(
-                                      width: double.infinity,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 32, vertical: 16),
-                                      child: Visibility(
-                                        visible: !_bookingsViewModel
-                                            .bookings[index].isCanceled,
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            openDeleteDialog(
-                                                _bookingsViewModel,
-                                                _bookingsViewModel
-                                                    .bookings[index].id!);
-                                            // showConfirmDeleteBookingDialog(context,
-                                            //     _bookingsViewModel, index, teacher);
-                                          },
-                                          child: Text(LocalizationKeys
-                                              .cancel_booking.tr),
-                                          style: ElevatedButton.styleFrom(
-                                            primary: Colors.deepPurple,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
+                                          Text(_bookingsViewModel
+                                              .bookings[index].classLevel),
+                                          const Text(' / '),
+                                          Text(_bookingsViewModel
+                                              .bookings[index].material),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(Icons.location_pin),
+                                          Text(_bookingsViewModel
+                                              .bookings[index].city),
+                                          const Text(' - '),
+                                          Text(_bookingsViewModel
+                                              .bookings[index].area),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                const Icon(
+                                                    Icons.calendar_today),
+                                                Text(_bookingsViewModel
+                                                    .bookings[index].day),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: 1,
+                                              width: 60,
+                                              color: Colors.black,
+                                            ),
+                                            Column(
+                                              children: [
+                                                const Icon(Icons.punch_clock),
+                                                Text(_bookingsViewModel
+                                                    .bookings[index].time),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: 1,
+                                              width: 60,
+                                              color: Colors.black,
+                                            ),
+                                            Column(
+                                              children: [
+                                                const Icon(Icons.money),
+                                                Text(
+                                                    "${_bookingsViewModel.bookings[index].price.toString()}ج "),
+                                              ],
+                                            )
+                                          ]),
+                                      Container(
+                                        width: double.infinity,
+                                        height: 48,
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 16),
+                                        child: Visibility(
+                                          visible: !_bookingsViewModel
+                                              .bookings[index].isCanceled,
+                                          child: ElevatedButton(
+                                            onPressed: () async {
+                                              openDeleteDialog(
+                                                  _bookingsViewModel,
+                                                  _bookingsViewModel
+                                                      .bookings[index].id!);
+                                              // showConfirmDeleteBookingDialog(context,
+                                              //     _bookingsViewModel, index, teacher);
+                                            },
+                                            child: Text(LocalizationKeys
+                                                .cancel_booking.tr),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.deepPurple,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ]),
-                            ),
+                                    ]).marginSymmetric(horizontal: 24),
+                              ),
+                              PositionedDirectional(
+                                top: 0,
+                                end: 32,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(height: 32),
+                                      Card(
+                                        clipBehavior: Clip.hardEdge,
+                                        shape: const CircleBorder(
+                                          side: BorderSide(
+                                            color: Colors.deepPurpleAccent,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        child: Image.network(
+                                            _bookingsViewModel.bookings[index]
+                                                .teacherImageUrl,
+                                            width: 70,
+                                            height: 70,
+                                            fit: BoxFit.cover, errorBuilder:
+                                                (context, error, stackTrace) {
+                                          return SvgPicture.asset(
+                                            AssetsManager.profilePlaceHolder,
+                                            width: 70,
+                                            height: 70,
+                                            color: Colors.white,
+                                            fit: BoxFit.cover,
+                                          ).marginAll(16);
+                                        }),
+                                      ),
+                                      Text(
+                                          _bookingsViewModel
+                                              .bookings[index].teacherName,
+                                          style: const TextStyle(fontSize: 14)),
+                                    ]),
+                              )
+                            ]),
                             PositionedDirectional(
+                                top: 0,
+                                start: 36,
                                 child: Center(
                                     child: Card(
                                         elevation: 4,
@@ -167,7 +212,7 @@ class BookingsScreen extends StatelessWidget {
                         },
                         itemCount: _bookingsViewModel.bookings.length,
                         physics: const BouncingScrollPhysics(),
-                      ),
+                      ).marginOnly(top: 16),
                     )
                   : Center(
                       child: Text(LocalizationKeys.lectures_not_found.tr),
