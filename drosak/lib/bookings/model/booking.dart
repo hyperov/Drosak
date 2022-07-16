@@ -14,6 +14,7 @@ class Booking {
   String teacherName;
   String teacherImageUrl;
   DateTime bookingDate;
+  DateTime? lecDate;
   double teacherRating;
   bool isCanceled;
   String lectureId;
@@ -31,6 +32,7 @@ class Booking {
       required this.teacherName,
       required this.teacherImageUrl,
       required this.bookingDate,
+      this.lecDate,
       required this.teacherRating,
       required this.isCanceled,
       required this.lectureId});
@@ -49,6 +51,7 @@ class Booking {
         teacherName: json['teacher'],
         teacherImageUrl: json['pic'],
         bookingDate: (json['book_date'] as Timestamp).toDate(),
+        lecDate: (json['lec_date'] as Timestamp).toDate(),
         teacherRating: (json['rating'])?.toDouble(),
         isCanceled: json['is_canceled'],
         lectureId: json['lec_id']);
@@ -67,8 +70,63 @@ class Booking {
         'teacher': teacherName,
         'pic': teacherImageUrl,
         'book_date': bookingDate,
+        'lec_date': lecDate,
         'rating': teacherRating,
         'is_canceled': isCanceled,
         'lec_id': lectureId
       };
+
+  getWeekDayText() {
+    switch (day) {
+      case 'الاثنين':
+        return 'monday';
+      case 'الثلاثاء':
+        return 'tuesday';
+      case 'الاربعاء':
+        return 'wednesday';
+      case 'الخميس':
+        return 'thursday';
+      case 'الجمعة':
+        return 'friday';
+      case 'السبت':
+        return 'saturday';
+      case 'الأحد':
+        return 'sunday';
+    }
+  }
+
+  int getWeekDayNumber() {
+    switch (day) {
+      case 'الاثنين':
+        return 1;
+      case 'الثلاثاء':
+        return 2;
+      case 'الاربعاء':
+        return 3;
+      case 'الخميس':
+        return 4;
+      case 'الجمعة':
+        return 5;
+      case 'السبت':
+        return 6;
+      case 'الأحد':
+        return 7;
+    }
+    return 1;
+  }
+
+  DateTime getLectureDate() {
+    DateTime endDate =
+        DateTime(bookingDate.year, bookingDate.month, bookingDate.day);
+
+    int todayDay = endDate.weekday; // today day number
+
+    var lecDay = getWeekDayNumber(); //1-7
+
+    while (todayDay != lecDay) {
+      endDate = endDate.add(const Duration(days: 1));
+      todayDay = endDate.weekday;
+    }
+    return endDate;
+  }
 }

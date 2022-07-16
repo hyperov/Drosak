@@ -67,6 +67,8 @@ class LecturesViewModel extends GetxController {
       lectureId: selectedLecture.id!,
     );
 
+    _booking.lecDate = _booking.getLectureDate();
+
     try {
       await _bookingsRepo.addBooking(_booking);
       await _bookingsRepo.incrementBookingCountToStudent();
