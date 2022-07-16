@@ -64,6 +64,7 @@ class LecturesViewModel extends GetxController {
       bookingDate: DateTime.now(),
       teacherRating: _storage.read<double>(StorageKeys.teacherRating)!,
       isCanceled: false,
+      lectureId: selectedLecture.id!,
     );
 
     try {
