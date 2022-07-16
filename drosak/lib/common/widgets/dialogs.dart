@@ -5,7 +5,7 @@ import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-openDeleteDialog(GetxController viewModel, int index) {
+openDeleteDialog(GetxController viewModel, String id) {
   var isFollowsViewModel = viewModel is FollowsViewModel;
   var isBookingsViewModel = viewModel is BookingsViewModel;
   Get.dialog(
@@ -59,11 +59,10 @@ openDeleteDialog(GetxController viewModel, int index) {
           onPressed: () async {
             Get.back();
             if (isFollowsViewModel) {
-              await viewModel.unfollowTeacher(
-                  viewModel.follows[index].teacherName, index);
+              await viewModel.unfollowTeacher(id);
             } else if (isBookingsViewModel) {
               //favoriteViewModel
-              await viewModel.cancelBooking(viewModel.bookings[index].id!);
+              await viewModel.cancelBooking(id);
             }
           },
         ),

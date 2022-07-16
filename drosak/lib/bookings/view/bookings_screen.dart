@@ -132,7 +132,9 @@ class BookingsScreen extends StatelessWidget {
                                         child: ElevatedButton(
                                           onPressed: () async {
                                             openDeleteDialog(
-                                                _bookingsViewModel, index);
+                                                _bookingsViewModel,
+                                                _bookingsViewModel
+                                                    .bookings[index].id!);
                                             // showConfirmDeleteBookingDialog(context,
                                             //     _bookingsViewModel, index, teacher);
                                           },

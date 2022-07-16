@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../entity/follow.dart';
 
 class FollowRepo {
-  Future<QuerySnapshot<Follow>> getStudentFollows(String studentId) {
+  final _storage = GetStorage();
+
+  Stream<QuerySnapshot<Follow>> getStudentFollows(String studentId) {
     return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(studentId)
@@ -13,10 +16,10 @@ class FollowRepo {
         .withConverter<Follow>(
             fromFirestore: (snapshot, _) => Follow.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
-        .get();
+        .snapshots();
   }
 
-  Future<DocumentReference<Follow>> addFollow(Follow follow) async {
+  Future<void> addFollow(Follow follow) async {
     return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -24,7 +27,8 @@ class FollowRepo {
         .withConverter<Follow>(
             fromFirestore: (snapshot, _) => Follow.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
-        .add(follow);
+        .doc(follow.teacherId)
+        .set(follow);
   }
 
   Future<void> incrementFollowsCountToStudent() async {
@@ -34,12 +38,12 @@ class FollowRepo {
         .update({'follows': FieldValue.increment(1)});
   }
 
-  Future<void> deleteFollowDoc(String teacherName) async {
+  Future<void> deleteFollowDoc(String teacherId) async {
     var querySnapshot = await FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection(FireStoreNames.collectionStudentFollows)
-        .where(FireStoreNames.followDocFieldTeacherName, isEqualTo: teacherName)
+        .where(FireStoreNames.followDocFieldTeacherId, isEqualTo: teacherId)
         .get();
 
     var batch = FirebaseFirestore.instance.batch();

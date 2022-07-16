@@ -64,9 +64,9 @@ class ProfileViewModel extends GetxController {
 
   @override
   Future<void> onInit() async {
+    super.onInit();
     await getStudent();
     readStudentProfileDataFromStorage();
-    super.onInit();
   }
 
   @override

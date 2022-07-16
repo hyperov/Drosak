@@ -1,3 +1,5 @@
+import 'package:drosak/common/widgets/dialogs.dart';
+import 'package:drosak/follows/viewmodel/follows_viewmodel.dart';
 import 'package:drosak/lectures/lectures_screen.dart';
 import 'package:drosak/reviews/view/reviews_screen.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
@@ -18,6 +20,12 @@ class TeacherDetailsScreen extends StatelessWidget {
   TeacherDetailsScreen({Key? key}) : super(key: key);
 
   final TeachersListViewModel _teachersListViewModel = Get.find();
+  final FollowsViewModel _followsViewModel = Get.find();
+
+  bool isFollowing() {
+    return _followsViewModel.follows.any((follow) =>
+        follow.teacherId == _teachersListViewModel.selectedTeacher.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,22 +117,41 @@ class TeacherDetailsScreen extends StatelessWidget {
                   onPressed: () {},
                 ),
                 Expanded(
-                  child: ElevatedButton(
+                    child: Obx(
+                  () => ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple,
+                        primary:
+                            isFollowing() ? Colors.white : Colors.deepPurple,
                         padding: const EdgeInsets.all(8),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
+                          side: BorderSide(
+                            width: isFollowing() ? 2 : 0,
+                            color: isFollowing()
+                                ? Colors.deepPurple
+                                : Colors.white,
+                          ),
                         )),
                     child: Text(
-                      LocalizationKeys.following.tr,
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
+                      isFollowing()
+                          ? LocalizationKeys.delete_follow.tr
+                          : LocalizationKeys.follows2.tr,
+                      style: TextStyle(
+                          color: isFollowing()
+                              ? Colors.deepPurple
+                              : ColorManager.redOrangeLight,
+                          fontSize: 20),
                     ),
                     onPressed: () async {
-                      await _teachersListViewModel.followTeacher();
+                      if (isFollowing()) {
+                        openDeleteDialog(_followsViewModel,
+                            _teachersListViewModel.selectedTeacher.id!);
+                      } else {
+                        await _teachersListViewModel.followTeacher();
+                      }
                     },
                   ).marginSymmetric(horizontal: 4),
-                ),
+                )),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: ColorManager.greyLight,

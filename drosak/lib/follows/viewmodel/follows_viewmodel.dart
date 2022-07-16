@@ -1,6 +1,4 @@
-import 'package:drosak/follows/view/follow_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/entity/follow.dart';
@@ -14,44 +12,36 @@ class FollowsViewModel extends GetxController {
   RxBool isFollowingTeacher = false.obs;
   RxBool isLoading = false.obs;
 
-  final followAnimatedListKey = GlobalKey<AnimatedListState>();
-
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getFollows();
+    await getFollows();
   }
 
-  getFollows() async {
+  Future<void> getFollows() async {
     isLoading.value = true;
 
-    var _follows = await _followRepo
-        .getStudentFollows(FirebaseAuth.instance.currentUser!.uid);
+    var _followsStream =
+        _followRepo.getStudentFollows(FirebaseAuth.instance.currentUser!.uid);
 
-    var followsDocs = _follows.docs.map((doc) {
-      var follow = doc.data();
-      return follow;
+    _followsStream.listen((_follows) {
+      var followsDocs = _follows.docs.map((doc) {
+        var follow = doc.data();
+        return follow;
+      });
+
+      isLoading.value = false;
+      follows.clear();
+      follows.addAll(followsDocs);
+    }, onError: (e) {
+      isLoading.value = false;
+      print(e);
     });
-
-    isLoading.value = false;
-    follows.clear();
-    follows.addAll(followsDocs);
   }
 
-  Future<void> unfollowTeacher(String teacherName, int index) async {
+  Future<void> unfollowTeacher(String teacherId) async {
     isLoading.value = true;
-    await _followRepo.deleteFollowDoc(teacherName);
-    follows.removeAt(index);
-    followAnimatedListKey.currentState?.removeItem(index, (context, animation) {
-      return FadeTransition(
-        opacity: animation,
-        child: SizeTransition(
-          sizeFactor: animation,
-          child: FollowItem(followsViewModel: this, index: index),
-        ),
-      );
-    });
+    await _followRepo.deleteFollowDoc(teacherId);
     isLoading.value = false;
-    // getFollows();
   }
 }

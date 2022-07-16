@@ -100,7 +100,8 @@ class FollowItem extends StatelessWidget {
               top: 16,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  openDeleteDialog(followsViewModel, index);
+                  openDeleteDialog(followsViewModel,
+                      followsViewModel.follows[index].teacherId);
                 },
                 icon: const Icon(
                   Icons.done,

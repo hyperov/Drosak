@@ -204,4 +204,6 @@ class LocalizationKeys {
   static var booking_delete_question = 'booking_delete_question';
 
   static var delete_follow = 'delete_follow';
+
+  static var follows2 = 'follows2';
 }

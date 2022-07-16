@@ -26,4 +26,5 @@ class FireStoreNames {
   static const String educationLevelPrepValue = 'mid_school';
 
   static Object followDocFieldTeacherName = 'name';
+  static Object followDocFieldTeacherId = 'id';
 }
