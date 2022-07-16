@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +15,8 @@ class FollowsViewModel extends GetxController {
   RxBool isFollowingTeacher = false.obs;
   RxBool isLoading = false.obs;
 
+  late StreamSubscription<QuerySnapshot<Follow>> followListen;
+
   @override
   void onInit() async {
     super.onInit();
@@ -24,7 +29,7 @@ class FollowsViewModel extends GetxController {
     var _followsStream =
         _followRepo.getStudentFollows(FirebaseAuth.instance.currentUser!.uid);
 
-    _followsStream.listen((_follows) {
+    followListen = _followsStream.listen((_follows) {
       var followsDocs = _follows.docs.map((doc) {
         var follow = doc.data();
         return follow;
@@ -43,5 +48,11 @@ class FollowsViewModel extends GetxController {
     isLoading.value = true;
     await _followRepo.deleteFollowDoc(teacherId);
     isLoading.value = false;
+  }
+
+  @override
+  void onClose() {
+    followListen.cancel();
+    super.onClose();
   }
 }

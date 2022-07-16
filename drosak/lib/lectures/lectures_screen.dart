@@ -1,3 +1,4 @@
+import 'package:drosak/bookings/viewmodel/booking_view_model.dart';
 import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
@@ -21,6 +22,8 @@ class LecturesScreen extends StatelessWidget {
   final Teacher teacher;
 
   LecturesViewModel get _lecturesViewModel => Get.put(LecturesViewModel());
+
+  BookingsViewModel get _bookingsViewModel => Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +122,7 @@ class LecturesScreen extends StatelessWidget {
                                           showConfirmBookingBottomSheet(
                                               context,
                                               _lecturesViewModel,
+                                              _bookingsViewModel,
                                               index,
                                               teacher,
                                               slidingUpPanelController);

@@ -1,3 +1,4 @@
+import 'package:drosak/bookings/viewmodel/booking_view_model.dart';
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/lectures/viewmodel/lectures_viewmodel.dart';
 import 'package:drosak/teachers/model/teacher.dart';
@@ -232,6 +233,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
 showConfirmBookingBottomSheet(
     BuildContext context,
     LecturesViewModel lecturesViewModel,
+    BookingsViewModel bookingsViewModel,
     int index,
     Teacher teacher,
     PanelController slidingUpPanelController) {
@@ -382,7 +384,8 @@ showConfirmBookingBottomSheet(
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
-                      await lecturesViewModel.bookLecture(index);
+                      await bookingsViewModel
+                          .bookLecture(lecturesViewModel.lectures[index]);
                       Get.back();
                       Get.back();
                       slidingUpPanelController.close();

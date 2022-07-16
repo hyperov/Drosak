@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 class BookingsRepo {
   final _storage = GetStorage();
 
-  Future<QuerySnapshot<Booking>> getBookings() {
+  Stream<QuerySnapshot<Booking>> getBookings() {
     return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(_storage.read(StorageKeys.studentId))
@@ -16,7 +16,7 @@ class BookingsRepo {
           fromFirestore: (snapshot, _) => Booking.fromJson(snapshot.data()!),
           toFirestore: (model, _) => model.toJson(),
         )
-        .get();
+        .snapshots();
   }
 
   Future<DocumentReference<Booking>> addBooking(Booking booking) {
