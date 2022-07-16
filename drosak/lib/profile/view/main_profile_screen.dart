@@ -108,10 +108,11 @@ class ProfileScreen extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.calendar_month),
                   title: Text(LocalizationKeys.bookings.tr),
-                  trailing: Text(
-                    _profileViewModel.bookingsCountObserver.value.toString(),
-                    style: const TextStyle(fontSize: 20),
-                  ),
+                  trailing: Obx(() => Text(
+                        _profileViewModel.bookingsCountObserver.value
+                            .toString(),
+                        style: const TextStyle(fontSize: 20),
+                      )),
                 ),
               ),
             ),
