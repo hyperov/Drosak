@@ -52,7 +52,7 @@ class BookingsViewModel extends GetxController {
   }
 
   Future<void> bookLecture(Lecture selectedLecture) async {
-    Booking _booking = Booking(
+    Booking newBooking = Booking(
       centerName: selectedLecture.centerName,
       city: selectedLecture.city,
       area: selectedLecture.area,
@@ -70,11 +70,19 @@ class BookingsViewModel extends GetxController {
       lectureId: selectedLecture.id!,
     );
 
-    _booking.lecDate = _booking.getLectureDate();
+    newBooking.lecDate = newBooking.getLectureDate();
+
+    bool isNotFirstTimeBooking = bookings.any((booking) =>
+        booking.lecDate?.day == newBooking.lecDate?.day &&
+        booking.lecDate?.month == newBooking.lecDate?.month &&
+        booking.lecDate?.year == newBooking.lecDate?.year &&
+        booking.material.compareTo(newBooking.material) == 0);
 
     try {
-      await _bookingRepo.addBooking(_booking);
-      await _bookingRepo.incrementBookingCountToStudent();
+      if (!isNotFirstTimeBooking) {
+        await _bookingRepo.addBooking(newBooking);
+        await _bookingRepo.incrementBookingCountToStudent();
+      }
     } catch (e) {
       Get.snackbar(
         'Error',
