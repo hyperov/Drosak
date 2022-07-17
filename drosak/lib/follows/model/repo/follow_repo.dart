@@ -20,22 +20,35 @@ class FollowRepo {
   }
 
   Future<void> addFollow(Follow follow) async {
-    return FirebaseFirestore.instance
+    var batch = FirebaseFirestore.instance.batch();
+
+    var teacherDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection(FireStoreNames.collectionStudentFollows)
         .withConverter<Follow>(
             fromFirestore: (snapshot, _) => Follow.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
-        .doc(follow.teacherId)
-        .set(follow);
+        .doc(follow.teacherId);
+
+    return teacherDocRef.set(follow);
   }
 
-  Future<void> incrementFollowsCountToStudent() async {
-    return FirebaseFirestore.instance
+  Future<void> incrementFollowsCountToStudentAndTeacher(
+      String teacherId) async {
+    var batch = FirebaseFirestore.instance.batch();
+
+    var studentDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update({'follows': FieldValue.increment(1)});
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    var teacherDocRef = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionTeachers)
+        .doc(teacherId);
+
+    batch.update(studentDocRef, {'follows': FieldValue.increment(1)});
+    batch.update(teacherDocRef, {'followers': FieldValue.increment(1)});
+    await batch.commit();
   }
 
   Future<void> deleteFollowDoc(String teacherId) async {
@@ -49,11 +62,17 @@ class FollowRepo {
     var batch = FirebaseFirestore.instance.batch();
 
     batch.delete(querySnapshot.docs.first.reference);
-    var docStudent = FirebaseFirestore.instance
+
+    var studentDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    var teacherDocRef = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionTeachers)
+        .doc(teacherId);
     // decerement follows count
-    batch.update(docStudent, {'follows': FieldValue.increment(-1)});
+    batch.update(studentDocRef, {'follows': FieldValue.increment(-1)});
+    batch.update(teacherDocRef, {'followers': FieldValue.increment(-1)});
     await batch.commit();
   }
 }

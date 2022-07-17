@@ -18,6 +18,7 @@ class Booking {
   double teacherRating;
   bool isCanceled;
   String lectureId;
+  String teacherId;
 
   Booking(
       {required this.centerName,
@@ -35,7 +36,8 @@ class Booking {
       this.lecDate,
       required this.teacherRating,
       required this.isCanceled,
-      required this.lectureId});
+      required this.lectureId,
+      required this.teacherId});
 
   factory Booking.fromJson(Map<String, dynamic> json) {
     return Booking(
@@ -54,7 +56,8 @@ class Booking {
         lecDate: (json['lec_date'] as Timestamp).toDate(),
         teacherRating: (json['rating'])?.toDouble(),
         isCanceled: json['is_canceled'],
-        lectureId: json['lec_id']);
+        lectureId: json['lec_id'],
+        teacherId: json['teacher_id']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -73,7 +76,8 @@ class Booking {
         'lec_date': lecDate,
         'rating': teacherRating,
         'is_canceled': isCanceled,
-        'lec_id': lectureId
+        'lec_id': lectureId,
+        'teacher_id': teacherId
       };
 
   getWeekDayText() {

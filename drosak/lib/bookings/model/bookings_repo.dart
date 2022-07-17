@@ -30,14 +30,24 @@ class BookingsRepo {
         .add(booking);
   }
 
-  Future<void> incrementBookingCountToStudent() {
-    return FirebaseFirestore.instance
+  Future<void> incrementBookingCountToStudentAndTeacher(String teacherId) {
+    var batch = FirebaseFirestore.instance.batch();
+
+    var studentDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
-        .doc(_storage.read(StorageKeys.studentId))
-        .update({'bookings': FieldValue.increment(1)});
+        .doc(_storage.read(StorageKeys.studentId));
+
+    var teacherDocRef = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionTeachers)
+        .doc(teacherId);
+
+    batch.update(studentDocRef, {'bookings': FieldValue.increment(1)});
+    batch.update(teacherDocRef, {'bookings': FieldValue.increment(1)});
+    return batch.commit();
   }
 
-  Future<void> updateBookingDocCancellation(String bookingId) async {
+  Future<void> updateBookingDocCancellation(
+      String bookingId, String teacherId) async {
     var batch = FirebaseFirestore.instance.batch();
 
     var docBooking = FirebaseFirestore.instance
@@ -48,11 +58,16 @@ class BookingsRepo {
 
     batch.update(docBooking, {'is_canceled': true});
 
-    var docStudent = FirebaseFirestore.instance
+    var studentDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(_storage.read(StorageKeys.studentId));
+
+    var teacherDocRef = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionTeachers)
+        .doc(teacherId);
     // increment canceled bookings count
-    batch.update(docStudent, {'bookings_canceled': FieldValue.increment(1)});
+    batch.update(studentDocRef, {'bookings_canceled': FieldValue.increment(1)});
+    batch.update(teacherDocRef, {'bookings_canceled': FieldValue.increment(1)});
     return batch.commit();
   }
 }

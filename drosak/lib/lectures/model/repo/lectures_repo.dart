@@ -16,6 +16,7 @@ class LecturesRepo {
           fromFirestore: (snapshot, _) => Lecture.fromJson(snapshot.data()!),
           toFirestore: (model, _) => model.toJson(),
         )
+        .where(FireStoreNames.lectureDocFieldIsEnabled, isEqualTo: true)
         .get();
   }
 }

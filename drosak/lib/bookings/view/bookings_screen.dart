@@ -132,7 +132,9 @@ class BookingsScreen extends StatelessWidget {
                                             openDeleteDialog(
                                                 _bookingsViewModel,
                                                 _bookingsViewModel
-                                                    .bookings[index].id!);
+                                                    .bookings[index].id!,
+                                                _bookingsViewModel
+                                                    .bookings[index].teacherId);
                                             // showConfirmDeleteBookingDialog(context,
                                             //     _bookingsViewModel, index, teacher);
                                           },

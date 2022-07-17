@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/bookings/model/booking.dart';
 import 'package:drosak/bookings/model/bookings_repo.dart';
 import 'package:drosak/lectures/model/entity/lecture.dart';
+import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,8 @@ class BookingsViewModel extends GetxController {
   int selectedIndex = -1;
 
   late StreamSubscription<QuerySnapshot<Booking>> bookingsListener;
+
+  late Teacher selectedTeacher;
 
   @override
   onReady() async {
@@ -45,9 +48,9 @@ class BookingsViewModel extends GetxController {
     });
   }
 
-  Future<void> cancelBooking(String bookingId) async {
+  Future<void> cancelBooking(String bookingId, String teacherId) async {
     isLoading.value = true;
-    await _bookingRepo.updateBookingDocCancellation(bookingId);
+    await _bookingRepo.updateBookingDocCancellation(bookingId, teacherId);
     isLoading.value = false;
   }
 
@@ -68,6 +71,7 @@ class BookingsViewModel extends GetxController {
       teacherRating: _storage.read<double>(StorageKeys.teacherRating)!,
       isCanceled: false,
       lectureId: selectedLecture.id!,
+      teacherId: selectedTeacher.id!,
     );
 
     newBooking.lecDate = newBooking.getLectureDate();
@@ -76,12 +80,14 @@ class BookingsViewModel extends GetxController {
         booking.lecDate?.day == newBooking.lecDate?.day &&
         booking.lecDate?.month == newBooking.lecDate?.month &&
         booking.lecDate?.year == newBooking.lecDate?.year &&
-        booking.material.compareTo(newBooking.material) == 0);
+        booking.material.compareTo(newBooking.material) == 0 &&
+        booking.lectureId.compareTo(newBooking.lectureId) == 0);
 
     try {
       if (!isNotFirstTimeBooking) {
         await _bookingRepo.addBooking(newBooking);
-        await _bookingRepo.incrementBookingCountToStudent();
+        await _bookingRepo
+            .incrementBookingCountToStudentAndTeacher(selectedTeacher.id!);
       }
     } catch (e) {
       Get.snackbar(

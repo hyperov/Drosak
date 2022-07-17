@@ -7,7 +7,7 @@ import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sliding_up_panel/src/panel.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 showListBottomSheet(
     {required List<Icon> leadingIcons,
@@ -70,7 +70,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                   backgroundColor: Colors.transparent,
                   elevation: 2,
                   pressElevation: 6,
-                  shape: const StadiumBorder(side: const BorderSide()),
+                  shape: const StadiumBorder(side: BorderSide()),
                   avatarBorder:
                       const CircleBorder(side: BorderSide(color: Colors.grey)),
                   onSelected: (bool selected) {
@@ -129,9 +129,9 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                       backgroundColor: Colors.transparent,
                       elevation: 2,
                       pressElevation: 6,
-                      shape: const StadiumBorder(side: const BorderSide()),
+                      shape: const StadiumBorder(side: BorderSide()),
                       avatarBorder: const CircleBorder(
-                          side: const BorderSide(color: Colors.grey)),
+                          side: BorderSide(color: Colors.grey)),
                       onSelected: (bool selected) {
                         filterViewModel
                             .materials[index].value.isSelected.value = selected;
