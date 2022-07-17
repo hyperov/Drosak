@@ -30,9 +30,15 @@ class TeacherDetailsScreen extends StatelessWidget {
         follow.teacherId == _teachersListViewModel.selectedTeacher.id);
   }
 
+  bool isRated() {
+    return _reviewsViewModel.reviews.any((review) =>
+        review.teacherId == _teachersListViewModel.selectedTeacher.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.redOrangeLight,
       appBar: AppBar(
           title: Stack(children: [
             SvgPicture.asset(
@@ -58,28 +64,34 @@ class TeacherDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 32),
-            Card(
-              clipBehavior: Clip.hardEdge,
-              shape: const CircleBorder(
-                side: BorderSide(
-                  color: Colors.deepPurpleAccent,
-                  width: 4,
+            Hero(
+              tag: _teachersListViewModel.selectedTeacher.id!,
+              child: Material(
+                color: Colors.transparent,
+                child: Card(
+                  clipBehavior: Clip.hardEdge,
+                  shape: const CircleBorder(
+                    side: BorderSide(
+                      color: ColorManager.deepPurple,
+                      width: 4,
+                    ),
+                  ),
+                  child: Image.network(
+                      _teachersListViewModel.selectedTeacher.photoUrl!,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                    return SvgPicture.asset(
+                      AssetsManager.profilePlaceHolder,
+                      width: 70,
+                      height: 70,
+                      color: Colors.white,
+                      fit: BoxFit.cover,
+                    ).marginAll(16);
+                  }),
                 ),
               ),
-              child: Image.network(
-                  _teachersListViewModel.selectedTeacher.photoUrl!,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                return SvgPicture.asset(
-                  AssetsManager.profilePlaceHolder,
-                  width: 70,
-                  height: 70,
-                  color: Colors.white,
-                  fit: BoxFit.cover,
-                ).marginAll(16);
-              }),
             ),
             Text(_teachersListViewModel.selectedTeacher.name!,
                 style: const TextStyle(fontSize: 30)),
@@ -103,35 +115,36 @@ class TeacherDetailsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: ColorManager.greyLight,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                  child: SvgPicture.asset(
-                    AssetsManager.fav,
-                    color: Colors.red,
-                    height: 28,
-                    width: 28,
-                  ),
-                  onPressed: () {},
-                ),
+                // ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //     primary: ColorManager.greyLight,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(16),
+                //     ),
+                //     padding: const EdgeInsets.symmetric(vertical: 12),
+                //   ),
+                //   child: SvgPicture.asset(
+                //     AssetsManager.fav,
+                //     color: Colors.red,
+                //     height: 28,
+                //     width: 28,
+                //   ),
+                //   onPressed: () {},
+                // ),
                 Expanded(
                     child: Obx(
                   () => ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary:
-                            isFollowing() ? Colors.white : Colors.deepPurple,
+                        primary: isFollowing()
+                            ? Colors.white
+                            : ColorManager.deepPurple,
                         padding: const EdgeInsets.all(8),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                           side: BorderSide(
                             width: isFollowing() ? 2 : 0,
                             color: isFollowing()
-                                ? Colors.deepPurple
+                                ? ColorManager.deepPurple
                                 : Colors.white,
                           ),
                         )),
@@ -141,7 +154,7 @@ class TeacherDetailsScreen extends StatelessWidget {
                           : LocalizationKeys.follows2.tr,
                       style: TextStyle(
                           color: isFollowing()
-                              ? Colors.deepPurple
+                              ? ColorManager.deepPurple
                               : ColorManager.redOrangeLight,
                           fontSize: 20),
                     ),
@@ -153,26 +166,36 @@ class TeacherDetailsScreen extends StatelessWidget {
                         await _teachersListViewModel.followTeacher();
                       }
                     },
-                  ).marginSymmetric(horizontal: 4),
+                  ).marginSymmetric(horizontal: 8),
                 )),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: ColorManager.greyLight,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: SvgPicture.asset(
-                    AssetsManager.star,
-                    height: 28,
-                    width: 28,
-                  ),
-                  onPressed: () {
-                    showRatingTeacherBottomSheet(context, _reviewsViewModel,
-                        _teachersListViewModel.selectedTeacher);
-                  },
-                ),
+                Obx(() => Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary:
+                              isRated() ? Colors.grey.shade400 : Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: SvgPicture.asset(
+                          AssetsManager.star,
+                          height: 28,
+                          width: 28,
+                          color: isRated()
+                              ? Colors.white
+                              : ColorManager.goldenYellow,
+                        ),
+                        onPressed: () {
+                          if (!isRated()) {
+                            showRatingTeacherBottomSheet(
+                                context,
+                                _reviewsViewModel,
+                                _teachersListViewModel.selectedTeacher);
+                          }
+                        },
+                      ).marginSymmetric(horizontal: 8),
+                    )),
               ],
             ).marginSymmetric(horizontal: 48),
             const SizedBox(height: 24),
@@ -183,7 +206,8 @@ class TeacherDetailsScreen extends StatelessWidget {
                     onTap: () {},
                     child: Column(
                       children: [
-                        const Icon(Icons.people, color: Colors.blue),
+                        const Icon(Icons.people,
+                            color: ColorManager.deepPurple),
                         const SizedBox(height: 8),
                         Text(LocalizationKeys.followers.tr,
                             style: const TextStyle(
@@ -208,7 +232,7 @@ class TeacherDetailsScreen extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      const Icon(Icons.star, color: Colors.blue),
+                      const Icon(Icons.star, color: ColorManager.deepPurple),
                       const SizedBox(height: 8),
                       Text(LocalizationKeys.rating.tr,
                           style: const TextStyle(
@@ -238,7 +262,7 @@ class TeacherDetailsScreen extends StatelessWidget {
             top: Radius.circular(42),
           ),
           border: Border.all(
-            color: Colors.deepPurpleAccent,
+            color: ColorManager.deepPurple,
             width: 1,
           ),
           panelBuilder: (scrollController) {

@@ -12,7 +12,6 @@ class FollowsViewModel extends GetxController {
 
   var follows = <Follow>[].obs;
 
-  RxBool isFollowingTeacher = false.obs;
   RxBool isLoading = false.obs;
 
   late StreamSubscription<QuerySnapshot<Follow>> followListen;

@@ -60,5 +60,6 @@ class ReviewsViewModel extends GetxController {
         date: DateTime.now());
 
     await _reviewsRepo.addReview(review);
+    addedReviewTextController.clear();
   }
 }

@@ -54,48 +54,59 @@ class TeachersListScreen extends StatelessWidget {
                                           alignment: Alignment.center,
                                           clipBehavior: Clip.none,
                                           children: [
-                                            Card(
-                                              color: Colors.deepPurple,
-                                              elevation: 4,
-                                              clipBehavior: Clip.hardEdge,
-                                              shape: const CircleBorder(
-                                                  side: BorderSide(
-                                                      color: Colors
-                                                          .deepPurpleAccent,
-                                                      width: 1)),
-                                              child: Obx(() =>
-                                                  _teachersListViewModel
-                                                          .teachersList[index]
-                                                          .photoUrl
-                                                          .isBlank!
-                                                      ? SvgPicture.asset(
-                                                          AssetsManager
-                                                              .profilePlaceHolder,
-                                                          width: 50,
-                                                          height: 50,
-                                                          fit: BoxFit.cover,
-                                                        )
-                                                      : Image.network(
-                                                          _teachersListViewModel
+                                            Hero(
+                                              tag: _teachersListViewModel
+                                                  .teachersList[index].id!,
+                                              child: Material(
+                                                color: Colors.transparent,
+                                                child: Card(
+                                                  color: Colors.deepPurple,
+                                                  elevation: 4,
+                                                  clipBehavior: Clip.hardEdge,
+                                                  shape: const CircleBorder(
+                                                      side: BorderSide(
+                                                          color: Colors
+                                                              .deepPurpleAccent,
+                                                          width: 1)),
+                                                  child: Obx(() =>
+                                                      _teachersListViewModel
                                                               .teachersList[
                                                                   index]
-                                                              .photoUrl!,
-                                                          width: 70,
-                                                          height: 70,
-                                                          fit: BoxFit.cover,
-                                                          errorBuilder:
-                                                              (context, error,
-                                                                  stackTrace) {
-                                                          return SvgPicture
-                                                              .asset(
-                                                            AssetsManager
-                                                                .profilePlaceHolder,
-                                                            width: 70,
-                                                            height: 70,
-                                                            color: Colors.white,
-                                                            fit: BoxFit.cover,
-                                                          ).marginAll(16);
-                                                        })),
+                                                              .photoUrl
+                                                              .isBlank!
+                                                          ? SvgPicture.asset(
+                                                              AssetsManager
+                                                                  .profilePlaceHolder,
+                                                              width: 50,
+                                                              height: 50,
+                                                              fit: BoxFit.cover,
+                                                            )
+                                                          : Image.network(
+                                                              _teachersListViewModel
+                                                                  .teachersList[
+                                                                      index]
+                                                                  .photoUrl!,
+                                                              width: 70,
+                                                              height: 70,
+                                                              fit: BoxFit.cover,
+                                                              errorBuilder:
+                                                                  (context,
+                                                                      error,
+                                                                      stackTrace) {
+                                                              return SvgPicture
+                                                                  .asset(
+                                                                AssetsManager
+                                                                    .profilePlaceHolder,
+                                                                width: 70,
+                                                                height: 70,
+                                                                color: Colors
+                                                                    .white,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ).marginAll(16);
+                                                            })),
+                                                ),
+                                              ),
                                             ),
                                             Positioned(
                                               child: Container(
