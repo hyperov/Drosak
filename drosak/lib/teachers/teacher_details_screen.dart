@@ -1,7 +1,9 @@
+import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/common/widgets/dialogs.dart';
 import 'package:drosak/follows/viewmodel/follows_viewmodel.dart';
 import 'package:drosak/lectures/lectures_screen.dart';
 import 'package:drosak/reviews/view/reviews_screen.dart';
+import 'package:drosak/reviews/viewmodel/reviews_viewmodel.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
@@ -21,6 +23,7 @@ class TeacherDetailsScreen extends StatelessWidget {
 
   final TeachersListViewModel _teachersListViewModel = Get.find();
   final FollowsViewModel _followsViewModel = Get.find();
+  final ReviewsViewModel _reviewsViewModel = Get.find();
 
   bool isFollowing() {
     return _followsViewModel.follows.any((follow) =>
@@ -165,7 +168,10 @@ class TeacherDetailsScreen extends StatelessWidget {
                     height: 28,
                     width: 28,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    showRatingTeacherBottomSheet(context, _reviewsViewModel,
+                        _teachersListViewModel.selectedTeacher.id!);
+                  },
                 ),
               ],
             ).marginSymmetric(horizontal: 48),
@@ -200,26 +206,23 @@ class TeacherDetailsScreen extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 Expanded(
-                  child: InkWell(
-                    onTap: () {},
-                    child: Column(
-                      children: [
-                        const Icon(Icons.star, color: Colors.blue),
-                        const SizedBox(height: 8),
-                        Text(LocalizationKeys.rating.tr,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.grey)),
-                        const SizedBox(height: 8),
-                        Text(
-                            _teachersListViewModel.selectedTeacher.avgRating
-                                .toString(),
-                            style: const TextStyle(
-                                fontSize: 30,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    ).paddingSymmetric(horizontal: 16, vertical: 16),
-                  ),
+                  child: Column(
+                    children: [
+                      const Icon(Icons.star, color: Colors.blue),
+                      const SizedBox(height: 8),
+                      Text(LocalizationKeys.rating.tr,
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.grey)),
+                      const SizedBox(height: 8),
+                      Text(
+                          _teachersListViewModel.selectedTeacher.avgRating
+                              .toString(),
+                          style: const TextStyle(
+                              fontSize: 30,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ).paddingSymmetric(horizontal: 16, vertical: 16),
                 ),
               ],
             ).marginSymmetric(horizontal: 65)

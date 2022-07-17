@@ -19,6 +19,7 @@ class ReviewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorManager.redOrangeLight,
       body: Column(
         mainAxisSize: MainAxisSize.max,

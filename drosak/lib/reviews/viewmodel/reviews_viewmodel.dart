@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -16,6 +17,13 @@ class ReviewsViewModel extends GetxController {
   final _storage = GetStorage();
 
   final orderBy = FireStoreNames.collectionTeacherReviewsSortFieldDate.obs;
+
+  var addedReviewTextController = TextEditingController();
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   @override
   onReady() async {
@@ -38,4 +46,12 @@ class ReviewsViewModel extends GetxController {
     reviews.clear();
     reviews.addAll(reviewsDocs);
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    addedReviewTextController.dispose();
+  }
+
+  addReview(String teacherId) {}
 }

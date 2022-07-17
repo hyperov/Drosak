@@ -121,6 +121,8 @@ class LocalizationKeys {
   static var rating = 'rating';
   static var reviews = 'reviews';
   static var no_reviews = 'no_reviews';
+  static var review_text_hint = 'review_text_hint';
+
   static var lectures = 'lectures';
   static var app_student = 'app_student';
 
@@ -206,4 +208,10 @@ class LocalizationKeys {
   static var delete_follow = 'delete_follow';
 
   static var follows2 = 'follows2';
+
+  static var rate_teacher = 'rate_teacher';
+
+  static var add_review = 'add_review';
+
+  static var review_added = 'review_added';
 }

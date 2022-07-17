@@ -1,10 +1,13 @@
 import 'package:drosak/bookings/viewmodel/booking_view_model.dart';
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/lectures/viewmodel/lectures_viewmodel.dart';
+import 'package:drosak/reviews/viewmodel/reviews_viewmodel.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
+import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -394,7 +397,7 @@ showConfirmBookingBottomSheet(
                         LocalizationKeys.lecture_booked.tr,
                         snackPosition: SnackPosition.BOTTOM,
                         backgroundColor: Colors.green,
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                       );
                     } catch (e) {
                       print(e);
@@ -428,4 +431,127 @@ showConfirmBookingBottomSheet(
       ),
     ),
   );
+}
+
+showRatingTeacherBottomSheet(
+    BuildContext context, ReviewsViewModel reviewsViewModel, String teacherId) {
+  Get.bottomSheet(
+      SingleChildScrollView(
+        // physics: const NeverScrollableScrollPhysics(),
+        child: Container(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 45,
+                height: 3,
+                color: Colors.grey,
+                margin: const EdgeInsets.symmetric(vertical: 8),
+              ),
+              const SizedBox(height: 32),
+              Text(
+                LocalizationKeys.rate_teacher.tr,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              const SizedBox(height: 16),
+              RatingBar.builder(
+                initialRating: 5,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: false,
+                itemCount: 5,
+                unratedColor: Colors.grey,
+                itemSize: 40,
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (double value) {},
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                // height: 200,
+                child: TextField(
+                  controller: reviewsViewModel.addedReviewTextController,
+                  textInputAction: TextInputAction.done,
+                  textAlign: TextAlign.start,
+                  keyboardType: TextInputType.text,
+                  textAlignVertical: TextAlignVertical.top,
+                  style: const TextStyle(decoration: TextDecoration.none),
+                  expands: true,
+                  maxLines: null,
+                  minLines: null,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: ColorManager.redOrangeLight,
+                    hintText: LocalizationKeys.review_text_hint.tr,
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    alignLabelWithHint: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 1)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 1)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Container(
+                width: double.infinity,
+                height: 48,
+                margin: const EdgeInsets.only(bottom: 24),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await reviewsViewModel.addReview(teacherId);
+                      Get.back();
+                      Get.snackbar(
+                        'Success',
+                        LocalizationKeys.review_added.tr,
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.green,
+                        duration: const Duration(seconds: 2),
+                      );
+                    } catch (e) {
+                      print(e);
+                      Get.snackbar('Error', e.toString(),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                          icon: const Icon(Icons.error));
+                    }
+                  },
+                  child: Text(LocalizationKeys.add_review.tr,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ).marginSymmetric(horizontal: 32),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      clipBehavior: Clip.hardEdge,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+        top: Radius.circular(32),
+      )));
 }
