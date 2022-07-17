@@ -17,4 +17,6 @@ class ReviewsRepo {
         .orderBy(orderBy, descending: true)
         .get();
   }
+
+  Future<void> addReview(String teacherId, Review review) async {}
 }

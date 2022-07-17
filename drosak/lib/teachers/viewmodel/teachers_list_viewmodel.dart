@@ -51,7 +51,7 @@ class TeachersListViewModel extends GetxController {
     );
 
     await _followRepo.addFollow(follow);
-    await _followRepo
-        .incrementFollowsCountToStudentAndTeacher(follow.teacherId);
+    // await _followRepo
+    //     .incrementFollowsCountToStudentAndTeacher(follow.teacherId);
   }
 }

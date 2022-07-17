@@ -437,7 +437,6 @@ showRatingTeacherBottomSheet(
     BuildContext context, ReviewsViewModel reviewsViewModel, String teacherId) {
   Get.bottomSheet(
       SingleChildScrollView(
-        // physics: const NeverScrollableScrollPhysics(),
         child: Container(
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
