@@ -176,6 +176,12 @@ class TeacherDetailsScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
+                            side: BorderSide(
+                              width: isRated() ? 2 : 2,
+                              color: isRated()
+                                  ? ColorManager.greyLight
+                                  : ColorManager.lightPurple,
+                            ),
                           ),
                         ),
                         child: SvgPicture.asset(
@@ -199,11 +205,19 @@ class TeacherDetailsScreen extends StatelessWidget {
               ],
             ).marginSymmetric(horizontal: 48),
             const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {},
+            Card(
+              elevation: 4,
+              clipBehavior: Clip.hardEdge,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: const BorderSide(
+                  color: ColorManager.deepPurple,
+                  width: 2,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
                     child: Column(
                       children: [
                         const Icon(Icons.people,
@@ -223,32 +237,32 @@ class TeacherDetailsScreen extends StatelessWidget {
                       ],
                     ).paddingSymmetric(horizontal: 16, vertical: 16),
                   ),
-                ),
-                Container(
-                  width: 1,
-                  height: 60,
-                  color: Colors.grey,
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Icon(Icons.star, color: ColorManager.deepPurple),
-                      const SizedBox(height: 8),
-                      Text(LocalizationKeys.rating.tr,
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.grey)),
-                      const SizedBox(height: 8),
-                      Text(
-                          _teachersListViewModel.selectedTeacher.avgRating
-                              .toString(),
-                          style: const TextStyle(
-                              fontSize: 30,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                    ],
-                  ).paddingSymmetric(horizontal: 16, vertical: 16),
-                ),
-              ],
+                  Container(
+                    width: 1,
+                    height: 70,
+                    color: ColorManager.blueLight,
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const Icon(Icons.star, color: ColorManager.deepPurple),
+                        const SizedBox(height: 8),
+                        Text(LocalizationKeys.rating.tr,
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.grey)),
+                        const SizedBox(height: 8),
+                        Text(
+                            _teachersListViewModel.selectedTeacher.avgRating
+                                .toString(),
+                            style: const TextStyle(
+                                fontSize: 30,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ).paddingSymmetric(horizontal: 16, vertical: 16),
+                  ),
+                ],
+              ),
             ).marginSymmetric(horizontal: 65)
           ],
         ),
