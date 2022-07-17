@@ -434,7 +434,7 @@ showConfirmBookingBottomSheet(
 }
 
 showRatingTeacherBottomSheet(
-    BuildContext context, ReviewsViewModel reviewsViewModel, String teacherId) {
+    BuildContext context, ReviewsViewModel reviewsViewModel, Teacher teacher) {
   Get.bottomSheet(
       SingleChildScrollView(
         child: Container(
@@ -472,7 +472,9 @@ showRatingTeacherBottomSheet(
                   Icons.star,
                   color: Colors.amber,
                 ),
-                onRatingUpdate: (double value) {},
+                onRatingUpdate: (double value) {
+                  reviewsViewModel.rating = value;
+                },
               ),
               const SizedBox(height: 16),
               Expanded(
@@ -512,7 +514,7 @@ showRatingTeacherBottomSheet(
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
-                      await reviewsViewModel.addReview(teacherId);
+                      await reviewsViewModel.reviewTeacher(teacher);
                       Get.back();
                       Get.snackbar(
                         'Success',

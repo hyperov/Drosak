@@ -1,3 +1,4 @@
+import 'package:drosak/teachers/model/teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,10 +21,7 @@ class ReviewsViewModel extends GetxController {
 
   var addedReviewTextController = TextEditingController();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  double rating = 5.0;
 
   @override
   onReady() async {
@@ -53,5 +51,14 @@ class ReviewsViewModel extends GetxController {
     addedReviewTextController.dispose();
   }
 
-  addReview(String teacherId) {}
+  Future<void> reviewTeacher(Teacher teacher) async {
+    final review = Review(
+        teacherId: teacher.id!,
+        rating: rating,
+        body: addedReviewTextController.text,
+        studentName: _storage.read<String>(StorageKeys.studentName)!,
+        date: DateTime.now());
+
+    await _reviewsRepo.addReview(review);
+  }
 }

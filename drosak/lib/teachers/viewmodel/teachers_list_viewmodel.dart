@@ -1,4 +1,5 @@
 import 'package:drosak/follows/model/repo/follow_repo.dart';
+import 'package:drosak/reviews/model/repo/reviews_repo.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/teachers/model/teachers_repo.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import '../../follows/model/entity/follow.dart';
 class TeachersListViewModel extends GetxController {
   final TeachersRepo _teachersRepo = Get.put(TeachersRepo());
   final FollowRepo _followRepo = Get.put(FollowRepo());
+  final ReviewsRepo _reviewsRepo = Get.put(ReviewsRepo());
 
   final RxList<Teacher> teachersList = <Teacher>[].obs;
 
@@ -51,7 +53,5 @@ class TeachersListViewModel extends GetxController {
     );
 
     await _followRepo.addFollow(follow);
-    // await _followRepo
-    //     .incrementFollowsCountToStudentAndTeacher(follow.teacherId);
   }
 }

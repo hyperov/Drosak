@@ -43,23 +43,6 @@ class FollowRepo {
     return await batch.commit();
   }
 
-  Future<void> incrementFollowsCountToStudentAndTeacher(
-      String teacherId) async {
-    var batch = FirebaseFirestore.instance.batch();
-
-    var studentDocRef = FirebaseFirestore.instance
-        .collection(FireStoreNames.collectionStudents)
-        .doc(FirebaseAuth.instance.currentUser!.uid);
-
-    var teacherDocRef = FirebaseFirestore.instance
-        .collection(FireStoreNames.collectionTeachers)
-        .doc(teacherId);
-
-    batch.update(studentDocRef, {'follows': FieldValue.increment(1)});
-    batch.update(teacherDocRef, {'followers': FieldValue.increment(1)});
-    await batch.commit();
-  }
-
   Future<void> deleteFollowDoc(String teacherId) async {
     var querySnapshot = await FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)

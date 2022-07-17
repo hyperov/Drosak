@@ -170,7 +170,7 @@ class TeacherDetailsScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     showRatingTeacherBottomSheet(context, _reviewsViewModel,
-                        _teachersListViewModel.selectedTeacher.id!);
+                        _teachersListViewModel.selectedTeacher);
                   },
                 ),
               ],
