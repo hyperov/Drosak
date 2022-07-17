@@ -86,6 +86,8 @@ class Languages extends Translations {
           LocalizationKeys.reviews: 'Reviews',
           LocalizationKeys.no_reviews: 'No Reviews Yet',
           LocalizationKeys.review_text_hint: 'Write your review (optional)',
+          LocalizationKeys.review_already_rated_teacher:
+              'You already rated this teahcer',
           LocalizationKeys.lectures: 'Lectures',
           LocalizationKeys.app_student: 'Student App',
           LocalizationKeys.sms_code: 'SMS Code',
@@ -218,6 +220,8 @@ class Languages extends Translations {
           LocalizationKeys.reviews: 'التقييمات',
           LocalizationKeys.no_reviews: 'لا يوجد تقييمات حتى الآن',
           LocalizationKeys.review_text_hint: 'اكتب تقييمك (اختياري)',
+          LocalizationKeys.review_already_rated_teacher:
+              'لقد قمت بالفعل بتقييم هذا المدرس من قبل',
           LocalizationKeys.lectures: 'الحصص',
           LocalizationKeys.app_student: 'تطبيق الطالب',
           LocalizationKeys.enter_sms_code: 'ادخل الكود المرسل اليك',

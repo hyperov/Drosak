@@ -198,6 +198,34 @@ class TeacherDetailsScreen extends StatelessWidget {
                                 context,
                                 _reviewsViewModel,
                                 _teachersListViewModel.selectedTeacher);
+                          } else {
+                            Get.defaultDialog(
+                              radius: 16,
+                              titleStyle: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              title: LocalizationKeys.rating.tr,
+                              content: Center(
+                                child: Text(
+                                  LocalizationKeys
+                                      .review_already_rated_teacher.tr,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ).marginSymmetric(horizontal: 16),
+                              confirm: ElevatedButton(
+                                child: Text(LocalizationKeys.confirm.tr,
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 20)),
+                                onPressed: () => Get.back(),
+                              ),
+                            );
                           }
                         },
                       ).marginSymmetric(horizontal: 8),
