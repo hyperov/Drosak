@@ -220,9 +220,19 @@ class TeacherDetailsScreen extends StatelessWidget {
                                 ),
                               ).marginSymmetric(horizontal: 16),
                               confirm: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: ColorManager.goldenYellow,
+                                  padding: const EdgeInsets.all(8),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
                                 child: Text(LocalizationKeys.confirm.tr,
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 20)),
+                                        style: const TextStyle(
+                                            color: ColorManager.blueDark,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold))
+                                    .marginSymmetric(horizontal: 16),
                                 onPressed: () => Get.back(),
                               ),
                             );
