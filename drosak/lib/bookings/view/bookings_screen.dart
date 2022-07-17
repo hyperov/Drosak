@@ -126,7 +126,9 @@ class BookingsScreen extends StatelessWidget {
                                           vertical: 16),
                                       child: Visibility(
                                         visible: !_bookingsViewModel
-                                            .bookings[index].isCanceled,
+                                                .bookings[index].isCanceled &&
+                                            _bookingsViewModel.bookings[index]
+                                                .isBookingCancellable(),
                                         child: ElevatedButton(
                                           onPressed: () async {
                                             openDeleteDialog(

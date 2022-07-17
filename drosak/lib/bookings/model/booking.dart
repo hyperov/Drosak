@@ -133,4 +133,12 @@ class Booking {
     }
     return endDate;
   }
+
+  //can't cancel booking if window is less than 24 hours
+  bool isBookingCancellable() {
+    var lectureDate = getLectureDate();
+    var diff = lectureDate.difference(bookingDate);
+
+    return diff.inHours > 24;
+  }
 }

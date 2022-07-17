@@ -28,5 +28,5 @@ class FireStoreNames {
   static String followDocFieldTeacherName = 'name';
   static String followDocFieldTeacherId = 'id';
 
-  static String lectureDocFieldIsEnabled = 'isEnabled';
+  static String lectureDocFieldIsEnabled = 'is_enabled';
 }
