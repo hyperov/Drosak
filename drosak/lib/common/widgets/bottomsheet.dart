@@ -77,6 +77,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                   avatarBorder:
                       const CircleBorder(side: BorderSide(color: Colors.grey)),
                   onSelected: (bool selected) {
+                    filterViewModel.isFilterApplied = true;
                     filterViewModel.selectEducationSecondary.value = selected;
                   },
                   selectedColor: Colors.blue,
@@ -95,10 +96,11 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                   backgroundColor: Colors.transparent,
                   elevation: 2,
                   pressElevation: 6,
-                  shape: const StadiumBorder(side: const BorderSide()),
-                  avatarBorder: const CircleBorder(
-                      side: const BorderSide(color: Colors.grey)),
+                  shape: const StadiumBorder(side: BorderSide()),
+                  avatarBorder:
+                      const CircleBorder(side: BorderSide(color: Colors.grey)),
                   onSelected: (bool selected) {
+                    filterViewModel.isFilterApplied = true;
                     filterViewModel.selectEducationPrep.value = selected;
                   },
                   selectedColor: Colors.blue,
@@ -136,6 +138,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                       avatarBorder: const CircleBorder(
                           side: BorderSide(color: Colors.grey)),
                       onSelected: (bool selected) {
+                        filterViewModel.isFilterApplied = true;
                         filterViewModel
                             .materials[index].value.isSelected.value = selected;
                       },
@@ -179,6 +182,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                         filterViewModel.sliderStartValue.value.toString(),
                         filterViewModel.sliderEndValue.value.toString()),
                     onChanged: (RangeValues values) {
+                      filterViewModel.isFilterApplied = true;
                       filterViewModel.sliderStartValue.value = values.start;
                       filterViewModel.sliderEndValue.value = values.end;
                     }).marginSymmetric(horizontal: 16).marginOnly(top: 40)
@@ -196,8 +200,9 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                   textStyle: const TextStyle(color: Colors.white),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
-              onPressed: () {
-                filterViewModel.applyFilter();
+              onPressed: () async {
+                await filterViewModel.applyFilter();
+                Get.back();
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

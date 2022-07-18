@@ -1,37 +1,57 @@
+import 'package:drosak/common/model/filter_models.dart';
 import 'package:drosak/follows/model/repo/follow_repo.dart';
-import 'package:drosak/reviews/model/repo/reviews_repo.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/teachers/model/teachers_repo.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../../follows/model/entity/follow.dart';
 
 class TeachersListViewModel extends GetxController {
   final TeachersRepo _teachersRepo = Get.put(TeachersRepo());
   final FollowRepo _followRepo = Get.put(FollowRepo());
-  final ReviewsRepo _reviewsRepo = Get.put(ReviewsRepo());
 
   final RxList<Teacher> teachersList = <Teacher>[].obs;
 
   RxBool isLoading = false.obs;
-
-  final _storage = GetStorage();
 
   Teacher selectedTeacher = Teacher();
 
   @override
   Future<void> onReady() async {
     super.onReady();
-    await getTeachersList();
+    await getTeachersList(false);
   }
 
-  Future<void> getTeachersList() async {
+  Future<void> getTeachersList(bool isTeacherApplied,
+      {String? highSchool,
+      String? midSchool,
+      double? minPrice,
+      double? maxPrice,
+      List<Rx<FilterChipModel>>? selectedMaterials}) async {
     isLoading.value = true;
 
-    var _teachers = await _teachersRepo.getTeachers();
+    List<String>? materials = selectedMaterials
+        ?.map((material) => material.value.name.value)
+        .toList();
 
-    var teachersDocs = _teachers.docs.map((doc) {
+    var _teachers = await _teachersRepo.getTeachers(isTeacherApplied,
+        highSchool: highSchool,
+        midSchool: midSchool,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        selectedMaterials: materials);
+
+    var teachersDocs = _teachers.docs.where((doc) {
+      if (minPrice != null && maxPrice != null) {
+        return doc.data().priceMax! <= maxPrice;
+      }
+      return true;
+    }).where((doc) {
+      if (highSchool != null && midSchool != null) {
+        return doc.data().educationalLevel!.contains(midSchool);
+      }
+      return true;
+    }).map((doc) {
       var teacher = doc.data();
       teacher.id = doc.id; // set document id to lecture
       return teacher;

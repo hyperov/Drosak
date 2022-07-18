@@ -20,13 +20,17 @@ class FireStoreNames {
 
   //teacher fields
   static const String teacherDocFieldIsActive = 'active';
-
-  //education field values
-  static const String educationLevelSecondaryValue = 'high_school';
-  static const String educationLevelPrepValue = 'mid_school';
+  static const String teacherDocFieldMinPrice = 'price_min';
+  static const String teacherDocFieldMaxPrice = 'price_max';
+  static const String teacherDocFieldEducationLevel = 'eduLevel';
+  static const String teacherDocFieldMaterial = 'material';
 
   static String followDocFieldTeacherName = 'name';
   static String followDocFieldTeacherId = 'id';
 
   static String lectureDocFieldIsEnabled = 'is_enabled';
+
+  //education field values
+  static const String educationLevelSecondaryValue = 'high_school';
+  static const String educationLevelPrepValue = 'mid_school';
 }

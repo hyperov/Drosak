@@ -1,13 +1,20 @@
 import 'package:drosak/common/model/filter_models.dart';
+import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
+import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:get/get.dart';
 
 class FilterViewModel extends GetxController {
+  final TeachersListViewModel _teachersListViewModel = Get.find();
+
+  bool isFilterApplied = false;
   RxBool selectEducationSecondary = false.obs;
   RxBool selectEducationPrep = false.obs;
 
-  RxDouble sliderStartValue = 20.0.obs;
-  RxDouble sliderEndValue = 90.0.obs;
+  static const double _minRating = 20.0;
+  static const double _maxRating = 90.0;
+  RxDouble sliderStartValue = _minRating.obs;
+  RxDouble sliderEndValue = _maxRating.obs;
 
   var materials = [
     FilterChipModel(name: LocalizationKeys.arabic.tr.obs, isSelected: false.obs)
@@ -46,17 +53,44 @@ class FilterViewModel extends GetxController {
         .obs,
   ];
 
-  void applyFilter() {}
+  Future<void> applyFilter() async {
+    String? highSchool = selectEducationSecondary.value
+        ? FireStoreNames.educationLevelSecondaryValue
+        : null;
+    String? midSchool = selectEducationPrep.value
+        ? FireStoreNames.educationLevelPrepValue
+        : null;
+
+    double? minPrice =
+        sliderStartValue.value == _minRating ? null : sliderStartValue.value;
+    double? maxPrice =
+        sliderEndValue.value == _maxRating ? null : sliderEndValue.value;
+
+    List<Rx<FilterChipModel>>? selectedMaterials =
+        materials.where((material) => material.value.isSelected.value).toList();
+
+    if (selectedMaterials.isEmpty) {
+      selectedMaterials = null;
+    }
+
+    await _teachersListViewModel.getTeachersList(isFilterApplied,
+        highSchool: highSchool,
+        midSchool: midSchool,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        selectedMaterials: selectedMaterials);
+  }
 
   void resetFilters() {
     selectEducationSecondary.value = false;
     selectEducationPrep.value = false;
 
-    sliderStartValue.value = 20.0;
-    sliderEndValue.value = 90.0;
+    sliderStartValue.value = _minRating;
+    sliderEndValue.value = _maxRating;
 
     for (var filterModel in materials) {
       filterModel.value.isSelected.value = false;
     }
+    isFilterApplied = false;
   }
 }
