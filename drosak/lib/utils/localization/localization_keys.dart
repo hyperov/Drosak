@@ -216,4 +216,6 @@ class LocalizationKeys {
   static var review_added = 'review_added';
 
   static var review_already_rated_teacher = 'review_already_rated_teacher';
+
+  static var filter = 'filter';
 }

@@ -56,7 +56,6 @@ class ReviewsViewModel extends GetxController {
         teacherId: teacher.id!,
         rating: rating,
         body: addedReviewTextController.text,
-        studentName: _storage.read<String>(StorageKeys.studentName)!,
         date: DateTime.now());
 
     await _reviewsRepo.addReview(review);

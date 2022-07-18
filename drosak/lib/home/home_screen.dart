@@ -37,6 +37,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorManager.redOrangeLight,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            showFilterBottomSheet(_filterViewModel);
+          },
+          icon: Icon(Icons.filter_list),
+          backgroundColor: ColorManager.blueDark,
+          label: Text(LocalizationKeys.filter.tr),
+        ),
         appBar: AppBar(
           title: Obx(() => Stack(children: [
                 SvgPicture.asset(

@@ -226,6 +226,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
         //todo: add government and area filter
       ],
     ),
+    enterBottomSheetDuration: const Duration(milliseconds: 650),
     backgroundColor: Colors.white,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

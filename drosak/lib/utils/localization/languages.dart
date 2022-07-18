@@ -23,6 +23,7 @@ class Languages extends Translations {
           LocalizationKeys.login_google: 'Login with Google',
           LocalizationKeys.login_facebook: 'Login with Facebook',
           LocalizationKeys.or: 'OR',
+          LocalizationKeys.filter: 'Filter',
           LocalizationKeys.filter_apply: 'Apply',
           LocalizationKeys.filter_clear_all: 'Clear all',
           LocalizationKeys.login_error: 'Login error happened !',
@@ -164,6 +165,7 @@ class Languages extends Translations {
           LocalizationKeys.facebook_login_error:
               'حدث خطأ في تسجيل الدخول بحساب فيسبوك',
           LocalizationKeys.filter_apply: 'تطبيق',
+          LocalizationKeys.filter: 'تصفية',
           LocalizationKeys.filter_clear_all: 'مسح الكل',
           LocalizationKeys.government_cairo: 'القاهرة',
           LocalizationKeys.government_giza: 'الجيزة',
