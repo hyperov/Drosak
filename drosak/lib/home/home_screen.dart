@@ -37,14 +37,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorManager.redOrangeLight,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            showFilterBottomSheet(_filterViewModel);
-          },
-          icon: Icon(Icons.filter_list),
-          backgroundColor: ColorManager.blueDark,
-          label: Text(LocalizationKeys.filter.tr),
-        ),
+        floatingActionButton:
+            Obx(() => _homeViewModel.bottomNavigationIndex.value == 0
+                ? FloatingActionButton.extended(
+                    onPressed: () {
+                      showFilterBottomSheet(_filterViewModel);
+                    },
+                    icon: Icon(Icons.filter_list),
+                    backgroundColor: ColorManager.blueDark,
+                    label: Text(LocalizationKeys.filter.tr),
+                  )
+                : Container()),
         appBar: AppBar(
           title: Obx(() => Stack(children: [
                 SvgPicture.asset(
@@ -67,17 +70,6 @@ class HomeScreen extends StatelessWidget {
               bottom: Radius.circular(30),
             ),
           ),
-          actions: [
-            _homeViewModel.bottomNavigationIndex.value == 0
-                ? IconButton(
-                    icon:
-                        const Icon(Icons.filter_list_alt, color: Colors.white),
-                    onPressed: () {
-                      showFilterBottomSheet(_filterViewModel);
-                    },
-                  )
-                : Container(),
-          ],
         ),
         bottomNavigationBar: SafeArea(
             child: Container(
