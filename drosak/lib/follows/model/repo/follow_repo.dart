@@ -36,9 +36,14 @@ class FollowRepo {
         .collection(FireStoreNames.collectionTeachers)
         .doc(follow.teacherId);
 
+    var appStatsDocRef = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionAppStatistics)
+        .doc(FireStoreNames.documentAppStatistics);
+
     batch.set(followDocRef, follow);
     batch.update(studentDocRef, {'follows': FieldValue.increment(1)});
     batch.update(teacherDocRef, {'followers': FieldValue.increment(1)});
+    batch.update(appStatsDocRef, {'follows': FieldValue.increment(1)});
 
     return await batch.commit();
   }
@@ -62,9 +67,15 @@ class FollowRepo {
     var teacherDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionTeachers)
         .doc(teacherId);
+
+    var appStatsDocRef = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionAppStatistics)
+        .doc(FireStoreNames.documentAppStatistics);
+
     // decerement follows count
     batch.update(studentDocRef, {'follows': FieldValue.increment(-1)});
     batch.update(teacherDocRef, {'followers': FieldValue.increment(-1)});
+    batch.update(appStatsDocRef, {'follows': FieldValue.increment(-1)});
     await batch.commit();
   }
 }
