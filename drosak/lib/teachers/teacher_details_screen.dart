@@ -115,22 +115,6 @@ class TeacherDetailsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                // ElevatedButton(
-                //   style: ElevatedButton.styleFrom(
-                //     primary: ColorManager.greyLight,
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(16),
-                //     ),
-                //     padding: const EdgeInsets.symmetric(vertical: 12),
-                //   ),
-                //   child: SvgPicture.asset(
-                //     AssetsManager.fav,
-                //     color: Colors.red,
-                //     height: 28,
-                //     width: 28,
-                //   ),
-                //   onPressed: () {},
-                // ),
                 Expanded(
                     child: Obx(
                   () => ElevatedButton(

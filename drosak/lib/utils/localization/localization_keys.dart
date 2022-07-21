@@ -171,8 +171,6 @@ class LocalizationKeys {
   static var choose_government_error = 'choose_government_error';
   static var choose_area_error = 'choose_area_error';
 
-  static var fav = 'fav';
-
   static var following = 'following';
 
   static var posts = 'posts';

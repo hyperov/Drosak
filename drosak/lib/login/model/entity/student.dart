@@ -24,9 +24,7 @@ class Student {
   int? totalBookings;
   int? totalBookingsCanceled;
 
-  bool? hasFavorite;
   int? followsCount;
-  int? favCount;
 
   Student();
 
@@ -47,52 +45,8 @@ class Student {
     this.classRoom = 1,
     this.totalBookings = 0,
     this.totalBookingsCanceled = 0,
-    this.hasFavorite = false,
     this.followsCount = 0,
-    this.favCount = 0,
   });
-
-//if @override
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Student &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          name == other.name &&
-          email == other.email &&
-          phone == other.phone &&
-          photoUrl == other.photoUrl &&
-          government == other.government &&
-          area == other.area &&
-          lastSignInTime == other.lastSignInTime &&
-          createdAt == other.createdAt &&
-          male == other.male &&
-          isLoggedIn == other.isLoggedIn &&
-          educationalLevel == other.educationalLevel &&
-          classRoom == other.classRoom &&
-          totalBookings == other.totalBookings &&
-          totalBookingsCanceled == other.totalBookingsCanceled &&
-          hasFavorite == other.hasFavorite);
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      name.hashCode ^
-      email.hashCode ^
-      phone.hashCode ^
-      photoUrl.hashCode ^
-      government.hashCode ^
-      area.hashCode ^
-      lastSignInTime.hashCode ^
-      createdAt.hashCode ^
-      male.hashCode ^
-      isLoggedIn.hashCode ^
-      educationalLevel.hashCode ^
-      classRoom.hashCode ^
-      totalBookings.hashCode ^
-      totalBookingsCanceled.hashCode ^
-      hasFavorite.hashCode;
 
   @override
   String toString() {
@@ -112,51 +66,7 @@ class Student {
         ' classRoom: $classRoom,' +
         ' totalBookings: $totalBookings,' +
         ' totalBookingsCanceled: $totalBookingsCanceled,' +
-        ' hasFavorite: $hasFavorite,' +
         '}';
-  }
-
-  Student copyWith({
-    String? id,
-    String? name,
-    String? email,
-    String? phone,
-    String? photoUrl,
-    String? government,
-    String? area,
-    DateTime? lastSignInTime,
-    DateTime? createdAt,
-    bool? male,
-    bool? isLoggedIn,
-    String? educationalLevel,
-    int? classRoom,
-    int? totalBookings,
-    int? totalBookingsCanceled,
-    bool? hasFavorite,
-    followsCount,
-    favCount,
-  }) {
-    return Student.def(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      email: email ?? this.email,
-      phone: phone ?? this.phone,
-      photoUrl: photoUrl ?? this.photoUrl,
-      government: government ?? this.government,
-      area: area ?? this.area,
-      lastSignInTime: lastSignInTime ?? this.lastSignInTime,
-      createdAt: createdAt ?? this.createdAt,
-      male: male ?? this.male,
-      isLoggedIn: isLoggedIn ?? this.isLoggedIn,
-      educationalLevel: educationalLevel ?? this.educationalLevel,
-      classRoom: classRoom ?? this.classRoom,
-      totalBookings: totalBookings ?? this.totalBookings,
-      totalBookingsCanceled:
-          totalBookingsCanceled ?? this.totalBookingsCanceled,
-      hasFavorite: hasFavorite ?? this.hasFavorite,
-      followsCount: followsCount ?? this.followsCount,
-      favCount: favCount ?? this.favCount,
-    );
   }
 
   Map<String, dynamic> toJson() {
@@ -176,9 +86,7 @@ class Student {
       'class': classRoom,
       'bookings': totalBookings,
       'bookings_canceled': totalBookingsCanceled,
-      'hasFav': hasFavorite,
       'follows': followsCount,
-      'favs': favCount,
     };
   }
 
@@ -199,9 +107,7 @@ class Student {
       classRoom: map['class'] as int,
       totalBookings: map['bookings'] as int,
       totalBookingsCanceled: map['bookings_canceled'] as int,
-      hasFavorite: map['hasFav'] as bool,
       followsCount: map['follows'] as int,
-      favCount: map['favs'] as int,
     );
   }
 }

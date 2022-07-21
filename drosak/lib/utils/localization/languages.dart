@@ -135,7 +135,6 @@ class Languages extends Translations {
           LocalizationKeys.choose_government_error:
               'you must choose government',
           LocalizationKeys.choose_area_error: 'you must choose area',
-          LocalizationKeys.fav: 'favourite',
           LocalizationKeys.following: 'follow',
           LocalizationKeys.posts: 'Posts',
         },
@@ -262,7 +261,6 @@ class Languages extends Translations {
           LocalizationKeys.app_error_update_data: 'خطأ في تحديث البيانات',
           LocalizationKeys.choose_government_error: 'يجب اختيار المحافظة',
           LocalizationKeys.choose_area_error: 'يجب اختيار المنطقة',
-          LocalizationKeys.fav: 'المفضلة',
           LocalizationKeys.following: 'متابعة',
           LocalizationKeys.posts: 'الاخبار',
           LocalizationKeys.follow_delete_question:

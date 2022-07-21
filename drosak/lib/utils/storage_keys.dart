@@ -14,7 +14,6 @@ class StorageKeys {
       'student_educational_level'; // sec,prep
   static const String isFirstTimeLogin = 'is_first_time_login';
   static const String followsCount = 'follows_count';
-  static const String favCount = 'fav_count';
 
   static const String teacherId = 'teacher_id';
   static const String teacherRating = 'teacher_rating';

@@ -116,26 +116,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Card(
-            //   color: Colors.white,
-            //   margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(10),
-            //   ),
-            //   child: InkWell(
-            //     onTap: () {
-            //       // Get.to(() => PersonalProfileScreen());
-            //     },
-            //     child: ListTile(
-            //       leading: const Icon(Icons.favorite),
-            //       title: Text(LocalizationKeys.fav.tr),
-            //       trailing: Text(
-            //         _profileViewModel.favCountObserver.value.toString(),
-            //         style: const TextStyle(fontSize: 20),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Card(
               color: Colors.white,
               margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),

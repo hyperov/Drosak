@@ -11,7 +11,6 @@ class AssetsManager {
   static const String profilePlaceHolder = _imagesFolder + 'ic_person2.svg';
   static const String pin = _imagesFolder + 'ic_pin.svg';
   static const String star = _imagesFolder + 'ic_star.svg';
-  static const String fav = _imagesFolder + 'ic_favorite_heart.svg';
   static const String appbarBackGround =
       _imagesFolder + 'ic_appbar_background.svg';
   static const String smsScreenBackground =

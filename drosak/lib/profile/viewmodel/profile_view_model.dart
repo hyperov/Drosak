@@ -36,7 +36,6 @@ class ProfileViewModel extends GetxController {
   var nameObserver = "الاسم".obs;
 
   var followsCountObserver = 0.obs;
-  var favCountObserver = 0.obs;
   var bookingsCountObserver = 0.obs;
   var selectedProfileImageUrl = "".obs;
 
@@ -181,8 +180,6 @@ class ProfileViewModel extends GetxController {
     await _storage.write(
         StorageKeys.studentBookingsNum, student.value.totalBookings);
     await _storage.write(StorageKeys.followsCount, student.value.followsCount);
-    await _storage.write(StorageKeys.favCount, student.value.favCount);
-
     await _storage.write(StorageKeys.studentIsMale, student.value.male);
     await _storage.write(StorageKeys.studentArea, student.value.area);
     await _storage.write(
@@ -206,7 +203,6 @@ class ProfileViewModel extends GetxController {
     var studentPhone = _storage.read(StorageKeys.studentPhone);
     var studentBookingsNum = _storage.read(StorageKeys.studentBookingsNum);
     var followsCount = _storage.read(StorageKeys.followsCount);
-    var favCount = _storage.read(StorageKeys.favCount);
     studentClass = _storage.read(StorageKeys.studentClass)!; //1,2,3
     var studentEducationalLevel =
         _storage.read<String>(StorageKeys.studentEducationalLevel)!; // sec,prep
@@ -268,7 +264,6 @@ class ProfileViewModel extends GetxController {
     nameObserver.value = studentName;
     bookingsCountObserver.value = studentBookingsNum;
     followsCountObserver.value = followsCount;
-    favCountObserver.value = favCount;
     selectedProfileImageUrl.value = studentPhotoUrl;
 
     studentProfile = StudentProfileUiModel(
