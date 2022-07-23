@@ -282,7 +282,10 @@ class ProfileViewModel extends GetxController {
   void logout() {
     FirebaseAuth.instance.signOut().then((value) {
       _userRepo.signOutStudent().then((value) async {
+        var fcmToken = await _storage.read(StorageKeys.fcmToken);
         await _storage.erase();
+        await _storage.write(StorageKeys.fcmToken, fcmToken);
+
         Get.offAll(() => IsLoginWidget());
       });
     }).catchError((error) {

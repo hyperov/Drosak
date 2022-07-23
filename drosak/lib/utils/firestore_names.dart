@@ -12,6 +12,8 @@ class FireStoreNames {
   //login fields
   static const String studentDocFieldIsLogin = 'isLogin';
   static const String studentDocFieldLastSignInTime = 'lastSignInTime';
+  static const String studentDocFieldFcmToken = 'fcm_token';
+  static const String studentDocFieldFcmTokenTimeStamp = 'fcm_date';
 
   //reviews fields
   static const String collectionTeacherReviewsSortFieldDate = 'date';

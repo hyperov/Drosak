@@ -25,28 +25,31 @@ class Student {
   int? totalBookingsCanceled;
 
   int? followsCount;
+  String fcmToken = "";
+  Timestamp fcmTimeStamp = Timestamp.now();
 
   Student();
 
   //<editor-fold desc="Data Methods">
-  Student.def({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.phone,
-    this.photoUrl = "",
-    this.government = "",
-    this.area = "",
-    required this.lastSignInTime,
-    required this.createdAt,
-    this.male = true,
-    this.isLoggedIn = true,
-    this.educationalLevel = "",
-    this.classRoom = 1,
-    this.totalBookings = 0,
-    this.totalBookingsCanceled = 0,
-    this.followsCount = 0,
-  });
+  Student.def(
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.phone,
+      this.photoUrl = "",
+      this.government = "",
+      this.area = "",
+      required this.lastSignInTime,
+      required this.createdAt,
+      this.male = true,
+      this.isLoggedIn = true,
+      this.educationalLevel = "",
+      this.classRoom = 1,
+      this.totalBookings = 0,
+      this.totalBookingsCanceled = 0,
+      this.followsCount = 0,
+      required this.fcmToken,
+      required this.fcmTimeStamp});
 
   @override
   String toString() {
@@ -87,6 +90,8 @@ class Student {
       'bookings': totalBookings,
       'bookings_canceled': totalBookingsCanceled,
       'follows': followsCount,
+      'fcm_token': fcmToken,
+      'fcm_date': fcmTimeStamp,
     };
   }
 
@@ -108,6 +113,8 @@ class Student {
       totalBookings: map['bookings'] as int,
       totalBookingsCanceled: map['bookings_canceled'] as int,
       followsCount: map['follows'] as int,
+      fcmToken: map['fcm_token'] as String,
+      fcmTimeStamp: map['fcm_date'] as Timestamp,
     );
   }
 }

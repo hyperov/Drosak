@@ -1,31 +1,41 @@
+import 'package:drosak/login/model/Repo/user_repo.dart';
+import 'package:drosak/profile/view/personal_profile_screen.dart';
+import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:drosak/utils/storage_keys.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'notification_model.dart';
 
 class HomeViewModel extends RxController {
   RxInt bottomNavigationIndex = 0.obs;
-  late var fcmToken;
 
   late FirebaseMessaging _messaging;
+
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  final UserRepo _userRepo = Get.find();
 
   @override
   Future<void> onInit() async {
     checkForInitialMessage();
     super.onInit();
-    fcmToken = await FirebaseMessaging.instance.getToken();
-    print("FCM token: $fcmToken");
-    registerNotification();
 
-    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-      // TODO: If necessary send token to application server.
-      fcmToken = fcmToken;
-      print("FCM token new : $fcmToken");
-      // Note: This callback is fired at each app startup and whenever a new
-      // token is generated.
-    }).onError((err) {
-      // Error getting token.
+    GetStorage().listenKey(StorageKeys.fcmToken, (value) async {
+      if (value != null && FirebaseAuth.instance.currentUser != null) {
+        await _userRepo.updateFCMToken(value);
+      }
     });
+
+    registerNotification();
+    var isInitNotification = await initLocalNotifications();
+    if (!isInitNotification!) {
+      return;
+    }
   }
 
   void registerNotification() async {
@@ -44,7 +54,7 @@ class HomeViewModel extends RxController {
 
       // TODO: handle the received notifications
 
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         // foreground: app is in foreground
         print('Got a message whilst in the foreground!');
         print('Message data: ${message.data}');
@@ -52,6 +62,7 @@ class HomeViewModel extends RxController {
         if (message.notification != null) {
           print(
               'Message also contained a notification: ${message.notification}');
+          await createAndroidNotification(message.notification!, message);
         }
       });
 
@@ -79,6 +90,59 @@ class HomeViewModel extends RxController {
         body: initialMessage.notification?.body,
       );
     }
+  }
+
+  Future<void> createAndroidNotification(
+      RemoteNotification notification, RemoteMessage message) async {
+    var androidNotification = notification.android;
+
+    AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      androidNotification!.channelId ?? 'default_channel',
+      'Drosak',
+      channelDescription: 'Drosak channel for notifications',
+      icon: 'logo2',
+      enableLights: true,
+      importance: Importance.max,
+      priority: Priority.high,
+      color: ColorManager.blueLight,
+      visibility: NotificationVisibility.public,
+      colorized: true,
+      ledColor: ColorManager.goldenYellow,
+      ledOnMs: 1000,
+      ledOffMs: 3000,
+      number: 5,
+    );
+
+    NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+        message.notification.hashCode,
+        message.notification?.title,
+        message.notification?.body,
+        platformChannelSpecifics,
+        payload: 'item x');
+  }
+
+  Future<bool?> initLocalNotifications() async {
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    //app_icon needs to be a added as a drawable resource to the Android head project
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('logo2');
+
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+
+    return flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: _onSelectNotification);
+  }
+
+  void _onSelectNotification(String? payload) {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    Get.to(() => PersonalProfileScreen());
   }
 }
 

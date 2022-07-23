@@ -14,8 +14,10 @@ import 'package:image_picker/image_picker.dart';
 class UserRepo {
   final _storage = GetStorage();
 
-  Future<void> insertUserFirstTime(User user) {
-    var student = user.toStudent();
+  Future<void> insertUserFirstTime(User user) async {
+    var fcmToken = _storage.read(StorageKeys.fcmToken);
+
+    var student = user.toStudent(fcmToken);
 
     var documentReference = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
@@ -36,12 +38,16 @@ class UserRepo {
   }
 
   Future<void> updateUserLoginStatus(User user) async {
+    var fcmToken = _storage.read(StorageKeys.fcmToken);
+
     await FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(user.uid)
         .update({
       FireStoreNames.studentDocFieldIsLogin: true,
-      FireStoreNames.studentDocFieldLastSignInTime: DateTime.now()
+      FireStoreNames.studentDocFieldLastSignInTime: DateTime.now(),
+      FireStoreNames.studentDocFieldFcmToken: fcmToken,
+      FireStoreNames.studentDocFieldFcmTokenTimeStamp: Timestamp.now(),
     });
   }
 
@@ -69,5 +75,15 @@ class UserRepo {
         storageRef.child("student_profiles/profile.jpg");
     var taskSnapshot = await imagesTeacherProfileRef.putFile(file);
     return taskSnapshot.ref.getDownloadURL();
+  }
+
+  Future<void> updateFCMToken(String fcmToken) async {
+    await FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionStudents)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({
+      FireStoreNames.studentDocFieldFcmToken: fcmToken,
+      FireStoreNames.studentDocFieldFcmTokenTimeStamp: Timestamp.now(),
+    });
   }
 }

@@ -17,4 +17,6 @@ class StorageKeys {
 
   static const String teacherId = 'teacher_id';
   static const String teacherRating = 'teacher_rating';
+
+  static String fcmToken = 'fcm_token';
 }
