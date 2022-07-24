@@ -27,7 +27,7 @@ class FireStoreNames {
   static const String teacherDocFieldMaterial = 'material';
 
   static String followDocFieldTeacherName = 'name';
-  static String followDocFieldTeacherId = 'id';
+  static String followDocFieldTeacherId = 'teacher_id';
 
   static String lectureDocFieldIsEnabled = 'is_enabled';
 

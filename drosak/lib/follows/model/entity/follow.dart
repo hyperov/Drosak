@@ -9,6 +9,7 @@ class Follow {
   String material;
   List<String> educationalLevel;
   double rating;
+  String studentFcmToken;
 
   Follow({
     required this.teacherName,
@@ -17,6 +18,7 @@ class Follow {
     required this.material,
     required this.educationalLevel,
     required this.rating,
+    required this.studentFcmToken,
   });
 
   String getEducationText() {
@@ -39,22 +41,24 @@ class Follow {
   factory Follow.fromJson(Map<String, dynamic> json) {
     return Follow(
       teacherName: json['name'],
-      teacherId: json['id'],
+      teacherId: json['teacher_id'],
       teacherPhotoUrl: json['pic'],
       material: json['material'],
       educationalLevel: List<String>.from(json['eduLevel']),
       rating: (json['rating']).toDouble(),
+      studentFcmToken: json['fcm_token_student'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'name': teacherName,
-      'id': teacherId,
+      'teacher_id': teacherId,
       'pic': teacherPhotoUrl,
       'material': material,
       'eduLevel': educationalLevel,
       'rating': rating,
+      'fcm_token_student': studentFcmToken,
     };
   }
 }

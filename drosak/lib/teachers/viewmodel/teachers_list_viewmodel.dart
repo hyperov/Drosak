@@ -2,7 +2,9 @@ import 'package:drosak/common/model/filter_models.dart';
 import 'package:drosak/follows/model/repo/follow_repo.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/teachers/model/teachers_repo.dart';
+import 'package:drosak/utils/storage_keys.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../follows/model/entity/follow.dart';
 
@@ -15,6 +17,7 @@ class TeachersListViewModel extends GetxController {
   RxBool isLoading = false.obs;
 
   Teacher selectedTeacher = Teacher();
+  final GetStorage _storage = GetStorage();
 
   @override
   Future<void> onReady() async {
@@ -70,6 +73,7 @@ class TeachersListViewModel extends GetxController {
       rating: selectedTeacher.avgRating!,
       material: selectedTeacher.material!,
       educationalLevel: selectedTeacher.educationalLevel!,
+      studentFcmToken: _storage.read(StorageKeys.fcmToken),
     );
 
     await _followRepo.addFollow(follow);
