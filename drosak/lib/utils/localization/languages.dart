@@ -61,6 +61,8 @@ class Languages extends Translations {
           LocalizationKeys.follows: 'Follows',
           LocalizationKeys.follows2: 'Follows',
           LocalizationKeys.followers: 'Followers',
+          LocalizationKeys.follow_teacher_no_posts:
+              'You have to follow this teacher to see his posts',
           LocalizationKeys.notifications: 'Notifications',
           LocalizationKeys.profile: 'Profile',
           LocalizationKeys.personal_info: 'Personal Info',
@@ -137,6 +139,7 @@ class Languages extends Translations {
           LocalizationKeys.choose_area_error: 'you must choose area',
           LocalizationKeys.following: 'follow',
           LocalizationKeys.posts: 'Posts',
+          LocalizationKeys.notifications_not_found: 'No Notifications Yet',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -265,10 +268,13 @@ class Languages extends Translations {
           LocalizationKeys.posts: 'الاخبار',
           LocalizationKeys.follow_delete_question:
               'هل أنت متأكد من الغاء المتابعة؟',
+          LocalizationKeys.follow_teacher_no_posts:
+              'لازم تتابع المدرس للحصول على الاخبار',
           LocalizationKeys.booking_delete_question:
               'هل أنت متأكد من الغاء الحجز؟',
           LocalizationKeys.app_yes: 'نعم',
           LocalizationKeys.app_no: 'لا',
+          LocalizationKeys.notifications_not_found: 'لا يوجد إشعارات',
         },
       };
 }

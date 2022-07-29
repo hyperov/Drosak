@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/common/model/filter_models.dart';
 import 'package:drosak/follows/model/repo/follow_repo.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/teachers/model/teachers_repo.dart';
+import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/storage_keys.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -74,6 +77,9 @@ class TeachersListViewModel extends GetxController {
       material: selectedTeacher.material!,
       educationalLevel: selectedTeacher.educationalLevel!,
       studentFcmToken: _storage.read(StorageKeys.fcmToken),
+      studentRef: FirebaseFirestore.instance
+          .collection(FireStoreNames.collectionStudents)
+          .doc(FirebaseAuth.instance.currentUser!.uid),
     );
 
     await _followRepo.addFollow(follow);

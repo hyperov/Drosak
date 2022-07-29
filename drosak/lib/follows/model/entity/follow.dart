@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ class Follow {
   String material;
   List<String> educationalLevel;
   double rating;
+  DocumentReference studentRef;
   String studentFcmToken;
 
   Follow({
@@ -18,6 +20,7 @@ class Follow {
     required this.material,
     required this.educationalLevel,
     required this.rating,
+    required this.studentRef,
     required this.studentFcmToken,
   });
 
@@ -45,7 +48,8 @@ class Follow {
       teacherPhotoUrl: json['pic'],
       material: json['material'],
       educationalLevel: List<String>.from(json['eduLevel']),
-      rating: (json['rating']).toDouble(),
+      rating: double.parse(json['rating'].toString()),
+      studentRef: json['student_ref'],
       studentFcmToken: json['fcm_token_student'],
     );
   }
@@ -58,6 +62,7 @@ class Follow {
       'material': material,
       'eduLevel': educationalLevel,
       'rating': rating,
+      'student_ref': studentRef,
       'fcm_token_student': studentFcmToken,
     };
   }

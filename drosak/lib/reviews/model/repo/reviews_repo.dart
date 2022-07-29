@@ -31,12 +31,7 @@ class ReviewsRepo {
             toFirestore: (model, _) => model.toJson())
         .doc(FirebaseAuth.instance.currentUser!.uid);
 
-    var teacherDocRef = FirebaseFirestore.instance
-        .collection(FireStoreNames.collectionTeachers)
-        .doc(review.teacherId);
-
     batch.set(reviewDocRef, review);
-    batch.update(teacherDocRef, {'totRevs': FieldValue.increment(1)});
 
     return await batch.commit();
   }

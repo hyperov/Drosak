@@ -8,6 +8,7 @@ class FireStoreNames {
 
   static const String collectionStudentFollows = 'follows';
   static const String collectionStudentBookings = 'bookings';
+  static const String collectionStudentNotifications = 'notifications';
 
   //login fields
   static const String studentDocFieldIsLogin = 'isLogin';

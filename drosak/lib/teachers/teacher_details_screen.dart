@@ -342,7 +342,9 @@ class TeacherDetailsScreen extends StatelessWidget {
                             slidingUpPanelController: _slidingUpPanelController,
                             teacher: _teachersListViewModel.selectedTeacher),
                         ReviewsScreen(scrollController: scrollController),
-                        PostsScreen(scrollController: scrollController),
+                        PostsScreen(
+                            scrollController: scrollController,
+                            isFollowing: () => isFollowing()),
                       ],
                     ),
                   ),

@@ -1,5 +1,5 @@
+import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/login/model/Repo/user_repo.dart';
-import 'package:drosak/profile/view/personal_profile_screen.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -101,17 +101,21 @@ class HomeViewModel extends RxController {
       androidNotification!.channelId ?? 'default_channel',
       'Drosak',
       channelDescription: 'Drosak channel for notifications',
-      icon: 'logo2',
+      icon: '@mipmap/ic_launcher',
+      largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+      playSound: true,
+      enableVibration: true,
       enableLights: true,
       importance: Importance.max,
       priority: Priority.high,
-      color: ColorManager.blueLight,
+      color: ColorManager.deepPurple,
       visibility: NotificationVisibility.public,
       colorized: true,
       ledColor: ColorManager.goldenYellow,
       ledOnMs: 1000,
       ledOffMs: 3000,
-      number: 5,
+      number: 1,
+      fullScreenIntent: true,
     );
 
     NotificationDetails platformChannelSpecifics =
@@ -142,7 +146,7 @@ class HomeViewModel extends RxController {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-    Get.to(() => PersonalProfileScreen());
+    Get.to(() => HomeScreen());
   }
 }
 

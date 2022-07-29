@@ -20,6 +20,7 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: ColorManager.deepPurple,
           primarySwatch: ColorManager.deepPurpleMaterial,
+          scaffoldBackgroundColor: ColorManager.redOrangeLight,
         ),
         home: IsLoginWidget(),
         debugShowCheckedModeBanner: true,

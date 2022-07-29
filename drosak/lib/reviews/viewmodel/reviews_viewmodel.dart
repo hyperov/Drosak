@@ -33,7 +33,7 @@ class ReviewsViewModel extends GetxController {
 
   getReviews() async {
     String? teacherId = _storage.read<String>(StorageKeys.teacherId);
-
+    print('teacherId: $teacherId');
     var _localReviews =
         await _reviewsRepo.getReviews(teacherId!, orderBy.value);
 

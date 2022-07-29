@@ -4,6 +4,7 @@ import 'package:drosak/common/viewmodel/network_viewmodel.dart';
 import 'package:drosak/follows/viewmodel/follows_viewmodel.dart';
 import 'package:drosak/home/HomeViewModel.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
+import 'package:drosak/notifications/viewmodel/notifications_viewmodel.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/reviews/viewmodel/reviews_viewmodel.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class InitialBindings extends Bindings {
     Get.lazyPut<ProfileViewModel>(() => ProfileViewModel(), fenix: true);
     Get.lazyPut<FilterViewModel>(() => FilterViewModel());
     Get.lazyPut<FollowsViewModel>(() => FollowsViewModel());
+    Get.lazyPut<NotificationsViewModel>(() => NotificationsViewModel());
     Get.lazyPut<ReviewsViewModel>(() => ReviewsViewModel(), fenix: true);
     Get.lazyPut<BookingsViewModel>(() => BookingsViewModel(), fenix: true);
     Get.put(LoginViewModel());

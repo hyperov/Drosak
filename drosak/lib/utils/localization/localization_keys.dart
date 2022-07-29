@@ -206,6 +206,7 @@ class LocalizationKeys {
   static var delete_follow = 'delete_follow';
 
   static var follows2 = 'follows2';
+  static var follow_teacher_no_posts = 'follow_teacher_no_posts';
 
   static var rate_teacher = 'rate_teacher';
 
@@ -216,4 +217,6 @@ class LocalizationKeys {
   static var review_already_rated_teacher = 'review_already_rated_teacher';
 
   static var filter = 'filter';
+
+  static var notifications_not_found = 'notifications_not_found';
 }

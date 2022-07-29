@@ -23,6 +23,7 @@ Future<void> main() async {
   await GetStorage.init();
 
   var fcmToken = await FirebaseMessaging.instance.getToken();
+  print("FCM token new : $fcmToken");
   await _saveFcmToken(fcmToken!);
 
   // fired at each app startup and whenever a new
@@ -30,7 +31,7 @@ Future<void> main() async {
   FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async {
     await _saveFcmToken(fcmToken);
     if (kDebugMode) {
-      print("FCM token new : $fcmToken");
+      print("FCM token refresh : $fcmToken");
     }
   }).onError((err) {
     if (kDebugMode) {

@@ -86,8 +86,6 @@ class BookingsViewModel extends GetxController {
     try {
       if (!isNotFirstTimeBooking) {
         await _bookingRepo.addBooking(newBooking);
-        await _bookingRepo
-            .incrementBookingCountToStudentAndTeacher(selectedTeacher.id!);
       }
     } catch (e) {
       Get.snackbar(

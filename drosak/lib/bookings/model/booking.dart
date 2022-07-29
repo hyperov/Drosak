@@ -54,7 +54,7 @@ class Booking {
         teacherImageUrl: json['pic'],
         bookingDate: (json['book_date'] as Timestamp).toDate(),
         lecDate: (json['lec_date'] as Timestamp).toDate(),
-        teacherRating: (json['rating'])?.toDouble(),
+        teacherRating: double.parse(json['rating'].toString()),
         isCanceled: json['is_canceled'],
         lectureId: json['lec_id'],
         teacherId: json['teacher_id']);

@@ -79,7 +79,7 @@ class Teacher {
         active: json['active'],
         isPaid: json['isPaid'],
         fees: json['fees'],
-        avgRating: (json['avgRating'] as int).toDouble(),
+        avgRating: double.parse(json['avgRating'].toString()),
         totalReviews: json['totRevs'],
         followers: json['followers'],
         priceMin: json['price_min'],
