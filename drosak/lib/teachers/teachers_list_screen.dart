@@ -146,42 +146,41 @@ class TeachersListScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(width: 32),
+                                        const SizedBox(width: 16),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  _teachersListViewModel
+                                                      .teachersList[index]
+                                                      .name!,
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Text(_teachersListViewModel
+                                                  .teachersList[index]
+                                                  .material!),
+                                              Text(_teachersListViewModel
+                                                  .teachersList[index]
+                                                  .getEducationText()),
+                                            ],
+                                          ),
+                                        ),
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                                _teachersListViewModel
-                                                    .teachersList[index].name!,
-                                                style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            Text(_teachersListViewModel
-                                                .teachersList[index].material!),
-                                            Text(_teachersListViewModel
-                                                .teachersList[index]
-                                                .getEducationText()),
+                                                '${_teachersListViewModel.teachersList[index].priceMin} - ${_teachersListViewModel.teachersList[index].priceMax}'),
+                                            Text(LocalizationKeys
+                                                .price_average.tr),
                                           ],
-                                        ),
+                                        )
                                       ],
                                     ),
-                                    PositionedDirectional(
-                                      end: 16,
-                                      bottom: 16,
-                                      top: 16,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                              '${_teachersListViewModel.teachersList[index].priceMin} - ${_teachersListViewModel.teachersList[index].priceMax}'),
-                                          Text(LocalizationKeys
-                                              .price_average.tr),
-                                        ],
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),
