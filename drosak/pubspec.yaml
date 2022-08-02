@@ -59,6 +59,16 @@ dependencies:
   jiffy: ^5.0.0
   firebase_messaging: ^12.0.1
   flutter_local_notifications: ^9.7.0
+  argon_buttons_flutter: ^1.1.0
+  flutter_easyloading: ^3.0.5
+
+flutter_native_splash:
+  color: "#ffc2c0"
+  image: "assets/launcher/logo2.png"
+  android_12:
+    image: assets/launcher/logo.png
+    color: "#ffc2c0"
+    fullscreen: true
 
 flutter_icons:
   ios: false

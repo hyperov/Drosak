@@ -1,11 +1,12 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:drosak/common/viewmodel/network_viewmodel.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
+import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:timer_button/timer_button.dart';
 
 import '../../utils/localization/localization_keys.dart';
 
@@ -237,25 +238,37 @@ class EnterSmsCodeScreen extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
-                  TimerButton(
-                    label: LocalizationKeys.resend_sms_code.tr,
-                    timeOutInSeconds: 30,
-                    onPressed: () {
-                      _loginViewModel.resendSmsCode();
+                  const SizedBox(width: 8),
+                  ArgonTimerButton(
+                    initialTimer: 30,
+                    height: 50,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    minWidth: MediaQuery.of(context).size.width * 0.30,
+                    color: ColorManager.deepPurple,
+                    borderRadius: 25.0,
+                    roundLoadingShape: true,
+                    child: const Text(
+                      "send OTP",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    loader: (timeLeft) {
+                      return Text(
+                        "Wait | $timeLeft",
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700),
+                      );
                     },
-                    disabledColor: Colors.transparent,
-                    color: Colors.transparent,
-                    resetTimerOnPressed: true,
-                    buttonType: ButtonType.TextButton,
-                    disabledTextStyle: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                    activeTextStyle: const TextStyle(
-                      color: Colors.deepPurpleAccent,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
-                    ),
+                    onTap: (startTimer, btnState) async {
+                      if (btnState == ButtonState.Idle) {
+                        startTimer(30);
+                        await _loginViewModel.resendSmsCode();
+                      }
+                    },
                   )
                 ],
               ),

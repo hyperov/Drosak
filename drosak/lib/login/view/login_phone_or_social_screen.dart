@@ -1,6 +1,7 @@
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 
@@ -18,18 +19,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
     ever(_loginViewModel.errorSnackBarShow, (callback) {
       if (_loginViewModel.errMessageSnackBar.value.isNotEmpty &&
           _loginViewModel.errorSnackBarShow.value) {
-        Get.snackbar(
-          _loginViewModel.errMessageSnackBar.value,
-          _loginViewModel.errMessageSnackBar.value,
-          backgroundColor: Colors.redAccent,
-          dismissDirection: DismissDirection.up,
-          duration: const Duration(seconds: 2),
-          shouldIconPulse: true,
-          icon: const Icon(
-            Icons.error,
-            color: Colors.white,
-          ),
-        );
+        EasyLoading.showError(_loginViewModel.errMessageSnackBar.value);
         _loginViewModel.errorSnackBarShow.value = false;
       }
     });

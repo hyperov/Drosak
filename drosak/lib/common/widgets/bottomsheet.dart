@@ -7,6 +7,7 @@ import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -393,24 +394,18 @@ showConfirmBookingBottomSheet(
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
+                      EasyLoading.show(status: "جاري حجز المحاضرة");
                       await bookingsViewModel
                           .bookLecture(lecturesViewModel.lectures[index]);
                       Get.back();
                       Get.back();
                       slidingUpPanelController.close();
-                      Get.snackbar(
-                        'Success',
-                        LocalizationKeys.lecture_booked.tr,
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.green,
-                        duration: const Duration(seconds: 2),
-                      );
+                      EasyLoading.dismiss();
+                      EasyLoading.showSuccess(
+                          LocalizationKeys.lecture_booked.tr);
                     } catch (e) {
-                      print(e);
-                      Get.snackbar('Error', e.toString(),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                          icon: const Icon(Icons.error));
+                      print(e.toString());
+                      EasyLoading.showError(e.toString());
                     }
                   },
                   child: Text(LocalizationKeys.confirm_booking.tr,
@@ -520,21 +515,14 @@ showRatingTeacherBottomSheet(
                 child: ElevatedButton(
                   onPressed: () async {
                     try {
+                      EasyLoading.show(status: "جاري تقييم المدرس");
                       await reviewsViewModel.reviewTeacher(teacher);
+                      EasyLoading.dismiss();
                       Get.back();
-                      Get.snackbar(
-                        'Success',
-                        LocalizationKeys.review_added.tr,
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.green,
-                        duration: const Duration(seconds: 2),
-                      );
+                      EasyLoading.showSuccess(LocalizationKeys.review_added.tr);
                     } catch (e) {
-                      print(e);
-                      Get.snackbar('Error', e.toString(),
-                          backgroundColor: Colors.red,
-                          colorText: Colors.white,
-                          icon: const Icon(Icons.error));
+                      print(e.toString());
+                      EasyLoading.showError(e.toString());
                     }
                   },
                   child: Text(LocalizationKeys.add_review.tr,

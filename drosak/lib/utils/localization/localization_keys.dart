@@ -219,4 +219,6 @@ class LocalizationKeys {
   static var filter = 'filter';
 
   static var notifications_not_found = 'notifications_not_found';
+
+  static var loading = 'loading';
 }

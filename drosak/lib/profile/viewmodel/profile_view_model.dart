@@ -9,6 +9,7 @@ import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -147,25 +148,14 @@ class ProfileViewModel extends GetxController {
         selectedGender.value == LocalizationKeys.male.tr;
 
     _userRepo.updateStudentProfile(studentProfile).then((value) async {
-      Get.snackbar(
-        'Success',
-        LocalizationKeys.profile_updated_successfully.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        duration: const Duration(seconds: 2),
-      );
+      EasyLoading.showSuccess(LocalizationKeys.profile_updated_successfully.tr);
       await getStudent();
       readStudentProfileDataFromStorage();
       await _storage.write(StorageKeys.isFirstTimeLogin, false);
       Get.off(() => HomeScreen(), binding: HomeBindings());
     }).catchError((error) {
-      Get.snackbar(
-        'Error',
-        LocalizationKeys.profile_updated_error.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        duration: const Duration(seconds: 2),
-      );
+      EasyLoading.showError(LocalizationKeys.profile_updated_error.tr);
+      printError(info: error.toString());
     });
   }
 
@@ -280,9 +270,10 @@ class ProfileViewModel extends GetxController {
   }
 
   void logout() {
-    FirebaseAuth.instance.signOut().then((value) {
-      _userRepo.signOutStudent().then((value) async {
-        var fcmToken = await _storage.read(StorageKeys.fcmToken);
+    _userRepo.signOutStudent().then((value) {
+      FirebaseAuth.instance.signOut().then((value) async {
+        EasyLoading.dismiss();
+        var fcmToken = _storage.read(StorageKeys.fcmToken);
         await _storage.erase();
         await _storage.write(StorageKeys.fcmToken, fcmToken);
 
@@ -290,13 +281,8 @@ class ProfileViewModel extends GetxController {
       });
     }).catchError((error) {
       printError(info: error.toString());
-      Get.snackbar(
-        'Error',
-        LocalizationKeys.app_logout_error.tr,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        duration: const Duration(seconds: 2),
-      );
+      printError(info: FirebaseAuth.instance.currentUser!.uid);
+      EasyLoading.showError(LocalizationKeys.app_logout_error.tr);
     });
   }
 
@@ -362,14 +348,7 @@ class ProfileViewModel extends GetxController {
     if (government != LocalizationKeys.choose_government.tr) {
       return null;
     } else {
-      Get.snackbar(
-        LocalizationKeys.app_error_update_data.tr,
-        LocalizationKeys.choose_government_error.tr,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 2),
-      );
+      EasyLoading.showError(LocalizationKeys.choose_government_error.tr);
       return LocalizationKeys.choose_government.tr;
     }
   }
@@ -379,14 +358,7 @@ class ProfileViewModel extends GetxController {
     if (area != LocalizationKeys.choose_area.tr) {
       return null;
     } else {
-      Get.snackbar(
-        LocalizationKeys.app_error_update_data.tr,
-        LocalizationKeys.choose_area_error.tr,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 2),
-      );
+      EasyLoading.showError(LocalizationKeys.choose_area_error.tr);
       return LocalizationKeys.choose_area.tr;
     }
   }
@@ -404,24 +376,14 @@ class ProfileViewModel extends GetxController {
     if (image != null) {
       _userRepo.uploadStudentImage(image).then((imageUrl) {
         selectedProfileImageUrl.value = imageUrl;
-        Get.snackbar(
-          'Success',
-          LocalizationKeys.profile_image_updated_successfully.tr,
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          duration: const Duration(seconds: 2),
-        );
+        EasyLoading.showSuccess(
+            LocalizationKeys.profile_image_updated_successfully.tr);
         // await _homeViewModel.getTeacher();
         // readTeacherProfileDataFromStorage();
       }).catchError(
         (error) {
-          Get.snackbar(
-            'Error',
-            LocalizationKeys.profile_image_updated_error.tr,
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            duration: const Duration(seconds: 2),
-          );
+          EasyLoading.showError(
+              LocalizationKeys.profile_image_updated_error.tr);
         },
       );
     }

@@ -20,6 +20,7 @@ class Languages extends Translations {
               'Phone number must be in the format 01xxxxxxxxx',
           LocalizationKeys.app_login: 'Login with phone number',
           LocalizationKeys.app_logout: 'Logout',
+          LocalizationKeys.app_logout_error: 'Logout error happened !',
           LocalizationKeys.login_google: 'Login with Google',
           LocalizationKeys.login_facebook: 'Login with Facebook',
           LocalizationKeys.or: 'OR',
@@ -140,6 +141,7 @@ class Languages extends Translations {
           LocalizationKeys.following: 'follow',
           LocalizationKeys.posts: 'Posts',
           LocalizationKeys.notifications_not_found: 'No Notifications Yet',
+          LocalizationKeys.loading: 'Loading...',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -155,6 +157,7 @@ class Languages extends Translations {
               'رقم الموبايل يجب أن يكون بالشكل 01xxxxxxxxx',
           LocalizationKeys.app_login: 'تسجيل الدخول بالموبايل',
           LocalizationKeys.app_logout: 'تسجيل الخروج',
+          LocalizationKeys.app_logout_error: 'حدث خطأ في تسجيل الخروج',
           LocalizationKeys.login_google: 'سجل الدخول بحساب جوجل',
           LocalizationKeys.login_facebook: 'سجل الدخول بحساب فيسبوك',
           LocalizationKeys.or: 'أو',
@@ -275,6 +278,7 @@ class Languages extends Translations {
           LocalizationKeys.app_yes: 'نعم',
           LocalizationKeys.app_no: 'لا',
           LocalizationKeys.notifications_not_found: 'لا يوجد إشعارات',
+          LocalizationKeys.loading: 'جاري التحميل ...',
         },
       };
 }

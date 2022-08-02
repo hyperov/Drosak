@@ -6,9 +6,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'firebase_options.dart';
+import 'utils/managers/color_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,9 +40,34 @@ Future<void> main() async {
       print("FCM token error : $err");
     }
   });
+  initializeEasyLoading();
   runApp(const MainApp());
 }
 
 _saveFcmToken(String token) async {
   await GetStorage().write(StorageKeys.fcmToken, token);
+}
+
+initializeEasyLoading() async {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.wanderingCubes
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = ColorManager.redOrangeLight
+    ..backgroundColor = ColorManager.blueDark
+    ..indicatorColor = ColorManager.redOrangeDark
+    ..textColor = ColorManager.redOrangeDark
+    // ..maskColor = ColorManager.blueLight.withOpacity(0.5)
+    ..maskColor = ColorManager.blueDark.withOpacity(0.5)
+    ..maskType = EasyLoadingMaskType.custom
+    ..errorWidget = const Icon(
+      Icons.error_outline,
+      color: Colors.red,
+      size: 45.0,
+    )
+    ..userInteractions = true
+    ..dismissOnTap = true;
+  // ..customAnimation = CustomAnimation();
 }

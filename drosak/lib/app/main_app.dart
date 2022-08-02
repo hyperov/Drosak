@@ -3,6 +3,7 @@ import 'package:drosak/login/is_login_widget.dart';
 import 'package:drosak/utils/localization/languages.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class MainApp extends StatelessWidget {
@@ -27,6 +28,7 @@ class MainApp extends StatelessWidget {
         locale: const Locale('ar', 'EG'),
         translations: Languages(),
         initialBinding: InitialBindings(),
+        builder: EasyLoading.init(),
       ),
     );
   }

@@ -31,9 +31,9 @@ class UserRepo {
   }
 
   Future<void> signOutStudent() async {
-    await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
-        .doc(_storage.read(StorageKeys.studentId))
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .update({FireStoreNames.studentDocFieldIsLogin: false});
   }
 

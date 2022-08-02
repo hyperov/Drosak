@@ -6,7 +6,7 @@ import 'package:drosak/bookings/model/bookings_repo.dart';
 import 'package:drosak/lectures/model/entity/lecture.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/storage_keys.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -88,12 +88,7 @@ class BookingsViewModel extends GetxController {
         await _bookingRepo.addBooking(newBooking);
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        e.toString(),
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      EasyLoading.showError(e.toString());
     }
   }
 

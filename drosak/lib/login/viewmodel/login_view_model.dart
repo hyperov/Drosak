@@ -9,6 +9,7 @@ import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -55,16 +56,7 @@ class LoginViewModel extends GetxController {
     super.onReady();
     ever(isLoggedIn, (callback) async {
       if (isLoggedIn.isTrue) {
-        Get.snackbar(
-          "Success",
-          "You are logged in",
-          backgroundColor: Colors.green,
-          dismissDirection: DismissDirection.up,
-          icon: const Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-        );
+        EasyLoading.showSuccess("You are logged in");
 
         var isFirstTimeUserLogin =
             _storage.read<bool>(StorageKeys.isFirstTimeLogin);
@@ -81,11 +73,30 @@ class LoginViewModel extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    EasyLoading.dismiss();
+    phoneController.dispose();
+    smsCodeControllerFirst.dispose();
+    smsCodeControllerSecond.dispose();
+    smsCodeControllerThird.dispose();
+    smsCodeControllerFourth.dispose();
+    smsCodeControllerFifth.dispose();
+    smsCodeControllerSixth.dispose();
+
+    smsCodeFocusNodeFirst.dispose();
+    smsCodeFocusNodeSecond.dispose();
+    smsCodeFocusNodeThird.dispose();
+    smsCodeFocusNodeFourth.dispose();
+    smsCodeFocusNodeFifth.dispose();
+    smsCodeFocusNodeSixth.dispose();
+
     isLoading.value = false;
     isLoggedIn.value = false;
+
+    phoneController.dispose();
   }
 
   loginWithPhone() async {
+    EasyLoading.show(status: LocalizationKeys.loading.tr);
     isLoading.value = true;
     var phoneNumber = phoneController.text;
 
@@ -170,6 +181,7 @@ class LoginViewModel extends GetxController {
         // The SMS code has been sent to the provided phone number, we
         // now need to let the user enter the code from the UI.
         isLoading.value = false;
+        EasyLoading.dismiss();
         isCodeSent.value = true;
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
@@ -178,12 +190,14 @@ class LoginViewModel extends GetxController {
   }
 
   Future<void> loginUserToFireStore(User user) async {
-    var isFirstTimeLogin =
-        user.metadata.creationTime!.compareTo(user.metadata.lastSignInTime!);
+    var isFirstTimeLogin = user.metadata.creationTime!
+            .difference(user.metadata.lastSignInTime!)
+            .inSeconds <=
+        60;
 
-    await _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin == 0);
+    await _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin);
 
-    if (isFirstTimeLogin == 0) {
+    if (isFirstTimeLogin) {
       _insertUserToFirestore(user);
     } else {
       _updateUserToFirestore(user);
@@ -220,6 +234,7 @@ class LoginViewModel extends GetxController {
   }
 
   sendSmsAndLogin() async {
+    EasyLoading.show(status: LocalizationKeys.loading.tr);
     isLoading.value = true;
     // Create a PhoneAuthCredential with the code
     var smsCode = smsCodeControllerFirst.text +
@@ -301,7 +316,7 @@ class LoginViewModel extends GetxController {
         return;
       }
 
-      _insertUserToFirestore(user!);
+      await loginUserToFireStore(user!);
     } else {
       _onSnackBarError(
           Logs.log_facebook_login_error, LocalizationKeys.login_error.tr);
@@ -313,27 +328,8 @@ class LoginViewModel extends GetxController {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    phoneController.dispose();
-
-    smsCodeControllerFirst.dispose();
-    smsCodeControllerSecond.dispose();
-    smsCodeControllerThird.dispose();
-    smsCodeControllerFourth.dispose();
-    smsCodeControllerFifth.dispose();
-    smsCodeControllerSixth.dispose();
-
-    smsCodeControllerFirst.dispose();
-    smsCodeControllerSecond.dispose();
-    smsCodeControllerThird.dispose();
-    smsCodeControllerFourth.dispose();
-    smsCodeControllerFifth.dispose();
-    smsCodeControllerSixth.dispose();
-  }
-
   void _onSnackBarError(String errorMessage, String errorMessageSnackBar) {
+    EasyLoading.dismiss();
     printError(info: errorMessage);
     errMessageSnackBar.value = errorMessageSnackBar;
     isLoading.value = false;
@@ -343,6 +339,7 @@ class LoginViewModel extends GetxController {
 
   void _insertUserToFirestore(User? user) {
     _userRepo.insertUserFirstTime(user!).then((value) async {
+      EasyLoading.dismiss();
       isLoggedIn.value = true;
       isLoading.value = false;
 
@@ -400,6 +397,7 @@ class LoginViewModel extends GetxController {
 
   void _updateUserToFirestore(User user) {
     _userRepo.updateUserLoginStatus(user).then((value) async {
+      EasyLoading.dismiss();
       isLoggedIn.value = true;
       isLoading.value = false;
 
