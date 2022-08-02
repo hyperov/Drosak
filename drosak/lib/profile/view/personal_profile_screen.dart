@@ -95,6 +95,7 @@ class PersonalProfileScreen extends StatelessWidget {
           const Text('اضف صورة'),
           const SizedBox(height: 20),
           Obx(() => TextField(
+              maxLength: 70,
               controller: _profileViewModel.nameController.value,
               onChanged: (value) =>
                   _profileViewModel.errMessageNameTextField.value = null,

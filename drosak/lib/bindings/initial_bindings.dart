@@ -31,5 +31,6 @@ class HomeBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<HomeViewModel>(() => HomeViewModel(), fenix: true);
+    Get.lazyPut<FilterViewModel>(() => FilterViewModel());
   }
 }

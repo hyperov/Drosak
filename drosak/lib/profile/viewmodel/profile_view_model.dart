@@ -152,7 +152,7 @@ class ProfileViewModel extends GetxController {
       await getStudent();
       readStudentProfileDataFromStorage();
       await _storage.write(StorageKeys.isFirstTimeLogin, false);
-      Get.off(() => HomeScreen(), binding: HomeBindings());
+      Get.offAll(() => HomeScreen(), binding: HomeBindings());
     }).catchError((error) {
       EasyLoading.showError(LocalizationKeys.profile_updated_error.tr);
       printError(info: error.toString());

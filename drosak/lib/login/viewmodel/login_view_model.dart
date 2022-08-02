@@ -64,7 +64,7 @@ class LoginViewModel extends GetxController {
         if (isFirstTimeUserLogin!) {
           Get.offAll(() => PersonalProfileScreen());
         } else {
-          Get.off(() => HomeScreen(), binding: HomeBindings());
+          Get.offAll(() => HomeScreen(), binding: HomeBindings());
         }
       }
     });
@@ -91,8 +91,6 @@ class LoginViewModel extends GetxController {
 
     isLoading.value = false;
     isLoggedIn.value = false;
-
-    phoneController.dispose();
   }
 
   loginWithPhone() async {
@@ -192,7 +190,8 @@ class LoginViewModel extends GetxController {
   Future<void> loginUserToFireStore(User user) async {
     var isFirstTimeLogin = user.metadata.creationTime!
             .difference(user.metadata.lastSignInTime!)
-            .inSeconds <=
+            .inSeconds
+            .abs() <=
         60;
 
     await _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin);
