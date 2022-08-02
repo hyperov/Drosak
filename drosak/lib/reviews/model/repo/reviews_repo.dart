@@ -20,19 +20,14 @@ class ReviewsRepo {
   }
 
   Future<void> addReview(Review review) async {
-    var batch = FirebaseFirestore.instance.batch();
-
-    var reviewDocRef = FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionTeachers)
         .doc(review.teacherId)
         .collection(FireStoreNames.collectionTeacherReviews)
         .withConverter<Review>(
             fromFirestore: (snapshot, _) => Review.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
-        .doc(FirebaseAuth.instance.currentUser!.uid);
-
-    batch.set(reviewDocRef, review);
-
-    return await batch.commit();
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set(review);
   }
 }
