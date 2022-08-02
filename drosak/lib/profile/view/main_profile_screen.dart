@@ -1,5 +1,4 @@
 import 'package:drosak/bookings/view/bookings_screen.dart';
-import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,7 @@ import '../../utils/managers/assets_manager.dart';
 import 'personal_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
-
-  final LoginViewModel _loginViewModel = Get.find();
+  const ProfileScreen({Key? key}) : super(key: key);
 
   ProfileViewModel get _profileViewModel => Get.find();
 

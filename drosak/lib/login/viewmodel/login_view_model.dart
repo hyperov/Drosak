@@ -55,19 +55,17 @@ class LoginViewModel extends GetxController {
   void onReady() {
     super.onReady();
     ever(isLoggedIn, (callback) async {
-      if (isLoggedIn.isTrue) {
-        EasyLoading.showSuccess("You are logged in");
+      EasyLoading.showSuccess("You are logged in");
 
-        var isFirstTimeUserLogin =
-            _storage.read<bool>(StorageKeys.isFirstTimeLogin);
+      var isFirstTimeUserLogin =
+          _storage.read<bool>(StorageKeys.isFirstTimeLogin);
 
-        if (isFirstTimeUserLogin!) {
-          Get.offAll(() => PersonalProfileScreen());
-        } else {
-          Get.offAll(() => HomeScreen(), binding: HomeBindings());
-        }
+      if (isFirstTimeUserLogin!) {
+        Get.offAll(() => PersonalProfileScreen());
+      } else {
+        Get.offAll(() => HomeScreen(), binding: HomeBindings());
       }
-    });
+    }, condition: isLoggedIn.isTrue);
   }
 
   @override
