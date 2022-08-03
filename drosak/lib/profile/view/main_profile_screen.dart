@@ -57,7 +57,8 @@ class ProfileScreen extends StatelessWidget {
                             }))),
             ),
             Obx(() => Text(_profileViewModel.nameObserver.value,
-                style: const TextStyle(fontSize: 30))),
+                style: const TextStyle(fontSize: 30),
+                textAlign: TextAlign.center)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
