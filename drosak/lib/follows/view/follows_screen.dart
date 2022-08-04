@@ -6,9 +6,9 @@ import '../viewmodel/follows_viewmodel.dart';
 import 'follow_item.dart';
 
 class FollowsScreen extends StatelessWidget {
-  FollowsScreen({Key? key}) : super(key: key);
+  const FollowsScreen({Key? key}) : super(key: key);
 
-  final FollowsViewModel _followsViewModel = Get.find();
+  FollowsViewModel get _followsViewModel => Get.find();
 
   @override
   Widget build(BuildContext context) {

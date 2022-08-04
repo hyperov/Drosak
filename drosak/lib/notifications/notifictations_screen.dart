@@ -55,7 +55,7 @@ class NotificationsScreen extends StatelessWidget {
                           ).paddingSymmetric(vertical: 16));
                     },
                     itemCount: _notificationsViewModel.notificationList.length,
-                  )
+                  ).paddingOnly(top: 20)
                 : Center(
                     child: Text(LocalizationKeys.notifications_not_found.tr),
                   )));

@@ -1,9 +1,14 @@
+import 'package:drosak/bindings/initial_bindings.dart';
+import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
+import 'package:drosak/profile/view/personal_profile_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:drosak/utils/storage_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../common/viewmodel/network_viewmodel.dart';
 import 'enter_sms_code_screen.dart';
@@ -11,6 +16,8 @@ import 'enter_sms_code_screen.dart';
 class PhoneOrSocialLoginScreen extends StatelessWidget {
   final LoginViewModel _loginViewModel = Get.find();
   final NetworkViewModel _networkViewModel = Get.find();
+
+  final _storage = GetStorage();
 
   PhoneOrSocialLoginScreen({Key? key}) : super(key: key);
 
@@ -28,6 +35,20 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
       Get.to(() => EnterSmsCodeScreen());
       _loginViewModel.isCodeSent.value = false;
     }, condition: () => _loginViewModel.isCodeSent.value);
+
+    ever(_loginViewModel.isLoggedIn, (callback) async {
+      EasyLoading.showSuccess("You are logged in");
+
+      var isFirstTimeUserLogin =
+          _storage.read<bool>(StorageKeys.isFirstTimeLogin);
+
+      if (isFirstTimeUserLogin!) {
+        Get.offAll(() => PersonalProfileScreen());
+      } else {
+        Get.offAll(() => HomeScreen(), binding: HomeBindings());
+      }
+      EasyLoading.showSuccess("You are logged in");
+    }, condition: () => _loginViewModel.isLoggedIn.value);
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFC2C0),

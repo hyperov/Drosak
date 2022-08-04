@@ -1,3 +1,4 @@
+import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/home/HomeViewModel.dart';
 import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/profile/view/personal_profile_screen.dart';
@@ -30,6 +31,7 @@ class IsLoginWidget extends StatelessWidget {
 
         if (isFirstTimeLogin == null || isFirstTimeLogin == false) {
           Get.lazyPut<HomeViewModel>(() => HomeViewModel(), fenix: true);
+          Get.lazyPut<FilterViewModel>(() => FilterViewModel(), fenix: true);
           return HomeScreen();
         }
 

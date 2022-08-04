@@ -17,8 +17,8 @@ class FollowsViewModel extends GetxController {
   late StreamSubscription<QuerySnapshot<Follow>> followListen;
 
   @override
-  void onInit() async {
-    super.onInit();
+  onReady() async {
+    super.onReady();
     await getFollows();
   }
 

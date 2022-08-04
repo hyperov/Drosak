@@ -1,8 +1,5 @@
-import 'package:drosak/bindings/initial_bindings.dart';
-import 'package:drosak/home/home_screen.dart';
 import 'package:drosak/login/model/Repo/login_repo.dart';
 import 'package:drosak/login/model/Repo/user_repo.dart';
-import 'package:drosak/profile/view/personal_profile_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/messages/logs.dart';
 import 'package:drosak/utils/storage_keys.dart';
@@ -54,18 +51,6 @@ class LoginViewModel extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    ever(isLoggedIn, (callback) async {
-      EasyLoading.showSuccess("You are logged in");
-
-      var isFirstTimeUserLogin =
-          _storage.read<bool>(StorageKeys.isFirstTimeLogin);
-
-      if (isFirstTimeUserLogin!) {
-        Get.offAll(() => PersonalProfileScreen());
-      } else {
-        Get.offAll(() => HomeScreen(), binding: HomeBindings());
-      }
-    }, condition: isLoggedIn.isTrue);
   }
 
   @override

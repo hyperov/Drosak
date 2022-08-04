@@ -56,6 +56,19 @@ android {
 
     }
 
+    flavorDimensions "env"
+    productFlavors {
+        dev {
+            dimension "env"
+            versionNameSuffix "-dev"
+
+        }
+        prod {
+            dimension "env"
+            applicationIdSuffix ".prod"
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

@@ -14,14 +14,14 @@ import '../teachers/viewmodel/teachers_list_viewmodel.dart';
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<NetworkViewModel>(() => NetworkViewModel());
+    Get.lazyPut<NetworkViewModel>(() => NetworkViewModel(), fenix: true);
     Get.lazyPut<ProfileViewModel>(() => ProfileViewModel(), fenix: true);
     Get.lazyPut<FilterViewModel>(() => FilterViewModel());
     Get.lazyPut<FollowsViewModel>(() => FollowsViewModel());
     Get.lazyPut<NotificationsViewModel>(() => NotificationsViewModel());
     Get.lazyPut<ReviewsViewModel>(() => ReviewsViewModel(), fenix: true);
     Get.lazyPut<BookingsViewModel>(() => BookingsViewModel(), fenix: true);
-    Get.put(LoginViewModel());
+    Get.put(LoginViewModel(), permanent: true);
     Get.lazyPut<TeachersListViewModel>(() => TeachersListViewModel(),
         fenix: true);
   }
