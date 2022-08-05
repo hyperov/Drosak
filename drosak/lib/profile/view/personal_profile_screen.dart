@@ -28,14 +28,15 @@ class PersonalProfileScreen extends StatelessWidget {
             Container(
               child: Text(
                 LocalizationKeys.personal_info.tr,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: AssetsManager.fontFamily),
               ),
               alignment: AlignmentDirectional.centerStart,
             ),
           ], alignment: Alignment.center),
           toolbarHeight: 100,
-          titleTextStyle: const TextStyle(fontSize: 20),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(30),
@@ -46,7 +47,7 @@ class PersonalProfileScreen extends StatelessWidget {
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 25),
             Hero(
               tag: 'profile_image_tag',
               child: Material(
@@ -100,7 +101,8 @@ class PersonalProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const Text('اضف صورة'),
+            const Text('اضف صورة',
+                style: TextStyle(fontWeight: FontWeight.w100, fontSize: 18)),
             const SizedBox(height: 20),
             Obx(() => TextField(
                 maxLength: 70,
@@ -110,12 +112,13 @@ class PersonalProfileScreen extends StatelessWidget {
                 textInputAction: TextInputAction.next,
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.name,
+                // style: const TextStyle(fontStyle: FontStyle.normal),
                 decoration: InputDecoration(
-                    labelText: 'الاسم الكامل',
-                    hintText: 'الاسم الكامل ثلاثى',
+                    labelText: LocalizationKeys.full_name.tr,
+                    hintText: LocalizationKeys.full_name.tr,
                     errorText: _profileViewModel.errMessageNameTextField.value,
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(18),
                         borderSide: const BorderSide(color: Colors.blue))))),
             const SizedBox(height: 20),
             Obx(() => TextField(
@@ -130,7 +133,7 @@ class PersonalProfileScreen extends StatelessWidget {
                     hintText: '011xxxxxxxx',
                     errorText: _profileViewModel.errMessagePhoneTextField.value,
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(18),
                         borderSide: const BorderSide(color: Colors.blue))))),
             const SizedBox(height: 20),
             Obx(() => TextField(
@@ -145,10 +148,10 @@ class PersonalProfileScreen extends StatelessWidget {
                     hintText: 'ali@gmail.com',
                     errorText: _profileViewModel.errMessageEmailTextField.value,
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(18),
                         borderSide: const BorderSide(color: Colors.blue))))),
             const SizedBox(height: 20),
-            Row(children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Expanded(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,14 +173,12 @@ class PersonalProfileScreen extends StatelessWidget {
                   ], selectedText: _profileViewModel.selectedGovernmentName),
                 ],
               )),
+              const SizedBox(width: 10),
               Expanded(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: Text(LocalizationKeys.choose_area.tr),
-                    margin: const EdgeInsets.only(right: 16),
-                  ),
+                  Text(LocalizationKeys.choose_area.tr),
                   const SizedBox(height: 8),
                   FullWidthTextField(leadingIcons: const [
                     Icon(
@@ -259,18 +260,23 @@ class PersonalProfileScreen extends StatelessWidget {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.blue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(18),
                   ),
                 ),
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
                   margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Text(
                     LocalizationKeys.save.tr,
-                    style: const TextStyle(color: Colors.white, fontSize: 24),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontFamily: AssetsManager.fontFamily,
+                      fontWeight: FontWeight.w200,
+                    ),
                   ),
                 )),
             const SizedBox(height: 32),

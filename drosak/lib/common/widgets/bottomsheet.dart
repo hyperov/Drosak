@@ -25,7 +25,10 @@ showListBottomSheet(
           itemBuilder: (context, index) {
             return Obx(() => ListTile(
                   leading: leadingIcons[index],
-                  title: Text(texts[index]),
+                  title: Text(
+                    texts[index],
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   selected: selectedText.value == texts[index],
                   onTap: () {
                     selectedText.value = texts[index];

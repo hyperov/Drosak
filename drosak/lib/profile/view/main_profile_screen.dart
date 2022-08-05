@@ -57,24 +57,26 @@ class ProfileScreen extends StatelessWidget {
                             }))),
             ),
             Obx(() => Text(_profileViewModel.nameObserver.value,
-                style: const TextStyle(fontSize: 30),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.location_on, color: Colors.deepPurpleAccent),
+                const SizedBox(width: 4),
                 Obx(() => Text(_profileViewModel.selectedGovernmentName.value,
-                    style: const TextStyle(fontSize: 20))),
+                    style: const TextStyle(fontSize: 16))),
                 const Text(' - '),
                 Obx(() => Text(_profileViewModel.selectedAreaName.value,
-                    style: const TextStyle(fontSize: 20))),
+                    style: const TextStyle(fontSize: 16))),
               ],
             ),
             Obx(() => Text(
                   _profileViewModel.selectedClassText.isBlank!
                       ? 'لا يوجد صف'
                       : _profileViewModel.selectedClassText.value,
-                  style: const TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 18),
                 )),
             const SizedBox(height: 24),
             Card(
@@ -89,7 +91,10 @@ class ProfileScreen extends StatelessWidget {
                 },
                 child: ListTile(
                   leading: const Icon(Icons.person),
-                  title: Text(LocalizationKeys.personal_info.tr),
+                  title: Text(
+                    LocalizationKeys.personal_info.tr,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
@@ -105,12 +110,8 @@ class ProfileScreen extends StatelessWidget {
                 },
                 child: ListTile(
                   leading: const Icon(Icons.calendar_month),
-                  title: Text(LocalizationKeys.bookings.tr),
-                  trailing: Obx(() => Text(
-                        _profileViewModel.bookingsCountObserver.value
-                            .toString(),
-                        style: const TextStyle(fontSize: 20),
-                      )),
+                  title: Text(LocalizationKeys.bookings.tr,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
@@ -126,7 +127,8 @@ class ProfileScreen extends StatelessWidget {
                 },
                 child: ListTile(
                   leading: const Icon(Icons.settings),
-                  title: Text(LocalizationKeys.settings.tr),
+                  title: Text(LocalizationKeys.settings.tr,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
@@ -140,7 +142,8 @@ class ProfileScreen extends StatelessWidget {
                 onTap: () {},
                 child: const ListTile(
                   leading: Icon(Icons.help),
-                  title: Text('مساعدة'),
+                  title: Text('مساعدة',
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
@@ -153,7 +156,9 @@ class ProfileScreen extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text(LocalizationKeys.app_logout.tr),
+                          title: Text(
+                            LocalizationKeys.app_logout.tr,
+                          ),
                           content:
                               Text(LocalizationKeys.logout_confirmation.tr),
                           actions: [
@@ -176,7 +181,8 @@ class ProfileScreen extends StatelessWidget {
                 },
                 child: ListTile(
                   leading: const Icon(Icons.exit_to_app),
-                  title: Text(LocalizationKeys.app_logout.tr),
+                  title: Text(LocalizationKeys.app_logout.tr,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
             ),

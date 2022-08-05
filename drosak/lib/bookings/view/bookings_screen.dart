@@ -50,31 +50,30 @@ class BookingsScreen extends StatelessWidget {
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 24),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(18),
                               ),
                               elevation: 0,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(height: 42),
-                                    Text(_bookingsViewModel
-                                        .bookings[index].centerName),
-                                    const SizedBox(height: 0),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(_bookingsViewModel
-                                            .bookings[index].classLevel),
-                                        const Text(' / '),
-                                        Text(_bookingsViewModel
-                                            .bookings[index].material),
-                                      ],
+                                    Text(
+                                      _bookingsViewModel
+                                          .bookings[index].centerName,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    const SizedBox(height: 8),
+                                    Text(_bookingsViewModel
+                                        .bookings[index].classLevel),
+                                    Text(_bookingsViewModel
+                                        .bookings[index].material),
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        const Icon(Icons.location_pin),
+                                        SvgPicture.asset(AssetsManager.pin,
+                                            color: ColorManager.deepPurple),
+                                        const SizedBox(width: 8),
                                         Text(_bookingsViewModel
                                             .bookings[index].city),
                                         const Text(' - '),
@@ -89,7 +88,8 @@ class BookingsScreen extends StatelessWidget {
                                         children: [
                                           Column(
                                             children: [
-                                              const Icon(Icons.calendar_today),
+                                              SvgPicture.asset(
+                                                  AssetsManager.calendar),
                                               Text(_bookingsViewModel
                                                   .bookings[index].day),
                                             ],
@@ -119,48 +119,50 @@ class BookingsScreen extends StatelessWidget {
                                             ],
                                           )
                                         ]),
-                                    Container(
-                                      width: double.infinity,
-                                      height: 48,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 16),
-                                      child: Visibility(
-                                        visible: !_bookingsViewModel
+                                    !_bookingsViewModel
                                                 .bookings[index].isCanceled &&
                                             _bookingsViewModel.bookings[index]
-                                                .isBookingCancellable(),
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            openDeleteDialog(
-                                                _bookingsViewModel,
-                                                _bookingsViewModel
-                                                    .bookings[index].id!,
-                                                _bookingsViewModel
-                                                    .bookings[index].teacherId);
-                                            // showConfirmDeleteBookingDialog(context,
-                                            //     _bookingsViewModel, index, teacher);
-                                          },
-                                          child: Text(LocalizationKeys
-                                              .cancel_booking.tr),
-                                          style: ElevatedButton.styleFrom(
-                                            primary: Colors.deepPurple,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
+                                                .isBookingCancellable()
+                                        ? Container(
+                                            width: double.infinity,
+                                            height: 48,
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 16),
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                openDeleteDialog(
+                                                    _bookingsViewModel,
+                                                    _bookingsViewModel
+                                                        .bookings[index].id!,
+                                                    _bookingsViewModel
+                                                        .bookings[index]
+                                                        .teacherId);
+                                                // showConfirmDeleteBookingDialog(context,
+                                                //     _bookingsViewModel, index, teacher);
+                                              },
+                                              child: Text(LocalizationKeys
+                                                  .cancel_booking.tr),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.deepPurple,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(18),
+                                                ),
+                                              ),
                                             ),
+                                          )
+                                        : SizedBox(
+                                            height: 24,
                                           ),
-                                        ),
-                                      ),
-                                    ),
                                   ]).marginSymmetric(horizontal: 24),
                             ),
                             PositionedDirectional(
-                              top: 0,
+                              top: 16,
                               end: 32,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(height: 32),
+                                    const SizedBox(height: 24),
                                     Card(
                                       clipBehavior: Clip.hardEdge,
                                       shape: const CircleBorder(
@@ -187,8 +189,13 @@ class BookingsScreen extends StatelessWidget {
                                     ),
                                     Text(
                                         _bookingsViewModel
-                                            .bookings[index].teacherName,
-                                        style: const TextStyle(fontSize: 14)),
+                                                .bookings[index].teacherName
+                                                .substring(0, 15) +
+                                            "...",
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                        )),
                                   ]),
                             )
                           ]),
@@ -202,7 +209,7 @@ class BookingsScreen extends StatelessWidget {
                                       child: const Icon(Icons.school)
                                           .marginAll(14),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(18),
                                       )))),
                         ]);
                       },

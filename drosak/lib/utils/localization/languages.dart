@@ -65,6 +65,8 @@ class Languages extends Translations {
           LocalizationKeys.follow_teacher_no_posts:
               'You have to follow this teacher to see his posts',
           LocalizationKeys.notifications: 'Notifications',
+          LocalizationKeys.news: 'News',
+          LocalizationKeys.news_teachers: 'Teachers news',
           LocalizationKeys.profile: 'Profile',
           LocalizationKeys.personal_info: 'Personal Info',
           LocalizationKeys.price_avg: 'Avg Price',
@@ -134,6 +136,7 @@ class Languages extends Translations {
           LocalizationKeys.email_error_empty: 'Email is empty',
           LocalizationKeys.email_error_format: 'Email in wrong format',
           LocalizationKeys.name_error_empty: 'Name is empty',
+          LocalizationKeys.full_name: 'Full Name',
           LocalizationKeys.app_error_update_data: 'Error updating data',
           LocalizationKeys.choose_government_error:
               'you must choose government',
@@ -201,6 +204,8 @@ class Languages extends Translations {
           LocalizationKeys.follows2: 'اتابعه',
           LocalizationKeys.followers: 'المتابعين',
           LocalizationKeys.notifications: 'الإشعارات',
+          LocalizationKeys.news: 'الأخبار',
+          LocalizationKeys.news_teachers: 'أخبار المدرسين',
           LocalizationKeys.profile: 'الحساب',
           LocalizationKeys.personal_info: 'المعلومات الشخصية',
           LocalizationKeys.choose_material: 'اختر المادة',
@@ -264,6 +269,7 @@ class Languages extends Translations {
           LocalizationKeys.email_error_empty: 'البريد الإلكتروني فاضى',
           LocalizationKeys.email_error_format: 'البريد الإلكتروني مش صح',
           LocalizationKeys.name_error_empty: 'الاسم فاضى',
+          LocalizationKeys.full_name: 'الاسم الكامل',
           LocalizationKeys.app_error_update_data: 'خطأ في تحديث البيانات',
           LocalizationKeys.choose_government_error: 'يجب اختيار المحافظة',
           LocalizationKeys.choose_area_error: 'يجب اختيار المنطقة',

@@ -1,4 +1,5 @@
 import 'package:drosak/common/widgets/bottomsheet.dart';
+import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,12 +20,12 @@ class FullWidthTextField extends StatelessWidget {
     return Container(
       //male or female
       width: double.infinity,
-      margin: const EdgeInsets.only(left: 16),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.blue)),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: ColorManager.deepPurple)),
       child: InkWell(
         onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
           showListBottomSheet(
               leadingIcons: leadingIcons,
               texts: texts,
@@ -32,7 +33,11 @@ class FullWidthTextField extends StatelessWidget {
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Obx(() => Text(selectedText.value)),
+          child: Obx(() => Text(
+                selectedText.value,
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              )),
         ),
       ),
     );

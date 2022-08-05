@@ -47,8 +47,6 @@ class PostsScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(_postsViewModel.posts[index].title),
-                                      const SizedBox(height: 8),
                                       SizedBox(
                                         child: Text(
                                             _postsViewModel.posts[index].body),

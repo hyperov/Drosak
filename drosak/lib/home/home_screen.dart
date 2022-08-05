@@ -21,15 +21,15 @@ class HomeScreen extends StatelessWidget {
 
   final widgetOptions = [
     TeachersListScreen(),
-    FollowsScreen(),
+    const FollowsScreen(),
     const NotificationsScreen(),
-    ProfileScreen(),
+    const ProfileScreen(),
   ];
 
   final widgetTitles = [
     LocalizationKeys.home.tr,
     LocalizationKeys.follows.tr,
-    LocalizationKeys.notifications.tr,
+    LocalizationKeys.news_teachers.tr,
     LocalizationKeys.profile.tr,
   ];
 
@@ -58,9 +58,11 @@ class HomeScreen extends StatelessWidget {
                     widgetTitles
                         .elementAt(_homeViewModel.bottomNavigationIndex.value),
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                        fontFamily: AssetsManager.fontFamily,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w200),
                   ),
-                  alignment: AlignmentDirectional.centerStart,
+                  alignment: AlignmentDirectional.center,
                 ),
               ], alignment: Alignment.center)),
           toolbarHeight: 100,
@@ -106,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.notifications),
-                    label: LocalizationKeys.notifications.tr,
+                    label: LocalizationKeys.news.tr,
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.person),

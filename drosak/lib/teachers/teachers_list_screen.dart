@@ -174,7 +174,14 @@ class TeachersListScreen extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                                '${_teachersListViewModel.teachersList[index].priceMin} - ${_teachersListViewModel.teachersList[index].priceMax}'),
+                                                '${_teachersListViewModel.teachersList[index].priceMin} - '
+                                                '${_teachersListViewModel.teachersList[index].priceMax} ج ',
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color:
+                                                        ColorManager.deepPurple,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                             Text(LocalizationKeys
                                                 .price_average.tr),
                                           ],

@@ -1,8 +1,10 @@
 import 'package:drosak/bookings/viewmodel/booking_view_model.dart';
 import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/teachers/model/teacher.dart';
+import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/src/panel.dart';
 
@@ -80,7 +82,8 @@ class LecturesScreen extends StatelessWidget {
                                       children: [
                                         Column(
                                           children: [
-                                            const Icon(Icons.calendar_today),
+                                            SvgPicture.asset(
+                                                AssetsManager.calendar),
                                             Text(_lecturesViewModel
                                                 .lectures[index].day),
                                           ],

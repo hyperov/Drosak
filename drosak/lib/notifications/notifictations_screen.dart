@@ -34,8 +34,12 @@ class NotificationsScreen extends StatelessWidget {
                                     color: ColorManager.deepPurple),
                               ],
                             ),
-                            title: Text(_notificationsViewModel
-                                .notificationList[index].title!),
+                            title: Text(
+                              _notificationsViewModel
+                                  .notificationList[index].teacher!,
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
                             subtitle: Text(_notificationsViewModel
                                 .notificationList[index].message!),
                             trailing: Column(

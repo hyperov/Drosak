@@ -1,5 +1,5 @@
 class AssetsManager {
-  static const String fontFamily = 'Roboto';
+  static const String fontFamily = 'Cairo';
 
   static const String _assetsFolder = 'assets/';
   static const String _imagesFolder = _assetsFolder + 'images/';
@@ -17,4 +17,6 @@ class AssetsManager {
       _imagesFolder + 'ic_sms_code_background_image.svg';
   static const String teacherCodeScreenBackground =
       _imagesFolder + 'ic_teacher_code_background_image.svg';
+
+  static const String calendar = _imagesFolder + 'ic_calendar_month.svg';
 }

@@ -17,7 +17,7 @@ class InitialBindings extends Bindings {
     Get.lazyPut<NetworkViewModel>(() => NetworkViewModel(), fenix: true);
     Get.lazyPut<ProfileViewModel>(() => ProfileViewModel(), fenix: true);
     Get.lazyPut<FilterViewModel>(() => FilterViewModel());
-    Get.lazyPut<FollowsViewModel>(() => FollowsViewModel());
+    Get.lazyPut<FollowsViewModel>(() => FollowsViewModel(), fenix: true);
     Get.lazyPut<NotificationsViewModel>(() => NotificationsViewModel());
     Get.lazyPut<ReviewsViewModel>(() => ReviewsViewModel(), fenix: true);
     Get.lazyPut<BookingsViewModel>(() => BookingsViewModel(), fenix: true);

@@ -90,6 +90,7 @@ class LocalizationKeys {
 
   static var home = 'home';
   static var notifications = 'notifications';
+  static var news = 'news';
   static var profile = 'profile';
   static var follows = 'follows';
   static var followers = 'followers';
@@ -221,4 +222,8 @@ class LocalizationKeys {
   static var notifications_not_found = 'notifications_not_found';
 
   static var loading = 'loading';
+
+  static var full_name = 'full_name';
+
+  static var news_teachers = 'news_teachers';
 }

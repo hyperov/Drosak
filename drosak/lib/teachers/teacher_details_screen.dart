@@ -94,7 +94,10 @@ class TeacherDetailsScreen extends StatelessWidget {
               ),
             ),
             Text(_teachersListViewModel.selectedTeacher.name!,
-                style: const TextStyle(fontSize: 30)),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.05,
@@ -104,14 +107,15 @@ class TeacherDetailsScreen extends StatelessWidget {
                     .replaceAll('[', '')
                     .replaceAll(']', '')
                     .replaceAll(',', ' - '),
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 18),
                 scrollAxis: Axis.horizontal,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 blankSpace: 20,
               ),
             ),
             Text(_teachersListViewModel.selectedTeacher.material!,
-                style: const TextStyle(fontSize: 20)),
+                style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -140,7 +144,8 @@ class TeacherDetailsScreen extends StatelessWidget {
                           color: isFollowing()
                               ? ColorManager.deepPurple
                               : ColorManager.redOrangeLight,
-                          fontSize: 20),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                     ),
                     onPressed: () async {
                       if (isFollowing()) {
@@ -244,16 +249,14 @@ class TeacherDetailsScreen extends StatelessWidget {
                       children: [
                         const Icon(Icons.people,
                             color: ColorManager.deepPurple),
-                        const SizedBox(height: 8),
                         Text(LocalizationKeys.followers.tr,
                             style: const TextStyle(
-                                fontSize: 20, color: Colors.grey)),
-                        const SizedBox(height: 8),
+                                fontSize: 18, color: Colors.grey)),
                         Text(
                             _teachersListViewModel.selectedTeacher.followers
                                 .toString(),
                             style: const TextStyle(
-                                fontSize: 30,
+                                fontSize: 24,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold)),
                       ],
@@ -262,30 +265,27 @@ class TeacherDetailsScreen extends StatelessWidget {
                   Container(
                     width: 1,
                     height: 70,
-                    color: ColorManager.blueLight,
+                    color: ColorManager.blueDark,
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        const Icon(Icons.star, color: ColorManager.deepPurple),
-                        const SizedBox(height: 8),
-                        Text(LocalizationKeys.rating.tr,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.grey)),
-                        const SizedBox(height: 8),
-                        Text(
-                            _teachersListViewModel.selectedTeacher.avgRating
-                                .toString(),
-                            style: const TextStyle(
-                                fontSize: 30,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    ).paddingSymmetric(horizontal: 16, vertical: 16),
-                  ),
+                      child: Column(
+                    children: [
+                      const Icon(Icons.star, color: ColorManager.deepPurple),
+                      Text(LocalizationKeys.rating.tr,
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.grey)),
+                      Text(
+                          _teachersListViewModel.selectedTeacher.avgRating
+                              .toString(),
+                          style: const TextStyle(
+                              fontSize: 24,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  )),
                 ],
               ),
-            ).marginSymmetric(horizontal: 65)
+            ).marginSymmetric(horizontal: 54)
           ],
         ),
         SlidingUpPanel(

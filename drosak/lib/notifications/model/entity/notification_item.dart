@@ -4,11 +4,13 @@ class NotificationItem {
   String? title;
   String? message;
   DateTime? date;
+  String? teacher;
 
   NotificationItem({
     this.title,
     this.message,
     this.date,
+    this.teacher,
   });
 
   factory NotificationItem.fromJson(Map<String, dynamic> json) {
@@ -16,6 +18,7 @@ class NotificationItem {
       title: json['title'],
       message: json['message'],
       date: (json['date'] as Timestamp).toDate(),
+      teacher: json['teacher'],
     );
   }
 
@@ -24,6 +27,7 @@ class NotificationItem {
       'title': title,
       'message': message,
       'date': Timestamp.fromDate(date!),
+      'teacher': teacher,
     };
   }
 }
