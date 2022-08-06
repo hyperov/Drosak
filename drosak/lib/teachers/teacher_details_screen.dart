@@ -328,7 +328,7 @@ class TeacherDetailsScreen extends StatelessWidget {
                           icon: const Icon(Icons.star_outlined),
                         ),
                         Tab(
-                          text: LocalizationKeys.posts.tr,
+                          text: LocalizationKeys.news.tr,
                           icon: const Icon(Icons.theater_comedy),
                         )
                       ],

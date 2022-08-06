@@ -63,7 +63,7 @@ class Languages extends Translations {
           LocalizationKeys.follows2: 'Follows',
           LocalizationKeys.followers: 'Followers',
           LocalizationKeys.follow_teacher_no_posts:
-              'You have to follow this teacher to see his posts',
+              'You have to follow this teacher to see his news',
           LocalizationKeys.notifications: 'Notifications',
           LocalizationKeys.news: 'News',
           LocalizationKeys.news_teachers: 'Teachers news',
@@ -142,7 +142,6 @@ class Languages extends Translations {
               'you must choose government',
           LocalizationKeys.choose_area_error: 'you must choose area',
           LocalizationKeys.following: 'follow',
-          LocalizationKeys.posts: 'Posts',
           LocalizationKeys.notifications_not_found: 'No Notifications Yet',
           LocalizationKeys.loading: 'Loading...',
         },
@@ -274,11 +273,10 @@ class Languages extends Translations {
           LocalizationKeys.choose_government_error: 'يجب اختيار المحافظة',
           LocalizationKeys.choose_area_error: 'يجب اختيار المنطقة',
           LocalizationKeys.following: 'متابعة',
-          LocalizationKeys.posts: 'الاخبار',
           LocalizationKeys.follow_delete_question:
               'هل أنت متأكد من الغاء المتابعة؟',
           LocalizationKeys.follow_teacher_no_posts:
-              'لازم تتابع المدرس للحصول على الاخبار',
+              'لازم تتابع المدرس عشان تقدر تشوف الاخبار اللى منزلها',
           LocalizationKeys.booking_delete_question:
               'هل أنت متأكد من الغاء الحجز؟',
           LocalizationKeys.app_yes: 'نعم',

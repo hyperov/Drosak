@@ -43,7 +43,8 @@ class ReviewsScreen extends StatelessWidget {
                       Text("الترتيب",
                           style: TextStyle(
                               fontSize: 14, color: ColorManager.blueLight)),
-                      Icon(Icons.keyboard_arrow_down, color: Colors.blue),
+                      Icon(Icons.keyboard_arrow_down,
+                          color: ColorManager.blueLight),
                     ],
                   ).paddingSymmetric(horizontal: 16, vertical: 16),
                   initialValue: "الترتيب حسب الأحدث",

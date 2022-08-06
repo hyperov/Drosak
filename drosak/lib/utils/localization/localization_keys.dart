@@ -174,8 +174,6 @@ class LocalizationKeys {
 
   static var following = 'following';
 
-  static var posts = 'posts';
-
   static const String title = 'title';
   static const String post_content = 'post_content';
 
