@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:jiffy/jiffy.dart';
 
 import 'firebase_options.dart';
 import 'utils/managers/color_manager.dart';
@@ -23,7 +24,7 @@ Future<void> main() async {
 // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   await GetStorage.init();
-
+  Jiffy.locale('ar');
   var fcmToken = await FirebaseMessaging.instance.getToken();
   print("FCM token new : $fcmToken");
   await _saveFcmToken(fcmToken!);

@@ -28,44 +28,48 @@ class PostsScreen extends StatelessWidget {
               : _postsViewModel.posts.isNotEmpty
                   ? isFollowing()
                       ? ListView.builder(
-                          controller: scrollController,
-                          itemCount: _postsViewModel.posts.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                _postsViewModel.selectedPost =
-                                    _postsViewModel.posts[index];
-                                _postsViewModel.selectedIndex = index;
-                              },
-                              child: Card(
-                                  margin: const EdgeInsets.all(16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  elevation: 4,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        child: Text(
-                                            _postsViewModel.posts[index].body),
-                                        width: double.infinity,
+                              controller: scrollController,
+                              itemCount: _postsViewModel.posts.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    _postsViewModel.selectedPost =
+                                        _postsViewModel.posts[index];
+                                    _postsViewModel.selectedIndex = index;
+                                  },
+                                  child: Card(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 8),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
                                       ),
-                                      const SizedBox(height: 24),
-                                      Text(
-                                          Jiffy(_postsViewModel
-                                                  .posts[index].date)
-                                              .format("dd MMM yyyy"),
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.grey)),
-                                    ],
-                                  ).paddingSymmetric(
-                                      horizontal: 16, vertical: 16)),
-                            );
-                          },
-                          physics: const BouncingScrollPhysics())
+                                      elevation: 0,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(_postsViewModel
+                                              .posts[index].teacherName),
+                                          const SizedBox(height: 8),
+                                          SizedBox(
+                                            child: Text(_postsViewModel
+                                                .posts[index].body),
+                                            width: double.infinity,
+                                          ),
+                                          const SizedBox(height: 24),
+                                          Text(
+                                              Jiffy(_postsViewModel
+                                                      .posts[index].date)
+                                                  .format("dd MMM yyyy"),
+                                              style: const TextStyle(
+                                                  color: Colors.grey)),
+                                        ],
+                                      ).paddingSymmetric(
+                                          horizontal: 16, vertical: 16)),
+                                );
+                              },
+                              physics: const BouncingScrollPhysics())
+                          .marginOnly(top: 8, bottom: 8)
                       : Center(
                           child:
                               Text(LocalizationKeys.follow_teacher_no_posts.tr))

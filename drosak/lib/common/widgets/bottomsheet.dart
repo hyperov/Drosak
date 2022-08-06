@@ -259,6 +259,14 @@ showConfirmBookingBottomSheet(
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(
+                height: 5,
+              ),
+              Container(
+                width: 40,
+                height: 4,
+                color: Colors.grey,
+              ),
+              const SizedBox(
                 height: 20,
               ),
               Stack(
@@ -320,29 +328,36 @@ showConfirmBookingBottomSheet(
                       fontWeight: FontWeight.bold,
                       color: Colors.black)),
               const SizedBox(height: 4),
-              Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.grey,
-                  margin: const EdgeInsets.symmetric(horizontal: 100)),
-              const SizedBox(height: 4),
               Card(
                   elevation: 4,
                   margin:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   color: Colors.white,
-                  child: const Icon(Icons.school).marginAll(14),
+                  child: const Icon(
+                    Icons.school,
+                    color: ColorManager.blueDark,
+                    size: 32,
+                  ).marginAll(14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   )),
-              Text(lecturesViewModel.lectures[index].centerName),
-              const SizedBox(height: 0),
+              Text(lecturesViewModel.lectures[index].centerName,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  )),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(lecturesViewModel.lectures[index].classLevel),
+                  Text(lecturesViewModel.lectures[index].classLevel,
+                      style: const TextStyle(
+                        fontSize: 15,
+                      )),
                   const Text(' / '),
-                  Text(lecturesViewModel.lectures[index].material),
+                  Text(lecturesViewModel.lectures[index].material,
+                      style: const TextStyle(
+                        fontSize: 15,
+                      )),
                 ],
               ),
               const SizedBox(height: 8),
@@ -355,14 +370,15 @@ showConfirmBookingBottomSheet(
                   Text(lecturesViewModel.lectures[index].area),
                 ],
               ),
-              const SizedBox(height: 4),
               Text(lecturesViewModel.lectures[index].address),
-              const SizedBox(height: 4),
+              const SizedBox(height: 16),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Column(
                   children: [
-                    const Icon(Icons.calendar_today),
-                    Text(lecturesViewModel.lectures[index].day),
+                    SvgPicture.asset(AssetsManager.calendar),
+                    Text(lecturesViewModel.lectures[index].day,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16)),
                   ],
                 ),
                 Container(
@@ -372,8 +388,10 @@ showConfirmBookingBottomSheet(
                 ),
                 Column(
                   children: [
-                    const Icon(Icons.punch_clock),
-                    Text(lecturesViewModel.lectures[index].time),
+                    SvgPicture.asset(AssetsManager.clock),
+                    Text(lecturesViewModel.lectures[index].time,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16)),
                   ],
                 ),
                 Container(
@@ -383,9 +401,11 @@ showConfirmBookingBottomSheet(
                 ),
                 Column(
                   children: [
-                    const Icon(Icons.money),
+                    SvgPicture.asset(AssetsManager.money),
                     Text(
-                        "${lecturesViewModel.lectures[index].price.toString()}ج "),
+                        "${lecturesViewModel.lectures[index].price.toString()}ج ",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16)),
                   ],
                 )
               ]),
@@ -422,7 +442,10 @@ showConfirmBookingBottomSheet(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                ).marginOnly(bottom: 16),
+                ),
+              ),
+              const SizedBox(
+                height: 16,
               ),
             ]),
       ),

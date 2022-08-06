@@ -50,9 +50,13 @@ class LecturesScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(height: 42),
-                                  Text(_lecturesViewModel
-                                      .lectures[index].centerName),
-                                  const SizedBox(height: 0),
+                                  Text(
+                                    _lecturesViewModel
+                                        .lectures[index].centerName,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -67,7 +71,8 @@ class LecturesScreen extends StatelessWidget {
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(Icons.location_pin),
+                                      SvgPicture.asset(AssetsManager.pin),
+                                      const SizedBox(width: 8),
                                       Text(_lecturesViewModel
                                           .lectures[index].city),
                                       const Text(' - '),
@@ -84,32 +89,45 @@ class LecturesScreen extends StatelessWidget {
                                           children: [
                                             SvgPicture.asset(
                                                 AssetsManager.calendar),
-                                            Text(_lecturesViewModel
-                                                .lectures[index].day),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: 1,
-                                          width: 60,
-                                          color: Colors.black,
-                                        ),
-                                        Column(
-                                          children: [
-                                            const Icon(Icons.punch_clock),
-                                            Text(_lecturesViewModel
-                                                .lectures[index].time),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: 1,
-                                          width: 60,
-                                          color: Colors.black,
-                                        ),
-                                        Column(
-                                          children: [
-                                            const Icon(Icons.money),
                                             Text(
-                                                "${_lecturesViewModel.lectures[index].price.toString()}ج "),
+                                                _lecturesViewModel
+                                                    .lectures[index].day,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16)),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: 1,
+                                          width: 60,
+                                          color: Colors.black,
+                                        ),
+                                        Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                                AssetsManager.clock),
+                                            Text(
+                                                _lecturesViewModel
+                                                    .lectures[index].time,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16)),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: 1,
+                                          width: 60,
+                                          color: Colors.black,
+                                        ),
+                                        Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                                AssetsManager.money),
+                                            Text(
+                                                "${_lecturesViewModel.lectures[index].price.toString()}ج ",
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16)),
                                           ],
                                         )
                                       ]),
@@ -132,13 +150,17 @@ class LecturesScreen extends StatelessWidget {
                                               teacher,
                                               slidingUpPanelController);
                                         },
-                                        child:
-                                            Text(LocalizationKeys.booking.tr),
+                                        child: Text(
+                                          LocalizationKeys.booking.tr,
+                                          style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w100),
+                                        ),
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.deepPurple,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                                BorderRadius.circular(12),
                                           ),
                                         ),
                                       ),
@@ -151,8 +173,11 @@ class LecturesScreen extends StatelessWidget {
                                   child: Card(
                                       elevation: 4,
                                       color: Colors.white,
-                                      child: const Icon(Icons.school)
-                                          .marginAll(14),
+                                      child: const Icon(
+                                        Icons.school,
+                                        color: ColorManager.blueDark,
+                                        size: 32,
+                                      ).marginAll(14),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       )))),
@@ -160,7 +185,7 @@ class LecturesScreen extends StatelessWidget {
                       },
                       itemCount: _lecturesViewModel.lectures.length,
                       physics: const BouncingScrollPhysics(),
-                    )
+                    ).marginOnly(top: 16)
                   : Center(
                       child: Text(LocalizationKeys.lectures_not_found.tr),
                     ),

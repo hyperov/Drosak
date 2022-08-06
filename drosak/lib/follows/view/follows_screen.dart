@@ -19,6 +19,7 @@ class FollowsScreen extends StatelessWidget {
               : _followsViewModel.follows.isNotEmpty
                   ? Obx(() => ListView.builder(
                       itemCount: _followsViewModel.follows.length,
+                      physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return FollowItem(
                           followsViewModel: _followsViewModel,

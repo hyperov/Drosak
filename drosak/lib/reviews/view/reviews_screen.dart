@@ -1,7 +1,9 @@
+import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jiffy/jiffy.dart';
@@ -25,9 +27,10 @@ class ReviewsScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Obx(() =>
-                Text('تقييمات الطلاب (${_reviewsViewModel.reviews.length} )')
-                    .marginSymmetric(horizontal: 16)),
+            Obx(() => Text(
+                    'تقييمات الطلاب (${_reviewsViewModel.reviews.length} )',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+                .marginSymmetric(horizontal: 16)),
             Card(
               margin: const EdgeInsets.all(16),
               shape: RoundedRectangleBorder(
@@ -38,7 +41,8 @@ class ReviewsScreen extends StatelessWidget {
                   child: Row(
                     children: const [
                       Text("الترتيب",
-                          style: TextStyle(fontSize: 14, color: Colors.blue)),
+                          style: TextStyle(
+                              fontSize: 14, color: ColorManager.blueLight)),
                       Icon(Icons.keyboard_arrow_down, color: Colors.blue),
                     ],
                   ).paddingSymmetric(horizontal: 16, vertical: 16),
@@ -49,12 +53,20 @@ class ReviewsScreen extends StatelessWidget {
                   itemBuilder: (context) {
                     return [
                       const PopupMenuItem(
-                        child: Text('الترتيب حسب الأحدث'),
+                        child: Text('حسب الأحدث',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: ColorManager.deepPurple,
+                                fontWeight: FontWeight.bold)),
                         value: FireStoreNames
                             .collectionTeacherReviewsSortFieldDate,
                       ),
                       const PopupMenuItem(
-                        child: Text('الترتيب حسب الأكثر تقييما'),
+                        child: Text('حسب الأكثر تقييما',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: ColorManager.deepPurple,
+                                fontWeight: FontWeight.bold)),
                         value: FireStoreNames
                             .collectionTeacherReviewsSortFieldRating,
                       ),
@@ -111,9 +123,26 @@ class ReviewsScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.star, color: Colors.yellow),
+                            RatingBar.builder(
+                              initialRating:
+                                  _reviewsViewModel.reviews[index].rating,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              ignoreGestures: true,
+                              unratedColor: Colors.grey,
+                              itemSize: 22,
+                              maxRating: 5,
+                              itemPadding: const EdgeInsets.all(2),
+                              itemBuilder: (context, _) => SvgPicture.asset(
+                                AssetsManager.star,
+                              ),
+                              onRatingUpdate: (double value) {},
+                            ),
+                            const SizedBox(width: 8),
                             Obx(() => Text(
-                                  _reviewsViewModel.reviews.value[index].rating
+                                  _reviewsViewModel.reviews[index].rating
                                       .toString(),
                                   style: const TextStyle(
                                       fontSize: 14, color: Colors.black),
@@ -121,13 +150,12 @@ class ReviewsScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        Obx(() =>
-                            Text(_reviewsViewModel.reviews.value[index].body)),
+                        Obx(() => Text(_reviewsViewModel.reviews[index].body)),
                         const SizedBox(height: 16),
 
                         // ,TimeOfDayFormat.h_colon_mm_space_a
                         Obx(() => Text(
-                            Jiffy(_reviewsViewModel.reviews.value[index].date)
+                            Jiffy(_reviewsViewModel.reviews[index].date)
                                 .format("dd MMM yyyy"),
                             style: const TextStyle(
                                 fontSize: 12, color: Colors.grey))),

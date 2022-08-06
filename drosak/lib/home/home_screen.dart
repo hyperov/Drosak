@@ -91,12 +91,15 @@ class HomeScreen extends StatelessWidget {
             ),
             child: GetX<HomeViewModel>(builder: (context) {
               return BottomNavigationBar(
-                selectedItemColor: Colors.deepPurple,
-                unselectedItemColor: Colors.grey,
+                selectedItemColor: Colors.deepPurple.shade800,
+                unselectedItemColor: Colors.grey.shade600,
                 showUnselectedLabels: true,
                 elevation: 0,
                 iconSize: 30,
-                selectedFontSize: 18,
+                unselectedLabelStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w200),
+                selectedLabelStyle:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.home),

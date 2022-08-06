@@ -58,6 +58,7 @@ class NotificationsScreen extends StatelessWidget {
                             ),
                           ).paddingSymmetric(vertical: 16));
                     },
+                    physics: const BouncingScrollPhysics(),
                     itemCount: _notificationsViewModel.notificationList.length,
                   ).paddingOnly(top: 20)
                 : Center(

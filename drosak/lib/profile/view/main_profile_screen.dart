@@ -90,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                   Get.to(() => PersonalProfileScreen());
                 },
                 child: ListTile(
-                  leading: const Icon(Icons.person),
+                  leading: const Icon(Icons.person, color: Colors.deepPurple),
                   title: Text(
                     LocalizationKeys.personal_info.tr,
                     style: const TextStyle(fontWeight: FontWeight.bold),
@@ -109,7 +109,8 @@ class ProfileScreen extends StatelessWidget {
                   Get.to(() => BookingsScreen());
                 },
                 child: ListTile(
-                  leading: const Icon(Icons.calendar_month),
+                  leading: const Icon(Icons.calendar_month,
+                      color: Colors.deepPurple),
                   title: Text(LocalizationKeys.bookings.tr,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
@@ -126,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
                   // Get.to(() => const SettingsScreen());
                 },
                 child: ListTile(
-                  leading: const Icon(Icons.settings),
+                  leading: const Icon(Icons.settings, color: Colors.deepPurple),
                   title: Text(LocalizationKeys.settings.tr,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
@@ -141,7 +142,7 @@ class ProfileScreen extends StatelessWidget {
               child: InkWell(
                 onTap: () {},
                 child: const ListTile(
-                  leading: Icon(Icons.help),
+                  leading: Icon(Icons.help, color: Colors.deepPurple),
                   title: Text('مساعدة',
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
@@ -180,7 +181,8 @@ class ProfileScreen extends StatelessWidget {
                       });
                 },
                 child: ListTile(
-                  leading: const Icon(Icons.exit_to_app),
+                  leading:
+                      const Icon(Icons.exit_to_app, color: Colors.deepPurple),
                   title: Text(LocalizationKeys.app_logout.tr,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),

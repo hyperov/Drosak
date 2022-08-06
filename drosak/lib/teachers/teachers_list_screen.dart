@@ -194,6 +194,7 @@ class TeachersListScreen extends StatelessWidget {
                             ),
                           );
                         },
+                        physics: const BouncingScrollPhysics(),
                         itemCount: _teachersListViewModel.teachersList.length)
                     .paddingOnly(top: 20)
                     .marginSymmetric(horizontal: 16)
