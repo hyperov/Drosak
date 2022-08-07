@@ -144,6 +144,8 @@ class Languages extends Translations {
           LocalizationKeys.following: 'follow',
           LocalizationKeys.notifications_not_found: 'No Notifications Yet',
           LocalizationKeys.loading: 'Loading...',
+          LocalizationKeys.lecture_already_booked:
+              'you already booked this lecture',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -283,6 +285,7 @@ class Languages extends Translations {
           LocalizationKeys.app_no: 'لا',
           LocalizationKeys.notifications_not_found: 'لا يوجد إشعارات',
           LocalizationKeys.loading: 'جاري التحميل ...',
+          LocalizationKeys.lecture_already_booked: 'تم حجز الحصة بالفعل',
         },
       };
 }

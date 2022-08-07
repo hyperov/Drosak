@@ -224,4 +224,6 @@ class LocalizationKeys {
   static var full_name = 'full_name';
 
   static var news_teachers = 'news_teachers';
+
+  static var lecture_already_booked = 'lecture_already_booked';
 }

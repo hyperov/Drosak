@@ -9,6 +9,9 @@ import 'package:drosak/utils/storage_keys.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:workmanager/workmanager.dart';
+
+import '../../utils/localization/localization_keys.dart';
 
 class BookingsViewModel extends GetxController {
   final BookingsRepo _bookingRepo = Get.put(BookingsRepo());
@@ -69,7 +72,7 @@ class BookingsViewModel extends GetxController {
       price: selectedLecture.price,
       teacherName: selectedLecture.teacherName,
       teacherImageUrl: selectedLecture.teacherImageUrl,
-      bookingDate: DateTime.now(),
+      bookingDate: Timestamp.now().toDate(),
       teacherRating: _storage.read<double>(StorageKeys.teacherRating)!,
       isCanceled: false,
       lectureId: selectedLecture.id!,
@@ -78,16 +81,27 @@ class BookingsViewModel extends GetxController {
 
     newBooking.lecDate = newBooking.getLectureDate();
 
-    bool isNotFirstTimeBooking = bookings.any((booking) =>
+    bool isDuplicatedBooking = bookings.any((booking) =>
         booking.lecDate?.day == newBooking.lecDate?.day &&
         booking.lecDate?.month == newBooking.lecDate?.month &&
         booking.lecDate?.year == newBooking.lecDate?.year &&
         booking.material.compareTo(newBooking.material) == 0 &&
-        booking.lectureId.compareTo(newBooking.lectureId) == 0);
+        booking.lectureId.compareTo(newBooking.lectureId) == 0 &&
+        !booking.isCanceled);
 
     try {
-      if (!isNotFirstTimeBooking) {
+      if (!isDuplicatedBooking) {
         await _bookingRepo.addBooking(newBooking);
+
+        EasyLoading.dismiss();
+        EasyLoading.showSuccess(LocalizationKeys.lecture_booked.tr);
+
+        Workmanager().registerOneOffTask(
+            newBooking.lectureId, "book_lecture_task",
+            initialDelay: Duration(seconds: 15));
+      } else {
+        EasyLoading.dismiss();
+        EasyLoading.showError(LocalizationKeys.lecture_already_booked.tr);
       }
     } catch (e) {
       EasyLoading.showError(e.toString());

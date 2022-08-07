@@ -135,33 +135,29 @@ class LecturesScreen extends StatelessWidget {
                                     width: double.infinity,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 32, vertical: 16),
-                                    child: Visibility(
-                                      visible: _lecturesViewModel
-                                          .lectures[index].isEnabled,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          _bookingsViewModel.selectedTeacher =
-                                              teacher;
-                                          showConfirmBookingBottomSheet(
-                                              context,
-                                              _lecturesViewModel,
-                                              _bookingsViewModel,
-                                              index,
-                                              teacher,
-                                              slidingUpPanelController);
-                                        },
-                                        child: Text(
-                                          LocalizationKeys.booking.tr,
-                                          style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w100),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.deepPurple,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        _bookingsViewModel.selectedTeacher =
+                                            teacher;
+                                        showConfirmBookingBottomSheet(
+                                            context,
+                                            _lecturesViewModel,
+                                            _bookingsViewModel,
+                                            index,
+                                            teacher,
+                                            slidingUpPanelController);
+                                      },
+                                      child: Text(
+                                        LocalizationKeys.booking.tr,
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w100),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.deepPurple,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
                                       ),
                                     ),

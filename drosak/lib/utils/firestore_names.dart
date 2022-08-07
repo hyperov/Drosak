@@ -27,6 +27,9 @@ class FireStoreNames {
   static const String teacherDocFieldEducationLevel = 'eduLevel';
   static const String teacherDocFieldMaterial = 'material';
 
+  //booking fields
+  static const String bookingDocFieldLecDate = 'lec_date';
+
   static String followDocFieldTeacherName = 'name';
   static String followDocFieldTeacherId = 'teacher_id';
 

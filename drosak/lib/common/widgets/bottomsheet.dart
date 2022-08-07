@@ -12,7 +12,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:workmanager/workmanager.dart';
 
 showListBottomSheet(
     {required List<Icon> leadingIcons,
@@ -424,13 +423,6 @@ showConfirmBookingBottomSheet(
                       Get.back();
                       Get.back();
                       slidingUpPanelController.close();
-                      EasyLoading.dismiss();
-                      EasyLoading.showSuccess(
-                          LocalizationKeys.lecture_booked.tr);
-                      Workmanager().registerOneOffTask(
-                          lecturesViewModel.lectures[index].id!,
-                          "book_lecture_task",
-                          initialDelay: Duration(seconds: 10));
                     } catch (e) {
                       print(e.toString());
                       EasyLoading.showError(e.toString());

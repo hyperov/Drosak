@@ -16,6 +16,7 @@ class BookingsRepo {
           fromFirestore: (snapshot, _) => Booking.fromJson(snapshot.data()!),
           toFirestore: (model, _) => model.toJson(),
         )
+        .orderBy(FireStoreNames.bookingDocFieldLecDate, descending: true)
         .snapshots();
   }
 
