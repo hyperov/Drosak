@@ -12,6 +12,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:workmanager/workmanager.dart';
 
 showListBottomSheet(
     {required List<Icon> leadingIcons,
@@ -426,6 +427,8 @@ showConfirmBookingBottomSheet(
                       EasyLoading.dismiss();
                       EasyLoading.showSuccess(
                           LocalizationKeys.lecture_booked.tr);
+                      Workmanager().registerOneOffTask(
+                          "task-identifier", "book_lecture_task");
                     } catch (e) {
                       print(e.toString());
                       EasyLoading.showError(e.toString());

@@ -9,9 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:workmanager/workmanager.dart';
 
 import 'firebase_options.dart';
 import 'utils/managers/color_manager.dart';
+import 'utils/notification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,10 +23,17 @@ Future<void> main() async {
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
   );
-// Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  //work manager for background tasks
+  Workmanager().initialize(
+      callbackDispatcher, // The top level function, aka callbackDispatcher
+      isInDebugMode:
+          false // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      );
+
   await GetStorage.init();
   Jiffy.locale('ar');
+
   var fcmToken = await FirebaseMessaging.instance.getToken();
   print("FCM token new : $fcmToken");
   await _saveFcmToken(fcmToken!);
@@ -42,6 +51,7 @@ Future<void> main() async {
     }
   });
   initializeEasyLoading();
+
   runApp(const MainApp());
 }
 
@@ -71,4 +81,15 @@ initializeEasyLoading() async {
     ..userInteractions = true
     ..dismissOnTap = true;
   // ..customAnimation = CustomAnimation();
+}
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    if (task == 'book_lecture_task') {
+      await createAndroidNotification(null, null);
+    }
+    print(
+        "Native called background task: $task"); //simpleTask will be emitted here.
+    return Future.value(true);
+  });
 }
