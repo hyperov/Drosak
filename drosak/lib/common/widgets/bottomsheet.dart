@@ -60,57 +60,68 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
           LocalizationKeys.choose_education.tr,
           textAlign: TextAlign.start,
         ).marginSymmetric(horizontal: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Obx(() => FilterChip(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  label: Text(
-                    LocalizationKeys.education_secondary.tr,
-                    style: filterViewModel.selectEducationSecondary.value
-                        ? const TextStyle(color: Colors.white)
-                        : const TextStyle(color: Colors.black),
-                  ),
-                  avatar: const Icon(Icons.school),
-                  selected: filterViewModel.selectEducationSecondary.value,
-                  showCheckmark: false,
-                  backgroundColor: Colors.transparent,
-                  elevation: 2,
-                  pressElevation: 6,
-                  shape: const StadiumBorder(side: BorderSide()),
-                  avatarBorder:
-                      const CircleBorder(side: BorderSide(color: Colors.grey)),
-                  onSelected: (bool selected) {
-                    filterViewModel.isFilterApplied = true;
-                    filterViewModel.selectEducationSecondary.value = selected;
-                  },
-                  selectedColor: Colors.blue,
-                ).marginSymmetric(horizontal: 16)),
-            Obx(() => FilterChip(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  label: Text(
-                    LocalizationKeys.education_prep.tr,
-                    style: filterViewModel.selectEducationPrep.value
-                        ? const TextStyle(color: Colors.white)
-                        : const TextStyle(color: Colors.black),
-                  ),
-                  avatar: const Icon(Icons.school),
-                  selected: filterViewModel.selectEducationPrep.value,
-                  showCheckmark: false,
-                  backgroundColor: Colors.transparent,
-                  elevation: 2,
-                  pressElevation: 6,
-                  shape: const StadiumBorder(side: BorderSide()),
-                  avatarBorder:
-                      const CircleBorder(side: BorderSide(color: Colors.grey)),
-                  onSelected: (bool selected) {
-                    filterViewModel.isFilterApplied = true;
-                    filterViewModel.selectEducationPrep.value = selected;
-                  },
-                  selectedColor: Colors.blue,
-                ).marginSymmetric(horizontal: 16)),
-          ],
-        ).marginSymmetric(horizontal: 16),
+        Theme(
+          data: ThemeData(
+            fontFamily: 'Roboto',
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Obx(() => FilterChip(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    label: Text(
+                      LocalizationKeys.education_secondary.tr,
+                      style: filterViewModel.selectEducationSecondary.value
+                          ? const TextStyle(color: Colors.white)
+                          : const TextStyle(color: Colors.black),
+                    ),
+                    avatar: Icon(Icons.school,
+                        color: filterViewModel.selectEducationSecondary.value
+                            ? Colors.white
+                            : ColorManager.blueLight),
+                    selected: filterViewModel.selectEducationSecondary.value,
+                    showCheckmark: false,
+                    backgroundColor: Colors.transparent,
+                    elevation: 2,
+                    pressElevation: 6,
+                    shape: const StadiumBorder(side: BorderSide()),
+                    avatarBorder: const CircleBorder(
+                        side: BorderSide(color: Colors.grey)),
+                    onSelected: (bool selected) {
+                      filterViewModel.isFilterApplied = true;
+                      filterViewModel.selectEducationSecondary.value = selected;
+                    },
+                    selectedColor: ColorManager.deepPurple,
+                  ).marginSymmetric(horizontal: 16)),
+              Obx(() => FilterChip(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    label: Text(
+                      LocalizationKeys.education_prep.tr,
+                      style: filterViewModel.selectEducationPrep.value
+                          ? const TextStyle(color: Colors.white)
+                          : const TextStyle(color: Colors.black),
+                    ),
+                    avatar: Icon(Icons.school,
+                        color: filterViewModel.selectEducationPrep.value
+                            ? Colors.white
+                            : ColorManager.blueLight),
+                    selected: filterViewModel.selectEducationPrep.value,
+                    showCheckmark: false,
+                    backgroundColor: Colors.transparent,
+                    elevation: 2,
+                    pressElevation: 6,
+                    shape: const StadiumBorder(side: BorderSide()),
+                    avatarBorder: const CircleBorder(
+                        side: BorderSide(color: Colors.grey)),
+                    onSelected: (bool selected) {
+                      filterViewModel.isFilterApplied = true;
+                      filterViewModel.selectEducationPrep.value = selected;
+                    },
+                    selectedColor: ColorManager.deepPurple,
+                  ).marginSymmetric(horizontal: 16)),
+            ],
+          ).marginSymmetric(horizontal: 16),
+        ),
         const SizedBox(
           height: 20,
         ),
@@ -131,7 +142,11 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                             ? const TextStyle(color: Colors.white)
                             : const TextStyle(color: Colors.black),
                       ),
-                      avatar: const Icon(Icons.school),
+                      avatar: Icon(Icons.school,
+                          color: filterViewModel
+                                  .materials[index].value.isSelected.value
+                              ? Colors.white
+                              : ColorManager.blueLight),
                       selected: filterViewModel
                           .materials[index].value.isSelected.value,
                       showCheckmark: false,
@@ -146,7 +161,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                         filterViewModel
                             .materials[index].value.isSelected.value = selected;
                       },
-                      selectedColor: Colors.blue,
+                      selectedColor: ColorManager.deepPurple,
                     ).marginSymmetric(horizontal: 16));
               },
               itemCount: filterViewModel.materials.length,
@@ -177,7 +192,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                 RangeSlider(
                     min: 0,
                     max: 100,
-                    inactiveColor: Colors.blue,
+                    inactiveColor: Colors.grey.shade600,
                     activeColor: Colors.purple,
                     divisions: 20,
                     values: RangeValues(filterViewModel.sliderStartValue.value,
@@ -200,7 +215,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
           children: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
+                  primary: ColorManager.deepPurple,
                   textStyle: const TextStyle(color: Colors.white),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
@@ -216,7 +231,8 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
             OutlinedButton(
               style: OutlinedButton.styleFrom(
                 primary: Colors.white,
-                side: const BorderSide(color: Colors.blue, width: 1),
+                side:
+                    const BorderSide(color: ColorManager.deepPurple, width: 1),
                 // textStyle: TextStyle(color: Colors.blue),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
@@ -227,7 +243,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(LocalizationKeys.filter_clear_all.tr,
-                    style: const TextStyle(color: Colors.blue)),
+                    style: const TextStyle(color: ColorManager.deepPurple)),
               ),
             ).marginSymmetric(horizontal: 16),
           ],
@@ -521,12 +537,12 @@ showRatingTeacherBottomSheet(
                     alignLabelWithHint: true,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 1)),
+                        borderSide: const BorderSide(
+                            color: ColorManager.deepPurple, width: 1)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 1)),
+                        borderSide: const BorderSide(
+                            color: ColorManager.deepPurple, width: 1)),
                   ),
                 ),
               ),

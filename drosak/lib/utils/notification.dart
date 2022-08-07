@@ -27,7 +27,7 @@ Future<void> createAndroidNotification(
     enableVibration: true,
     enableLights: true,
     importance: Importance.max,
-    priority: Priority.max,
+    priority: Priority.high,
     color: ColorManager.deepPurple,
     visibility: NotificationVisibility.public,
     colorized: true,
@@ -41,6 +41,7 @@ Future<void> createAndroidNotification(
   NotificationDetails platformChannelSpecifics =
       NotificationDetails(android: androidPlatformChannelSpecifics);
 
+  await initLocalNotifications();
   if (message?.notification != null) {
     await flutterLocalNotificationsPlugin.show(
         Random().nextInt(100),
@@ -49,7 +50,6 @@ Future<void> createAndroidNotification(
         platformChannelSpecifics,
         payload: 'item x');
   } else {
-    await initLocalNotifications();
     await flutterLocalNotificationsPlugin.show(Random().nextInt(100),
         'باقى اقل من 24 ساعة على الحصة', 'تاريخ', platformChannelSpecifics,
         payload: 'item x');

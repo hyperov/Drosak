@@ -68,13 +68,6 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  'تطبيق الطالب',
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
                   LocalizationKeys.enter_phone_number.tr,
                   style: Theme.of(context).textTheme.headline5,
                 ),
@@ -143,30 +136,29 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "--------------------",
-                        style: TextStyle(fontSize: 20, color: Colors.black54),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "-------------",
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ),
+                    Text(
+                      " ${LocalizationKeys.or.tr} ",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.black54,
                       ),
-                      Text(
-                        " ${LocalizationKeys.or.tr} ",
-                        style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const Text("--------------------",
-                          style:
-                              TextStyle(fontSize: 20, color: Colors.black54)),
-                    ],
+                    ),
+                    const Text("-------------",
+                        style: TextStyle(fontSize: 20, color: Colors.black54)),
+                  ],
+                ).marginSymmetric(horizontal: 20),
+                Theme(
+                  data: ThemeData(
+                    fontFamily: 'Roboto',
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10, bottom: 10),
                   child: SignInButton(Buttons.FacebookNew,
                       padding: const EdgeInsets.symmetric(
                           vertical: 12, horizontal: 20),
@@ -179,7 +171,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                     } else {
                       _networkViewModel.showNoInternetConnectionDialog();
                     }
-                  }),
+                  }).marginSymmetric(vertical: 10, horizontal: 20),
                 ),
                 SignInButton(Buttons.Google,
                     padding:

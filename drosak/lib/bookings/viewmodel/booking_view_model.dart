@@ -9,6 +9,7 @@ import 'package:drosak/utils/storage_keys.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../../utils/localization/localization_keys.dart';
@@ -96,9 +97,21 @@ class BookingsViewModel extends GetxController {
         EasyLoading.dismiss();
         EasyLoading.showSuccess(LocalizationKeys.lecture_booked.tr);
 
+        var delayHours = newBooking.lecDate
+            ?.subtract(Duration(days: 1))
+            .difference(DateTime.now())
+            .inHours
+            .abs();
         Workmanager().registerOneOffTask(
             newBooking.lectureId, "book_lecture_task",
-            initialDelay: Duration(seconds: 15));
+            initialDelay: Duration(hours: delayHours!),
+            inputData: {
+              "material": newBooking.material,
+              "teacher": newBooking.teacherName,
+              "lec_date": Jiffy(newBooking.lecDate).format("dd MMMM"),
+              "day": newBooking.day,
+              "time": newBooking.time,
+            });
       } else {
         EasyLoading.dismiss();
         EasyLoading.showError(LocalizationKeys.lecture_already_booked.tr);

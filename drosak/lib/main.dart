@@ -80,13 +80,19 @@ initializeEasyLoading() async {
     )
     ..userInteractions = true
     ..dismissOnTap = true;
-  // ..customAnimation = CustomAnimation();
 }
 
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     if (task == 'book_lecture_task') {
-      await createAndroidNotification(null, null);
+      await createAndroidNotification(
+          null,
+          RemoteMessage(
+              notification: RemoteNotification(
+            title: 'بنفكرك بحصة ${inputData!['material']} اللى انت حاجزها ',
+            body:
+                'الموعد المحدد هو ${inputData['lec_date']} يوم ${inputData['day']} الساعة ${inputData['time']}',
+          )));
     }
     if (kDebugMode) {
       print("Native called background task: $task");
