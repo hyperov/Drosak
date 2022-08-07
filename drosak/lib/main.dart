@@ -88,8 +88,9 @@ void callbackDispatcher() {
     if (task == 'book_lecture_task') {
       await createAndroidNotification(null, null);
     }
-    print(
-        "Native called background task: $task"); //simpleTask will be emitted here.
+    if (kDebugMode) {
+      print("Native called background task: $task");
+    } //simpleTask will be emitted here.
     return Future.value(true);
   });
 }

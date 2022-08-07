@@ -428,7 +428,9 @@ showConfirmBookingBottomSheet(
                       EasyLoading.showSuccess(
                           LocalizationKeys.lecture_booked.tr);
                       Workmanager().registerOneOffTask(
-                          "task-identifier", "book_lecture_task");
+                          lecturesViewModel.lectures[index].id!,
+                          "book_lecture_task",
+                          initialDelay: Duration(seconds: 10));
                     } catch (e) {
                       print(e.toString());
                       EasyLoading.showError(e.toString());

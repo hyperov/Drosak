@@ -49,9 +49,11 @@ class BookingsViewModel extends GetxController {
   }
 
   Future<void> cancelBooking(String bookingId, String teacherId) async {
+    EasyLoading.show(status: 'Cancelling...');
     isLoading.value = true;
     await _bookingRepo.updateBookingDocCancellation(bookingId, teacherId);
     isLoading.value = false;
+    EasyLoading.dismiss();
   }
 
   Future<void> bookLecture(Lecture selectedLecture) async {

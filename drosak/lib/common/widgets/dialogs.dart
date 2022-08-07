@@ -4,8 +4,10 @@ import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:workmanager/workmanager.dart';
 
-openDeleteDialog(GetxController viewModel, String id, [String? teacherId]) {
+openDeleteDialog(GetxController viewModel, String id,
+    [String? teacherId, String? lectureId]) {
   var isFollowsViewModel = viewModel is FollowsViewModel;
   var isBookingsViewModel = viewModel is BookingsViewModel;
   Get.dialog(
@@ -62,6 +64,7 @@ openDeleteDialog(GetxController viewModel, String id, [String? teacherId]) {
               await viewModel.unfollowTeacher(id);
             } else if (isBookingsViewModel) {
               await viewModel.cancelBooking(id, teacherId!);
+              await Workmanager().cancelByUniqueName(lectureId!);
             }
           },
         ),

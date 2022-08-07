@@ -6,6 +6,7 @@ import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 
 class BookingsScreen extends StatelessWidget {
   BookingsScreen({Key? key}) : super(key: key);
@@ -81,6 +82,14 @@ class BookingsScreen extends StatelessWidget {
                                             .bookings[index].area),
                                       ],
                                     ),
+                                    Text(
+                                      Jiffy(_bookingsViewModel
+                                              .bookings[index].lecDate)
+                                          .format("dd MMMM"),
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                     const SizedBox(height: 16),
                                     Row(
                                         mainAxisAlignment:
@@ -136,9 +145,10 @@ class BookingsScreen extends StatelessWidget {
                                                         .bookings[index].id!,
                                                     _bookingsViewModel
                                                         .bookings[index]
-                                                        .teacherId);
-                                                // showConfirmDeleteBookingDialog(context,
-                                                //     _bookingsViewModel, index, teacher);
+                                                        .teacherId,
+                                                    _bookingsViewModel
+                                                        .bookings[index]
+                                                        .lectureId);
                                               },
                                               child: Text(LocalizationKeys
                                                   .cancel_booking.tr),
@@ -206,8 +216,11 @@ class BookingsScreen extends StatelessWidget {
                                   child: Card(
                                       elevation: 4,
                                       color: Colors.white,
-                                      child: const Icon(Icons.school)
-                                          .marginAll(14),
+                                      child: const Icon(
+                                        Icons.school,
+                                        color: Colors.deepPurple,
+                                        size: 34,
+                                      ).marginAll(14),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(18),
                                       )))),
