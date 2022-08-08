@@ -1,7 +1,6 @@
 import 'package:drosak/app/main_app.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -11,15 +10,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:workmanager/workmanager.dart';
 
-import 'firebase_options.dart';
 import 'utils/managers/color_manager.dart';
 import 'utils/notification.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+Future<void> sharedMain() async {
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
   );

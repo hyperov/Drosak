@@ -276,6 +276,7 @@ class LoginViewModel extends GetxController {
   }
 
   signInWithFacebook() async {
+    EasyLoading.show(status: LocalizationKeys.loading.tr);
     isLoading.value = true;
     final LoginResult result = await FacebookAuth.instance
         .login(loginBehavior: LoginBehavior.nativeWithFallback);
@@ -321,7 +322,7 @@ class LoginViewModel extends GetxController {
 
   void _insertUserToFirestore(User? user) {
     _userRepo.insertUserFirstTime(user!).then((value) async {
-      EasyLoading.dismiss();
+      await EasyLoading.dismiss();
       isLoggedIn.value = true;
       isLoading.value = false;
 

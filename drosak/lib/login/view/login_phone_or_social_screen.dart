@@ -37,8 +37,6 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
     }, condition: () => _loginViewModel.isCodeSent.value);
 
     ever(_loginViewModel.isLoggedIn, (callback) async {
-      EasyLoading.showSuccess("You are logged in");
-
       var isFirstTimeUserLogin =
           _storage.read<bool>(StorageKeys.isFirstTimeLogin);
 

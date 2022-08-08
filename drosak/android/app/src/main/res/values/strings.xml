@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Drosak</string>
-    <string name="facebook_app_id">294971929514529</string>
-    <string name="fb_login_protocol_scheme">fb294971929514529</string>
-    <string name="facebook_client_token">bd9030a097e4d1aef30d358c083f91fc</string>
+<!--    <string name="app_name">Drosak</string>-->
+<!--    <string name="facebook_app_id">294971929514529</string>-->
+<!--    <string name="fb_login_protocol_scheme">fb294971929514529</string>-->
+<!--    <string name="facebook_client_token">bd9030a097e4d1aef30d358c083f91fc</string>-->
     <string name="default_notification_channel_id">com.drosak.app.student</string>
 
 </resources>

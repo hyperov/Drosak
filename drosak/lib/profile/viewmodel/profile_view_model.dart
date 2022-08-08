@@ -65,8 +65,10 @@ class ProfileViewModel extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    EasyLoading.show(status: LocalizationKeys.loading.tr);
     await getStudent();
     readStudentProfileDataFromStorage();
+    await EasyLoading.dismiss();
   }
 
   @override
