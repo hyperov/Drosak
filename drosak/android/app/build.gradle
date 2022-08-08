@@ -61,11 +61,18 @@ android {
         dev {
             dimension "env"
             versionNameSuffix "-dev"
-
+            resValue "string", "app_name", "Drosak"
+            resValue "string", "facebook_app_id", "294971929514529"
+            resValue "string", "fb_login_protocol_scheme", "fb294971929514529"
+            resValue "string", "facebook_client_token", "bd9030a097e4d1aef30d358c083f91fc"
         }
         prod {
             dimension "env"
             applicationIdSuffix ".prod"
+            resValue "string", "app_name", "Drosak دروسك"
+            resValue "string", "facebook_app_id", "1131110080810081"
+            resValue "string", "fb_login_protocol_scheme", "fb1131110080810081"
+            resValue "string", "facebook_client_token", "34e6e445838820edfd16dc5da1b3a188"
         }
     }
 
