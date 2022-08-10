@@ -70,7 +70,8 @@ class UserRepo {
   Future<String> uploadStudentImage(XFile? image) async {
     var file = File(image!.path);
 
-    final storageRef = FirebaseStorage.instance.ref();
+    final storageRef =
+        FirebaseStorage.instance.ref(FirebaseAuth.instance.currentUser?.uid);
     final imagesTeacherProfileRef =
         storageRef.child("student_profiles/profile.jpg");
     var taskSnapshot = await imagesTeacherProfileRef.putFile(file);
