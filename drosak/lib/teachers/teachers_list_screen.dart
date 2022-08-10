@@ -77,9 +77,11 @@ class TeachersListScreen extends StatelessWidget {
                                                           ? SvgPicture.asset(
                                                               AssetsManager
                                                                   .profilePlaceHolder,
-                                                              width: 50,
-                                                              height: 50,
+                                                              width: 700,
+                                                              height: 70,
                                                               fit: BoxFit.cover,
+                                                              color:
+                                                                  Colors.white,
                                                             )
                                                           : Image.network(
                                                               _teachersListViewModel

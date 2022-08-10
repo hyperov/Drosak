@@ -94,7 +94,7 @@ class LoginViewModel extends GetxController {
           if (kDebugMode) {
             print(e);
           }
-          _onSnackBarError("{$Logs.firebase_auth_error_login} ${e.message}",
+          _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
               LocalizationKeys.login_error.tr);
           return;
         }
@@ -102,6 +102,7 @@ class LoginViewModel extends GetxController {
         await loginUserToFireStore(user!);
       },
       verificationFailed: (FirebaseAuthException e) {
+        EasyLoading.dismiss();
         isLoading.value = false;
         // ERROR
         if (e.code == 'invalid-phone-number') {
@@ -144,7 +145,7 @@ class LoginViewModel extends GetxController {
         }
         // Handle other errors
         errMessagePhoneTextField.value = e.message!;
-        _onSnackBarError("{$Logs.firebase_auth_error_login} ${e.message}",
+        _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
             LocalizationKeys.login_error.tr);
       },
       codeSent: (String verificationId, int? resendToken) async {
@@ -216,6 +217,7 @@ class LoginViewModel extends GetxController {
   }
 
   sendSmsAndLogin() async {
+    errorSnackBarShow.value = false;
     EasyLoading.show(status: LocalizationKeys.loading.tr);
     isLoading.value = true;
     // Create a PhoneAuthCredential with the code

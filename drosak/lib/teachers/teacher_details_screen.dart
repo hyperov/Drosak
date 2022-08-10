@@ -70,26 +70,36 @@ class TeacherDetailsScreen extends StatelessWidget {
                 color: Colors.transparent,
                 child: Card(
                   clipBehavior: Clip.hardEdge,
+                  color: Colors.deepPurple,
                   shape: const CircleBorder(
                     side: BorderSide(
                       color: ColorManager.deepPurple,
                       width: 4,
                     ),
                   ),
-                  child: Image.network(
-                      _teachersListViewModel.selectedTeacher.photoUrl!,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                    return SvgPicture.asset(
-                      AssetsManager.profilePlaceHolder,
-                      width: 70,
-                      height: 70,
-                      color: Colors.white,
-                      fit: BoxFit.cover,
-                    ).marginAll(16);
-                  }),
+                  child:
+                      _teachersListViewModel.selectedTeacher.photoUrl.isBlank!
+                          ? SvgPicture.asset(
+                              AssetsManager.profilePlaceHolder,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                              color: Colors.white,
+                            )
+                          : Image.network(
+                              _teachersListViewModel.selectedTeacher.photoUrl!,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                              return SvgPicture.asset(
+                                AssetsManager.profilePlaceHolder,
+                                width: 100,
+                                height: 100,
+                                color: Colors.white,
+                                fit: BoxFit.cover,
+                              ).marginAll(16);
+                            }),
                 ),
               ),
             ),

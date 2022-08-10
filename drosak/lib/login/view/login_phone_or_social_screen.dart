@@ -24,12 +24,11 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ever(_loginViewModel.errorSnackBarShow, (callback) {
-      if (_loginViewModel.errMessageSnackBar.value.isNotEmpty &&
-          _loginViewModel.errorSnackBarShow.value) {
+      if (_loginViewModel.errMessageSnackBar.value.isNotEmpty) {
         EasyLoading.showError(_loginViewModel.errMessageSnackBar.value);
         _loginViewModel.errorSnackBarShow.value = false;
       }
-    });
+    }, condition: () => _loginViewModel.errorSnackBarShow.value);
 
     ever(_loginViewModel.isCodeSent, (callback) {
       Get.to(() => EnterSmsCodeScreen());
