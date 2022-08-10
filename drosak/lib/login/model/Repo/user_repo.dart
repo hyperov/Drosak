@@ -70,12 +70,18 @@ class UserRepo {
   Future<String> uploadStudentImage(XFile? image) async {
     var file = File(image!.path);
 
-    final storageRef =
-        FirebaseStorage.instance.ref(FirebaseAuth.instance.currentUser?.uid);
-    final imagesTeacherProfileRef =
-        storageRef.child("student_profiles/profile.jpg");
+    final storageRef = FirebaseStorage.instance
+        .ref("students/${FirebaseAuth.instance.currentUser?.uid}");
+    final imagesTeacherProfileRef = storageRef.child("profiles/profile.jpg");
     var taskSnapshot = await imagesTeacherProfileRef.putFile(file);
     return taskSnapshot.ref.getDownloadURL();
+  }
+
+  Future<void> updateStudentProfileImage(String imageUrl) async {
+    return FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionStudents)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({FireStoreNames.studentDocFieldProfileImageUrl: imageUrl});
   }
 
   Future<void> updateFCMToken(String fcmToken) async {

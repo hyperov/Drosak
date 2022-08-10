@@ -41,4 +41,6 @@ class FireStoreNames {
 
   static const String collectionAppStatistics = 'stats';
   static const String documentAppStatistics = 'app_stats';
+
+  static var studentDocFieldProfileImageUrl = 'photoUrl';
 }

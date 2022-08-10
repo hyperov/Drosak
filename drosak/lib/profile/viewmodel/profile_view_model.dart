@@ -62,6 +62,8 @@ class ProfileViewModel extends GetxController {
 
   var studentClass;
 
+  XFile? image;
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -370,14 +372,15 @@ class ProfileViewModel extends GetxController {
         selectedGalleryPickerSheetText.value == LocalizationKeys.camera.tr
             ? ImageSource.camera
             : ImageSource.gallery;
-    var image = await _imagePicker.pickImage(
+    image = await _imagePicker.pickImage(
       source: imageSource,
       imageQuality: 30,
     );
-
     if (image != null) {
-      _userRepo.uploadStudentImage(image).then((imageUrl) {
+      _userRepo.uploadStudentImage(image).then((imageUrl) async {
         selectedProfileImageUrl.value = imageUrl;
+        await _userRepo.updateStudentProfileImage(imageUrl);
+        await _storage.write(StorageKeys.studentPhotoUrl, imageUrl);
         EasyLoading.showSuccess(
             LocalizationKeys.profile_image_updated_successfully.tr);
         // await _homeViewModel.getTeacher();
