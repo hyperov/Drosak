@@ -14,6 +14,7 @@ class NotificationRepo {
             fromFirestore: (snapshot, _) =>
                 NotificationItem.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
+        .orderBy("date", descending: true)
         .snapshots();
   }
 

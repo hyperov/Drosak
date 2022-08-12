@@ -138,7 +138,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "-------------",
+                      "------",
                       style: TextStyle(fontSize: 20, color: Colors.black54),
                     ),
                     Text(
@@ -148,7 +148,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                         color: Colors.black54,
                       ),
                     ),
-                    const Text("-------------",
+                    const Text("------",
                         style: TextStyle(fontSize: 20, color: Colors.black54)),
                   ],
                 ).marginSymmetric(horizontal: 20),
