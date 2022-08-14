@@ -1,5 +1,8 @@
+import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../viewmodel/follows_viewmodel.dart';
@@ -14,6 +17,28 @@ class FollowsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           backgroundColor: ColorManager.redOrangeLight,
+          appBar: AppBar(
+            title: Stack(children: [
+              SvgPicture.asset(
+                AssetsManager.appbarBackGround,
+              ),
+              Container(
+                child: Text(
+                  LocalizationKeys.personal_info.tr,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                alignment: AlignmentDirectional.centerStart,
+              ),
+            ], alignment: Alignment.center),
+            toolbarHeight: 100,
+            titleTextStyle: const TextStyle(fontSize: 20),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(30),
+              ),
+            ),
+          ),
           body: _followsViewModel.isLoading.value
               ? const Center(child: CircularProgressIndicator())
               : _followsViewModel.follows.isNotEmpty

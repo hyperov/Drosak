@@ -17,28 +17,6 @@ class BookingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           backgroundColor: ColorManager.redOrangeLight,
-          appBar: AppBar(
-            title: Stack(children: [
-              SvgPicture.asset(
-                AssetsManager.appbarBackGround,
-              ),
-              Container(
-                child: Text(
-                  LocalizationKeys.personal_info.tr,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                alignment: AlignmentDirectional.centerStart,
-              ),
-            ], alignment: Alignment.center),
-            toolbarHeight: 100,
-            titleTextStyle: const TextStyle(fontSize: 20),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(30),
-              ),
-            ),
-          ),
           body: _bookingsViewModel.isLoading.value
               ? const Center(child: CircularProgressIndicator())
               : _bookingsViewModel.bookings.isNotEmpty
@@ -198,10 +176,20 @@ class BookingsScreen extends StatelessWidget {
                                       }),
                                     ),
                                     Text(
-                                        _bookingsViewModel
+                                        _bookingsViewModel.bookings[index]
+                                                    .teacherName.length <
+                                                15
+                                            ? _bookingsViewModel
                                                 .bookings[index].teacherName
-                                                .substring(0, 15) +
-                                            "...",
+                                            : _bookingsViewModel
+                                                    .bookings[index].teacherName
+                                                    .substring(
+                                                        0,
+                                                        _bookingsViewModel
+                                                            .bookings[index]
+                                                            .teacherName
+                                                            .length) +
+                                                "...",
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                           fontSize: 14,

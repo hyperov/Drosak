@@ -1,4 +1,4 @@
-import 'package:drosak/bookings/view/bookings_screen.dart';
+import 'package:drosak/follows/view/follows_screen.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -106,12 +106,12 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  Get.to(() => BookingsScreen());
+                  Get.to(() => const FollowsScreen());
                 },
                 child: ListTile(
                   leading: const Icon(Icons.calendar_month,
                       color: Colors.deepPurple),
-                  title: Text(LocalizationKeys.bookings.tr,
+                  title: Text(LocalizationKeys.follows.tr,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),

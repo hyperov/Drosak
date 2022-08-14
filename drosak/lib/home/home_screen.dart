@@ -1,6 +1,6 @@
+import 'package:drosak/bookings/view/bookings_screen.dart';
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/common/widgets/bottomsheet.dart';
-import 'package:drosak/follows/view/follows_screen.dart';
 import 'package:drosak/notifications/notifictations_screen.dart';
 import 'package:drosak/profile/view/main_profile_screen.dart';
 import 'package:drosak/teachers/teachers_list_screen.dart';
@@ -21,14 +21,14 @@ class HomeScreen extends StatelessWidget {
 
   final widgetOptions = [
     TeachersListScreen(),
-    const FollowsScreen(),
+    BookingsScreen(),
     const NotificationsScreen(),
     const ProfileScreen(),
   ];
 
   final widgetTitles = [
     LocalizationKeys.home.tr,
-    LocalizationKeys.follows.tr,
+    LocalizationKeys.bookings.tr,
     LocalizationKeys.news_teachers.tr,
     LocalizationKeys.profile.tr,
   ];
@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.people),
-                    label: LocalizationKeys.follows.tr,
+                    label: LocalizationKeys.bookings.tr,
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.notifications),

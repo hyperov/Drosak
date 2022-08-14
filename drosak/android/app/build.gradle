@@ -60,7 +60,10 @@ android {
         versionName flutterVersionName
 
         multiDexEnabled true
-
+        ndkVersion "25.0.8775105"
+        ndk {
+            debugSymbolLevel = 'FULL'
+        }
     }
 
     flavorDimensions "env"
