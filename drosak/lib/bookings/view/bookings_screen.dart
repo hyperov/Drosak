@@ -166,13 +166,11 @@ class BookingsScreen extends StatelessWidget {
                                           height: 70,
                                           fit: BoxFit.cover, errorBuilder:
                                               (context, error, stackTrace) {
-                                        return SvgPicture.asset(
-                                          AssetsManager.profilePlaceHolder,
+                                        return Image.asset(
+                                          AssetsManager.teacher_empty_profile,
                                           width: 70,
                                           height: 70,
-                                          color: Colors.white,
-                                          fit: BoxFit.cover,
-                                        ).marginAll(16);
+                                        );
                                       }),
                                     ),
                                     Text(
