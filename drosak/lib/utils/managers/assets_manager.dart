@@ -28,5 +28,5 @@ class AssetsManager {
   static String student_empty_profile =
       _imagesFolder + 'student_empty_profile_pic.png';
   static String teacher_empty_profile =
-      _imagesFolder + 'teacher_empty_profile_pic2.jpg';
+      _imagesFolder + 'teacher_empty_profile_pic.jpg';
 }
