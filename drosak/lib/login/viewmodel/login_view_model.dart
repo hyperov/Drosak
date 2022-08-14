@@ -144,7 +144,7 @@ class LoginViewModel extends GetxController {
               'The phone number session is invalid.';
         }
         // Handle other errors
-        errMessagePhoneTextField.value = e.message!;
+        errMessagePhoneTextField.value = LocalizationKeys.login_error.tr;
         _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
             LocalizationKeys.login_error.tr);
       },

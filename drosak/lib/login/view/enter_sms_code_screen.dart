@@ -279,7 +279,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurpleAccent,
+                    primary: ColorManager.deepPurple,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),

@@ -40,12 +40,12 @@ class UserRepo {
   Future<void> updateUserLoginStatus(User user) async {
     var fcmToken = _storage.read(StorageKeys.fcmToken);
 
-    await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(user.uid)
         .update({
       FireStoreNames.studentDocFieldIsLogin: true,
-      FireStoreNames.studentDocFieldLastSignInTime: DateTime.now(),
+      FireStoreNames.studentDocFieldLastSignInTime: Timestamp.now(),
       FireStoreNames.studentDocFieldFcmToken: fcmToken,
       FireStoreNames.studentDocFieldFcmTokenTimeStamp: Timestamp.now(),
     });
@@ -85,7 +85,7 @@ class UserRepo {
   }
 
   Future<void> updateFCMToken(String fcmToken) async {
-    await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .update({

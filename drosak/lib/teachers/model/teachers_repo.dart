@@ -44,6 +44,6 @@ class TeachersRepo {
         }
       }
     }
-    return await query.get();
+    return query.get();
   }
 }
