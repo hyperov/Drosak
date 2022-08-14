@@ -106,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                     label: LocalizationKeys.home.tr,
                   ),
                   BottomNavigationBarItem(
-                    icon: const Icon(Icons.people),
+                    icon: const Icon(Icons.calendar_month),
                     label: LocalizationKeys.bookings.tr,
                   ),
                   BottomNavigationBarItem(

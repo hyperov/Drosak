@@ -109,8 +109,7 @@ class ProfileScreen extends StatelessWidget {
                   Get.to(() => const FollowsScreen());
                 },
                 child: ListTile(
-                  leading: const Icon(Icons.calendar_month,
-                      color: Colors.deepPurple),
+                  leading: const Icon(Icons.people, color: Colors.deepPurple),
                   title: Text(LocalizationKeys.follows.tr,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),

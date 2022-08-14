@@ -24,7 +24,7 @@ class FollowsScreen extends StatelessWidget {
               ),
               Container(
                 child: Text(
-                  LocalizationKeys.personal_info.tr,
+                  LocalizationKeys.follows.tr,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
