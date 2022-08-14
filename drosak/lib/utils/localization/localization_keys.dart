@@ -156,6 +156,7 @@ class LocalizationKeys {
   static var settings = 'settings';
 
   static var bookings = 'bookings';
+  static var last_bookings = 'last_bookings';
 
   static var profile_updated_error = 'profile_updated_error';
   static var profile_updated_successfully = 'profile_updated_successfully';

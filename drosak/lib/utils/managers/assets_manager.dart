@@ -24,4 +24,9 @@ class AssetsManager {
   static const String school_hat = _imagesFolder + 'ic_square_academic_hat.svg';
   static String money = _imagesFolder + 'ic_money.svg';
   static String clock = _imagesFolder + 'ic_clock.svg';
+
+  static String student_empty_profile =
+      _imagesFolder + 'student_empty_profile_pic.png';
+  static String teacher_empty_profile =
+      _imagesFolder + 'teacher_empty_profile_pic2.jpg';
 }

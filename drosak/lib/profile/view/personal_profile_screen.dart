@@ -65,12 +65,10 @@ class PersonalProfileScreen extends StatelessWidget {
                           shape: const CircleBorder(),
                           child: Obx(() => _profileViewModel
                                   .selectedProfileImageUrl.isEmpty
-                              ? SvgPicture.asset(
-                                  AssetsManager.profilePlaceHolder,
+                              ? Image.asset(
+                                  AssetsManager.student_empty_profile,
                                   width: 100,
                                   height: 100,
-                                  color: Colors.white,
-                                  fit: BoxFit.cover,
                                 )
                               : Image.network(
                                   _profileViewModel
@@ -79,13 +77,11 @@ class PersonalProfileScreen extends StatelessWidget {
                                   height: 100,
                                   fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) {
-                                  return SvgPicture.asset(
-                                    AssetsManager.profilePlaceHolder,
-                                    width: 70,
-                                    height: 70,
-                                    color: Colors.white,
-                                    fit: BoxFit.cover,
-                                  ).marginAll(16);
+                                  return Image.asset(
+                                    AssetsManager.student_empty_profile,
+                                    width: 100,
+                                    height: 100,
+                                  );
                                 }))),
                       const Positioned(
                         child: CircleAvatar(

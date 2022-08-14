@@ -2,7 +2,6 @@ import 'package:drosak/follows/view/follows_screen.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../utils/localization/localization_keys.dart';
@@ -34,12 +33,10 @@ class ProfileScreen extends StatelessWidget {
                   shape: const CircleBorder(),
                   child: Obx(() =>
                       _profileViewModel.selectedProfileImageUrl.isEmpty
-                          ? SvgPicture.asset(
-                              AssetsManager.profilePlaceHolder,
+                          ? Image.asset(
+                              AssetsManager.student_empty_profile,
                               width: 100,
                               height: 100,
-                              fit: BoxFit.cover,
-                              color: Colors.white,
                             )
                           : Image.network(
                               _profileViewModel.selectedProfileImageUrl.value,
@@ -47,13 +44,11 @@ class ProfileScreen extends StatelessWidget {
                               height: 100,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
-                              return SvgPicture.asset(
-                                AssetsManager.profilePlaceHolder,
-                                width: 70,
-                                height: 70,
-                                color: Colors.white,
-                                fit: BoxFit.cover,
-                              ).marginAll(16);
+                              return Image.asset(
+                                AssetsManager.student_empty_profile,
+                                width: 100,
+                                height: 100,
+                              );
                             }))),
             ),
             Obx(() => Text(_profileViewModel.nameObserver.value,
@@ -143,50 +138,52 @@ class ProfileScreen extends StatelessWidget {
                 child: const ListTile(
                   leading: Icon(Icons.help, color: Colors.deepPurple),
                   title: Text('مساعدة',
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
             Card(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              child: InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(
-                            LocalizationKeys.app_logout.tr,
-                          ),
-                          content:
-                              Text(LocalizationKeys.logout_confirmation.tr),
-                          actions: [
-                            ElevatedButton(
-                              child: Text(LocalizationKeys.app_cancel.tr),
-                              onPressed: () {
-                                Get.back();
-                              },
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              LocalizationKeys.app_logout.tr,
                             ),
-                            ElevatedButton(
-                              child: Text(LocalizationKeys.app_logout.tr),
-                              onPressed: () {
-                                Navigator.pop(context);
-                                _profileViewModel.logout();
-                              },
-                            ),
-                          ],
-                        );
-                      });
-                },
-                child: ListTile(
-                  leading:
-                      const Icon(Icons.exit_to_app, color: Colors.deepPurple),
-                  title: Text(LocalizationKeys.app_logout.tr,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                            content:
+                                Text(LocalizationKeys.logout_confirmation.tr),
+                            actions: [
+                              ElevatedButton(
+                                child: Text(LocalizationKeys.app_cancel.tr),
+                                onPressed: () {
+                                  Get.back();
+                                },
+                              ),
+                              ElevatedButton(
+                                child: Text(LocalizationKeys.app_logout.tr),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  _profileViewModel.logout();
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  },
+                  child: ListTile(
+                    leading:
+                        const Icon(Icons.exit_to_app, color: Colors.deepPurple),
+                    title: Text(LocalizationKeys.app_logout.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ),
                 ),
-              ),
-            ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                )),
           ],
         ).marginOnly(bottom: 16),
       ),

@@ -74,14 +74,11 @@ class TeachersListScreen extends StatelessWidget {
                                                                   index]
                                                               .photoUrl
                                                               .isBlank!
-                                                          ? SvgPicture.asset(
+                                                          ? Image.asset(
                                                               AssetsManager
-                                                                  .profilePlaceHolder,
-                                                              width: 700,
+                                                                  .teacher_empty_profile,
+                                                              width: 70,
                                                               height: 70,
-                                                              fit: BoxFit.cover,
-                                                              color:
-                                                                  Colors.white,
                                                             )
                                                           : Image.network(
                                                               _teachersListViewModel
@@ -95,17 +92,13 @@ class TeachersListScreen extends StatelessWidget {
                                                                   (context,
                                                                       error,
                                                                       stackTrace) {
-                                                              return SvgPicture
+                                                              return Image
                                                                   .asset(
                                                                 AssetsManager
-                                                                    .profilePlaceHolder,
-                                                                width: 50,
-                                                                height: 50,
-                                                                color: Colors
-                                                                    .white,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ).marginAll(16);
+                                                                    .teacher_empty_profile,
+                                                                width: 70,
+                                                                height: 70,
+                                                              );
                                                             })),
                                                 ),
                                               ),

@@ -79,12 +79,10 @@ class TeacherDetailsScreen extends StatelessWidget {
                   ),
                   child:
                       _teachersListViewModel.selectedTeacher.photoUrl.isBlank!
-                          ? SvgPicture.asset(
-                              AssetsManager.profilePlaceHolder,
+                          ? Image.asset(
+                              AssetsManager.teacher_empty_profile,
                               width: 100,
                               height: 100,
-                              fit: BoxFit.cover,
-                              color: Colors.white,
                             )
                           : Image.network(
                               _teachersListViewModel.selectedTeacher.photoUrl!,
@@ -92,13 +90,11 @@ class TeacherDetailsScreen extends StatelessWidget {
                               height: 100,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
-                              return SvgPicture.asset(
-                                AssetsManager.profilePlaceHolder,
+                              return Image.asset(
+                                AssetsManager.teacher_empty_profile,
                                 width: 100,
                                 height: 100,
-                                color: Colors.white,
-                                fit: BoxFit.cover,
-                              ).marginAll(16);
+                              );
                             }),
                 ),
               ),

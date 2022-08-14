@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
 
   final widgetTitles = [
     LocalizationKeys.home.tr,
-    LocalizationKeys.bookings.tr,
+    LocalizationKeys.last_bookings.tr,
     LocalizationKeys.news_teachers.tr,
     LocalizationKeys.profile.tr,
   ];
