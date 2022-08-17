@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
 
   final widgetOptions = [
     TeachersListScreen(),
-    BookingsScreen(),
+    const BookingsScreen(),
     const NotificationsScreen(),
     const ProfileScreen(),
   ];

@@ -9,9 +9,9 @@ import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 
 class BookingsScreen extends StatelessWidget {
-  BookingsScreen({Key? key}) : super(key: key);
+  const BookingsScreen({Key? key}) : super(key: key);
 
-  final BookingsViewModel _bookingsViewModel = Get.find();
+  BookingsViewModel get _bookingsViewModel => Get.find();
 
   @override
   Widget build(BuildContext context) {
