@@ -393,4 +393,13 @@ class ProfileViewModel extends GetxController {
       );
     }
   }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    nameController.value.dispose();
+    phoneController.value.dispose();
+    emailController.value.dispose();
+  }
 }

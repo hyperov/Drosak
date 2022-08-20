@@ -1,3 +1,4 @@
+import 'package:drosak/common/model/empty_widget.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +71,8 @@ class PostsScreen extends StatelessWidget {
                               },
                               physics: const BouncingScrollPhysics())
                           .marginOnly(top: 8, bottom: 8)
-                      : Center(
-                          child:
-                              Text(LocalizationKeys.follow_teacher_no_posts.tr))
+                      : EmptyView(
+                          title: LocalizationKeys.follow_teacher_no_posts.tr)
                   : const Center(child: Text('No posts yet')),
         ));
   }
