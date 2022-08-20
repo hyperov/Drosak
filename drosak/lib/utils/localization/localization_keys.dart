@@ -231,4 +231,8 @@ class LocalizationKeys {
   static var teachers_not_found = 'teachers_not_found';
 
   static var bookings_not_found = 'bookings_not_found';
+
+  static var price_from = 'price_from';
+
+  static var price_to = 'price_to';
 }

@@ -237,8 +237,9 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
               ),
-              onPressed: () {
-                filterViewModel.resetFilters();
+              onPressed: () async {
+                await filterViewModel.resetFilters();
+                Get.back();
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

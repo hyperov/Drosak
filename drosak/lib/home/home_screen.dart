@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       showFilterBottomSheet(_filterViewModel);
                     },
-                    icon: Icon(Icons.filter_list),
+                    icon: const Icon(Icons.filter_list),
                     backgroundColor: ColorManager.blueDark,
                     label: Text(LocalizationKeys.filter.tr),
                   )
@@ -73,8 +73,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: SafeArea(
-            child: Container(
+        bottomNavigationBar: Container(
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(50),
@@ -125,8 +124,13 @@ class HomeScreen extends StatelessWidget {
               );
             }),
           ),
-        )),
-        body: Obx(() => widgetOptions
-            .elementAt(_homeViewModel.bottomNavigationIndex.value)));
+        ),
+        body: Obx(() => _homeViewModel.bottomNavigationIndex.value != 0
+            ? widgetOptions
+                .elementAt(_homeViewModel.bottomNavigationIndex.value)
+            : SafeArea(
+                child: Obx(() => widgetOptions
+                    .elementAt(_homeViewModel.bottomNavigationIndex.value)),
+              )));
   }
 }

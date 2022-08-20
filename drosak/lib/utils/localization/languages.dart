@@ -150,6 +150,8 @@ class Languages extends Translations {
           LocalizationKeys.lectures_not_found: 'No Lectures Found',
           LocalizationKeys.teachers_not_found: 'No Teachers Found',
           LocalizationKeys.bookings_not_found: 'bookings_not_found',
+          LocalizationKeys.price_from: 'Price From',
+          LocalizationKeys.price_to: 'Price To',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -294,6 +296,8 @@ class Languages extends Translations {
           LocalizationKeys.lectures_not_found: 'لا يوجد حصص حتى الآن',
           LocalizationKeys.teachers_not_found: 'لا يوجد مدرسين',
           LocalizationKeys.bookings_not_found: 'لا يوجد حجوزات حتى الآن',
+          LocalizationKeys.price_from: 'السعر من',
+          LocalizationKeys.price_to: 'السعر إلى',
         },
       };
 }

@@ -16,6 +16,8 @@ class FilterViewModel extends GetxController {
   RxDouble sliderStartValue = _minRating.obs;
   RxDouble sliderEndValue = _maxRating.obs;
 
+  RxList<String> selectedFilters = <String>[].obs;
+
   var materials = [
     FilterChipModel(name: LocalizationKeys.arabic.tr.obs, isSelected: false.obs)
         .obs,
@@ -81,7 +83,7 @@ class FilterViewModel extends GetxController {
         selectedMaterials: selectedMaterials);
   }
 
-  void resetFilters() {
+  Future<void> resetFilters() async {
     selectEducationSecondary.value = false;
     selectEducationPrep.value = false;
 
@@ -91,6 +93,34 @@ class FilterViewModel extends GetxController {
     for (var filterModel in materials) {
       filterModel.value.isSelected.value = false;
     }
+
+    selectedFilters.clear();
     isFilterApplied = false;
+
+    await applyFilter();
+    addSelectedFiltersOnHomeScreen();
+  }
+
+  RxList<String> addSelectedFiltersOnHomeScreen() {
+    if (selectEducationPrep.value) {
+      selectedFilters.add(LocalizationKeys.education_prep.tr);
+    }
+    if (selectEducationSecondary.value) {
+      selectedFilters.add(LocalizationKeys.education_secondary.tr);
+    }
+    for (var materialFilter in materials) {
+      if (materialFilter.value.isSelected.value) {
+        selectedFilters.add(materialFilter.value.name.value);
+      }
+    }
+    if (sliderStartValue.value != _minRating) {
+      selectedFilters.add(
+          LocalizationKeys.price_from.tr + sliderStartValue.value.toString());
+    }
+    if (sliderEndValue.value != _maxRating) {
+      selectedFilters
+          .add(LocalizationKeys.price_to.tr + sliderEndValue.value.toString());
+    }
+    return selectedFilters;
   }
 }
