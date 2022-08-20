@@ -31,7 +31,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
     }, condition: () => _loginViewModel.errorSnackBarShow.value);
 
     ever(_loginViewModel.isCodeSent, (callback) {
-      Get.to(() => EnterSmsCodeScreen());
+      Get.off(() => EnterSmsCodeScreen());
       _loginViewModel.isCodeSent.value = false;
     }, condition: () => _loginViewModel.isCodeSent.value);
 
