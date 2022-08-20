@@ -73,7 +73,7 @@ class PostsScreen extends StatelessWidget {
                           .marginOnly(top: 8, bottom: 8)
                       : EmptyView(
                           title: LocalizationKeys.follow_teacher_no_posts.tr)
-                  : const Center(child: Text('No posts yet')),
+                  : const EmptyView(title: 'لا يوجد أخبار'),
         ));
   }
 }

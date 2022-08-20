@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/src/panel.dart';
 
+import '../common/model/empty_widget.dart';
 import '../utils/localization/localization_keys.dart';
 import 'viewmodel/lectures_viewmodel.dart';
 
@@ -182,9 +183,7 @@ class LecturesScreen extends StatelessWidget {
                       itemCount: _lecturesViewModel.lectures.length,
                       physics: const BouncingScrollPhysics(),
                     ).marginOnly(top: 16)
-                  : Center(
-                      child: Text(LocalizationKeys.lectures_not_found.tr),
-                    ),
+                  : EmptyView(title: LocalizationKeys.lectures_not_found.tr),
         ));
   }
 }

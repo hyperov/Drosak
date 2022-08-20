@@ -227,4 +227,8 @@ class LocalizationKeys {
   static var news_teachers = 'news_teachers';
 
   static var lecture_already_booked = 'lecture_already_booked';
+
+  static var teachers_not_found = 'teachers_not_found';
+
+  static var bookings_not_found = 'bookings_not_found';
 }

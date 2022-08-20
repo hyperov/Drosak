@@ -1,4 +1,5 @@
 import 'package:drosak/bookings/viewmodel/booking_view_model.dart';
+import 'package:drosak/common/model/empty_widget.dart';
 import 'package:drosak/common/widgets/dialogs.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
@@ -47,6 +48,14 @@ class BookingsScreen extends StatelessWidget {
                                         .bookings[index].classLevel),
                                     Text(_bookingsViewModel
                                         .bookings[index].material),
+                                    Text(
+                                      Jiffy(_bookingsViewModel
+                                              .bookings[index].lecDate)
+                                          .format("dd MMMM"),
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -60,14 +69,8 @@ class BookingsScreen extends StatelessWidget {
                                             .bookings[index].area),
                                       ],
                                     ),
-                                    Text(
-                                      Jiffy(_bookingsViewModel
-                                              .bookings[index].lecDate)
-                                          .format("dd MMMM"),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
+                                    Text(_bookingsViewModel
+                                        .bookings[index].address),
                                     const SizedBox(height: 16),
                                     Row(
                                         mainAxisAlignment:
@@ -181,12 +184,7 @@ class BookingsScreen extends StatelessWidget {
                                                 .bookings[index].teacherName
                                             : _bookingsViewModel
                                                     .bookings[index].teacherName
-                                                    .substring(
-                                                        0,
-                                                        _bookingsViewModel
-                                                            .bookings[index]
-                                                            .teacherName
-                                                            .length) +
+                                                    .substring(0, 15) +
                                                 "...",
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
@@ -215,9 +213,7 @@ class BookingsScreen extends StatelessWidget {
                       itemCount: _bookingsViewModel.bookings.length,
                       physics: const BouncingScrollPhysics(),
                     ).marginOnly(top: 16)
-                  : Center(
-                      child: Text(LocalizationKeys.lectures_not_found.tr),
-                    ),
+                  : EmptyView(title: LocalizationKeys.bookings_not_found.tr),
         ));
   }
 }

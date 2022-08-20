@@ -1,3 +1,4 @@
+import 'package:drosak/common/model/empty_widget.dart';
 import 'package:drosak/extensions/teacher_extensions.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
@@ -193,6 +194,6 @@ class TeachersListScreen extends StatelessWidget {
                         itemCount: _teachersListViewModel.teachersList.length)
                     .paddingOnly(top: 20)
                     .marginSymmetric(horizontal: 16)
-                : const Center(child: Text("No teachers found"))));
+                : EmptyView(title: LocalizationKeys.teachers_not_found.tr)));
   }
 }

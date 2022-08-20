@@ -1,3 +1,4 @@
+import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -9,17 +10,17 @@ class EmptyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return EmptyWidget(
       image: null,
-      packageImage: PackageImage.Image_1,
-      title: title,
+      packageImage: PackageImage.Image_3,
+      title: title, hideBackgroundAnimation: true,
       // subTitle: 'No  notification available yet',
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
         fontSize: 22,
-        color: Color(0xff9da9c7),
-        fontWeight: FontWeight.w500,
+        color: ColorManager.blueDark,
+        fontWeight: FontWeight.bold,
       ),
-      subtitleTextStyle: TextStyle(
+      subtitleTextStyle: const TextStyle(
         fontSize: 14,
-        color: Color(0xffabb8d6),
+        color: ColorManager.goldenYellow,
       ),
     );
   }

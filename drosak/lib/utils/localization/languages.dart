@@ -147,6 +147,9 @@ class Languages extends Translations {
           LocalizationKeys.loading: 'Loading...',
           LocalizationKeys.lecture_already_booked:
               'you already booked this lecture',
+          LocalizationKeys.lectures_not_found: 'No Lectures Found',
+          LocalizationKeys.teachers_not_found: 'No Teachers Found',
+          LocalizationKeys.bookings_not_found: 'bookings_not_found',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -288,6 +291,9 @@ class Languages extends Translations {
           LocalizationKeys.notifications_not_found: 'لا يوجد إشعارات',
           LocalizationKeys.loading: 'جاري التحميل ...',
           LocalizationKeys.lecture_already_booked: 'تم حجز الحصة بالفعل',
+          LocalizationKeys.lectures_not_found: 'لا يوجد حصص حتى الآن',
+          LocalizationKeys.teachers_not_found: 'لا يوجد مدرسين',
+          LocalizationKeys.bookings_not_found: 'لا يوجد حجوزات حتى الآن',
         },
       };
 }
