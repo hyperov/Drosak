@@ -235,4 +235,6 @@ class LocalizationKeys {
   static var price_from = 'price_from';
 
   static var price_to = 'price_to';
+
+  static var noFollows = 'noFollows';
 }

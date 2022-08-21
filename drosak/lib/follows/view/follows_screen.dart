@@ -1,3 +1,4 @@
+import 'package:drosak/common/model/empty_widget.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
@@ -51,7 +52,7 @@ class FollowsScreen extends StatelessWidget {
                           index: index,
                         ).marginSymmetric(horizontal: 16);
                       }).paddingOnly(top: 20))
-                  : const Center(child: Text("No follows found")),
+                  : EmptyView(title: LocalizationKeys.noFollows.tr),
         ));
   }
 }

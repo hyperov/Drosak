@@ -152,6 +152,7 @@ class Languages extends Translations {
           LocalizationKeys.bookings_not_found: 'bookings_not_found',
           LocalizationKeys.price_from: 'Price From',
           LocalizationKeys.price_to: 'Price To',
+          LocalizationKeys.noFollows: 'You  have no Teachers to follow yet',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -238,6 +239,7 @@ class Languages extends Translations {
           LocalizationKeys.review_added: 'تمت إضافة تقييمك',
           LocalizationKeys.reviews: 'التقييمات',
           LocalizationKeys.no_reviews: 'لا يوجد تقييمات حتى الآن',
+          LocalizationKeys.noFollows: 'لا يوجد متابعين حتى الآن',
           LocalizationKeys.review_text_hint: 'اكتب تقييمك (اختياري)',
           LocalizationKeys.review_already_rated_teacher:
               'لقد قمت بالفعل بتقييم هذا المدرس من قبل',
@@ -298,6 +300,7 @@ class Languages extends Translations {
           LocalizationKeys.bookings_not_found: 'لا يوجد حجوزات حتى الآن',
           LocalizationKeys.price_from: 'السعر من',
           LocalizationKeys.price_to: 'السعر إلى',
+          LocalizationKeys.noFollows: 'لم تتابع أي مدرس حتى الآن',
         },
       };
 }
