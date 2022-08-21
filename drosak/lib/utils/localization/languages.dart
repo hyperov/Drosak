@@ -37,8 +37,6 @@ class Languages extends Translations {
           LocalizationKeys.facebook_login_error:
               'Login with Facebook error happened !',
           LocalizationKeys.government_cairo: 'Cairo',
-          LocalizationKeys.area_saft: 'Saft',
-          LocalizationKeys.area_dokki: 'Dokki',
           LocalizationKeys.choose_government: 'Choose government',
           LocalizationKeys.choose_area: 'Choose area',
           LocalizationKeys.choose_sex: 'Choose type',
@@ -374,8 +372,6 @@ class Languages extends Translations {
           LocalizationKeys.noFollows: 'لم تتابع أي مدرس حتى الآن',
           LocalizationKeys.government_cairo: 'القاهرة',
           LocalizationKeys.government_giza: 'الجيزة',
-          LocalizationKeys.area_saft: 'صفت اللبن',
-          LocalizationKeys.area_dokki: 'الدقي',
 
           //cairo area
           LocalizationKeys.cairo_nasrCity: 'مدينة نصر',

@@ -69,9 +69,6 @@ class LocalizationKeys {
   static var government_cairo = "government_cairo";
   static var government_giza = "government_giza";
 
-  static var area_saft = "area_saft";
-  static var area_dokki = "area_dokki";
-
   static var male = "male";
   static var female = "female";
 
