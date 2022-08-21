@@ -27,9 +27,11 @@ showListBottomSheet(
                   leading: leadingIcons[index],
                   title: Text(
                     texts[index],
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   selected: selectedText.value == texts[index],
+                  selectedTileColor: ColorManager.redOrangeLight,
+                  selectedColor: ColorManager.lightPurple,
                   onTap: () {
                     selectedText.value = texts[index];
                     FocusManager.instance.primaryFocus?.unfocus();

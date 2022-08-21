@@ -237,4 +237,174 @@ class LocalizationKeys {
   static var price_to = 'price_to';
 
   static var noFollows = 'noFollows';
+
+  //cairo areas
+  static var cairo_nasrCity = 'cairo_nasrCity';
+  static var cairo_masr_gedida = 'cairo_masr_gedida';
+  static var cairo_maady = 'cairo_maady';
+  static var cairo_sayeda_zynab = 'cairo_sayeda_zynab';
+  static var cairo_al_mokattam = 'cairo_al_mokattam';
+  static var cairo_ain_shams = 'cairo_ain_shams';
+  static var cairo_masra = 'cairo_masra';
+  static var cairo_al_salam = 'cairo_al_salam';
+  static var cairo_al_marg = 'cairo_al_marg';
+  static var cairo_7lwan = 'cairo_7lwan';
+  static var cairo_mataria = 'cairo_mataria';
+  static var cairo_nozha = 'cairo_nozha';
+  static var cairo_west_balad = 'cairo_west_balad';
+  static var cairo_azbkya = 'cairo_azbkya';
+  static var cairo_moskey = 'cairo_moskey';
+  static var cairo_waily = 'cairo_waily';
+  static var cairo_bab_sh3rya = 'cairo_bab_sh3rya';
+  static var cairo_bola2 = 'cairo_bola2';
+  static var cairo_eltben = 'cairo_eltben';
+  static var cairo_3abden = 'cairo_3abden';
+  static var cairo_3arb = 'cairo_3arb';
+  static var cairo_monsh2t_nasr = 'cairo_monsh2t_nasr';
+  static var cairo_mayo_15 = 'cairo_mayo_15';
+  static var cairo_al_basaten = 'cairo_al_basaten';
+  static var cairo_al_5alefa = 'cairo_al_5alefa';
+  static var cairo_dar_salam = 'cairo_dar_salam';
+  static var cairo_torra = 'cairo_dorra';
+  static var cairo_misr_2adema = 'cairo_misr_2adema';
+  static var cairo_amiria = 'cairo_amiria';
+  static var cairo_zawya = 'cairo_zawya';
+  static var cairo_zyton = 'cairo_zyton';
+  static var cairo_sahel = 'cairo_sahel';
+  static var cairo_sharabya = 'cairo_sharabya';
+  static var cairo_7dayk_2obba = 'cairo_7dayk_2obba';
+  static var cairo_7dayk_maady = 'cairo_7dayk_maady';
+  static var cairo_rod_elfarag = 'cairo_rod_elfarag';
+  static var cairo_shobra = 'cairo_shobra';
+  static var cairo_tagamo3 = 'cairo_tagamo3';
+  static var cairo_zamalek = 'cairo_zamalek';
+
+  //giza areas
+  static var giza_dokki_or_mohandessen = 'giza_dokki_or_mohandessen';
+  static var giza_agoza = 'giza_agoza';
+  static var giza_kitkat = 'giza_kitkat';
+  static var giza_embaba = 'giza_embaba';
+  static var giza_warrak = 'giza_warrak';
+  static var giza_7dayk_ahram = 'giza_7dayk_ahram';
+  static var giza_3yad = 'giza_3yad';
+  static var giza_kedasa = 'giza_kedasa';
+  static var giza_awsym = 'giza_awsym';
+  static var giza_mansorya = 'giza_mansorya';
+  static var giza_nahya = 'giza_nahya';
+  static var giza_saft = 'giza_saft';
+  static var giza_monsh2t_elbakary = 'giza_monsh2t_elbakary';
+  static var giza_she5_zayed = 'giza_she5_zayed';
+  static var giza_bolak_dakror = 'giza_bolak_dakror';
+  static var giza_midan_lebnan = 'giza_midan_lebnan';
+  static var giza_met_3o2ba = 'giza_met_3o2ba';
+  static var giza_medan_gam3a = 'giza_medan_gam3a';
+  static var giza_midan_giza = 'giza_midan_giza';
+  static var giza_haram = 'giza_haram';
+  static var giza_faisel = 'giza_faisel';
+  static var giza_omranya = 'giza_omranya';
+  static var giza_om_masryyn = 'giza_faisel';
+  static var giza_m2mon = 'giza_m2mon';
+  static var giza_6_october = 'giza_6_october';
+  static var giza_sa2ya_mky = 'giza_sa2ya_mky';
+  static var giza_monyb = 'giza_monyb';
+  static var giza_tersa = 'giza_tersa';
+
+  static var giza_hawamdya = 'giza_hawamdya';
+  static var giza_3zyzya = 'giza_3zyzya';
+  static var giza_s2ara = 'giza_s2ara';
+  static var giza_bdrshen = 'giza_bdrshen';
+
+  //used giza areas
+  /**
+  المهندسين او الدقى
+  العجوزة
+  الكيت كات
+  إمبابة
+  الوراق
+  حدائق الأهرام
+
+  العياط
+  كرداسة
+  أوسيم
+  المنصورية
+  الشيخ زايد
+  ناهيا
+  صفط
+  منشأة البكاري
+  بولاق الدكرور
+
+  ميدان لبنان
+  ميت عقبة
+  ميدان الجامعة وحديقة الحيوان
+  ميدان الجيزة
+  الهرم
+  فيصل
+  العمرانية
+  أم المصريين
+  المأمون
+  6 أكتوبر
+  ساقية مكي
+  المنيب
+  ترسا
+  الحوامدية
+  العزيزية
+  سقارة
+  البدرشين
+  **/
+
+  // وراق العرب
+  // منشأة رضوان
+  // طناش
+  // جزيرة محمد
+  // برقاش
+  // نكلا
+  // بشتيل
+  // البراجيل
+  // كفر حكيم
+  // أبو رواش
+  // المنطقة الصناعية
+  // القطا
+  // المنطقة الاستثمارية
+  // بني مجدول
+  // المعتمدية
+  // كفر غطاطي
+  // كفر الملكة
+  // كفر طهرمس
+  // مجمع الجيزة ومحطة قطار الجيزة والمحكمة
+  // أبو هريرة
+  // سوق الأحد
+  // أمير الجيش
+  // نادي رابعة
+  // شوكلى
+  // مساكن بنزايون
+  // جزيرة الدهب وكولدير
+  // جزيرة البحرين) القرية الفرعونية (الساقية)
+  // كولدير (الجزيرة)
+  // أول الدائري والموقف
+  // ميدان المنيب
+  // القصبجي
+  // عزبة شريف باشا ترك
+  // عزبة البكباشي
+  // أبو النمرس
+  // نزلة الأشطر
+  // بني يوسف
+  // الحرانية
+  // زاوية أبو مسلم
+  // منيل شيحة
+  // ميت قادوس
+  // أبو صير
+  // ميت شماس
+  // المنوات
+  // طموه  ا
+  // لشيخ عتمان
+  // أم خنان
+  // طرفاية
+  // المرازيق
+  // أبو رجوان
+  // الشوبك
+  // دهشور
+  // الغمازة
+  // الصف
+  // كفر ترك
+  // منشأة أبي العباس .
 }

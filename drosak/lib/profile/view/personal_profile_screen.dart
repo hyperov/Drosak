@@ -154,19 +154,15 @@ class PersonalProfileScreen extends StatelessWidget {
                 children: [
                   Text(LocalizationKeys.choose_government.tr),
                   const SizedBox(height: 8),
-                  FullWidthTextField(leadingIcons: const [
-                    Icon(
-                      Icons.location_city,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                    Icon(
-                      Icons.location_city,
-                      color: Colors.deepPurpleAccent,
-                    )
-                  ], texts: [
-                    LocalizationKeys.government_cairo.tr,
-                    LocalizationKeys.government_giza.tr
-                  ], selectedText: _profileViewModel.selectedGovernmentName),
+                  FullWidthTextField(
+                      leadingIcons: List.generate(
+                          _profileViewModel.governments.length,
+                          (index) => const Icon(
+                                Icons.location_city,
+                                color: Colors.deepPurpleAccent,
+                              )),
+                      texts: _profileViewModel.governments,
+                      selectedText: _profileViewModel.selectedGovernmentName),
                 ],
               )),
               const SizedBox(width: 10),
@@ -176,19 +172,21 @@ class PersonalProfileScreen extends StatelessWidget {
                 children: [
                   Text(LocalizationKeys.choose_area.tr),
                   const SizedBox(height: 8),
-                  FullWidthTextField(leadingIcons: const [
-                    Icon(
-                      Icons.location_city,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                    Icon(
-                      Icons.location_city,
-                      color: Colors.deepPurpleAccent,
-                    )
-                  ], texts: [
-                    LocalizationKeys.area_saft.tr,
-                    LocalizationKeys.area_dokki.tr
-                  ], selectedText: _profileViewModel.selectedAreaName),
+                  Obx(() => FullWidthTextField(
+                      leadingIcons: List.generate(
+                          _profileViewModel.selectedGovernmentName.value ==
+                                  _profileViewModel.governments[0]
+                              ? _profileViewModel.areasCairo.length
+                              : _profileViewModel.areasGiza.length,
+                          (index) => const Icon(
+                                Icons.location_city,
+                                color: Colors.deepPurpleAccent,
+                              )),
+                      texts: _profileViewModel.selectedGovernmentName.value ==
+                              _profileViewModel.governments[0]
+                          ? _profileViewModel.areasCairo
+                          : _profileViewModel.areasGiza,
+                      selectedText: _profileViewModel.selectedAreaName)),
                 ],
               )),
             ]),
