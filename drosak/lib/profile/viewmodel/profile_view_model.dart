@@ -383,6 +383,12 @@ class ProfileViewModel extends GetxController {
     return LocalizationKeys.profile_updated_error.tr;
   }
 
+  bool isEmailPrimary() {
+    var providerId =
+        FirebaseAuth.instance.currentUser?.providerData[0].providerId;
+    return providerId == 'facebook.com' || providerId == 'google.com';
+  }
+
   String? _validatePhone() {
     var phone = phoneController.value.text;
     if (phone.isEmpty) {
@@ -408,7 +414,10 @@ class ProfileViewModel extends GetxController {
     var email = emailController.value.text;
     if (email.isEmpty) {
       errMessageEmailTextField.value = LocalizationKeys.email_error_empty.tr;
-      return LocalizationKeys.email_error_empty.tr;
+      if (isEmailPrimary()) {
+        return LocalizationKeys.email_error_empty.tr;
+      }
+      return null;
     }
     if (!RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         .hasMatch(email)) {
