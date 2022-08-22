@@ -96,6 +96,7 @@ class ProfileViewModel extends GetxController {
     LocalizationKeys.cairo_7dayk_maady.tr,
     LocalizationKeys.cairo_tagamo3.tr,
     LocalizationKeys.cairo_zamalek.tr,
+    LocalizationKeys.cairo_obor.tr,
   ];
 
   final List<String> areasGiza = [

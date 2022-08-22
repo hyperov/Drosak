@@ -275,6 +275,7 @@ class LocalizationKeys {
   static var cairo_shobra = 'cairo_shobra';
   static var cairo_tagamo3 = 'cairo_tagamo3';
   static var cairo_zamalek = 'cairo_zamalek';
+  static var cairo_obor = 'cairo_obor';
 
   //giza areas
   static var giza_dokki_or_mohandessen = 'giza_dokki_or_mohandessen';
