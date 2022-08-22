@@ -394,6 +394,9 @@ class ProfileViewModel extends GetxController {
     if (phone.isEmpty) {
       errMessagePhoneTextField.value =
           LocalizationKeys.phone_number_error_empty.tr;
+      if (isEmailPrimary()) {
+        return null;
+      }
       return LocalizationKeys.phone_number_error_empty.tr;
     }
     if (phone.length != 11) {

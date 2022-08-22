@@ -126,7 +126,7 @@ class PersonalProfileScreen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                     labelText: LocalizationKeys.phone_number.tr,
-                    hintText: '011xxxxxxxx',
+                    hintText: '01xxxxxxxxx',
                     errorText: _profileViewModel.errMessagePhoneTextField.value,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18),
