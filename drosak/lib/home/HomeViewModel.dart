@@ -27,10 +27,10 @@ class HomeViewModel extends RxController {
     if (!isInitNotification!) {
       return;
     }
-    await checkForUpdate();
+    checkForUpdate();
   }
 
-  Future<void> checkForUpdate() async {
+  void checkForUpdate() {
     InAppUpdate.checkForUpdate().then((info) {
       _updateInfo = info;
       print('update init success');
