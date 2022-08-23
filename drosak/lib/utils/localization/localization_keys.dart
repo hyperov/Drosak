@@ -203,7 +203,7 @@ class LocalizationKeys {
   static var delete_follow = 'delete_follow';
 
   static var follows2 = 'follows2';
-  static var follow_teacher_no_posts = 'follow_teacher_no_posts';
+  static var no_posts = 'follow_teacher_no_posts';
 
   static var rate_teacher = 'rate_teacher';
 

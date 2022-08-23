@@ -60,8 +60,7 @@ class Languages extends Translations {
           LocalizationKeys.follows: 'Follows',
           LocalizationKeys.follows2: 'Follows',
           LocalizationKeys.followers: 'Followers',
-          LocalizationKeys.follow_teacher_no_posts:
-              'You have to follow this teacher to see his news',
+          LocalizationKeys.no_posts: 'This teacher has no news yet',
           LocalizationKeys.notifications: 'Notifications',
           LocalizationKeys.news: 'News',
           LocalizationKeys.news_teachers: 'Teachers news',
@@ -356,8 +355,7 @@ class Languages extends Translations {
           LocalizationKeys.following: 'متابعة',
           LocalizationKeys.follow_delete_question:
               'هل أنت متأكد من الغاء المتابعة؟',
-          LocalizationKeys.follow_teacher_no_posts:
-              'لازم تتابع المدرس عشان تقدر تشوف الاخبار اللى منزلها',
+          LocalizationKeys.no_posts: 'المدرس لسه منزلش أخبار جديدة',
           LocalizationKeys.booking_delete_question:
               'هل أنت متأكد من الغاء الحجز؟',
           LocalizationKeys.app_yes: 'نعم',
