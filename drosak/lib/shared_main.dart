@@ -1,4 +1,3 @@
-import 'package:drosak/app/main_app.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -45,8 +44,6 @@ Future<void> sharedMain() async {
     }
   });
   initializeEasyLoading();
-
-  runApp(const MainApp());
 }
 
 _saveFcmToken(String token) async {

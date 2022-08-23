@@ -63,6 +63,7 @@ dependencies:
   flutter_easyloading: ^3.0.5
   workmanager: ^0.5.0
   empty_widget: ^0.0.5
+  in_app_update: ^3.0.0
 
 flutter_native_splash:
   color: "#ffc2c0"
