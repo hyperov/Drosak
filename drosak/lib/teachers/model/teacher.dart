@@ -28,6 +28,7 @@ class Teacher {
   int? priceMax;
   DateTime? lastScanTime; //can't exceed the expiration date
   int? scansPerMonth;
+  List<String>? areasOfLectures;
 
   Teacher(
       {this.id,
@@ -56,7 +57,8 @@ class Teacher {
       this.priceMin,
       this.priceMax,
       this.lastScanTime,
-      this.scansPerMonth}); //5 and decrease by 1 every scan
+      this.scansPerMonth, //5 and decrease by 1 every scan
+      this.areasOfLectures});
 
   factory Teacher.fromJson(Map<String, dynamic> json) => Teacher(
         id: json['id'],
@@ -86,6 +88,7 @@ class Teacher {
         priceMax: json['price_max'],
         lastScanTime: (json['last_scan_time'] as Timestamp).toDate(),
         scansPerMonth: json['scansPerMon'],
+        areasOfLectures: List<String>.from(json['areas']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -116,5 +119,6 @@ class Teacher {
         'price_max': priceMax,
         'last_scan_time': lastScanTime,
         'scansPerMon': scansPerMonth,
+        'areas': areasOfLectures,
       };
 }

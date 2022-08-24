@@ -49,217 +49,378 @@ showListBottomSheet(
       ));
 }
 
-showFilterBottomSheet(FilterViewModel filterViewModel) {
+showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
   Get.bottomSheet(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          LocalizationKeys.choose_education.tr,
-          textAlign: TextAlign.start,
-        ).marginSymmetric(horizontal: 16),
-        Theme(
-          data: ThemeData(
-            fontFamily: 'Roboto',
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    DraggableScrollableSheet(
+      initialChildSize: 0.8,
+      //set this as you want
+      maxChildSize: 0.9,
+      //set this as you want
+      minChildSize: 0.6,
+      //set this as you want
+      expand: false,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return SingleChildScrollView(
+          controller: scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Obx(() => FilterChip(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    label: Text(
-                      LocalizationKeys.education_secondary.tr,
-                      style: filterViewModel.selectEducationSecondary.value
-                          ? const TextStyle(color: Colors.white)
-                          : const TextStyle(color: Colors.black),
-                    ),
-                    avatar: Icon(Icons.school,
-                        color: filterViewModel.selectEducationSecondary.value
-                            ? Colors.white
-                            : ColorManager.blueLight),
-                    selected: filterViewModel.selectEducationSecondary.value,
-                    showCheckmark: false,
-                    backgroundColor: Colors.transparent,
-                    elevation: 2,
-                    pressElevation: 6,
-                    shape: const StadiumBorder(side: BorderSide()),
-                    avatarBorder: const CircleBorder(
-                        side: BorderSide(color: Colors.grey)),
-                    onSelected: (bool selected) {
-                      filterViewModel.isFilterApplied = true;
-                      filterViewModel.selectEducationSecondary.value = selected;
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                LocalizationKeys.choose_education.tr,
+                textAlign: TextAlign.start,
+              ).marginSymmetric(horizontal: 16),
+              Theme(
+                data: ThemeData(
+                  fontFamily: 'Roboto',
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Obx(() => FilterChip(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          label: Text(
+                            LocalizationKeys.education_secondary.tr,
+                            style:
+                                filterViewModel.selectEducationSecondary.value
+                                    ? const TextStyle(color: Colors.white)
+                                    : const TextStyle(color: Colors.black),
+                          ),
+                          avatar: Icon(Icons.school,
+                              color:
+                                  filterViewModel.selectEducationSecondary.value
+                                      ? Colors.white
+                                      : ColorManager.blueLight),
+                          selected:
+                              filterViewModel.selectEducationSecondary.value,
+                          showCheckmark: false,
+                          backgroundColor: Colors.transparent,
+                          elevation: 2,
+                          pressElevation: 6,
+                          shape: const StadiumBorder(side: BorderSide()),
+                          avatarBorder: const CircleBorder(
+                              side: BorderSide(color: Colors.grey)),
+                          onSelected: (bool selected) {
+                            filterViewModel.isFilterApplied = true;
+                            filterViewModel.selectEducationSecondary.value =
+                                selected;
+                          },
+                          selectedColor: ColorManager.deepPurple,
+                        ).marginSymmetric(horizontal: 16)),
+                    Obx(() => FilterChip(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          label: Text(
+                            LocalizationKeys.education_prep.tr,
+                            style: filterViewModel.selectEducationPrep.value
+                                ? const TextStyle(color: Colors.white)
+                                : const TextStyle(color: Colors.black),
+                          ),
+                          avatar: Icon(Icons.school,
+                              color: filterViewModel.selectEducationPrep.value
+                                  ? Colors.white
+                                  : ColorManager.blueLight),
+                          selected: filterViewModel.selectEducationPrep.value,
+                          showCheckmark: false,
+                          backgroundColor: Colors.transparent,
+                          elevation: 2,
+                          pressElevation: 6,
+                          shape: const StadiumBorder(side: BorderSide()),
+                          avatarBorder: const CircleBorder(
+                              side: BorderSide(color: Colors.grey)),
+                          onSelected: (bool selected) {
+                            filterViewModel.isFilterApplied = true;
+                            filterViewModel.selectEducationPrep.value =
+                                selected;
+                          },
+                          selectedColor: ColorManager.deepPurple,
+                        ).marginSymmetric(horizontal: 16)),
+                  ],
+                ).marginSymmetric(horizontal: 16),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                LocalizationKeys.choose_material.tr,
+                textAlign: TextAlign.start,
+              ).marginSymmetric(horizontal: 16),
+              SizedBox(
+                height: 50,
+                child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return Obx(() => FilterChip(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            label: Text(
+                              filterViewModel.materials[index].value.name.value,
+                              style: filterViewModel
+                                      .materials[index].value.isSelected.isTrue
+                                  ? const TextStyle(color: Colors.white)
+                                  : const TextStyle(color: Colors.black),
+                            ),
+                            avatar: Icon(Icons.school,
+                                color: filterViewModel
+                                        .materials[index].value.isSelected.value
+                                    ? Colors.white
+                                    : ColorManager.blueLight),
+                            selected: filterViewModel
+                                .materials[index].value.isSelected.value,
+                            showCheckmark: false,
+                            backgroundColor: Colors.transparent,
+                            elevation: 2,
+                            pressElevation: 6,
+                            shape: const StadiumBorder(side: BorderSide()),
+                            avatarBorder: const CircleBorder(
+                                side: BorderSide(color: Colors.grey)),
+                            onSelected: (bool selected) {
+                              filterViewModel.isFilterApplied = true;
+                              filterViewModel.materials[index].value.isSelected
+                                  .value = selected;
+                            },
+                            selectedColor: ColorManager.deepPurple,
+                          ).marginSymmetric(horizontal: 16));
                     },
-                    selectedColor: ColorManager.deepPurple,
-                  ).marginSymmetric(horizontal: 16)),
-              Obx(() => FilterChip(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    label: Text(
-                      LocalizationKeys.education_prep.tr,
-                      style: filterViewModel.selectEducationPrep.value
-                          ? const TextStyle(color: Colors.white)
-                          : const TextStyle(color: Colors.black),
+                    itemCount: filterViewModel.materials.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                LocalizationKeys.choose_government.tr,
+                textAlign: TextAlign.start,
+              ).marginSymmetric(horizontal: 16),
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: RadioListTile(
+                          // cairo
+                          title: Text(LocalizationKeys.government_cairo.tr),
+                          value: LocalizationKeys.government_cairo.tr,
+                          groupValue: filterViewModel.governmentVal.value,
+                          selected: filterViewModel.selectGovernmentCairo.value,
+                          selectedTileColor: ColorManager.redOrangeDark,
+                          activeColor: ColorManager.blueDark,
+                          onChanged: (value) {
+                            filterViewModel.governmentVal.value =
+                                value.toString();
+                            if (filterViewModel.governmentVal.value ==
+                                LocalizationKeys.government_cairo.tr) {
+                              filterViewModel.selectGovernmentCairo.value =
+                                  true;
+                              filterViewModel.selectGovernmentGiza.value =
+                                  false;
+                            }
+                          }),
                     ),
-                    avatar: Icon(Icons.school,
-                        color: filterViewModel.selectEducationPrep.value
-                            ? Colors.white
-                            : ColorManager.blueLight),
-                    selected: filterViewModel.selectEducationPrep.value,
-                    showCheckmark: false,
-                    backgroundColor: Colors.transparent,
-                    elevation: 2,
-                    pressElevation: 6,
-                    shape: const StadiumBorder(side: BorderSide()),
-                    avatarBorder: const CircleBorder(
-                        side: BorderSide(color: Colors.grey)),
-                    onSelected: (bool selected) {
-                      filterViewModel.isFilterApplied = true;
-                      filterViewModel.selectEducationPrep.value = selected;
+                    Expanded(
+                      child: RadioListTile(
+                          // giza
+                          title: Text(LocalizationKeys.government_giza.tr),
+                          value: LocalizationKeys.government_giza.tr,
+                          groupValue: filterViewModel.governmentVal.value,
+                          selected: filterViewModel.selectGovernmentGiza.value,
+                          selectedTileColor: ColorManager.redOrangeDark,
+                          activeColor: ColorManager.blueDark,
+                          onChanged: (value) {
+                            filterViewModel.governmentVal.value =
+                                value.toString();
+                            if (filterViewModel.governmentVal.value ==
+                                LocalizationKeys.government_giza.tr) {
+                              filterViewModel.selectGovernmentGiza.value = true;
+                              filterViewModel.selectGovernmentCairo.value =
+                                  false;
+                            }
+                          }),
+                    )
+                  ],
+                ),
+              ),
+              Text(
+                LocalizationKeys.choose_area.tr,
+                textAlign: TextAlign.start,
+              ).marginSymmetric(horizontal: 16),
+              SizedBox(
+                height: 50,
+                child: Obx(() => ListView.builder(
+                    itemBuilder: (context, index) {
+                      return Obx(() => FilterChip(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            label: Text(
+                              filterViewModel.selectGovernmentCairo.value
+                                  ? filterViewModel.areasCairoFilterChips[index]
+                                      .value.name.value
+                                  : filterViewModel.areasGizaFilterChips[index]
+                                      .value.name.value,
+                              style: filterViewModel.selectGovernmentCairo.value
+                                  ? filterViewModel.areasCairoFilterChips[index]
+                                          .value.isSelected.isTrue
+                                      ? const TextStyle(color: Colors.white)
+                                      : const TextStyle(color: Colors.black)
+                                  : filterViewModel.areasGizaFilterChips[index]
+                                          .value.isSelected.isTrue
+                                      ? const TextStyle(color: Colors.white)
+                                      : const TextStyle(color: Colors.black),
+                            ),
+                            avatar: filterViewModel.governmentVal.value ==
+                                    LocalizationKeys.government_cairo.tr
+                                ? Icon(Icons.school,
+                                    color: filterViewModel
+                                            .areasCairoFilterChips[index]
+                                            .value
+                                            .isSelected
+                                            .value
+                                        ? Colors.white
+                                        : ColorManager.blueLight)
+                                : Icon(Icons.school,
+                                    color: filterViewModel
+                                            .areasGizaFilterChips[index]
+                                            .value
+                                            .isSelected
+                                            .value
+                                        ? Colors.white
+                                        : ColorManager.blueLight),
+                            selected: filterViewModel.governmentVal.value ==
+                                    LocalizationKeys.government_cairo.tr
+                                ? filterViewModel.areasCairoFilterChips[index]
+                                    .value.isSelected.value
+                                : filterViewModel.areasGizaFilterChips[index]
+                                    .value.isSelected.value,
+                            showCheckmark: false,
+                            backgroundColor: Colors.transparent,
+                            elevation: 2,
+                            pressElevation: 6,
+                            shape: const StadiumBorder(side: BorderSide()),
+                            avatarBorder: const CircleBorder(
+                                side: BorderSide(color: Colors.grey)),
+                            onSelected: (bool selected) {
+                              filterViewModel.isFilterApplied = true;
+                              if (filterViewModel.governmentVal.value ==
+                                  LocalizationKeys.government_cairo.tr) {
+                                filterViewModel.areasCairoFilterChips[index]
+                                    .value.isSelected.value = selected;
+                              } else {
+                                filterViewModel.areasGizaFilterChips[index]
+                                    .value.isSelected.value = selected;
+                              }
+                            },
+                            selectedColor: ColorManager.deepPurple,
+                          ).marginSymmetric(horizontal: 16));
                     },
-                    selectedColor: ColorManager.deepPurple,
-                  ).marginSymmetric(horizontal: 16)),
+                    itemCount: filterViewModel.governmentVal.value ==
+                            LocalizationKeys.government_cairo.tr
+                        ? filterViewModel.areasCairoFilterChips.length
+                        : filterViewModel.areasGizaFilterChips.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true)),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                LocalizationKeys.price_avg.tr,
+                textAlign: TextAlign.start,
+              ).marginSymmetric(horizontal: 16),
+              Obx(() => Stack(
+                    children: [
+                      PositionedDirectional(
+                          child: Text(filterViewModel.sliderStartValue.value
+                              .toInt()
+                              .toString()),
+                          bottom: 40,
+                          start: 24),
+                      PositionedDirectional(
+                          child: Text(filterViewModel.sliderEndValue.value
+                              .toInt()
+                              .toString()),
+                          bottom: 40,
+                          end: 24),
+                      RangeSlider(
+                          min: 0,
+                          max: 500,
+                          inactiveColor: Colors.grey.shade600,
+                          activeColor: Colors.purple,
+                          divisions: 20,
+                          values: RangeValues(
+                              filterViewModel.sliderStartValue.value,
+                              filterViewModel.sliderEndValue.value),
+                          labels: RangeLabels(
+                              filterViewModel.sliderStartValue.value.toString(),
+                              filterViewModel.sliderEndValue.value.toString()),
+                          onChanged: (RangeValues values) {
+                            filterViewModel.isFilterApplied = true;
+                            filterViewModel.sliderStartValue.value =
+                                values.start;
+                            filterViewModel.sliderEndValue.value = values.end;
+                          }).marginSymmetric(horizontal: 16).marginOnly(top: 40)
+                    ],
+                  )),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: ColorManager.deepPurple,
+                        textStyle: const TextStyle(color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    onPressed: () async {
+                      filterViewModel.isFilterAppliedConfirmed = true;
+                      await filterViewModel.applyFilter();
+                      Get.back();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(LocalizationKeys.filter_apply.tr),
+                    ),
+                  ).marginSymmetric(horizontal: 16),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      primary: Colors.white,
+                      side: const BorderSide(
+                          color: ColorManager.deepPurple, width: 1),
+                      // textStyle: TextStyle(color: Colors.blue),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                    ),
+                    onPressed: () async {
+                      await filterViewModel.resetFilters();
+                      Get.back();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(LocalizationKeys.filter_clear_all.tr,
+                          style:
+                              const TextStyle(color: ColorManager.deepPurple)),
+                    ),
+                  ).marginSymmetric(horizontal: 16),
+                ],
+              ).marginOnly(bottom: 32),
+              //todo: add government and area filter
             ],
-          ).marginSymmetric(horizontal: 16),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          LocalizationKeys.choose_material.tr,
-          textAlign: TextAlign.start,
-        ).marginSymmetric(horizontal: 16),
-        SizedBox(
-          height: 50,
-          child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Obx(() => FilterChip(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      label: Text(
-                        filterViewModel.materials[index].value.name.value,
-                        style: filterViewModel
-                                .materials[index].value.isSelected.isTrue
-                            ? const TextStyle(color: Colors.white)
-                            : const TextStyle(color: Colors.black),
-                      ),
-                      avatar: Icon(Icons.school,
-                          color: filterViewModel
-                                  .materials[index].value.isSelected.value
-                              ? Colors.white
-                              : ColorManager.blueLight),
-                      selected: filterViewModel
-                          .materials[index].value.isSelected.value,
-                      showCheckmark: false,
-                      backgroundColor: Colors.transparent,
-                      elevation: 2,
-                      pressElevation: 6,
-                      shape: const StadiumBorder(side: BorderSide()),
-                      avatarBorder: const CircleBorder(
-                          side: BorderSide(color: Colors.grey)),
-                      onSelected: (bool selected) {
-                        filterViewModel.isFilterApplied = true;
-                        filterViewModel
-                            .materials[index].value.isSelected.value = selected;
-                      },
-                      selectedColor: ColorManager.deepPurple,
-                    ).marginSymmetric(horizontal: 16));
-              },
-              itemCount: filterViewModel.materials.length,
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          LocalizationKeys.price_avg.tr,
-          textAlign: TextAlign.start,
-        ).marginSymmetric(horizontal: 16),
-        Obx(() => Stack(
-              children: [
-                PositionedDirectional(
-                    child: Text(filterViewModel.sliderStartValue.value
-                        .toInt()
-                        .toString()),
-                    bottom: 40,
-                    start: 24),
-                PositionedDirectional(
-                    child: Text(filterViewModel.sliderEndValue.value
-                        .toInt()
-                        .toString()),
-                    bottom: 40,
-                    end: 24),
-                RangeSlider(
-                    min: 0,
-                    max: 500,
-                    inactiveColor: Colors.grey.shade600,
-                    activeColor: Colors.purple,
-                    divisions: 20,
-                    values: RangeValues(filterViewModel.sliderStartValue.value,
-                        filterViewModel.sliderEndValue.value),
-                    labels: RangeLabels(
-                        filterViewModel.sliderStartValue.value.toString(),
-                        filterViewModel.sliderEndValue.value.toString()),
-                    onChanged: (RangeValues values) {
-                      filterViewModel.isFilterApplied = true;
-                      filterViewModel.sliderStartValue.value = values.start;
-                      filterViewModel.sliderEndValue.value = values.end;
-                    }).marginSymmetric(horizontal: 16).marginOnly(top: 40)
-              ],
-            )),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: ColorManager.deepPurple,
-                  textStyle: const TextStyle(color: Colors.white),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8))),
-              onPressed: () async {
-                await filterViewModel.applyFilter();
-                Get.back();
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(LocalizationKeys.filter_apply.tr),
-              ),
-            ).marginSymmetric(horizontal: 16),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                primary: Colors.white,
-                side:
-                    const BorderSide(color: ColorManager.deepPurple, width: 1),
-                // textStyle: TextStyle(color: Colors.blue),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-              ),
-              onPressed: () async {
-                await filterViewModel.resetFilters();
-                Get.back();
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(LocalizationKeys.filter_clear_all.tr,
-                    style: const TextStyle(color: ColorManager.deepPurple)),
-              ),
-            ).marginSymmetric(horizontal: 16),
-          ],
-        ).marginOnly(bottom: 32),
-        //todo: add government and area filter
-      ],
+          ),
+        );
+      },
     ),
-    enterBottomSheetDuration: const Duration(milliseconds: 650),
+    isScrollControlled: true,
     backgroundColor: Colors.white,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-  );
+  ).whenComplete(() => {
+        if (!Get.isBottomSheetOpen! &&
+            filterViewModel.isFilterApplied &&
+            !filterViewModel.isFilterAppliedConfirmed)
+          {filterViewModel.resetFilters()}
+      });
 }
 
 showConfirmBookingBottomSheet(

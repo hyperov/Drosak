@@ -1,3 +1,4 @@
+import 'package:drosak/common/model/filters.dart';
 import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/common/widgets/fullwidth_textfield.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
@@ -156,12 +157,12 @@ class PersonalProfileScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   FullWidthTextField(
                       leadingIcons: List.generate(
-                          _profileViewModel.governments.length,
+                          Filters.governments.length,
                           (index) => const Icon(
                                 Icons.location_city,
                                 color: Colors.deepPurpleAccent,
                               )),
-                      texts: _profileViewModel.governments,
+                      texts: Filters.governments,
                       selectedText: _profileViewModel.selectedGovernmentName),
                 ],
               )),
@@ -175,17 +176,17 @@ class PersonalProfileScreen extends StatelessWidget {
                   Obx(() => FullWidthTextField(
                       leadingIcons: List.generate(
                           _profileViewModel.selectedGovernmentName.value ==
-                                  _profileViewModel.governments[0]
-                              ? _profileViewModel.areasCairo.length
-                              : _profileViewModel.areasGiza.length,
+                                  Filters.governments[0]
+                              ? Filters.areasCairo.length
+                              : Filters.areasGiza.length,
                           (index) => const Icon(
                                 Icons.location_city,
                                 color: Colors.deepPurpleAccent,
                               )),
                       texts: _profileViewModel.selectedGovernmentName.value ==
-                              _profileViewModel.governments[0]
-                          ? _profileViewModel.areasCairo
-                          : _profileViewModel.areasGiza,
+                              Filters.governments[0]
+                          ? Filters.areasCairo
+                          : Filters.areasGiza,
                       selectedText: _profileViewModel.selectedAreaName)),
                 ],
               )),

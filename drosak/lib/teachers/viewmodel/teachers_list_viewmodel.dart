@@ -33,19 +33,24 @@ class TeachersListViewModel extends GetxController {
       String? midSchool,
       double? minPrice,
       double? maxPrice,
-      List<Rx<FilterChipModel>>? selectedMaterials}) async {
+      List<Rx<FilterChipModel>>? selectedMaterials,
+      List<Rx<FilterChipModel>>? selectedAreas}) async {
     isLoading.value = true;
 
     List<String>? materials = selectedMaterials
         ?.map((material) => material.value.name.value)
         .toList();
 
+    List<String>? areas =
+        selectedAreas?.map((area) => area.value.name.value).toList();
+
     var _teachers = await _teachersRepo.getTeachers(isTeacherApplied,
         highSchool: highSchool,
         midSchool: midSchool,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        selectedMaterials: materials);
+        selectedMaterials: materials,
+        selectedAreas: areas);
 
     var teachersDocs = _teachers.docs.where((doc) {
       if (minPrice != null && maxPrice != null) {
@@ -55,6 +60,18 @@ class TeachersListViewModel extends GetxController {
     }).where((doc) {
       if (highSchool != null && midSchool != null) {
         return doc.data().educationalLevel!.contains(midSchool);
+      }
+      return true;
+    }).where((doc) {
+      if (selectedAreas != null) {
+        bool isAreaExist = false;
+        for (var element in selectedAreas) {
+          var selectedFilterArea = element.value.name.value;
+          isAreaExist =
+              doc.data().areasOfLectures!.contains(selectedFilterArea);
+          if (isAreaExist) return true;
+        }
+        return isAreaExist;
       }
       return true;
     }).map((doc) {

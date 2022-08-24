@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
             Obx(() => _homeViewModel.bottomNavigationIndex.value == 0
                 ? FloatingActionButton.extended(
                     onPressed: () {
-                      showFilterBottomSheet(_filterViewModel);
+                      showFilterBottomSheet(context, _filterViewModel);
                     },
                     icon: const Icon(Icons.filter_list),
                     backgroundColor: ColorManager.blueDark,

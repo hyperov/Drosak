@@ -1,4 +1,5 @@
 import 'package:drosak/common/model/filter_models.dart';
+import 'package:drosak/common/model/filters.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
@@ -8,10 +9,13 @@ class FilterViewModel extends GetxController {
   final TeachersListViewModel _teachersListViewModel = Get.find();
 
   bool isFilterApplied = false;
+  bool isFilterAppliedConfirmed = false;
   RxBool selectEducationSecondary = false.obs;
   RxBool selectEducationPrep = false.obs;
+  RxBool selectGovernmentCairo = true.obs;
+  RxBool selectGovernmentGiza = false.obs;
 
-  static const double _minRating = 20.0;
+  static const double _minRating = 0.0;
   static const double _maxRating = 500.0;
   RxDouble sliderStartValue = _minRating.obs;
   RxDouble sliderEndValue = _maxRating.obs;
@@ -70,6 +74,12 @@ class FilterViewModel extends GetxController {
         .obs,
   ];
 
+  late List<Rx<FilterChipModel>> areasCairoFilterChips;
+
+  late List<Rx<FilterChipModel>> areasGizaFilterChips;
+
+  RxString governmentVal = LocalizationKeys.government_cairo.tr.obs;
+
   Future<void> applyFilter() async {
     String? highSchool = selectEducationSecondary.value
         ? FireStoreNames.educationLevelSecondaryValue
@@ -90,12 +100,25 @@ class FilterViewModel extends GetxController {
       selectedMaterials = null;
     }
 
+    List<Rx<FilterChipModel>>? selectedAreas = selectGovernmentCairo.value
+        ? areasCairoFilterChips
+            .where((area) => area.value.isSelected.value)
+            .toList()
+        : areasGizaFilterChips
+            .where((area) => area.value.isSelected.value)
+            .toList();
+
+    if (selectedAreas.isEmpty) {
+      selectedAreas = null;
+    }
+
     await _teachersListViewModel.getTeachersList(isFilterApplied,
         highSchool: highSchool,
         midSchool: midSchool,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        selectedMaterials: selectedMaterials);
+        selectedMaterials: selectedMaterials,
+        selectedAreas: selectedAreas);
   }
 
   Future<void> resetFilters() async {
@@ -109,9 +132,16 @@ class FilterViewModel extends GetxController {
       filterModel.value.isSelected.value = false;
     }
 
+    for (var filterModel in areasCairoFilterChips) {
+      filterModel.value.isSelected.value = false;
+    }
+    for (var filterModel in areasGizaFilterChips) {
+      filterModel.value.isSelected.value = false;
+    }
+
     selectedFilters.clear();
     isFilterApplied = false;
-
+    isFilterAppliedConfirmed = false;
     await applyFilter();
     addSelectedFiltersOnHomeScreen();
   }
@@ -137,5 +167,19 @@ class FilterViewModel extends GetxController {
           .add(LocalizationKeys.price_to.tr + sliderEndValue.value.toString());
     }
     return selectedFilters;
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    areasCairoFilterChips = Filters.areasCairo
+        .map((area) =>
+            FilterChipModel(name: area.obs, isSelected: false.obs).obs)
+        .toList();
+    areasGizaFilterChips = Filters.areasGiza
+        .map((area) =>
+            FilterChipModel(name: area.obs, isSelected: false.obs).obs)
+        .toList();
   }
 }

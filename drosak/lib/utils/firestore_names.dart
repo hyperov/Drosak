@@ -26,6 +26,7 @@ class FireStoreNames {
   static const String teacherDocFieldMaxPrice = 'price_max';
   static const String teacherDocFieldEducationLevel = 'eduLevel';
   static const String teacherDocFieldMaterial = 'material';
+  static const String teacherDocFieldAreas = 'areas';
 
   //booking fields
   static const String bookingDocFieldLecDate = 'lec_date';
