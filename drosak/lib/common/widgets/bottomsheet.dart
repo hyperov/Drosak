@@ -193,7 +193,7 @@ showFilterBottomSheet(FilterViewModel filterViewModel) {
                     end: 24),
                 RangeSlider(
                     min: 0,
-                    max: 100,
+                    max: 500,
                     inactiveColor: Colors.grey.shade600,
                     activeColor: Colors.purple,
                     divisions: 20,

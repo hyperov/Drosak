@@ -99,7 +99,6 @@ class LocalizationKeys {
   //material
   static var arabic = 'arabic';
   static var english = 'english';
-  static var math = 'math';
   static var science = 'science';
   static var history = 'history';
   static var geography = 'geography';
@@ -109,8 +108,13 @@ class LocalizationKeys {
   static var french = 'french';
   static var german = 'german';
   static var spanish = 'spanish';
-
   static var social = 'social';
+  static var italian = 'italian';
+  static var math_prep = 'math_prep';
+  static var math_1_secondary = 'math_1_secondary';
+  static var math_2_secondary = 'math_2_secondary';
+  static var philosophy = 'philosophy';
+  static var psychology = 'psychology';
 
   static var filter_apply = 'apply';
   static var filter_clear_all = 'clear_all';

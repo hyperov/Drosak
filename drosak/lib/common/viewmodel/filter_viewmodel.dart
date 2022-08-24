@@ -12,7 +12,7 @@ class FilterViewModel extends GetxController {
   RxBool selectEducationPrep = false.obs;
 
   static const double _minRating = 20.0;
-  static const double _maxRating = 90.0;
+  static const double _maxRating = 500.0;
   RxDouble sliderStartValue = _minRating.obs;
   RxDouble sliderEndValue = _maxRating.obs;
 
@@ -21,7 +21,16 @@ class FilterViewModel extends GetxController {
   var materials = [
     FilterChipModel(name: LocalizationKeys.arabic.tr.obs, isSelected: false.obs)
         .obs,
-    FilterChipModel(name: LocalizationKeys.math.tr.obs, isSelected: false.obs)
+    FilterChipModel(
+            name: LocalizationKeys.math_prep.tr.obs, isSelected: false.obs)
+        .obs,
+    FilterChipModel(
+            name: LocalizationKeys.math_1_secondary.tr.obs,
+            isSelected: false.obs)
+        .obs,
+    FilterChipModel(
+            name: LocalizationKeys.math_2_secondary.tr.obs,
+            isSelected: false.obs)
         .obs,
     FilterChipModel(
             name: LocalizationKeys.science.tr.obs, isSelected: false.obs)
@@ -42,6 +51,12 @@ class FilterViewModel extends GetxController {
         .obs,
     FilterChipModel(
             name: LocalizationKeys.history.tr.obs, isSelected: false.obs)
+        .obs,
+    FilterChipModel(
+            name: LocalizationKeys.philosophy.tr.obs, isSelected: false.obs)
+        .obs,
+    FilterChipModel(
+            name: LocalizationKeys.psychology.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(name: LocalizationKeys.french.tr.obs, isSelected: false.obs)
         .obs,
