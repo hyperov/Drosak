@@ -206,6 +206,8 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                           selected: filterViewModel.selectGovernmentCairo.value,
                           selectedTileColor: ColorManager.redOrangeDark,
                           activeColor: ColorManager.blueDark,
+                          shape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                           onChanged: (value) {
                             filterViewModel.governmentVal.value =
                                 value.toString();
@@ -227,6 +229,8 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                           selected: filterViewModel.selectGovernmentGiza.value,
                           selectedTileColor: ColorManager.redOrangeDark,
                           activeColor: ColorManager.blueDark,
+                          shape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                           onChanged: (value) {
                             filterViewModel.governmentVal.value =
                                 value.toString();
@@ -404,7 +408,6 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                   ).marginSymmetric(horizontal: 16),
                 ],
               ).marginOnly(bottom: 32),
-              //todo: add government and area filter
             ],
           ),
         );
