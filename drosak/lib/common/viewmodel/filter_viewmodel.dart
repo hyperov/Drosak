@@ -26,7 +26,15 @@ class FilterViewModel extends GetxController {
     FilterChipModel(name: LocalizationKeys.arabic.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(
+            name: LocalizationKeys.english.tr.obs, isSelected: false.obs)
+        .obs,
+    FilterChipModel(
             name: LocalizationKeys.math_prep.tr.obs, isSelected: false.obs)
+        .obs,
+    FilterChipModel(
+            name: LocalizationKeys.science.tr.obs, isSelected: false.obs)
+        .obs,
+    FilterChipModel(name: LocalizationKeys.social.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(
             name: LocalizationKeys.math_1_secondary.tr.obs,
@@ -36,19 +44,15 @@ class FilterViewModel extends GetxController {
             name: LocalizationKeys.math_2_secondary.tr.obs,
             isSelected: false.obs)
         .obs,
-    FilterChipModel(
-            name: LocalizationKeys.science.tr.obs, isSelected: false.obs)
+    FilterChipModel(name: LocalizationKeys.french.tr.obs, isSelected: false.obs)
+        .obs,
+    FilterChipModel(name: LocalizationKeys.german.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(
-            name: LocalizationKeys.biology.tr.obs, isSelected: false.obs)
+            name: LocalizationKeys.spanish.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(
-            name: LocalizationKeys.chemistry.tr.obs, isSelected: false.obs)
-        .obs,
-    FilterChipModel(name: LocalizationKeys.social.tr.obs, isSelected: false.obs)
-        .obs,
-    FilterChipModel(
-            name: LocalizationKeys.physics.tr.obs, isSelected: false.obs)
+            name: LocalizationKeys.italian.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(
             name: LocalizationKeys.geography.tr.obs, isSelected: false.obs)
@@ -62,15 +66,14 @@ class FilterViewModel extends GetxController {
     FilterChipModel(
             name: LocalizationKeys.psychology.tr.obs, isSelected: false.obs)
         .obs,
-    FilterChipModel(name: LocalizationKeys.french.tr.obs, isSelected: false.obs)
-        .obs,
-    FilterChipModel(name: LocalizationKeys.german.tr.obs, isSelected: false.obs)
+    FilterChipModel(
+            name: LocalizationKeys.biology.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(
-            name: LocalizationKeys.spanish.tr.obs, isSelected: false.obs)
+            name: LocalizationKeys.chemistry.tr.obs, isSelected: false.obs)
         .obs,
     FilterChipModel(
-            name: LocalizationKeys.english.tr.obs, isSelected: false.obs)
+            name: LocalizationKeys.physics.tr.obs, isSelected: false.obs)
         .obs,
   ];
 
