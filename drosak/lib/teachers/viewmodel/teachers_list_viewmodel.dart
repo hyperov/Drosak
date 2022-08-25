@@ -54,7 +54,8 @@ class TeachersListViewModel extends GetxController {
 
     var teachersDocs = _teachers.docs.where((doc) {
       if (minPrice != null && maxPrice != null) {
-        return doc.data().priceMax! <= maxPrice;
+        return doc.data().priceMax! >= minPrice &&
+            doc.data().priceMin! <= maxPrice;
       }
       return true;
     }).where((doc) {
