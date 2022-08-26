@@ -8,6 +8,7 @@ import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -280,7 +281,7 @@ class ProfileViewModel extends GetxController {
         var fcmToken = _storage.read(StorageKeys.fcmToken);
         await _storage.erase();
         await _storage.write(StorageKeys.fcmToken, fcmToken);
-
+        FirebaseCrashlytics.instance.setUserIdentifier('');
         Get.offAll(() => IsLoginWidget());
       });
     }).catchError((error) {

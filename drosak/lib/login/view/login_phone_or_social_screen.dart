@@ -4,6 +4,8 @@ import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/view/personal_profile_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/storage_keys.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -45,6 +47,8 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
         Get.offAll(() => HomeScreen(), binding: HomeBindings());
       }
       EasyLoading.showSuccess("You are logged in");
+      FirebaseCrashlytics.instance
+          .setUserIdentifier(FirebaseAuth.instance.currentUser!.uid);
     }, condition: () => _loginViewModel.isLoggedIn.value);
 
     return Scaffold(

@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -17,6 +19,14 @@ Future<void> sharedMain() async {
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
   );
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  Isolate.current.addErrorListener(RawReceivePort((pair) async {
+    final List<dynamic> errorAndStacktrace = pair;
+    await FirebaseCrashlytics.instance.recordError(
+      errorAndStacktrace.first,
+      errorAndStacktrace.last,
+      fatal: true,
+    );
+  }).sendPort);
   //work manager for background tasks
   Workmanager().initialize(
       callbackDispatcher, // The top level function, aka callbackDispatcher
