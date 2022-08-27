@@ -8,6 +8,8 @@ import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -37,6 +39,14 @@ class TeacherDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.log('TeacherDetailsScreen');
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'teacher_details_screen',
+        'firebase_screen_class': 'TeacherDetailsScreen',
+      },
+    );
     return Scaffold(
       backgroundColor: ColorManager.redOrangeLight,
       appBar: AppBar(
@@ -157,8 +167,20 @@ class TeacherDetailsScreen extends StatelessWidget {
                       if (isFollowing()) {
                         openDeleteDialog(_followsViewModel,
                             _teachersListViewModel.selectedTeacher.id!);
+                        FirebaseCrashlytics.instance
+                            .log('delete follow button clicked');
                       } else {
                         await _teachersListViewModel.followTeacher();
+                        FirebaseCrashlytics.instance
+                            .log('follow teacher button clicked');
+                        FirebaseAnalytics.instance.logEvent(
+                            name: "follow_teacher_success",
+                            parameters: {
+                              "teacher_id":
+                                  _teachersListViewModel.selectedTeacher.id,
+                              "teacher_name":
+                                  _teachersListViewModel.selectedTeacher.name,
+                            });
                       }
                     },
                   ).marginSymmetric(horizontal: 8),
@@ -189,6 +211,10 @@ class TeacherDetailsScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           if (!isRated()) {
+                            FirebaseCrashlytics.instance
+                                .log('rate teacher button clicked');
+                            FirebaseAnalytics.instance
+                                .logEvent(name: "rating_teacher_dialog");
                             showRatingTeacherBottomSheet(
                                 context,
                                 _reviewsViewModel,

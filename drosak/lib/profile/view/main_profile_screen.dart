@@ -1,6 +1,8 @@
 import 'package:drosak/follows/view/follows_screen.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +17,14 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.log('ProfileScreen');
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'profile_screen',
+        'firebase_screen_class': 'ProfileScreen',
+      },
+    );
     return Scaffold(
       backgroundColor: ColorManager.redOrangeLight,
       body: SingleChildScrollView(
@@ -82,6 +92,10 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
+                  FirebaseCrashlytics.instance
+                      .log('PersonalProfileScreen Clicked');
+                  FirebaseAnalytics.instance
+                      .logEvent(name: "personal_profile_button_clicked");
                   Get.to(() => PersonalProfileScreen());
                 },
                 child: ListTile(
@@ -101,6 +115,10 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
+                  FirebaseCrashlytics.instance.log('FollowsScreen Clicked');
+
+                  FirebaseAnalytics.instance
+                      .logEvent(name: "follows_screen_button_clicked");
                   Get.to(() => const FollowsScreen());
                 },
                 child: ListTile(
@@ -110,38 +128,38 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Card(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: InkWell(
-                onTap: () {
-                  // Get.to(() => const SettingsScreen());
-                },
-                child: ListTile(
-                  leading: const Icon(Icons.settings, color: Colors.deepPurple),
-                  title: Text(LocalizationKeys.settings.tr,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: InkWell(
-                onTap: () {},
-                child: const ListTile(
-                  leading: Icon(Icons.help, color: Colors.deepPurple),
-                  title: Text('مساعدة',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ),
+            // Card(
+            //   color: Colors.white,
+            //   margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   child: InkWell(
+            //     onTap: () {
+            //       // Get.to(() => const SettingsScreen());
+            //     },
+            //     child: ListTile(
+            //       leading: const Icon(Icons.settings, color: Colors.deepPurple),
+            //       title: Text(LocalizationKeys.settings.tr,
+            //           style: const TextStyle(fontWeight: FontWeight.bold)),
+            //     ),
+            //   ),
+            // ),
+            // Card(
+            //   color: Colors.white,
+            //   margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   child: InkWell(
+            //     onTap: () {},
+            //     child: const ListTile(
+            //       leading: Icon(Icons.help, color: Colors.deepPurple),
+            //       title: Text('مساعدة',
+            //           style: TextStyle(fontWeight: FontWeight.bold)),
+            //     ),
+            //   ),
+            // ),
             Card(
                 color: Colors.white,
                 margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),

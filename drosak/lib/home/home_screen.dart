@@ -7,6 +7,7 @@ import 'package:drosak/teachers/teachers_list_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'home_screen',
+        'firebase_screen_class': 'HomeScreen',
+      },
+    );
     return Scaffold(
         backgroundColor: ColorManager.redOrangeLight,
         floatingActionButton:

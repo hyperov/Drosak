@@ -5,6 +5,8 @@ import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:drosak/utils/storage_keys.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -23,6 +25,14 @@ class TeachersListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.log('TeachersListScreen');
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'teachers_list_screen',
+        'firebase_screen_class': 'TeachersListScreen',
+      },
+    );
     return Obx(() => Scaffold(
         backgroundColor: ColorManager.redOrangeLight,
         body: _teachersListViewModel.isLoading.value
@@ -42,6 +52,12 @@ class TeachersListScreen extends StatelessWidget {
                                 ),
                                 child: InkWell(
                                   onTap: () async {
+                                    FirebaseAnalytics.instance.logSelectItem(
+                                      itemListId: _teachersListViewModel
+                                          .teachersList[index].id,
+                                      itemListName: _teachersListViewModel
+                                          .teachersList[index].name,
+                                    );
                                     _teachersListViewModel.selectedTeacher =
                                         _teachersListViewModel
                                             .teachersList[index];

@@ -3,6 +3,8 @@ import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -30,6 +32,14 @@ class LecturesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.log('LecturesScreen');
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'lectures_screen',
+        'firebase_screen_class': 'LecturesScreen',
+      },
+    );
     return Obx(() => Scaffold(
           backgroundColor: ColorManager.redOrangeLight,
           body: _lecturesViewModel.isLoading.value
@@ -138,6 +148,16 @@ class LecturesScreen extends StatelessWidget {
                                         horizontal: 32, vertical: 16),
                                     child: ElevatedButton(
                                       onPressed: () {
+                                        FirebaseCrashlytics.instance.log(
+                                            'LecturesScreen: book button clicked');
+                                        FirebaseAnalytics.instance.logEvent(
+                                          name: 'book_button_click',
+                                          parameters: {
+                                            'firebase_screen': 'book_screen',
+                                            'firebase_screen_class':
+                                                'BookScreen',
+                                          },
+                                        );
                                         _bookingsViewModel.selectedTeacher =
                                             teacher;
                                         showConfirmBookingBottomSheet(

@@ -2,6 +2,7 @@ import 'package:drosak/bookings/viewmodel/booking_view_model.dart';
 import 'package:drosak/follows/viewmodel/follows_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:workmanager/workmanager.dart';
@@ -62,9 +63,13 @@ openDeleteDialog(GetxController viewModel, String id,
             Get.back();
             if (isFollowsViewModel) {
               await viewModel.unfollowTeacher(id);
+              FirebaseAnalytics.instance
+                  .logEvent(name: "unfollow_teacher_success");
             } else if (isBookingsViewModel) {
               await viewModel.cancelBooking(id, teacherId!);
               await Workmanager().cancelByUniqueName(lectureId!);
+              FirebaseAnalytics.instance
+                  .logEvent(name: "cancel_booking_success");
             }
           },
         ),

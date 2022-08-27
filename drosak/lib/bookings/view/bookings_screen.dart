@@ -4,6 +4,8 @@ import 'package:drosak/common/widgets/dialogs.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,14 @@ class BookingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.log('BookingsScreen');
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'bookings_screen',
+        'firebase_screen_class': 'BookingsScreen',
+      },
+    );
     return Obx(() => Scaffold(
           backgroundColor: ColorManager.redOrangeLight,
           body: _bookingsViewModel.isLoading.value
@@ -120,6 +130,9 @@ class BookingsScreen extends StatelessWidget {
                                                 vertical: 16),
                                             child: ElevatedButton(
                                               onPressed: () async {
+                                                FirebaseAnalytics.instance.logEvent(
+                                                    name:
+                                                        "booking_cancel_dialog");
                                                 openDeleteDialog(
                                                     _bookingsViewModel,
                                                     _bookingsViewModel
@@ -142,7 +155,7 @@ class BookingsScreen extends StatelessWidget {
                                               ),
                                             ),
                                           )
-                                        : SizedBox(
+                                        : const SizedBox(
                                             height: 24,
                                           ),
                                   ]).marginSymmetric(horizontal: 24),

@@ -4,6 +4,7 @@ import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/messages/logs.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -49,11 +50,6 @@ class LoginViewModel extends GetxController {
   FocusNode smsCodeFocusNodeSixth = FocusNode();
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     super.onClose();
     EasyLoading.dismiss();
@@ -90,12 +86,14 @@ class LoginViewModel extends GetxController {
         late User? user;
         try {
           user = await _loginRepository.signInWithCredential(credential);
-        } on FirebaseAuthException catch (e) {
+        } on FirebaseAuthException catch (e, stackTrace) {
           if (kDebugMode) {
             print(e);
           }
           _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
               LocalizationKeys.login_error.tr);
+          FirebaseCrashlytics.instance.recordError(e, stackTrace,
+              reason: 'firestore_error_insert_user');
           return;
         }
 
@@ -147,6 +145,9 @@ class LoginViewModel extends GetxController {
         errMessagePhoneTextField.value = LocalizationKeys.login_error.tr;
         _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
             LocalizationKeys.login_error.tr);
+
+        FirebaseCrashlytics.instance
+            .recordError(e, e.stackTrace, reason: 'firebase_auth_error_login');
       },
       codeSent: (String verificationId, int? resendToken) async {
         //resendToken is only supported on Android devices,
@@ -181,8 +182,10 @@ class LoginViewModel extends GetxController {
     await _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin);
 
     if (isFirstTimeLogin) {
+      FirebaseCrashlytics.instance.log("first time login");
       _insertUserToFirestore(user);
     } else {
+      FirebaseCrashlytics.instance.log("not first time login");
       _updateUserToFirestore(user);
     }
   }
@@ -271,6 +274,8 @@ class LoginViewModel extends GetxController {
 
       _onSnackBarError("${Logs.log_firebase_auth_error_login} ${e.message}",
           LocalizationKeys.login_error.tr);
+      FirebaseCrashlytics.instance
+          .recordError(e, e.stackTrace, reason: 'firebase_auth_error_login');
       return;
     }
 
@@ -337,6 +342,8 @@ class LoginViewModel extends GetxController {
       _onSnackBarError(
           "${Logs.log_firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
+      FirebaseCrashlytics.instance.recordError(error, stackTrace,
+          reason: 'firestore_error_insert_user');
     });
   }
 
@@ -395,6 +402,8 @@ class LoginViewModel extends GetxController {
       _onSnackBarError(
           "{$Logs.firestore_error_insert_user} ${error.toString()}",
           LocalizationKeys.login_error.tr);
+      FirebaseCrashlytics.instance.recordError(error, stackTrace,
+          reason: 'firestore_error_insert_user');
     });
   }
 }

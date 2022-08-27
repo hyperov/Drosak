@@ -4,6 +4,7 @@ import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/profile/view/personal_profile_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/storage_keys.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,13 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'phone_or_social_login_screen',
+        'firebase_screen_class': 'PhoneOrSocialLoginScreen',
+      },
+    );
     ever(_loginViewModel.errorSnackBarShow, (callback) {
       if (_loginViewModel.errMessageSnackBar.value.isNotEmpty) {
         EasyLoading.showError(_loginViewModel.errMessageSnackBar.value);
@@ -167,7 +175,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)),
                       text: LocalizationKeys.login_facebook.tr, onPressed: () {
                     if (_networkViewModel.isConnected.isTrue) {
-                      // _networkViewModel.loginWithFacebook();
+                      FirebaseCrashlytics.instance.log("Facebook Login");
                       _loginViewModel.signInWithFacebook();
                     } else {
                       _networkViewModel.showNoInternetConnectionDialog();
@@ -181,6 +189,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                     text: LocalizationKeys.login_google.tr, onPressed: () {
                   if (_networkViewModel.isConnected.isTrue) {
+                    FirebaseCrashlytics.instance.log("Google login");
                     _loginViewModel.signInWithGoogle();
                   } else {
                     _networkViewModel.showNoInternetConnectionDialog();
@@ -196,6 +205,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
 
   clickPhoneSignInButton() {
     if (_loginViewModel.validatePhone() == null) {
+      FirebaseCrashlytics.instance.log("Phone Login");
       _loginViewModel.loginWithPhone();
     }
   }

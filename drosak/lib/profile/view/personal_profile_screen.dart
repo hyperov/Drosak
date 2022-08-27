@@ -4,6 +4,8 @@ import 'package:drosak/common/widgets/fullwidth_textfield.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -15,6 +17,14 @@ class PersonalProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.log('PersonalProfileScreen');
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'personal_profile_screen',
+        'firebase_screen_class': 'PersonalProfileScreen',
+      },
+    );
     return WillPopScope(
       onWillPop: () {
         _profileViewModel.readStudentProfileDataFromStorage();
@@ -251,6 +261,8 @@ class PersonalProfileScreen extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   if (_profileViewModel.validateProfile() == null) {
+                    FirebaseCrashlytics.instance
+                        .log('update profile button pressed');
                     _profileViewModel.updateProfile();
                   }
                 },

@@ -2,6 +2,7 @@ import 'package:drosak/common/model/empty_widget.dart';
 import 'package:drosak/notifications/viewmodel/notifications_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
@@ -13,6 +14,13 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'notifications_screen',
+        'firebase_screen_class': 'NotificationsScreen',
+      },
+    );
     return Scaffold(
         body: Obx(
       () => _notificationsViewModel.isLoading.value

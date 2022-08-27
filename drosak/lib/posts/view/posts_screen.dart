@@ -1,6 +1,8 @@
 import 'package:drosak/common/model/empty_widget.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
@@ -22,6 +24,14 @@ class PostsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseCrashlytics.instance.log('PostsScreen');
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'posts_screen',
+        'firebase_screen_class': 'PostsScreen',
+      },
+    );
     return Obx(() => Scaffold(
           backgroundColor: ColorManager.redOrangeLight,
           body: _postsViewModel.isLoading.value

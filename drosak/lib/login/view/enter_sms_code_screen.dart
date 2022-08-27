@@ -3,6 +3,7 @@ import 'package:drosak/common/viewmodel/network_viewmodel.dart';
 import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +18,13 @@ class EnterSmsCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'screen_view',
+      parameters: {
+        'firebase_screen': 'enter_sms_code_screen',
+        'firebase_screen_class': 'EnterSmsCodeScreen',
+      },
+    );
     return Scaffold(
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

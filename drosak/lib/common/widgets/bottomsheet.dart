@@ -6,6 +6,8 @@ import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -606,6 +608,10 @@ showConfirmBookingBottomSheet(
                       Get.back();
                       Get.back();
                       slidingUpPanelController.close();
+                      FirebaseCrashlytics.instance
+                          .log("Lecture booked successfully");
+                      FirebaseAnalytics.instance
+                          .logEvent(name: "lecture_booked_successfully");
                     } catch (e) {
                       print(e.toString());
                       EasyLoading.showError(e.toString());
@@ -726,6 +732,14 @@ showRatingTeacherBottomSheet(
                       EasyLoading.dismiss();
                       Get.back();
                       EasyLoading.showSuccess(LocalizationKeys.review_added.tr);
+                      FirebaseCrashlytics.instance
+                          .log("Teacher reviewed successfully");
+                      FirebaseAnalytics.instance.logEvent(
+                          name: "teacher_reviewed_successfully",
+                          parameters: {
+                            "teacher_id": teacher.id,
+                            "teacher_name": teacher.name
+                          });
                     } catch (e) {
                       print(e.toString());
                       EasyLoading.showError(e.toString());
