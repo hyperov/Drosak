@@ -49,8 +49,7 @@ class TeachersListViewModel extends GetxController {
         midSchool: midSchool,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        selectedMaterials: materials,
-        selectedAreas: areas);
+        selectedMaterials: materials);
 
     var teachersDocs = _teachers.docs.where((doc) {
       if (minPrice != null && maxPrice != null) {
@@ -64,15 +63,27 @@ class TeachersListViewModel extends GetxController {
       }
       return true;
     }).where((doc) {
-      if (selectedAreas != null) {
+      if (areas != null) {
         bool isAreaExist = false;
-        for (var element in selectedAreas) {
-          var selectedFilterArea = element.value.name.value;
+        for (var area in areas) {
+          var selectedFilterArea = area;
           isAreaExist =
               doc.data().areasOfLectures!.contains(selectedFilterArea);
           if (isAreaExist) return true;
         }
         return isAreaExist;
+      }
+      return true;
+    }).where((doc) {
+      if (materials != null) {
+        bool isMaterialExist = false;
+        for (var material in materials) {
+          var selectedFilterMaterial = material;
+          isMaterialExist =
+              doc.data().materials!.contains(selectedFilterMaterial);
+          if (isMaterialExist) return true;
+        }
+        return isMaterialExist;
       }
       return true;
     }).map((doc) {

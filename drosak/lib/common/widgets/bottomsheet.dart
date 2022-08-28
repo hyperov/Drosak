@@ -436,208 +436,220 @@ showConfirmBookingBottomSheet(
     Teacher teacher,
     PanelController slidingUpPanelController) {
   Get.bottomSheet(
-    SingleChildScrollView(
-      child: Card(
-        elevation: 0,
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: 40,
-                height: 4,
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Stack(
-                alignment: Alignment.center,
-                clipBehavior: Clip.none,
+    DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        //set this as you want
+        maxChildSize: 0.8,
+        //set this as you want
+        minChildSize: 0.6,
+        //set this as you want
+        expand: false,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return SingleChildScrollView(
+            controller: scrollController,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Card(
-                      color: Colors.deepPurple,
-                      elevation: 4,
-                      clipBehavior: Clip.hardEdge,
-                      shape: const CircleBorder(
-                          side: BorderSide(
-                              color: Colors.deepPurpleAccent, width: 1)),
-                      child: Image.network(
-                          lecturesViewModel.lectures[index].teacherImageUrl,
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                        return SvgPicture.asset(
-                          AssetsManager.profilePlaceHolder,
-                          width: 60,
-                          height: 60,
-                          color: Colors.white,
-                          fit: BoxFit.cover,
-                        ).marginAll(16);
-                      })),
-                  Positioned(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.deepPurpleAccent),
-                        borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(16),
-                            right: Radius.circular(16)),
-                      ),
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          AssetsManager.star,
-                          width: 16,
-                          height: 16,
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: 40,
+                    height: 4,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Stack(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    children: [
+                      Card(
+                          color: Colors.deepPurple,
+                          elevation: 4,
+                          clipBehavior: Clip.hardEdge,
+                          shape: const CircleBorder(
+                              side: BorderSide(
+                                  color: Colors.deepPurpleAccent, width: 1)),
+                          child: Image.network(
+                              lecturesViewModel.lectures[index].teacherImageUrl,
+                              width: 80,
+                              height: 80,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                            return SvgPicture.asset(
+                              AssetsManager.profilePlaceHolder,
+                              width: 60,
+                              height: 60,
+                              color: Colors.white,
+                              fit: BoxFit.cover,
+                            ).marginAll(16);
+                          })),
+                      Positioned(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.deepPurpleAccent),
+                            borderRadius: const BorderRadius.horizontal(
+                                left: Radius.circular(16),
+                                right: Radius.circular(16)),
+                          ),
+                          child: Row(children: [
+                            SvgPicture.asset(
+                              AssetsManager.star,
+                              width: 16,
+                              height: 16,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(teacher.avgRating.toString(),
+                                style: const TextStyle(
+                                    fontSize: 10, color: Colors.black)),
+                          ]),
                         ),
-                        const SizedBox(width: 4),
-                        Text(teacher.avgRating.toString(),
-                            style: const TextStyle(
-                                fontSize: 10, color: Colors.black)),
-                      ]),
-                    ),
-                    bottom: -5,
+                        bottom: -5,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(lecturesViewModel.lectures[index].teacherName,
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-              const SizedBox(height: 4),
-              Card(
-                  elevation: 4,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  color: Colors.white,
-                  child: const Icon(
-                    Icons.school,
-                    color: ColorManager.blueDark,
-                    size: 32,
-                  ).marginAll(14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  )),
-              Text(lecturesViewModel.lectures[index].centerName,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(lecturesViewModel.lectures[index].classLevel,
+                  const SizedBox(height: 8),
+                  Text(lecturesViewModel.lectures[index].teacherName,
                       style: const TextStyle(
-                        fontSize: 15,
-                      )),
-                  const Text(' / '),
-                  Text(lecturesViewModel.lectures[index].material,
-                      style: const TextStyle(
-                        fontSize: 15,
-                      )),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.location_pin),
-                  Text(lecturesViewModel.lectures[index].city),
-                  const Text(' - '),
-                  Text(lecturesViewModel.lectures[index].area),
-                ],
-              ),
-              Text(lecturesViewModel.lectures[index].address),
-              const SizedBox(height: 16),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Column(
-                  children: [
-                    SvgPicture.asset(AssetsManager.calendar),
-                    Text(lecturesViewModel.lectures[index].day,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                  ],
-                ),
-                Container(
-                  height: 1,
-                  width: 60,
-                  color: Colors.black,
-                ),
-                Column(
-                  children: [
-                    SvgPicture.asset(AssetsManager.clock),
-                    Text(lecturesViewModel.lectures[index].time,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                  ],
-                ),
-                Container(
-                  height: 1,
-                  width: 60,
-                  color: Colors.black,
-                ),
-                Column(
-                  children: [
-                    SvgPicture.asset(AssetsManager.money),
-                    Text(
-                        "${lecturesViewModel.lectures[index].price.toString()}ج ",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                  ],
-                )
-              ]),
-              const SizedBox(height: 8),
-              Container(
-                width: double.infinity,
-                height: 48,
-                margin: const EdgeInsets.symmetric(horizontal: 32),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    try {
-                      EasyLoading.show(status: "جاري حجز المحاضرة");
-                      await bookingsViewModel
-                          .bookLecture(lecturesViewModel.lectures[index]);
-                      Get.back();
-                      Get.back();
-                      slidingUpPanelController.close();
-                      FirebaseCrashlytics.instance
-                          .log("Lecture booked successfully");
-                      FirebaseAnalytics.instance
-                          .logEvent(name: "lecture_booked_successfully");
-                    } catch (e) {
-                      print(e.toString());
-                      EasyLoading.showError(e.toString());
-                    }
-                  },
-                  child: Text(LocalizationKeys.confirm_booking.tr,
-                      style: const TextStyle(
-                          color: Colors.white,
                           fontSize: 16,
-                          fontWeight: FontWeight.bold)),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  const SizedBox(height: 4),
+                  Card(
+                      elevation: 4,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 16),
+                      color: Colors.white,
+                      child: const Icon(
+                        Icons.school,
+                        color: ColorManager.blueDark,
+                        size: 32,
+                      ).marginAll(14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                  Text(lecturesViewModel.lectures[index].centerName,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(lecturesViewModel.lectures[index].classLevel,
+                          style: const TextStyle(
+                            fontSize: 15,
+                          )),
+                      const Text(' / '),
+                      Text(lecturesViewModel.lectures[index].material,
+                          style: const TextStyle(
+                            fontSize: 15,
+                          )),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.location_pin),
+                      Text(lecturesViewModel.lectures[index].city),
+                      const Text(' - '),
+                      Text(lecturesViewModel.lectures[index].area),
+                    ],
+                  ),
+                  Text(lecturesViewModel.lectures[index].address)
+                      .marginSymmetric(horizontal: 16),
+                  const SizedBox(height: 16),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            SvgPicture.asset(AssetsManager.calendar),
+                            Text(lecturesViewModel.lectures[index].day,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16)),
+                          ],
+                        ),
+                        Container(
+                          height: 1,
+                          width: 60,
+                          color: Colors.black,
+                        ),
+                        Column(
+                          children: [
+                            SvgPicture.asset(AssetsManager.clock),
+                            Text(lecturesViewModel.lectures[index].time,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16)),
+                          ],
+                        ),
+                        Container(
+                          height: 1,
+                          width: 60,
+                          color: Colors.black,
+                        ),
+                        Column(
+                          children: [
+                            SvgPicture.asset(AssetsManager.money),
+                            Text(
+                                "${lecturesViewModel.lectures[index].price.toString()}ج ",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16)),
+                          ],
+                        )
+                      ]),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: double.infinity,
+                    height: 48,
+                    margin: const EdgeInsets.symmetric(horizontal: 32),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        try {
+                          EasyLoading.show(status: "جاري حجز المحاضرة");
+                          await bookingsViewModel
+                              .bookLecture(lecturesViewModel.lectures[index]);
+                          Get.back();
+                          Get.back();
+                          slidingUpPanelController.close();
+                          FirebaseCrashlytics.instance
+                              .log("Lecture booked successfully");
+                          FirebaseAnalytics.instance
+                              .logEvent(name: "lecture_booked_successfully");
+                        } catch (e) {
+                          print(e.toString());
+                          EasyLoading.showError(e.toString());
+                        }
+                      },
+                      child: Text(LocalizationKeys.confirm_booking.tr,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.deepPurple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-            ]),
-      ),
-    ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ]),
+          );
+        }),
     backgroundColor: Colors.white,
     clipBehavior: Clip.hardEdge,
+    isScrollControlled: true,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(32),

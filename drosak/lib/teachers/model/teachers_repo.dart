@@ -8,8 +8,7 @@ class TeachersRepo {
       String? midSchool,
       double? minPrice,
       double? maxPrice,
-      List<String>? selectedMaterials,
-      List<String>? selectedAreas}) async {
+      List<String>? selectedMaterials}) async {
     var query = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionTeachers)
         .withConverter<Teacher>(
@@ -28,10 +27,10 @@ class TeachersRepo {
               arrayContains: midSchool);
         }
       }
-      if (selectedMaterials != null) {
-        query = query.where(FireStoreNames.teacherDocFieldMaterial,
-            whereIn: selectedMaterials);
-      }
+      // if (selectedMaterials != null) {
+      //   query = query.where(FireStoreNames.teacherDocFieldMaterial,
+      //       whereIn: selectedMaterials);
+      // }
 
       if (minPrice != null) {
         query = query.where(FireStoreNames.teacherDocFieldMaxPrice,
