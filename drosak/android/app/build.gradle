@@ -24,8 +24,8 @@ if (flutterRoot == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -76,6 +76,7 @@ android {
             resValue "string", "facebook_app_id", "294971929514529"
             resValue "string", "fb_login_protocol_scheme", "fb294971929514529"
             resValue "string", "facebook_client_token", "bd9030a097e4d1aef30d358c083f91fc"
+
         }
         prod {
             dimension "env"
@@ -84,6 +85,7 @@ android {
             resValue "string", "facebook_app_id", "1131110080810081"
             resValue "string", "fb_login_protocol_scheme", "fb1131110080810081"
             resValue "string", "facebook_client_token", "34e6e445838820edfd16dc5da1b3a188"
+
         }
     }
 

@@ -98,10 +98,15 @@ class TeachersListScreen extends StatelessWidget {
                                                                   .deepPurpleAccent,
                                                               width: 1)),
                                                       child: Obx(() => _teachersListViewModel
-                                                              .teachersList[
-                                                                  index]
-                                                              .photoUrl
-                                                              .isBlank!
+                                                                  .teachersList[
+                                                                      index]
+                                                                  .photoUrl
+                                                                  .isBlank! ||
+                                                              _teachersListViewModel
+                                                                      .teachersList[
+                                                                          index]
+                                                                      .photoUrl ==
+                                                                  null
                                                           ? Image.asset(
                                                               AssetsManager
                                                                   .teacher_empty_profile,

@@ -87,25 +87,27 @@ class TeacherDetailsScreen extends StatelessWidget {
                       width: 4,
                     ),
                   ),
-                  child:
-                      _teachersListViewModel.selectedTeacher.photoUrl.isBlank!
-                          ? Image.asset(
-                              AssetsManager.teacher_empty_profile,
-                              width: 100,
-                              height: 100,
-                            )
-                          : Image.network(
-                              _teachersListViewModel.selectedTeacher.photoUrl!,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                              return Image.asset(
-                                AssetsManager.teacher_empty_profile,
-                                width: 100,
-                                height: 100,
-                              );
-                            }),
+                  child: _teachersListViewModel
+                              .selectedTeacher.photoUrl.isBlank! ||
+                          _teachersListViewModel.selectedTeacher.photoUrl ==
+                              null
+                      ? Image.asset(
+                          AssetsManager.teacher_empty_profile,
+                          width: 100,
+                          height: 100,
+                        )
+                      : Image.network(
+                          _teachersListViewModel.selectedTeacher.photoUrl!,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            AssetsManager.teacher_empty_profile,
+                            width: 100,
+                            height: 100,
+                          );
+                        }),
                 ),
               ),
             ),
@@ -118,11 +120,14 @@ class TeacherDetailsScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.05,
               child: Marquee(
-                text: _teachersListViewModel.selectedTeacher.classes!
-                    .toString()
-                    .replaceAll('[', '')
-                    .replaceAll(']', '')
-                    .replaceAll(',', ' - '),
+                text: _teachersListViewModel.selectedTeacher.classes == null ||
+                        _teachersListViewModel.selectedTeacher.classes!.isEmpty
+                    ? 'لا يوجد صف'
+                    : _teachersListViewModel.selectedTeacher.classes!
+                        .toString()
+                        .replaceAll('[', '')
+                        .replaceAll(']', '')
+                        .replaceAll(',', ' - '),
                 style: const TextStyle(fontSize: 18),
                 scrollAxis: Axis.horizontal,
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -85,7 +85,7 @@ class Teacher {
         fees: json['fees'],
         avgRating: double.parse(json['avgRating'].toString()),
         totalReviews: json['totRevs'],
-        followers: json['followers'],
+        followers: json['followers'] ?? 0,
         priceMin: json['price_min'],
         priceMax: json['price_max'],
         lastScanTime: (json['last_scan_time'] as Timestamp).toDate(),
