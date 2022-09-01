@@ -48,6 +48,7 @@ class Filters {
     LocalizationKeys.cairo_tagamo3.tr,
     LocalizationKeys.cairo_zamalek.tr,
     LocalizationKeys.cairo_obor.tr,
+    LocalizationKeys.cairo_shrouk.tr,
   ];
 
   static final List<String> areasGiza = [

@@ -198,6 +198,7 @@ class Languages extends Translations {
           LocalizationKeys.cairo_tagamo3: '5th settlement',
           LocalizationKeys.cairo_zamalek: 'Zamalek',
           LocalizationKeys.cairo_obor: 'Obor',
+          LocalizationKeys.cairo_shrouk: 'Shrouk',
 
           //giza area
           LocalizationKeys.giza_dokki_or_mohandessen: 'Dokki or Mohandessen',
@@ -460,6 +461,7 @@ class Languages extends Translations {
           LocalizationKeys.giza_s2ara: 'سقارة',
           LocalizationKeys.giza_bdrshen: 'البدرشين',
           LocalizationKeys.cairo_obor: 'العبور',
+          LocalizationKeys.cairo_shrouk: 'الشروق',
         },
       };
 }
