@@ -103,4 +103,4 @@ app.*.map.json
 !/dev/ci/**/Gemfile.lock
 
 #firebase
-/lib/firebase/dev/firebase_options.dart
+#/lib/firebase/dev/firebase_options.dart
