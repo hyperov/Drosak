@@ -305,7 +305,7 @@ class LocalizationKeys {
   static var giza_haram = 'giza_haram';
   static var giza_faisel = 'giza_faisel';
   static var giza_omranya = 'giza_omranya';
-  static var giza_om_masryyn = 'giza_faisel';
+  static var giza_om_masryyn = 'giza_om_masryyn';
   static var giza_m2mon = 'giza_m2mon';
   static var giza_6_october = 'giza_6_october';
   static var giza_sa2ya_mky = 'giza_sa2ya_mky';
