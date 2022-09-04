@@ -6,6 +6,7 @@ import 'package:drosak/teachers/model/teachers_repo.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -22,9 +23,14 @@ class TeachersListViewModel extends GetxController {
   Teacher selectedTeacher = Teacher();
   final GetStorage _storage = GetStorage();
 
+  ScrollController controller = ScrollController();
+
+  late List<QueryDocumentSnapshot<Teacher>> teachersDocs;
+
   @override
   Future<void> onReady() async {
     super.onReady();
+    controller.addListener(_scrollListener);
     await getTeachersList(false);
   }
 
@@ -44,14 +50,15 @@ class TeachersListViewModel extends GetxController {
     List<String>? areas =
         selectedAreas?.map((area) => area.value.name.value).toList();
 
-    var _teachers = await _teachersRepo.getTeachers(isTeacherApplied,
+    var _teacherQuerySnapshot = await _teachersRepo.getTeachers(
+        isTeacherApplied,
         highSchool: highSchool,
         midSchool: midSchool,
         minPrice: minPrice,
         maxPrice: maxPrice,
         selectedMaterials: materials);
 
-    var teachersDocs = _teachers.docs.where((doc) {
+    teachersDocs = _teacherQuerySnapshot.docs.where((doc) {
       if (minPrice != null && maxPrice != null) {
         return doc.data().priceMax! >= minPrice &&
             doc.data().priceMin! <= maxPrice;
@@ -86,7 +93,9 @@ class TeachersListViewModel extends GetxController {
         return isMaterialExist;
       }
       return true;
-    }).map((doc) {
+    }).toList();
+
+    var teachers = teachersDocs.map((doc) {
       var teacher = doc.data();
       teacher.id = doc.id; // set document id to lecture
       return teacher;
@@ -94,7 +103,7 @@ class TeachersListViewModel extends GetxController {
 
     isLoading.value = false;
     teachersList.clear();
-    teachersList.addAll(teachersDocs);
+    teachersList.addAll(teachers);
   }
 
   Future<void> followTeacher() async {
@@ -113,4 +122,14 @@ class TeachersListViewModel extends GetxController {
 
     await _followRepo.addFollow(follow);
   }
+
+  void _scrollListener() {
+    if (controller.offset >= controller.position.maxScrollExtent &&
+        !controller.position.outOfRange) {
+      print("at the end of list");
+      getNextTeachersList();
+    }
+  }
+
+  void getNextTeachersList() {}
 }

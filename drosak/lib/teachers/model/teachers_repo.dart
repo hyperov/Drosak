@@ -14,8 +14,43 @@ class TeachersRepo {
         .withConverter<Teacher>(
             fromFirestore: (snapshot, _) => Teacher.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
-        .where(FireStoreNames.teacherDocFieldIsActive, isEqualTo: true);
+        .where(FireStoreNames.teacherDocFieldIsActive, isEqualTo: true)
+        .limit(10);
 
+    query = _applyFiltersToTeachersQuery(
+        isFilterApplied, query, highSchool, midSchool, minPrice, maxPrice);
+    return query.get();
+  }
+
+  Future<QuerySnapshot<Teacher>> getNextTeachers(
+      DocumentSnapshot teacherPrevSnapShot, bool isFilterApplied,
+      {String? highSchool,
+      String? midSchool,
+      double? minPrice,
+      double? maxPrice,
+      List<String>? selectedMaterials}) async {
+    var query = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionTeachers)
+        .withConverter<Teacher>(
+            fromFirestore: (snapshot, _) => Teacher.fromJson(snapshot.data()!),
+            toFirestore: (model, _) => model.toJson())
+        .where(FireStoreNames.teacherDocFieldIsActive, isEqualTo: true)
+        .orderBy(FireStoreNames.teacherDocFieldName)
+        .startAfterDocument(teacherPrevSnapShot)
+        .limit(10);
+
+    query = _applyFiltersToTeachersQuery(
+        isFilterApplied, query, highSchool, midSchool, minPrice, maxPrice);
+    return query.get();
+  }
+
+  Query<Teacher> _applyFiltersToTeachersQuery(
+      bool isFilterApplied,
+      Query<Teacher> query,
+      String? highSchool,
+      String? midSchool,
+      double? minPrice,
+      double? maxPrice) {
     if (isFilterApplied) {
       if (highSchool != null) {
         query = query.where(FireStoreNames.teacherDocFieldEducationLevel,
@@ -27,10 +62,6 @@ class TeachersRepo {
               arrayContains: midSchool);
         }
       }
-      // if (selectedMaterials != null) {
-      //   query = query.where(FireStoreNames.teacherDocFieldMaterial,
-      //       whereIn: selectedMaterials);
-      // }
 
       if (minPrice != null) {
         query = query.where(FireStoreNames.teacherDocFieldMaxPrice,
@@ -44,6 +75,6 @@ class TeachersRepo {
         }
       }
     }
-    return query.get();
+    return query;
   }
 }

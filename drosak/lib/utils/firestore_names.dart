@@ -27,14 +27,14 @@ class FireStoreNames {
   static const String teacherDocFieldEducationLevel = 'eduLevel';
   static const String teacherDocFieldMaterial = 'material';
   static const String teacherDocFieldAreas = 'areas';
-
+  static const String teacherDocFieldName = 'name';
   //booking fields
   static const String bookingDocFieldLecDate = 'lec_date';
 
-  static String followDocFieldTeacherName = 'name';
-  static String followDocFieldTeacherId = 'teacher_id';
+  static const String followDocFieldTeacherName = 'name';
+  static const String followDocFieldTeacherId = 'teacher_id';
 
-  static String lectureDocFieldIsEnabled = 'is_enabled';
+  static const String lectureDocFieldIsEnabled = 'is_enabled';
 
   //education field values
   static const String educationLevelSecondaryValue = 'high_school';
@@ -43,5 +43,5 @@ class FireStoreNames {
   static const String collectionAppStatistics = 'stats';
   static const String documentAppStatistics = 'app_stats';
 
-  static var studentDocFieldProfileImageUrl = 'photoUrl';
+  static const studentDocFieldProfileImageUrl = 'photoUrl';
 }
