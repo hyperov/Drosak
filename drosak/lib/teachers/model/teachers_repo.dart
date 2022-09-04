@@ -7,8 +7,7 @@ class TeachersRepo {
       {String? highSchool,
       String? midSchool,
       double? minPrice,
-      double? maxPrice,
-      List<String>? selectedMaterials}) async {
+      double? maxPrice}) async {
     var query = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionTeachers)
         .withConverter<Teacher>(
@@ -27,8 +26,7 @@ class TeachersRepo {
       {String? highSchool,
       String? midSchool,
       double? minPrice,
-      double? maxPrice,
-      List<String>? selectedMaterials}) async {
+      double? maxPrice}) async {
     var query = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionTeachers)
         .withConverter<Teacher>(

@@ -55,8 +55,7 @@ class TeachersListViewModel extends GetxController {
         highSchool: highSchool,
         midSchool: midSchool,
         minPrice: minPrice,
-        maxPrice: maxPrice,
-        selectedMaterials: materials);
+        maxPrice: maxPrice);
 
     teachersDocs = _teacherQuerySnapshot.docs.where((doc) {
       if (minPrice != null && maxPrice != null) {
