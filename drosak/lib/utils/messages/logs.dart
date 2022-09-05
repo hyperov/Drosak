@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Logs {
   static const String log_firestore_error_insert_user =
       "insert user to firestore error";
@@ -8,4 +10,6 @@ class Logs {
 
   static const String log_ui_sms_code_empty = "sms code empty";
   static const String sms_code_length = "sms code length";
+
+  static var teachersListScrollPosition = Random().nextInt(1000).toDouble();
 }

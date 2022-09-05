@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../utils/managers/assets_manager.dart';
+import '../utils/messages/logs.dart';
 import 'teacher_details_screen.dart';
 
 class TeachersListScreen extends StatelessWidget {
@@ -44,7 +45,8 @@ class TeachersListScreen extends StatelessWidget {
                     backgroundColor: ColorManager.blueDark,
                     displacement: 50,
                     child: ListView.builder(
-                            key: const PageStorageKey<String>('teachersList'),
+                            key: PageStorageKey<String>(
+                                Logs.teachersListScrollPosition.toString()),
                             controller: _teachersListViewModel.controller,
                             itemBuilder: (context, index) {
                               return Card(

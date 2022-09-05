@@ -73,7 +73,9 @@ class TeachersListViewModel extends GetxController {
         highSchool: highSchool,
         midSchool: midSchool,
         minPrice: minPrice,
-        maxPrice: maxPrice);
+        maxPrice: maxPrice,
+        materials: materials,
+        areas: areas);
 
     teachersDocs = _teacherQuerySnapshot.docs.where((doc) {
       if (minPrice != null && maxPrice != null) {
@@ -124,14 +126,14 @@ class TeachersListViewModel extends GetxController {
   }
 
   Future<void> getNextTeachersList() async {
-    // isLoading.value = true;
-
     var _teacherQuerySnapshot = await _teachersRepo.getNextTeachers(
         teachersDocs.last, globalIsFilterApplied,
         highSchool: selectedFilterHighSchool,
         midSchool: selectedFilterMidSchool,
         minPrice: selectedFilterMinPrice,
-        maxPrice: selectedFilterMaxPrice);
+        maxPrice: selectedFilterMaxPrice,
+        materials: selectedFilterMaterials,
+        areas: selectedFilterAreas);
 
     var teachersDocsNew = _teacherQuerySnapshot.docs.where((doc) {
       if (selectedFilterMinPrice != null && selectedFilterMaxPrice != null) {
@@ -198,11 +200,11 @@ class TeachersListViewModel extends GetxController {
     await _followRepo.addFollow(follow);
   }
 
-  void _scrollListener() {
+  Future<void> _scrollListener() async {
     if (controller.offset >= controller.position.maxScrollExtent &&
         !controller.position.outOfRange) {
       print("at the end of list");
-      getNextTeachersList();
+      await getNextTeachersList();
     }
   }
 }
