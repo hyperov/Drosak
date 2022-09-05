@@ -44,6 +44,7 @@ class TeachersListScreen extends StatelessWidget {
                     backgroundColor: ColorManager.blueDark,
                     displacement: 50,
                     child: ListView.builder(
+                            key: const PageStorageKey<String>('teachersList'),
                             controller: _teachersListViewModel.controller,
                             itemBuilder: (context, index) {
                               return Card(

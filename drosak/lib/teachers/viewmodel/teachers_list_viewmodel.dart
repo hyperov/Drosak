@@ -27,6 +27,15 @@ class TeachersListViewModel extends GetxController {
 
   late List<QueryDocumentSnapshot<Teacher>> teachersDocs;
 
+  String? selectedFilterHighSchool;
+  String? selectedFilterMidSchool;
+  double? selectedFilterMinPrice;
+  double? selectedFilterMaxPrice;
+  List<String>? selectedFilterMaterials;
+  List<String>? selectedFilterAreas;
+
+  bool globalIsFilterApplied = false;
+
   @override
   Future<void> onReady() async {
     super.onReady();
@@ -49,6 +58,15 @@ class TeachersListViewModel extends GetxController {
 
     List<String>? areas =
         selectedAreas?.map((area) => area.value.name.value).toList();
+
+    //save filters
+    globalIsFilterApplied = isTeacherApplied;
+    selectedFilterHighSchool = highSchool;
+    selectedFilterMidSchool = midSchool;
+    selectedFilterMinPrice = minPrice;
+    selectedFilterMaxPrice = maxPrice;
+    selectedFilterMaterials = materials;
+    selectedFilterAreas = areas;
 
     var _teacherQuerySnapshot = await _teachersRepo.getTeachers(
         isTeacherApplied,
@@ -105,6 +123,64 @@ class TeachersListViewModel extends GetxController {
     teachersList.addAll(teachers);
   }
 
+  Future<void> getNextTeachersList() async {
+    // isLoading.value = true;
+
+    var _teacherQuerySnapshot = await _teachersRepo.getNextTeachers(
+        teachersDocs.last, globalIsFilterApplied,
+        highSchool: selectedFilterHighSchool,
+        midSchool: selectedFilterMidSchool,
+        minPrice: selectedFilterMinPrice,
+        maxPrice: selectedFilterMaxPrice);
+
+    var teachersDocsNew = _teacherQuerySnapshot.docs.where((doc) {
+      if (selectedFilterMinPrice != null && selectedFilterMaxPrice != null) {
+        return doc.data().priceMax! >= selectedFilterMinPrice! &&
+            doc.data().priceMin! <= selectedFilterMaxPrice!;
+      }
+      return true;
+    }).where((doc) {
+      if (selectedFilterHighSchool != null && selectedFilterMidSchool != null) {
+        return doc.data().educationalLevel!.contains(selectedFilterMidSchool);
+      }
+      return true;
+    }).where((doc) {
+      if (selectedFilterAreas != null) {
+        bool isAreaExist = false;
+        for (var area in selectedFilterAreas!) {
+          var selectedFilterArea = area;
+          isAreaExist =
+              doc.data().areasOfLectures!.contains(selectedFilterArea);
+          if (isAreaExist) return true;
+        }
+        return isAreaExist;
+      }
+      return true;
+    }).where((doc) {
+      if (selectedFilterMaterials != null) {
+        bool isMaterialExist = false;
+        for (var material in selectedFilterMaterials!) {
+          var selectedFilterMaterial = material;
+          isMaterialExist =
+              doc.data().materials!.contains(selectedFilterMaterial);
+          if (isMaterialExist) return true;
+        }
+        return isMaterialExist;
+      }
+      return true;
+    }).toList();
+
+    var teachers = teachersDocsNew.map((doc) {
+      var teacher = doc.data();
+      teacher.id = doc.id; // set document id to lecture
+      return teacher;
+    });
+
+    isLoading.value = false;
+    teachersDocs.addAll(teachersDocsNew);
+    teachersList.addAll(teachers);
+  }
+
   Future<void> followTeacher() async {
     final follow = Follow(
       teacherId: selectedTeacher.id!,
@@ -129,6 +205,4 @@ class TeachersListViewModel extends GetxController {
       getNextTeachersList();
     }
   }
-
-  void getNextTeachersList() {}
 }

@@ -14,6 +14,7 @@ class TeachersRepo {
             fromFirestore: (snapshot, _) => Teacher.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
         .where(FireStoreNames.teacherDocFieldIsActive, isEqualTo: true)
+        .orderBy(FireStoreNames.teacherDocFieldName)
         .limit(10);
 
     query = _applyFiltersToTeachersQuery(
