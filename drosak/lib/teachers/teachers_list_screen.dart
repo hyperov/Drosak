@@ -90,7 +90,7 @@ class TeachersListScreen extends StatelessWidget {
                                                   tag: _teachersListViewModel
                                                           .teachersList[index]
                                                           .id ??
-                                                      '',
+                                                      'tag',
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: Card(

@@ -75,7 +75,7 @@ class TeacherDetailsScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 32),
             Hero(
-              tag: _teachersListViewModel.selectedTeacher.id!,
+              tag: _teachersListViewModel.selectedTeacher.id ?? 'tag',
               child: Material(
                 color: Colors.transparent,
                 child: Card(
@@ -87,31 +87,31 @@ class TeacherDetailsScreen extends StatelessWidget {
                       width: 4,
                     ),
                   ),
-                  child: _teachersListViewModel
-                              .selectedTeacher.photoUrl.isBlank! ||
-                          _teachersListViewModel.selectedTeacher.photoUrl ==
-                              null
-                      ? Image.asset(
-                          AssetsManager.teacher_empty_profile,
-                          width: 100,
-                          height: 100,
-                        )
-                      : Image.network(
-                          _teachersListViewModel.selectedTeacher.photoUrl!,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            AssetsManager.teacher_empty_profile,
-                            width: 100,
-                            height: 100,
-                          );
-                        }),
+                  child:
+                      _teachersListViewModel.selectedTeacher.photoUrl == null ||
+                              _teachersListViewModel
+                                  .selectedTeacher.photoUrl.isBlank!
+                          ? Image.asset(
+                              AssetsManager.teacher_empty_profile,
+                              width: 100,
+                              height: 100,
+                            )
+                          : Image.network(
+                              _teachersListViewModel.selectedTeacher.photoUrl!,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
+                                AssetsManager.teacher_empty_profile,
+                                width: 100,
+                                height: 100,
+                              );
+                            }),
                 ),
               ),
             ),
-            Text(_teachersListViewModel.selectedTeacher.name!,
+            Text(_teachersListViewModel.selectedTeacher.name ?? 'المستر',
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 style:
@@ -134,7 +134,7 @@ class TeacherDetailsScreen extends StatelessWidget {
                 blankSpace: 20,
               ),
             ),
-            Text(_teachersListViewModel.selectedTeacher.material!,
+            Text(_teachersListViewModel.selectedTeacher.material ?? '',
                 style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 16),
             Row(
