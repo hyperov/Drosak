@@ -88,7 +88,9 @@ class TeachersListScreen extends StatelessWidget {
                                               children: [
                                                 Hero(
                                                   tag: _teachersListViewModel
-                                                      .teachersList[index].id!,
+                                                          .teachersList[index]
+                                                          .id ??
+                                                      '',
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: Card(
@@ -233,8 +235,10 @@ class TeachersListScreen extends StatelessWidget {
                               );
                             },
                             // physics: const BouncingScrollPhysics(),
-                            itemCount:
-                                _teachersListViewModel.teachersList.length)
+                            itemCount: _teachersListViewModel
+                                    .teachersList.isEmpty
+                                ? 0
+                                : _teachersListViewModel.teachersList.length)
                         .paddingOnly(top: 20)
                         .marginSymmetric(horizontal: 16),
                   )

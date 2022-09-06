@@ -19,13 +19,13 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../posts/view/posts_screen.dart';
 
 class TeacherDetailsScreen extends StatelessWidget {
-  final _slidingUpPanelController = PanelController();
-
   TeacherDetailsScreen({Key? key}) : super(key: key);
 
   final TeachersListViewModel _teachersListViewModel = Get.find();
   final FollowsViewModel _followsViewModel = Get.find();
   final ReviewsViewModel _reviewsViewModel = Get.find();
+
+  final _slidingUpPanelController = PanelController();
 
   bool isFollowing() {
     return _followsViewModel.follows.any((follow) =>

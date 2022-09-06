@@ -207,4 +207,11 @@ class TeachersListViewModel extends GetxController {
       await getNextTeachersList();
     }
   }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    controller.dispose();
+  }
 }
