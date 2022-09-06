@@ -119,26 +119,31 @@ class TeachersListScreen extends StatelessWidget {
                                                               width: 70,
                                                               height: 70,
                                                             )
-                                                          : Image.network(
-                                                              _teachersListViewModel
+                                                          : FadeInImage
+                                                              .assetNetwork(
+                                                              placeholder:
+                                                                  AssetsManager
+                                                                      .teacher_empty_profile,
+                                                              image: _teachersListViewModel
                                                                   .teachersList[
                                                                       index]
                                                                   .photoUrl!,
                                                               width: 70,
                                                               height: 70,
                                                               fit: BoxFit.cover,
-                                                              errorBuilder:
+                                                              imageErrorBuilder:
                                                                   (context,
                                                                       error,
                                                                       stackTrace) {
-                                                              return Image
-                                                                  .asset(
-                                                                AssetsManager
-                                                                    .teacher_empty_profile,
-                                                                width: 70,
-                                                                height: 70,
-                                                              );
-                                                            })),
+                                                                return Image
+                                                                    .asset(
+                                                                  AssetsManager
+                                                                      .teacher_empty_profile,
+                                                                  width: 70,
+                                                                  height: 70,
+                                                                );
+                                                              },
+                                                            )),
                                                     ),
                                                   ),
                                                 ),

@@ -79,36 +79,38 @@ class TeacherDetailsScreen extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: Card(
-                  clipBehavior: Clip.hardEdge,
-                  color: Colors.deepPurple,
-                  shape: const CircleBorder(
-                    side: BorderSide(
-                      color: ColorManager.deepPurple,
-                      width: 4,
+                    clipBehavior: Clip.hardEdge,
+                    color: Colors.deepPurple,
+                    shape: const CircleBorder(
+                      side: BorderSide(
+                        color: ColorManager.deepPurple,
+                        width: 4,
+                      ),
                     ),
-                  ),
-                  child:
-                      _teachersListViewModel.selectedTeacher.photoUrl == null ||
-                              _teachersListViewModel
-                                  .selectedTeacher.photoUrl.isBlank!
-                          ? Image.asset(
-                              AssetsManager.teacher_empty_profile,
-                              width: 100,
-                              height: 100,
-                            )
-                          : Image.network(
-                              _teachersListViewModel.selectedTeacher.photoUrl!,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
+                    child: _teachersListViewModel.selectedTeacher.photoUrl ==
+                                null ||
+                            _teachersListViewModel
+                                .selectedTeacher.photoUrl.isBlank!
+                        ? Image.asset(
+                            AssetsManager.teacher_empty_profile,
+                            width: 100,
+                            height: 100,
+                          )
+                        : FadeInImage.assetNetwork(
+                            placeholder: AssetsManager.teacher_empty_profile,
+                            image: _teachersListViewModel
+                                .selectedTeacher.photoUrl!,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                            imageErrorBuilder: (context, error, stackTrace) {
                               return Image.asset(
                                 AssetsManager.teacher_empty_profile,
                                 width: 100,
                                 height: 100,
                               );
-                            }),
-                ),
+                            },
+                          )),
               ),
             ),
             Text(_teachersListViewModel.selectedTeacher.name ?? 'المستر',
