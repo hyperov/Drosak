@@ -74,26 +74,30 @@ class PersonalProfileScreen extends StatelessWidget {
                           elevation: 4,
                           clipBehavior: Clip.hardEdge,
                           shape: const CircleBorder(),
-                          child: Obx(() => _profileViewModel
-                                  .selectedProfileImageUrl.isEmpty
-                              ? Image.asset(
-                                  AssetsManager.student_empty_profile,
-                                  width: 100,
-                                  height: 100,
-                                )
-                              : Image.network(
-                                  _profileViewModel
-                                      .selectedProfileImageUrl.value,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                  return Image.asset(
-                                    AssetsManager.student_empty_profile,
-                                    width: 100,
-                                    height: 100,
-                                  );
-                                }))),
+                          child: Obx(() =>
+                              _profileViewModel.selectedProfileImageUrl.isEmpty
+                                  ? Image.asset(
+                                      AssetsManager.student_empty_profile,
+                                      width: 100,
+                                      height: 100,
+                                    )
+                                  : FadeInImage.assetNetwork(
+                                      placeholder:
+                                          AssetsManager.student_empty_profile,
+                                      image: _profileViewModel
+                                          .selectedProfileImageUrl.value,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                      imageErrorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.asset(
+                                          AssetsManager.student_empty_profile,
+                                          width: 100,
+                                          height: 100,
+                                        );
+                                      },
+                                    ))),
                       const Positioned(
                         child: CircleAvatar(
                           child: Icon(Icons.add, size: 25, color: Colors.white),
