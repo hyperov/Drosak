@@ -1,9 +1,8 @@
-import 'package:drosak/common/widgets/bottomsheet.dart';
-import 'package:drosak/common/widgets/dialogs.dart';
 import 'package:drosak/follows/viewmodel/follows_viewmodel.dart';
 import 'package:drosak/lectures/lectures_screen.dart';
 import 'package:drosak/reviews/view/reviews_screen.dart';
 import 'package:drosak/reviews/viewmodel/reviews_viewmodel.dart';
+import 'package:drosak/teachers/teacher_details_personal_screen.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
@@ -13,7 +12,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:marquee/marquee.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../posts/view/posts_screen.dart';
@@ -47,352 +45,69 @@ class TeacherDetailsScreen extends StatelessWidget {
         'firebase_screen_class': 'TeacherDetailsScreen',
       },
     );
-    return Scaffold(
-      backgroundColor: ColorManager.redOrangeLight,
-      appBar: AppBar(
-          title: Stack(children: [
-            SvgPicture.asset(
-              AssetsManager.appbarBackGround,
-            ),
-            Container(
-              child: const Text(
-                'المعلم',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        backgroundColor: ColorManager.redOrangeLight,
+        appBar: AppBar(
+            title: Stack(children: [
+              SvgPicture.asset(
+                AssetsManager.appbarBackGround,
               ),
-              alignment: AlignmentDirectional.centerStart,
-            ),
-          ], alignment: Alignment.center),
-          toolbarHeight: 100,
-          titleTextStyle: const TextStyle(fontSize: 20),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
-            ),
-          )),
-      body: Stack(children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 32),
-            Hero(
-              tag: _teachersListViewModel.selectedTeacher.id ?? 'tag',
-              child: Material(
-                color: Colors.transparent,
-                child: Card(
-                    clipBehavior: Clip.hardEdge,
-                    color: Colors.deepPurple,
-                    shape: const CircleBorder(
-                      side: BorderSide(
-                        color: ColorManager.deepPurple,
-                        width: 4,
-                      ),
-                    ),
-                    child: _teachersListViewModel.selectedTeacher.photoUrl ==
-                                null ||
-                            _teachersListViewModel
-                                .selectedTeacher.photoUrl.isBlank!
-                        ? Image.asset(
-                            AssetsManager.teacher_empty_profile,
-                            width: 100,
-                            height: 100,
-                          )
-                        : FadeInImage.assetNetwork(
-                            placeholder: AssetsManager.teacher_empty_profile,
-                            image: _teachersListViewModel
-                                .selectedTeacher.photoUrl!,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                            imageErrorBuilder: (context, error, stackTrace) {
-                              return Image.asset(
-                                AssetsManager.teacher_empty_profile,
-                                width: 100,
-                                height: 100,
-                              );
-                            },
-                          )),
-              ),
-            ),
-            Text(_teachersListViewModel.selectedTeacher.name ?? 'المستر',
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.05,
-              child: Marquee(
-                text: _teachersListViewModel.selectedTeacher.classes == null ||
-                        _teachersListViewModel.selectedTeacher.classes!.isEmpty
-                    ? 'لا يوجد صف'
-                    : _teachersListViewModel.selectedTeacher.classes!
-                        .toString()
-                        .replaceAll('[', '')
-                        .replaceAll(']', '')
-                        .replaceAll(',', ' - '),
-                style: const TextStyle(fontSize: 18),
-                scrollAxis: Axis.horizontal,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                blankSpace: 20,
-              ),
-            ),
-            Text(_teachersListViewModel.selectedTeacher.material ?? '',
-                style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                    child: Obx(
-                  () => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: isFollowing()
-                            ? Colors.white
-                            : ColorManager.deepPurple,
-                        padding: const EdgeInsets.all(8),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          side: BorderSide(
-                            width: isFollowing() ? 2 : 0,
-                            color: isFollowing()
-                                ? ColorManager.deepPurple
-                                : Colors.white,
-                          ),
-                        )),
-                    child: Text(
-                      isFollowing()
-                          ? LocalizationKeys.delete_follow.tr
-                          : LocalizationKeys.follows2.tr,
-                      style: TextStyle(
-                          color: isFollowing()
-                              ? ColorManager.deepPurple
-                              : ColorManager.redOrangeLight,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () async {
-                      if (isFollowing()) {
-                        openDeleteDialog(_followsViewModel,
-                            _teachersListViewModel.selectedTeacher.id!);
-                        FirebaseCrashlytics.instance
-                            .log('delete follow button clicked');
-                      } else {
-                        await _teachersListViewModel.followTeacher();
-                        FirebaseCrashlytics.instance
-                            .log('follow teacher button clicked');
-                        FirebaseAnalytics.instance.logEvent(
-                            name: "follow_teacher_success",
-                            parameters: {
-                              "teacher_id":
-                                  _teachersListViewModel.selectedTeacher.id,
-                              "teacher_name":
-                                  _teachersListViewModel.selectedTeacher.name,
-                            });
-                      }
-                    },
-                  ).marginSymmetric(horizontal: 8),
-                )),
-                Obx(() => Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary:
-                              isRated() ? Colors.grey.shade400 : Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            side: BorderSide(
-                              width: isRated() ? 2 : 2,
-                              color: isRated()
-                                  ? ColorManager.greyLight
-                                  : ColorManager.lightPurple,
-                            ),
-                          ),
-                        ),
-                        child: SvgPicture.asset(
-                          AssetsManager.star,
-                          height: 28,
-                          width: 28,
-                          color: isRated()
-                              ? Colors.white
-                              : ColorManager.goldenYellow,
-                        ),
-                        onPressed: () {
-                          if (!isRated()) {
-                            FirebaseCrashlytics.instance
-                                .log('rate teacher button clicked');
-                            FirebaseAnalytics.instance
-                                .logEvent(name: "rating_teacher_dialog");
-                            showRatingTeacherBottomSheet(
-                                context,
-                                _reviewsViewModel,
-                                _teachersListViewModel.selectedTeacher);
-                          } else {
-                            Get.defaultDialog(
-                              radius: 16,
-                              titleStyle: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              title: LocalizationKeys.rating.tr,
-                              content: Center(
-                                child: Text(
-                                  LocalizationKeys
-                                      .review_already_rated_teacher.tr,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ).marginSymmetric(horizontal: 16),
-                              confirm: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: ColorManager.goldenYellow,
-                                  padding: const EdgeInsets.all(8),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Text(LocalizationKeys.confirm.tr,
-                                        style: const TextStyle(
-                                            color: ColorManager.blueDark,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold))
-                                    .marginSymmetric(horizontal: 16),
-                                onPressed: () => Get.back(),
-                              ),
-                            );
-                          }
-                        },
-                      ).marginSymmetric(horizontal: 8),
-                    )),
-              ],
-            ).marginSymmetric(horizontal: 48),
-            const SizedBox(height: 24),
-            Card(
-              elevation: 4,
-              clipBehavior: Clip.hardEdge,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-                side: const BorderSide(
-                  color: ColorManager.deepPurple,
-                  width: 2,
+              Container(
+                child: Text(
+                  LocalizationKeys.teacher.tr,
+                  style: const TextStyle(
+                      fontFamily: AssetsManager.fontFamily,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
+                alignment: AlignmentDirectional.centerStart,
               ),
-              child: Row(
+            ], alignment: Alignment.center),
+            toolbarHeight: 100,
+            titleTextStyle: const TextStyle(fontSize: 20),
+            bottom: TabBar(
+              labelColor: ColorManager.redOrangeDark,
+              unselectedLabelColor: Colors.white,
+              indicatorColor: Colors.white,
+              indicatorSize: TabBarIndicatorSize.tab,
+              tabs: [
+                Tab(
+                  text: LocalizationKeys.teacher.tr,
+                  icon: const Icon(Icons.person),
+                ),
+                Tab(
+                  text: LocalizationKeys.lectures.tr,
+                  icon: const Icon(Icons.school_outlined),
+                ),
+                Tab(
+                  text: LocalizationKeys.reviews.tr,
+                  icon: const Icon(Icons.star_outlined),
+                ),
+                Tab(
+                  text: LocalizationKeys.news.tr,
+                  icon: const Icon(Icons.theater_comedy),
+                )
+              ],
+            )),
+        body: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
                 children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        const Icon(Icons.people,
-                            color: ColorManager.deepPurple),
-                        Text(LocalizationKeys.followers.tr,
-                            style: const TextStyle(
-                                fontSize: 18, color: Colors.grey)),
-                        Text(
-                            _teachersListViewModel.selectedTeacher.followers
-                                .toString(),
-                            style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    ).paddingSymmetric(horizontal: 16, vertical: 16),
-                  ),
-                  Container(
-                    width: 1,
-                    height: 70,
-                    color: ColorManager.blueDark,
-                  ),
-                  Expanded(
-                      child: Column(
-                    children: [
-                      const Icon(Icons.star, color: ColorManager.deepPurple),
-                      Text(LocalizationKeys.rating.tr,
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.grey)),
-                      Text(
-                          _teachersListViewModel.selectedTeacher.avgRating
-                              .toString(),
-                          style: const TextStyle(
-                              fontSize: 24,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                    ],
-                  )),
+                  TeacherDetailsPersonalScreen(),
+                  LecturesScreen(
+                      slidingUpPanelController: _slidingUpPanelController,
+                      teacher: _teachersListViewModel.selectedTeacher),
+                  ReviewsScreen(),
+                  PostsScreen(isFollowing: () => isFollowing()),
                 ],
               ),
-            ).marginSymmetric(horizontal: 54)
+            ),
           ],
         ),
-        SlidingUpPanel(
-          controller: _slidingUpPanelController,
-          minHeight: 120,
-          parallaxEnabled: true,
-          parallaxOffset: .5,
-          maxHeight: MediaQuery.of(context).size.height * 0.8,
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(42),
-          ),
-          border: Border.all(
-            color: ColorManager.deepPurple,
-            width: 1,
-          ),
-          panelBuilder: (scrollController) {
-            return DefaultTabController(
-              length: 3,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: ColorManager.greyLight,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(48),
-                      ),
-                    ),
-                    child: TabBar(
-                      labelColor: Colors.deepPurple,
-                      unselectedLabelColor: Colors.grey,
-                      indicatorColor: Colors.deepPurpleAccent,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      tabs: [
-                        Tab(
-                          text: LocalizationKeys.lectures.tr,
-                          icon: const Icon(Icons.school_outlined),
-                        ),
-                        Tab(
-                          text: LocalizationKeys.reviews.tr,
-                          icon: const Icon(Icons.star_outlined),
-                        ),
-                        Tab(
-                          text: LocalizationKeys.news.tr,
-                          icon: const Icon(Icons.theater_comedy),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        LecturesScreen(
-                            scrollController: scrollController,
-                            slidingUpPanelController: _slidingUpPanelController,
-                            teacher: _teachersListViewModel.selectedTeacher),
-                        ReviewsScreen(scrollController: scrollController),
-                        PostsScreen(
-                            scrollController: scrollController,
-                            isFollowing: () => isFollowing()),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ]),
+      ),
     );
   }
 }

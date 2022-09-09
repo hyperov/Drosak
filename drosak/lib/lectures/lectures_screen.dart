@@ -16,13 +16,9 @@ import 'viewmodel/lectures_viewmodel.dart';
 
 class LecturesScreen extends StatelessWidget {
   const LecturesScreen(
-      {Key? key,
-      required this.scrollController,
-      required this.teacher,
-      required this.slidingUpPanelController})
+      {Key? key, required this.teacher, required this.slidingUpPanelController})
       : super(key: key);
 
-  final ScrollController scrollController;
   final PanelController slidingUpPanelController;
   final Teacher teacher;
 
@@ -46,7 +42,6 @@ class LecturesScreen extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               : _lecturesViewModel.lectures.isNotEmpty
                   ? ListView.builder(
-                      controller: scrollController,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Stack(children: [
