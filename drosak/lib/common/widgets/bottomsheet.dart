@@ -13,7 +13,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 showListBottomSheet(
     {required List<Icon> leadingIcons,
@@ -433,8 +432,7 @@ showConfirmBookingBottomSheet(
     LecturesViewModel lecturesViewModel,
     BookingsViewModel bookingsViewModel,
     int index,
-    Teacher teacher,
-    PanelController slidingUpPanelController) {
+    Teacher teacher) {
   Get.bottomSheet(
     DraggableScrollableSheet(
         initialChildSize: 0.6,
@@ -618,7 +616,6 @@ showConfirmBookingBottomSheet(
                               .bookLecture(lecturesViewModel.lectures[index]);
                           Get.back();
                           Get.back();
-                          slidingUpPanelController.close();
                           FirebaseCrashlytics.instance
                               .log("Lecture booked successfully");
                           FirebaseAnalytics.instance

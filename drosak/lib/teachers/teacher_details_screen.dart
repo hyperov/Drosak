@@ -12,7 +12,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../posts/view/posts_screen.dart';
 
@@ -22,8 +21,6 @@ class TeacherDetailsScreen extends StatelessWidget {
   final TeachersListViewModel _teachersListViewModel = Get.find();
   final FollowsViewModel _followsViewModel = Get.find();
   final ReviewsViewModel _reviewsViewModel = Get.find();
-
-  final _slidingUpPanelController = PanelController();
 
   bool isFollowing() {
     return _followsViewModel.follows.any((follow) =>
@@ -98,7 +95,6 @@ class TeacherDetailsScreen extends StatelessWidget {
                 children: [
                   TeacherDetailsPersonalScreen(),
                   LecturesScreen(
-                      slidingUpPanelController: _slidingUpPanelController,
                       teacher: _teachersListViewModel.selectedTeacher),
                   ReviewsScreen(),
                   PostsScreen(isFollowing: () => isFollowing()),
