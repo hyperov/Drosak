@@ -10,14 +10,8 @@ import 'package:jiffy/jiffy.dart';
 import '../viewmodel/posts_viewmodel.dart';
 
 class PostsScreen extends StatelessWidget {
-  const PostsScreen(
-      {Key? key,
-      required this.scrollController,
-      required,
-      required this.isFollowing})
-      : super(key: key);
+  const PostsScreen({Key? key, required this.isFollowing}) : super(key: key);
 
-  final ScrollController scrollController;
   final bool Function() isFollowing;
 
   PostsViewModel get _postsViewModel => Get.put(PostsViewModel());
@@ -38,7 +32,6 @@ class PostsScreen extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               : _postsViewModel.posts.isNotEmpty
                   ? ListView.builder(
-                          controller: scrollController,
                           itemCount: _postsViewModel.posts.length,
                           itemBuilder: (context, index) {
                             return InkWell(

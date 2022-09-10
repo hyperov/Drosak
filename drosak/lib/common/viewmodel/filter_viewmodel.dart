@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:drosak/common/model/filter_models.dart';
 import 'package:drosak/common/model/filters.dart';
 import 'package:drosak/teachers/viewmodel/teachers_list_viewmodel.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:get/get.dart';
+
+import '../../utils/messages/logs.dart';
 
 class FilterViewModel extends GetxController {
   final TeachersListViewModel _teachersListViewModel = Get.find();
@@ -115,6 +119,7 @@ class FilterViewModel extends GetxController {
       selectedAreas = null;
     }
 
+    Logs.teachersListScrollPosition = Random().nextInt(1000).toDouble();
     await _teachersListViewModel.getTeachersList(isFilterApplied,
         highSchool: highSchool,
         midSchool: midSchool,

@@ -317,6 +317,8 @@ class LocalizationKeys {
   static var giza_s2ara = 'giza_s2ara';
   static var giza_bdrshen = 'giza_bdrshen';
 
+  static var teacher = 'teacher';
+
   //used giza areas
   /**
   المهندسين او الدقى

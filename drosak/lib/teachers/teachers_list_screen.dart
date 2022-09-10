@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../utils/managers/assets_manager.dart';
+import '../utils/messages/logs.dart';
 import 'teacher_details_screen.dart';
 
 class TeachersListScreen extends StatelessWidget {
@@ -44,6 +45,9 @@ class TeachersListScreen extends StatelessWidget {
                     backgroundColor: ColorManager.blueDark,
                     displacement: 50,
                     child: ListView.builder(
+                            key: PageStorageKey<String>(
+                                Logs.teachersListScrollPosition.toString()),
+                            controller: _teachersListViewModel.controller,
                             itemBuilder: (context, index) {
                               return Card(
                                 elevation: 4,
@@ -84,7 +88,9 @@ class TeachersListScreen extends StatelessWidget {
                                               children: [
                                                 Hero(
                                                   tag: _teachersListViewModel
-                                                      .teachersList[index].id!,
+                                                          .teachersList[index]
+                                                          .id ??
+                                                      'tag',
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: Card(
@@ -113,26 +119,31 @@ class TeachersListScreen extends StatelessWidget {
                                                               width: 70,
                                                               height: 70,
                                                             )
-                                                          : Image.network(
-                                                              _teachersListViewModel
+                                                          : FadeInImage
+                                                              .assetNetwork(
+                                                              placeholder:
+                                                                  AssetsManager
+                                                                      .teacher_empty_profile,
+                                                              image: _teachersListViewModel
                                                                   .teachersList[
                                                                       index]
                                                                   .photoUrl!,
                                                               width: 70,
                                                               height: 70,
                                                               fit: BoxFit.cover,
-                                                              errorBuilder:
+                                                              imageErrorBuilder:
                                                                   (context,
                                                                       error,
                                                                       stackTrace) {
-                                                              return Image
-                                                                  .asset(
-                                                                AssetsManager
-                                                                    .teacher_empty_profile,
-                                                                width: 70,
-                                                                height: 70,
-                                                              );
-                                                            })),
+                                                                return Image
+                                                                    .asset(
+                                                                  AssetsManager
+                                                                      .teacher_empty_profile,
+                                                                  width: 70,
+                                                                  height: 70,
+                                                                );
+                                                              },
+                                                            )),
                                                     ),
                                                   ),
                                                 ),
@@ -229,8 +240,10 @@ class TeachersListScreen extends StatelessWidget {
                               );
                             },
                             // physics: const BouncingScrollPhysics(),
-                            itemCount:
-                                _teachersListViewModel.teachersList.length)
+                            itemCount: _teachersListViewModel
+                                    .teachersList.isEmpty
+                                ? 0
+                                : _teachersListViewModel.teachersList.length)
                         .paddingOnly(top: 20)
                         .marginSymmetric(horizontal: 16),
                   )

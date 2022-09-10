@@ -6,6 +6,7 @@ import 'package:drosak/teachers/model/teachers_repo.dart';
 import 'package:drosak/utils/firestore_names.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -22,9 +23,23 @@ class TeachersListViewModel extends GetxController {
   Teacher selectedTeacher = Teacher();
   final GetStorage _storage = GetStorage();
 
+  ScrollController controller = ScrollController();
+
+  late List<QueryDocumentSnapshot<Teacher>> teachersDocs;
+
+  String? selectedFilterHighSchool;
+  String? selectedFilterMidSchool;
+  double? selectedFilterMinPrice;
+  double? selectedFilterMaxPrice;
+  List<String>? selectedFilterMaterials;
+  List<String>? selectedFilterAreas;
+
+  bool globalIsFilterApplied = false;
+
   @override
   Future<void> onReady() async {
     super.onReady();
+    controller.addListener(_scrollListener);
     await getTeachersList(false);
   }
 
@@ -44,14 +59,25 @@ class TeachersListViewModel extends GetxController {
     List<String>? areas =
         selectedAreas?.map((area) => area.value.name.value).toList();
 
-    var _teachers = await _teachersRepo.getTeachers(isTeacherApplied,
+    //save filters
+    globalIsFilterApplied = isTeacherApplied;
+    selectedFilterHighSchool = highSchool;
+    selectedFilterMidSchool = midSchool;
+    selectedFilterMinPrice = minPrice;
+    selectedFilterMaxPrice = maxPrice;
+    selectedFilterMaterials = materials;
+    selectedFilterAreas = areas;
+
+    var _teacherQuerySnapshot = await _teachersRepo.getTeachers(
+        isTeacherApplied,
         highSchool: highSchool,
         midSchool: midSchool,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        selectedMaterials: materials);
+        materials: materials,
+        areas: areas);
 
-    var teachersDocs = _teachers.docs.where((doc) {
+    teachersDocs = _teacherQuerySnapshot.docs.where((doc) {
       if (minPrice != null && maxPrice != null) {
         return doc.data().priceMax! >= minPrice &&
             doc.data().priceMin! <= maxPrice;
@@ -86,7 +112,9 @@ class TeachersListViewModel extends GetxController {
         return isMaterialExist;
       }
       return true;
-    }).map((doc) {
+    }).toList();
+
+    var teachers = teachersDocs.map((doc) {
       var teacher = doc.data();
       teacher.id = doc.id; // set document id to lecture
       return teacher;
@@ -94,7 +122,65 @@ class TeachersListViewModel extends GetxController {
 
     isLoading.value = false;
     teachersList.clear();
-    teachersList.addAll(teachersDocs);
+    teachersList.addAll(teachers);
+  }
+
+  Future<void> getNextTeachersList() async {
+    var _teacherQuerySnapshot = await _teachersRepo.getNextTeachers(
+        teachersDocs.last, globalIsFilterApplied,
+        highSchool: selectedFilterHighSchool,
+        midSchool: selectedFilterMidSchool,
+        minPrice: selectedFilterMinPrice,
+        maxPrice: selectedFilterMaxPrice,
+        materials: selectedFilterMaterials,
+        areas: selectedFilterAreas);
+
+    var teachersDocsNew = _teacherQuerySnapshot.docs.where((doc) {
+      if (selectedFilterMinPrice != null && selectedFilterMaxPrice != null) {
+        return doc.data().priceMax! >= selectedFilterMinPrice! &&
+            doc.data().priceMin! <= selectedFilterMaxPrice!;
+      }
+      return true;
+    }).where((doc) {
+      if (selectedFilterHighSchool != null && selectedFilterMidSchool != null) {
+        return doc.data().educationalLevel!.contains(selectedFilterMidSchool);
+      }
+      return true;
+    }).where((doc) {
+      if (selectedFilterAreas != null) {
+        bool isAreaExist = false;
+        for (var area in selectedFilterAreas!) {
+          var selectedFilterArea = area;
+          isAreaExist =
+              doc.data().areasOfLectures!.contains(selectedFilterArea);
+          if (isAreaExist) return true;
+        }
+        return isAreaExist;
+      }
+      return true;
+    }).where((doc) {
+      if (selectedFilterMaterials != null) {
+        bool isMaterialExist = false;
+        for (var material in selectedFilterMaterials!) {
+          var selectedFilterMaterial = material;
+          isMaterialExist =
+              doc.data().materials!.contains(selectedFilterMaterial);
+          if (isMaterialExist) return true;
+        }
+        return isMaterialExist;
+      }
+      return true;
+    }).toList();
+
+    var teachers = teachersDocsNew.map((doc) {
+      var teacher = doc.data();
+      teacher.id = doc.id; // set document id to lecture
+      return teacher;
+    });
+
+    isLoading.value = false;
+    teachersDocs.addAll(teachersDocsNew);
+    teachersList.addAll(teachers);
   }
 
   Future<void> followTeacher() async {
@@ -112,5 +198,20 @@ class TeachersListViewModel extends GetxController {
     );
 
     await _followRepo.addFollow(follow);
+  }
+
+  Future<void> _scrollListener() async {
+    if (controller.offset >= controller.position.maxScrollExtent &&
+        !controller.position.outOfRange) {
+      print("at the end of list");
+      await getNextTeachersList();
+    }
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    controller.dispose();
   }
 }

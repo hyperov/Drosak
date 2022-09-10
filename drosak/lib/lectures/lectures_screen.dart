@@ -8,22 +8,14 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sliding_up_panel/src/panel.dart';
 
 import '../common/model/empty_widget.dart';
 import '../utils/localization/localization_keys.dart';
 import 'viewmodel/lectures_viewmodel.dart';
 
 class LecturesScreen extends StatelessWidget {
-  const LecturesScreen(
-      {Key? key,
-      required this.scrollController,
-      required this.teacher,
-      required this.slidingUpPanelController})
-      : super(key: key);
+  const LecturesScreen({Key? key, required this.teacher}) : super(key: key);
 
-  final ScrollController scrollController;
-  final PanelController slidingUpPanelController;
   final Teacher teacher;
 
   LecturesViewModel get _lecturesViewModel => Get.put(LecturesViewModel());
@@ -46,7 +38,6 @@ class LecturesScreen extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               : _lecturesViewModel.lectures.isNotEmpty
                   ? ListView.builder(
-                      controller: scrollController,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Stack(children: [
@@ -165,8 +156,7 @@ class LecturesScreen extends StatelessWidget {
                                             _lecturesViewModel,
                                             _bookingsViewModel,
                                             index,
-                                            teacher,
-                                            slidingUpPanelController);
+                                            teacher);
                                       },
                                       child: Text(
                                         LocalizationKeys.booking.tr,
