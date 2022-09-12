@@ -58,7 +58,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                 spacing: 14,
                 children: [
                   SizedBox(
-                    width: 15 * Get.pixelRatio,
+                    width: Get.width * 0.12,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -85,7 +85,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 15 * Get.pixelRatio,
+                    width: Get.width * 0.12,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -115,7 +115,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 15 * Get.pixelRatio,
+                    width: Get.width * 0.12,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -145,7 +145,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 15 * Get.pixelRatio,
+                    width: Get.width * 0.12,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -175,7 +175,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 15 * Get.pixelRatio,
+                    width: Get.width * 0.12,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -206,7 +206,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 15 * Get.pixelRatio,
+                    width: Get.width * 0.12,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
