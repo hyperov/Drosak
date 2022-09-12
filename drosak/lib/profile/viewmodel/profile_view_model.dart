@@ -15,6 +15,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../common/viewmodel/network_viewmodel.dart';
+
 class ProfileViewModel extends GetxController {
   final UserRepo _userRepo = Get.find();
   final _storage = GetStorage();
@@ -390,20 +392,24 @@ class ProfileViewModel extends GetxController {
       imageQuality: 30,
     );
     if (image != null) {
-      _userRepo.uploadStudentImage(image).then((imageUrl) async {
-        selectedProfileImageUrl.value = imageUrl;
-        await _userRepo.updateStudentProfileImage(imageUrl);
-        await _storage.write(StorageKeys.studentPhotoUrl, imageUrl);
-        EasyLoading.showSuccess(
-            LocalizationKeys.profile_image_updated_successfully.tr);
-        // await _homeViewModel.getTeacher();
-        // readTeacherProfileDataFromStorage();
-      }).catchError(
-        (error) {
-          EasyLoading.showError(
-              LocalizationKeys.profile_image_updated_error.tr);
-        },
-      );
+      if (FirebaseAuth.instance.currentUser != null) {
+        _userRepo.uploadStudentImage(image).then((imageUrl) async {
+          selectedProfileImageUrl.value = imageUrl;
+          await _userRepo.updateStudentProfileImage(imageUrl);
+          await _storage.write(StorageKeys.studentPhotoUrl, imageUrl);
+          EasyLoading.showSuccess(
+              LocalizationKeys.profile_image_updated_successfully.tr);
+          // await _homeViewModel.getTeacher();
+          // readTeacherProfileDataFromStorage();
+        }).catchError(
+          (error) {
+            EasyLoading.showError(
+                LocalizationKeys.profile_image_updated_error.tr);
+          },
+        );
+      } else {
+        EasyLoading.showError(LocalizationKeys.login_error.tr);
+      }
     }
   }
 

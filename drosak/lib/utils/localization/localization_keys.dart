@@ -218,6 +218,7 @@ class LocalizationKeys {
   static var review_already_rated_teacher = 'review_already_rated_teacher';
 
   static var filter = 'filter';
+  static var search = 'search';
 
   static var notifications_not_found = 'notifications_not_found';
 

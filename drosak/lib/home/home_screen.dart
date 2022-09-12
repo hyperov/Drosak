@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                     },
                     icon: const Icon(Icons.filter_list),
                     backgroundColor: ColorManager.blueDark,
-                    label: Text(LocalizationKeys.filter.tr),
+                    label: Text(LocalizationKeys.search.tr),
                   )
                 : Container()),
         appBar: AppBar(

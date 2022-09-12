@@ -10,10 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../common/viewmodel/network_viewmodel.dart';
+
 class PersonalProfileScreen extends StatelessWidget {
   PersonalProfileScreen({Key? key}) : super(key: key);
 
   final ProfileViewModel _profileViewModel = Get.find();
+  final NetworkViewModel _networkViewModel = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -298,10 +301,14 @@ class PersonalProfileScreen extends StatelessWidget {
   }
 
   void openGalleryOrCameraSelectorSheet() {
-    showListBottomSheet(
-        leadingIcons: _profileViewModel.galleryPickerSheetLeadingIcons,
-        texts: _profileViewModel.galleryPickerSheetLeadingLeadingTexts,
-        selectedText: _profileViewModel.selectedGalleryPickerSheetText,
-        onTapAction: () => _profileViewModel.pickImage());
+    if (_networkViewModel.isConnected.value) {
+      showListBottomSheet(
+          leadingIcons: _profileViewModel.galleryPickerSheetLeadingIcons,
+          texts: _profileViewModel.galleryPickerSheetLeadingLeadingTexts,
+          selectedText: _profileViewModel.selectedGalleryPickerSheetText,
+          onTapAction: () => _profileViewModel.pickImage());
+    } else {
+      _networkViewModel.showNoInternetConnectionDialog();
+    }
   }
 }

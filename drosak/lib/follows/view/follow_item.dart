@@ -33,12 +33,13 @@ class FollowItem extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 shape: const CircleBorder(
                     side: BorderSide(color: Colors.deepPurpleAccent, width: 1)),
-                child: Obx(() => Image.network(
-                        followsViewModel.follows[index].teacherPhotoUrl,
-                        width: 70,
-                        height: 70,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
+                child: Obx(() => FadeInImage.assetNetwork(
+                    placeholder: AssetsManager.teacher_empty_profile,
+                    image: followsViewModel.follows[index].teacherPhotoUrl,
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.cover,
+                    imageErrorBuilder: (context, error, stackTrace) {
                       return Image.asset(
                         AssetsManager.teacher_empty_profile,
                         width: 70,
