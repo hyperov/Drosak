@@ -70,19 +70,19 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
             reverse: true,
             child: Column(
               children: [
-                const SizedBox(height: 80),
+                SizedBox(height: 30 * Get.pixelRatio),
                 Image.asset(
                   'assets/launcher/logo2.png',
-                  height: 200,
+                  height: 50 * Get.pixelRatio,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 20 * Get.pixelRatio),
                 Text(
                   LocalizationKeys.enter_phone_number.tr,
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(LocalizationKeys.phone_confirmation.tr),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 10 * Get.pixelRatio,
                 ),
                 GetX<LoginViewModel>(
                     init: _loginViewModel,
@@ -122,7 +122,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                           ),
                         )),
-                const SizedBox(height: 30),
+                SizedBox(height: 12 * Get.pixelRatio),
                 SignInButtonBuilder(
                   text: LocalizationKeys.app_login.tr,
                   textColor: Colors.white,
@@ -136,7 +136,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                       _networkViewModel.showNoInternetConnectionDialog();
                     }
                   },
-                  height: 50,
+                  height: 20 * Get.pixelRatio,
                   elevation: 2,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -145,7 +145,7 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 4 * Get.pixelRatio),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -169,8 +169,9 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                     fontFamily: 'Roboto',
                   ),
                   child: SignInButton(Buttons.FacebookNew,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 20),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 5 * Get.pixelRatio,
+                          horizontal: 6 * Get.pixelRatio),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       text: LocalizationKeys.login_facebook.tr, onPressed: () {
@@ -183,8 +184,9 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
                   }).marginSymmetric(vertical: 10, horizontal: 20),
                 ),
                 SignInButton(Buttons.Google,
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 4 * Get.pixelRatio,
+                        horizontal: 6 * Get.pixelRatio),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     text: LocalizationKeys.login_google.tr, onPressed: () {

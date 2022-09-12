@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                 unselectedItemColor: Colors.grey.shade600,
                 showUnselectedLabels: true,
                 elevation: 0,
-                iconSize: 30,
+                iconSize: 12 * Get.pixelRatio,
                 unselectedLabelStyle:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.w200),
                 selectedLabelStyle:
@@ -133,12 +133,9 @@ class HomeScreen extends StatelessWidget {
             }),
           ),
         ),
-        body: Obx(() => _homeViewModel.bottomNavigationIndex.value != 0
-            ? widgetOptions
-                .elementAt(_homeViewModel.bottomNavigationIndex.value)
-            : SafeArea(
-                child: Obx(() => widgetOptions
-                    .elementAt(_homeViewModel.bottomNavigationIndex.value)),
-              )));
+        body: SafeArea(
+          child: Obx(() => widgetOptions
+              .elementAt(_homeViewModel.bottomNavigationIndex.value)),
+        ));
   }
 }

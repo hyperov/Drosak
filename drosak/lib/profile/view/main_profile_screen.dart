@@ -45,19 +45,19 @@ class ProfileScreen extends StatelessWidget {
                       _profileViewModel.selectedProfileImageUrl.isEmpty
                           ? Image.asset(
                               AssetsManager.student_empty_profile,
-                              width: 100,
-                              height: 100,
+                              width: 42 * Get.pixelRatio,
+                              height: 42 * Get.pixelRatio,
                             )
                           : Image.network(
                               _profileViewModel.selectedProfileImageUrl.value,
-                              width: 100,
-                              height: 100,
+                              width: 42 * Get.pixelRatio,
+                              height: 42 * Get.pixelRatio,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                               return Image.asset(
                                 AssetsManager.student_empty_profile,
-                                width: 100,
-                                height: 100,
+                                width: 42 * Get.pixelRatio,
+                                height: 42 * Get.pixelRatio,
                               );
                             }))),
             ),

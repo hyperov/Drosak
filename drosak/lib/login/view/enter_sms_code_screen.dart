@@ -34,7 +34,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                height: Get.height * 0.1,
+                height: Get.pixelRatio * 30,
               ),
               SvgPicture.asset(
                 AssetsManager.smsScreenBackground,
@@ -58,7 +58,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                 spacing: 14,
                 children: [
                   SizedBox(
-                    width: 40,
+                    width: 15 * Get.pixelRatio,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -85,7 +85,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 15 * Get.pixelRatio,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -115,7 +115,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 15 * Get.pixelRatio,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -145,7 +145,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 15 * Get.pixelRatio,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -175,7 +175,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 15 * Get.pixelRatio,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -206,7 +206,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 15 * Get.pixelRatio,
                     child: TextField(
                       maxLength: 1,
                       showCursor: false,
@@ -234,7 +234,7 @@ class EnterSmsCodeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 4 * Get.pixelRatio),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -246,18 +246,18 @@ class EnterSmsCodeScreen extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8 * Get.pixelRatio),
                   ArgonTimerButton(
                     initialTimer: 30,
-                    height: 50,
+                    height: 20 * Get.pixelRatio,
                     width: MediaQuery.of(context).size.width * 0.45,
                     minWidth: MediaQuery.of(context).size.width * 0.30,
                     color: ColorManager.deepPurple,
                     borderRadius: 25.0,
                     roundLoadingShape: true,
-                    child: const Text(
-                      "send OTP",
-                      style: TextStyle(
+                    child: Text(
+                      LocalizationKeys.send_otp.tr,
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w700),
@@ -280,11 +280,11 @@ class EnterSmsCodeScreen extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: 48),
+              SizedBox(height: 28 * Get.pixelRatio),
               Container(
                 width: double.infinity,
-                height: 50,
-                margin: const EdgeInsets.symmetric(horizontal: 24),
+                height: 20 * Get.pixelRatio,
+                margin: EdgeInsets.symmetric(horizontal: 24 * Get.pixelRatio),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: ColorManager.deepPurple,

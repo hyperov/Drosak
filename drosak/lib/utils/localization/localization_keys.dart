@@ -33,6 +33,7 @@ class LocalizationKeys {
   static const String sms_code = "sms_code";
   static const String enter_sms_code = "enter_sms_code";
   static const String resend_sms_code = "resend_sms_code";
+  static const String send_otp = "send_otp";
 
   static var phone_number_error = "phone_number_error";
 
