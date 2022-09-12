@@ -14,6 +14,15 @@ import 'package:image_picker/image_picker.dart';
 class UserRepo {
   final _storage = GetStorage();
 
+  Future<bool> isStudentExist(User user) async {
+    var documentReference = await FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionStudents)
+        .doc(user.uid)
+        .get();
+
+    return documentReference.exists;
+  }
+
   Future<void> insertUserFirstTime(User user) async {
     var fcmToken = _storage.read(StorageKeys.fcmToken);
 

@@ -34,7 +34,7 @@ class FollowsScreen extends StatelessWidget {
                 alignment: AlignmentDirectional.centerStart,
               ),
             ], alignment: Alignment.center),
-            toolbarHeight: 100,
+            toolbarHeight: 40 * Get.pixelRatio,
             titleTextStyle: const TextStyle(fontSize: 20),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
@@ -45,15 +45,17 @@ class FollowsScreen extends StatelessWidget {
           body: _followsViewModel.isLoading.value
               ? const Center(child: CircularProgressIndicator())
               : _followsViewModel.follows.isNotEmpty
-                  ? Obx(() => ListView.builder(
-                      itemCount: _followsViewModel.follows.length,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return FollowItem(
-                          followsViewModel: _followsViewModel,
-                          index: index,
-                        ).marginSymmetric(horizontal: 16);
-                      }).paddingOnly(top: 20))
+                  ? SafeArea(
+                      child: Obx(() => ListView.builder(
+                          itemCount: _followsViewModel.follows.length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return FollowItem(
+                              followsViewModel: _followsViewModel,
+                              index: index,
+                            ).marginSymmetric(horizontal: 16);
+                          }).paddingOnly(top: 20)),
+                    )
                   : EmptyView(title: LocalizationKeys.noFollows.tr),
         ));
   }

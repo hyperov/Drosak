@@ -173,11 +173,8 @@ class LoginViewModel extends GetxController {
   }
 
   Future<void> loginUserToFireStore(User user) async {
-    var isFirstTimeLogin = user.metadata.creationTime!
-            .difference(user.metadata.lastSignInTime!)
-            .inSeconds
-            .abs() <=
-        60;
+    final bool isStudentExist = await _userRepo.isStudentExist(user);
+    final bool isFirstTimeLogin = !isStudentExist;
 
     await _storage.write(StorageKeys.isFirstTimeLogin, isFirstTimeLogin);
 

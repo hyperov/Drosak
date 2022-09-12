@@ -50,7 +50,7 @@ class PersonalProfileScreen extends StatelessWidget {
               alignment: AlignmentDirectional.centerStart,
             ),
           ], alignment: Alignment.center),
-          toolbarHeight: 100,
+          toolbarHeight: 40 * Get.pixelRatio,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(30),
