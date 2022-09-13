@@ -205,7 +205,7 @@ class LocalizationKeys {
   static var follow_delete_question = 'follow_delete_question';
   static var booking_delete_question = 'booking_delete_question';
 
-  static var delete_follow = 'delete_follow';
+  static var cancel_follow = 'delete_follow';
 
   static var follows2 = 'follows2';
   static var no_posts = 'follow_teacher_no_posts';
@@ -222,6 +222,7 @@ class LocalizationKeys {
   static var search = 'search';
 
   static var notifications_not_found = 'notifications_not_found';
+  static var teachers_news_not_found = 'teachers_news_not_found';
 
   static var loading = 'loading';
 

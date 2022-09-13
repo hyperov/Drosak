@@ -34,6 +34,8 @@ class TeachersListScreen extends StatelessWidget {
         'firebase_screen_class': 'TeachersListScreen',
       },
     );
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+
     return Obx(() => Scaffold(
         backgroundColor: ColorManager.redOrangeLight,
         body: _teachersListViewModel.isLoading.value
@@ -128,9 +130,13 @@ class TeachersListScreen extends StatelessWidget {
                                                                   .teachersList[
                                                                       index]
                                                                   .photoUrl!,
-                                                              width: 70,
-                                                              height: 70,
-                                                              fit: BoxFit.cover,
+                                                              width:
+                                                                  unitHeightValue *
+                                                                      8,
+                                                              height:
+                                                                  unitHeightValue *
+                                                                      8,
+                                                              // fit: BoxFit.cover,
                                                               imageErrorBuilder:
                                                                   (context,
                                                                       error,
@@ -201,16 +207,34 @@ class TeachersListScreen extends StatelessWidget {
                                                       _teachersListViewModel
                                                           .teachersList[index]
                                                           .name!,
-                                                      style: const TextStyle(
-                                                          fontSize: 16,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              unitHeightValue *
+                                                                  1.6,
                                                           fontWeight:
                                                               FontWeight.bold)),
-                                                  Text(_teachersListViewModel
-                                                      .teachersList[index]
-                                                      .material!),
-                                                  Text(_teachersListViewModel
-                                                      .teachersList[index]
-                                                      .getEducationText()),
+                                                  Text(
+                                                      _teachersListViewModel
+                                                          .teachersList[index]
+                                                          .material!,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              unitHeightValue *
+                                                                  1.8,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: ColorManager
+                                                              .deepPurple)),
+                                                  Text(
+                                                      _teachersListViewModel
+                                                          .teachersList[index]
+                                                          .getEducationText(),
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              unitHeightValue *
+                                                                  1.6,
+                                                          color: ColorManager
+                                                              .blueDark)),
                                                 ],
                                               ),
                                             ),
@@ -221,14 +245,23 @@ class TeachersListScreen extends StatelessWidget {
                                                 Text(
                                                     '${_teachersListViewModel.teachersList[index].priceMin} - '
                                                     '${_teachersListViewModel.teachersList[index].priceMax} ج ',
-                                                    style: const TextStyle(
-                                                        fontSize: 16,
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            unitHeightValue *
+                                                                1.8,
                                                         color: ColorManager
                                                             .deepPurple,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                Text(LocalizationKeys
-                                                    .price_average.tr),
+                                                Text(
+                                                    LocalizationKeys
+                                                        .price_average.tr,
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          unitHeightValue * 1.6,
+                                                      color: ColorManager
+                                                          .deepPurple,
+                                                    )),
                                               ],
                                             )
                                           ],

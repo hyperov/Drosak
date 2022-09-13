@@ -34,7 +34,7 @@ class FollowsScreen extends StatelessWidget {
                 alignment: AlignmentDirectional.centerStart,
               ),
             ], alignment: Alignment.center),
-            toolbarHeight: 40 * Get.pixelRatio,
+            toolbarHeight: 100,
             titleTextStyle: const TextStyle(fontSize: 20),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(

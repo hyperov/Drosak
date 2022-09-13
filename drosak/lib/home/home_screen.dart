@@ -43,6 +43,8 @@ class HomeScreen extends StatelessWidget {
         'firebase_screen_class': 'HomeScreen',
       },
     );
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+
     return Scaffold(
         backgroundColor: ColorManager.redOrangeLight,
         floatingActionButton:
@@ -65,9 +67,9 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     widgetTitles
                         .elementAt(_homeViewModel.bottomNavigationIndex.value),
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: AssetsManager.fontFamily,
-                        fontSize: 22,
+                        fontSize: unitHeightValue * 2.5,
                         fontWeight: FontWeight.w200),
                   ),
                   alignment: AlignmentDirectional.center,
@@ -102,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                 unselectedItemColor: Colors.grey.shade600,
                 showUnselectedLabels: true,
                 elevation: 0,
-                iconSize: 12 * Get.pixelRatio,
+                iconSize: 30,
                 unselectedLabelStyle:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.w200),
                 selectedLabelStyle:

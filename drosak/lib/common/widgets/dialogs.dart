@@ -11,23 +11,31 @@ openDeleteDialog(GetxController viewModel, String id,
     [String? teacherId, String? lectureId]) {
   var isFollowsViewModel = viewModel is FollowsViewModel;
   var isBookingsViewModel = viewModel is BookingsViewModel;
+  var unitHeightValue = MediaQuery.of(Get.context!).size.height * 0.01;
   Get.dialog(
     AlertDialog(
       title: Column(children: [
         const Icon(
-          Icons.delete_outline,
+          Icons.delete_forever,
           color: Colors.red,
           size: 30,
         ),
         const SizedBox(height: 8),
-        Text(isFollowsViewModel
-            ? LocalizationKeys.delete_follow.tr
-            : isBookingsViewModel
-                ? LocalizationKeys.cancel_booking.tr
-                : LocalizationKeys.cancel_booking.tr),
+        Text(
+            isFollowsViewModel
+                ? LocalizationKeys.cancel_follow.tr
+                : isBookingsViewModel
+                    ? LocalizationKeys.cancel_booking.tr
+                    : LocalizationKeys.cancel_booking.tr,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            )),
       ]),
       content: isFollowsViewModel
-          ? Text(LocalizationKeys.follow_delete_question.tr)
+          ? Text(LocalizationKeys.follow_delete_question.tr,
+              style: TextStyle(
+                fontSize: unitHeightValue * 2,
+              ))
           : isBookingsViewModel
               ? Text(LocalizationKeys.booking_delete_question.tr)
               : Text(LocalizationKeys.follow_delete_question.tr),
@@ -38,10 +46,10 @@ openDeleteDialog(GetxController viewModel, String id,
       actions: [
         ElevatedButton(
           child: Text(LocalizationKeys.app_no.tr,
-                  style: const TextStyle(fontSize: 20))
+                  style: const TextStyle(fontSize: 16))
               .marginSymmetric(horizontal: 16),
           style: ElevatedButton.styleFrom(
-            primary: Colors.deepPurple,
+            backgroundColor: Colors.deepPurple,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -51,10 +59,10 @@ openDeleteDialog(GetxController viewModel, String id,
         ElevatedButton(
           child: Text(
             LocalizationKeys.app_yes.tr,
-            style: const TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 16),
           ).marginSymmetric(horizontal: 16),
           style: ElevatedButton.styleFrom(
-            primary: ColorManager.blueLight,
+            backgroundColor: Colors.red,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),

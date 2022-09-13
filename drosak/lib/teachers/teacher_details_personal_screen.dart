@@ -40,6 +40,8 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
         'firebase_screen_class': 'TeacherDetailsScreen',
       },
     );
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+
     return Scaffold(
       backgroundColor: ColorManager.redOrangeLight,
       body: Column(
@@ -112,13 +114,13 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 16),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                   child: Obx(
                 () => ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: isFollowing()
+                      backgroundColor: isFollowing()
                           ? Colors.white
                           : ColorManager.deepPurple,
                       padding: const EdgeInsets.all(8),
@@ -133,13 +135,13 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
                       )),
                   child: Text(
                     isFollowing()
-                        ? LocalizationKeys.delete_follow.tr
+                        ? LocalizationKeys.cancel_follow.tr
                         : LocalizationKeys.follows2.tr,
                     style: TextStyle(
                         color: isFollowing()
                             ? ColorManager.deepPurple
                             : ColorManager.redOrangeLight,
-                        fontSize: 18,
+                        fontSize: 2 * unitHeightValue,
                         fontWeight: FontWeight.bold),
                   ),
                   onPressed: () async {
@@ -241,13 +243,13 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
                     ).marginSymmetric(horizontal: 8),
                   )),
             ],
-          ).marginSymmetric(horizontal: 48),
+          ).marginSymmetric(horizontal: 24),
           const SizedBox(height: 24),
           Card(
             elevation: 4,
             clipBehavior: Clip.hardEdge,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(66),
               side: const BorderSide(
                 color: ColorManager.deepPurple,
                 width: 2,

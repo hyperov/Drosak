@@ -27,11 +27,6 @@ class TeacherDetailsScreen extends StatelessWidget {
         follow.teacherId == _teachersListViewModel.selectedTeacher.id);
   }
 
-  bool isRated() {
-    return _reviewsViewModel.reviews.any((review) =>
-        review.teacherId == _teachersListViewModel.selectedTeacher.id);
-  }
-
   @override
   Widget build(BuildContext context) {
     FirebaseCrashlytics.instance.log('TeacherDetailsScreen');
@@ -42,6 +37,8 @@ class TeacherDetailsScreen extends StatelessWidget {
         'firebase_screen_class': 'TeacherDetailsScreen',
       },
     );
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -62,13 +59,16 @@ class TeacherDetailsScreen extends StatelessWidget {
                 alignment: AlignmentDirectional.centerStart,
               ),
             ], alignment: Alignment.center),
-            toolbarHeight: 100,
+            toolbarHeight: 60,
             titleTextStyle: const TextStyle(fontSize: 20),
             bottom: TabBar(
               labelColor: ColorManager.redOrangeDark,
               unselectedLabelColor: Colors.white,
               indicatorColor: Colors.white,
               indicatorSize: TabBarIndicatorSize.tab,
+              labelStyle: TextStyle(
+                  fontFamily: AssetsManager.fontFamily,
+                  fontSize: 1.6 * unitHeightValue),
               tabs: [
                 Tab(
                   text: LocalizationKeys.teacher.tr,

@@ -20,7 +20,7 @@ class FilterViewModel extends GetxController {
   RxBool selectGovernmentGiza = false.obs;
 
   static const double _minRating = 0.0;
-  static const double _maxRating = 500.0;
+  static const double _maxRating = 1000.0;
   RxDouble sliderStartValue = _minRating.obs;
   RxDouble sliderEndValue = _maxRating.obs;
 

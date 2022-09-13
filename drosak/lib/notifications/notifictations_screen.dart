@@ -71,7 +71,7 @@ class NotificationsScreen extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   itemCount: _notificationsViewModel.notificationList.length,
                 ).paddingOnly(top: 20)
-              : EmptyView(title: LocalizationKeys.notifications_not_found.tr),
+              : EmptyView(title: LocalizationKeys.teachers_news_not_found.tr),
     ));
   }
 }

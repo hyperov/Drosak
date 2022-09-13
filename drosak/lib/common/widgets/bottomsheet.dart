@@ -73,73 +73,70 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                 LocalizationKeys.choose_education.tr,
                 textAlign: TextAlign.start,
               ).marginSymmetric(horizontal: 16),
-              Theme(
-                data: ThemeData(
-                  fontFamily: 'Roboto',
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Obx(() => FilterChip(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          label: Text(
-                            LocalizationKeys.education_secondary.tr,
-                            style:
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Obx(() => FilterChip(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        label: Text(
+                          LocalizationKeys.secondary.tr,
+                          style: filterViewModel.selectEducationSecondary.value
+                              ? const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)
+                              : const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        avatar: Icon(Icons.school,
+                            color:
                                 filterViewModel.selectEducationSecondary.value
-                                    ? const TextStyle(color: Colors.white)
-                                    : const TextStyle(color: Colors.black),
-                          ),
-                          avatar: Icon(Icons.school,
-                              color:
-                                  filterViewModel.selectEducationSecondary.value
-                                      ? Colors.white
-                                      : ColorManager.blueLight),
-                          selected:
-                              filterViewModel.selectEducationSecondary.value,
-                          showCheckmark: false,
-                          backgroundColor: Colors.transparent,
-                          elevation: 2,
-                          pressElevation: 6,
-                          shape: const StadiumBorder(side: BorderSide()),
-                          avatarBorder: const CircleBorder(
-                              side: BorderSide(color: Colors.grey)),
-                          onSelected: (bool selected) {
-                            filterViewModel.isFilterApplied = true;
-                            filterViewModel.selectEducationSecondary.value =
-                                selected;
-                          },
-                          selectedColor: ColorManager.deepPurple,
-                        ).marginSymmetric(horizontal: 16)),
-                    Obx(() => FilterChip(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          label: Text(
-                            LocalizationKeys.education_prep.tr,
-                            style: filterViewModel.selectEducationPrep.value
-                                ? const TextStyle(color: Colors.white)
-                                : const TextStyle(color: Colors.black),
-                          ),
-                          avatar: Icon(Icons.school,
-                              color: filterViewModel.selectEducationPrep.value
-                                  ? Colors.white
-                                  : ColorManager.blueLight),
-                          selected: filterViewModel.selectEducationPrep.value,
-                          showCheckmark: false,
-                          backgroundColor: Colors.transparent,
-                          elevation: 2,
-                          pressElevation: 6,
-                          shape: const StadiumBorder(side: BorderSide()),
-                          avatarBorder: const CircleBorder(
-                              side: BorderSide(color: Colors.grey)),
-                          onSelected: (bool selected) {
-                            filterViewModel.isFilterApplied = true;
-                            filterViewModel.selectEducationPrep.value =
-                                selected;
-                          },
-                          selectedColor: ColorManager.deepPurple,
-                        ).marginSymmetric(horizontal: 16)),
-                  ],
-                ).marginSymmetric(horizontal: 16),
-              ),
+                                    ? Colors.white
+                                    : ColorManager.deepPurple),
+                        selected:
+                            filterViewModel.selectEducationSecondary.value,
+                        showCheckmark: false,
+                        backgroundColor: Colors.transparent,
+                        elevation: 2,
+                        pressElevation: 6,
+                        shape: const StadiumBorder(side: BorderSide()),
+                        avatarBorder: const CircleBorder(
+                            side: BorderSide(color: Colors.grey)),
+                        onSelected: (bool selected) {
+                          filterViewModel.isFilterApplied = true;
+                          filterViewModel.selectEducationSecondary.value =
+                              selected;
+                        },
+                        selectedColor: ColorManager.deepPurple,
+                      )),
+                  Obx(() => FilterChip(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        label: Text(
+                          LocalizationKeys.prep.tr,
+                          style: filterViewModel.selectEducationPrep.value
+                              ? const TextStyle(color: Colors.white)
+                              : const TextStyle(color: Colors.black),
+                        ),
+                        avatar: Icon(Icons.school,
+                            color: filterViewModel.selectEducationPrep.value
+                                ? Colors.white
+                                : ColorManager.deepPurple),
+                        selected: filterViewModel.selectEducationPrep.value,
+                        showCheckmark: false,
+                        backgroundColor: Colors.transparent,
+                        elevation: 2,
+                        pressElevation: 6,
+                        shape: const StadiumBorder(side: BorderSide()),
+                        avatarBorder: const CircleBorder(
+                            side: BorderSide(color: Colors.grey)),
+                        onSelected: (bool selected) {
+                          filterViewModel.isFilterApplied = true;
+                          filterViewModel.selectEducationPrep.value = selected;
+                        },
+                        selectedColor: ColorManager.deepPurple,
+                      )),
+                ],
+              ).marginSymmetric(horizontal: 16),
               const SizedBox(
                 height: 20,
               ),
@@ -164,7 +161,7 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                                 color: filterViewModel
                                         .materials[index].value.isSelected.value
                                     ? Colors.white
-                                    : ColorManager.blueLight),
+                                    : ColorManager.deepPurple),
                             selected: filterViewModel
                                 .materials[index].value.isSelected.value,
                             showCheckmark: false,
@@ -274,22 +271,22 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                             ),
                             avatar: filterViewModel.governmentVal.value ==
                                     LocalizationKeys.government_cairo.tr
-                                ? Icon(Icons.school,
+                                ? Icon(Icons.home_work_outlined,
                                     color: filterViewModel
                                             .areasCairoFilterChips[index]
                                             .value
                                             .isSelected
                                             .value
                                         ? Colors.white
-                                        : ColorManager.blueLight)
-                                : Icon(Icons.school,
+                                        : ColorManager.deepPurple)
+                                : Icon(Icons.home_work_outlined,
                                     color: filterViewModel
                                             .areasGizaFilterChips[index]
                                             .value
                                             .isSelected
                                             .value
                                         ? Colors.white
-                                        : ColorManager.blueLight),
+                                        : ColorManager.deepPurple),
                             selected: filterViewModel.governmentVal.value ==
                                     LocalizationKeys.government_cairo.tr
                                 ? filterViewModel.areasCairoFilterChips[index]
@@ -350,7 +347,7 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                           max: 1000,
                           inactiveColor: Colors.grey.shade600,
                           activeColor: Colors.purple,
-                          divisions: 50,
+                          divisions: 100,
                           values: RangeValues(
                               filterViewModel.sliderStartValue.value,
                               filterViewModel.sliderEndValue.value),
@@ -373,7 +370,7 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: ColorManager.deepPurple,
+                        backgroundColor: ColorManager.deepPurple,
                         textStyle: const TextStyle(color: Colors.white),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
@@ -384,7 +381,11 @@ showFilterBottomSheet(BuildContext context, FilterViewModel filterViewModel) {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(LocalizationKeys.filter_apply.tr),
+                      child: Text(
+                        LocalizationKeys.filter_apply.tr,
+                        style: const TextStyle(
+                            fontFamily: AssetsManager.fontFamily),
+                      ),
                     ),
                   ).marginSymmetric(horizontal: 16),
                   OutlinedButton(
@@ -471,20 +472,31 @@ showConfirmBookingBottomSheet(
                           shape: const CircleBorder(
                               side: BorderSide(
                                   color: Colors.deepPurpleAccent, width: 1)),
-                          child: Image.network(
-                              lecturesViewModel.lectures[index].teacherImageUrl,
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                            return SvgPicture.asset(
-                              AssetsManager.profilePlaceHolder,
-                              width: 60,
-                              height: 60,
-                              color: Colors.white,
-                              fit: BoxFit.cover,
-                            ).marginAll(16);
-                          })),
+                          child: lecturesViewModel
+                                  .lectures[index].teacherImageUrl.isBlank!
+                              ? Image.asset(
+                                  AssetsManager.teacher_empty_profile,
+                                  width: 100,
+                                  height: 100,
+                                )
+                              : FadeInImage.assetNetwork(
+                                  placeholder:
+                                      AssetsManager.teacher_empty_profile,
+                                  image: lecturesViewModel
+                                      .lectures[index].teacherImageUrl,
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                  imageErrorBuilder:
+                                      (context, error, stackTrace) {
+                                    return SvgPicture.asset(
+                                      AssetsManager.profilePlaceHolder,
+                                      width: 60,
+                                      height: 60,
+                                      color: Colors.white,
+                                      fit: BoxFit.cover,
+                                    ).marginAll(16);
+                                  })),
                       Positioned(
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -555,7 +567,8 @@ showConfirmBookingBottomSheet(
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.location_pin),
+                      const Icon(Icons.location_pin,
+                          color: ColorManager.deepPurple),
                       Text(lecturesViewModel.lectures[index].city),
                       const Text(' - '),
                       Text(lecturesViewModel.lectures[index].area),
@@ -603,7 +616,7 @@ showConfirmBookingBottomSheet(
                           ],
                         )
                       ]),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 16),
                   Container(
                     width: double.infinity,
                     height: 48,
@@ -628,7 +641,7 @@ showConfirmBookingBottomSheet(
                       child: Text(LocalizationKeys.confirm_booking.tr,
                           style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold)),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.deepPurple,

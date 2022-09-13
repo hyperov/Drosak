@@ -50,7 +50,7 @@ class PersonalProfileScreen extends StatelessWidget {
               alignment: AlignmentDirectional.centerStart,
             ),
           ], alignment: Alignment.center),
-          toolbarHeight: 40 * Get.pixelRatio,
+          toolbarHeight: 100,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(30),
@@ -63,7 +63,7 @@ class PersonalProfileScreen extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: Get.pixelRatio * 12),
+                  const SizedBox(height: 20),
                   Hero(
                     tag: 'profile_image_tag',
                     child: Material(
@@ -83,46 +83,45 @@ class PersonalProfileScreen extends StatelessWidget {
                                         .selectedProfileImageUrl.isEmpty
                                     ? Image.asset(
                                         AssetsManager.student_empty_profile,
-                                        width: 42 * Get.pixelRatio,
-                                        height: 42 * Get.pixelRatio,
+                                        width: Get.width * 0.28,
+                                        height: Get.width * 0.28,
                                       )
                                     : FadeInImage.assetNetwork(
                                         placeholder:
                                             AssetsManager.student_empty_profile,
                                         image: _profileViewModel
                                             .selectedProfileImageUrl.value,
-                                        width: 42 * Get.pixelRatio,
-                                        height: 42 * Get.pixelRatio,
+                                        width: Get.width * 0.28,
+                                        height: Get.width * 0.28,
                                         fit: BoxFit.cover,
                                         imageErrorBuilder:
                                             (context, error, stackTrace) {
                                           return Image.asset(
                                             AssetsManager.student_empty_profile,
-                                            width: 42 * Get.pixelRatio,
-                                            height: 42 * Get.pixelRatio,
+                                            width: Get.width * 0.28,
+                                            height: Get.width * 0.28,
                                           );
                                         },
                                       ))),
-                            Positioned(
+                            const Positioned(
                               child: CircleAvatar(
                                 child: Icon(Icons.add,
-                                    size: 10 * Get.pixelRatio,
-                                    color: Colors.white),
-                                radius: 8 * Get.pixelRatio,
+                                    size: 25, color: Colors.white),
+                                radius: 20,
                                 backgroundColor: Colors.deepPurpleAccent,
                               ),
-                              bottom: -20,
+                              bottom: -15,
                             ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 12 * Get.pixelRatio),
+                  const SizedBox(height: 30),
                   const Text('اضف صورة',
                       style:
                           TextStyle(fontWeight: FontWeight.w100, fontSize: 18)),
-                  SizedBox(height: 10 * Get.pixelRatio),
+                  const SizedBox(height: 20),
                   Obx(() => TextField(
                       maxLength: 70,
                       controller: _profileViewModel.nameController.value,
@@ -141,7 +140,7 @@ class PersonalProfileScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(18),
                               borderSide:
                                   const BorderSide(color: Colors.blue))))),
-                  SizedBox(height: 10 * Get.pixelRatio),
+                  const SizedBox(height: 20),
                   Obx(() => TextField(
                       controller: _profileViewModel.phoneController.value,
                       onChanged: (value) => _profileViewModel
@@ -158,7 +157,7 @@ class PersonalProfileScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(18),
                               borderSide:
                                   const BorderSide(color: Colors.blue))))),
-                  SizedBox(height: 10 * Get.pixelRatio),
+                  const SizedBox(height: 20),
                   Obx(() => TextField(
                       controller: _profileViewModel.emailController.value,
                       onChanged: (value) => _profileViewModel
@@ -175,7 +174,7 @@ class PersonalProfileScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(18),
                               borderSide:
                                   const BorderSide(color: Colors.blue))))),
-                  SizedBox(height: 8 * Get.pixelRatio),
+                  const SizedBox(height: 20),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -184,7 +183,7 @@ class PersonalProfileScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(LocalizationKeys.choose_government.tr),
-                            SizedBox(height: 4 * Get.pixelRatio),
+                            const SizedBox(height: 8),
                             FullWidthTextField(
                                 leadingIcons: List.generate(
                                     Filters.governments.length,
@@ -197,13 +196,13 @@ class PersonalProfileScreen extends StatelessWidget {
                                     _profileViewModel.selectedGovernmentName),
                           ],
                         )),
-                        SizedBox(width: 5 * Get.pixelRatio),
+                        const SizedBox(width: 10),
                         Expanded(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(LocalizationKeys.choose_area.tr),
-                            SizedBox(height: 4 * Get.pixelRatio),
+                            const SizedBox(height: 8),
                             Obx(() => FullWidthTextField(
                                 leadingIcons: List.generate(
                                     _profileViewModel
@@ -225,14 +224,14 @@ class PersonalProfileScreen extends StatelessWidget {
                           ],
                         )),
                       ]),
-                  SizedBox(height: 8 * Get.pixelRatio),
+                  const SizedBox(height: 16),
                   Align(
                     child: Text(
                       LocalizationKeys.choose_sex.tr,
                     ),
                     alignment: AlignmentDirectional.centerStart,
                   ),
-                  SizedBox(height: 4 * Get.pixelRatio),
+                  const SizedBox(height: 8),
                   FullWidthTextField(leadingIcons: const [
                     Icon(Icons.male),
                     Icon(Icons.female)
@@ -240,7 +239,7 @@ class PersonalProfileScreen extends StatelessWidget {
                     LocalizationKeys.male.tr,
                     LocalizationKeys.female.tr
                   ], selectedText: _profileViewModel.selectedGender),
-                  SizedBox(height: 8 * Get.pixelRatio),
+                  const SizedBox(height: 16),
                   Align(
                     //choose education
                     child: Text(
@@ -248,7 +247,7 @@ class PersonalProfileScreen extends StatelessWidget {
                     ),
                     alignment: AlignmentDirectional.centerStart,
                   ),
-                  SizedBox(height: 4 * Get.pixelRatio),
+                  const SizedBox(height: 8),
                   FullWidthTextField(leadingIcons: const [
                     Icon(Icons.school),
                     Icon(Icons.school)
@@ -256,7 +255,7 @@ class PersonalProfileScreen extends StatelessWidget {
                     LocalizationKeys.education_secondary.tr,
                     LocalizationKeys.education_prep.tr
                   ], selectedText: _profileViewModel.selectedEducationText),
-                  SizedBox(height: 8 * Get.pixelRatio),
+                  const SizedBox(height: 16),
                   Align(
                     //choose education
                     child: Text(
@@ -264,7 +263,7 @@ class PersonalProfileScreen extends StatelessWidget {
                     ),
                     alignment: AlignmentDirectional.centerStart,
                   ),
-                  SizedBox(height: 4 * Get.pixelRatio),
+                  const SizedBox(height: 8),
                   Obx(() => FullWidthTextField(
                           leadingIcons: const [
                             Icon(Icons.class_),
@@ -286,7 +285,7 @@ class PersonalProfileScreen extends StatelessWidget {
                                   LocalizationKeys.prep_class_level_three.tr,
                                 ],
                           selectedText: _profileViewModel.selectedClassText)),
-                  SizedBox(height: 12 * Get.pixelRatio),
+                  const SizedBox(height: 32),
                   ElevatedButton(
                       onPressed: () {
                         if (_profileViewModel.validateProfile() == null) {
@@ -303,8 +302,7 @@ class PersonalProfileScreen extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         alignment: Alignment.center,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 4 * Get.pixelRatio),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Text(
                           LocalizationKeys.save.tr,
                           style: const TextStyle(
@@ -315,8 +313,8 @@ class PersonalProfileScreen extends StatelessWidget {
                           ),
                         ),
                       )),
-                  SizedBox(height: 14 * Get.pixelRatio),
-                ]).marginSymmetric(horizontal: 6 * Get.pixelRatio),
+                  const SizedBox(height: 32),
+                ]).marginSymmetric(horizontal: Get.width * 0.05),
           ),
         ),
       ),

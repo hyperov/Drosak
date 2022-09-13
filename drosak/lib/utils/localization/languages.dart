@@ -61,7 +61,6 @@ class Languages extends Translations {
           LocalizationKeys.follows: 'Follows',
           LocalizationKeys.follows2: 'Follows',
           LocalizationKeys.followers: 'Followers',
-          LocalizationKeys.no_posts: 'This teacher has no news yet',
           LocalizationKeys.notifications: 'Notifications',
           LocalizationKeys.news: 'News',
           LocalizationKeys.news_teachers: 'Teachers news',
@@ -118,10 +117,10 @@ class Languages extends Translations {
           LocalizationKeys.settings: 'Settings',
           LocalizationKeys.bookings: 'Bookings',
           LocalizationKeys.last_bookings: 'Last Bookings',
-          LocalizationKeys.booking: 'Booking',
+          LocalizationKeys.booking: 'Book Now',
           LocalizationKeys.confirm_booking: 'confirm booking',
           LocalizationKeys.cancel_booking: 'cancel booking',
-          LocalizationKeys.delete_follow: 'Cancel follow',
+          LocalizationKeys.cancel_follow: 'Cancel follow',
           LocalizationKeys.lecture_booked:
               'Lecture Booked! you can now go to your bookings to see the details',
           LocalizationKeys.follow_delete_question:
@@ -153,9 +152,12 @@ class Languages extends Translations {
           LocalizationKeys.loading: 'Loading...',
           LocalizationKeys.lecture_already_booked:
               'you already booked this lecture',
+          LocalizationKeys.no_posts: 'This teacher has no news yet',
           LocalizationKeys.lectures_not_found: 'No Lectures Found',
           LocalizationKeys.teachers_not_found: 'No Teachers Found',
           LocalizationKeys.bookings_not_found: 'bookings_not_found',
+          LocalizationKeys.teachers_news_not_found:
+              'No Teachers News Found..follow some teachers to see their news here',
           LocalizationKeys.price_from: 'Price From',
           LocalizationKeys.price_to: 'Price To',
           LocalizationKeys.noFollows: 'You  have no Teachers to follow yet',
@@ -348,12 +350,12 @@ class Languages extends Translations {
           LocalizationKeys.settings: 'الإعدادات',
           LocalizationKeys.bookings: 'الحجوزات',
           LocalizationKeys.last_bookings: 'الحجوزات السابقة',
-          LocalizationKeys.booking: 'حجز',
+          LocalizationKeys.booking: 'احجز الأن',
           LocalizationKeys.confirm_booking: 'تأكيد الحجز',
-          LocalizationKeys.cancel_booking: 'الغاء الحجز',
-          LocalizationKeys.delete_follow: 'الغاء المتابعة',
+          LocalizationKeys.cancel_booking: 'إلغاء الحجز',
+          LocalizationKeys.cancel_follow: 'إلغاء المتابعة',
           LocalizationKeys.lecture_booked:
-              'تم حجز الحصة بنجاح! يمكنك الاطلاع على الحجز على الصفحة الخاصة بالحجز',
+              'تم حجز الحصة بنجاح! يمكنك إلاطلاع على الحجز على الصفحة الخاصة بالحجوزات',
 
           LocalizationKeys.profile_updated_error:
               'حدث خطأ أثناء تحديث الملف الشخصي',
@@ -375,17 +377,19 @@ class Languages extends Translations {
           LocalizationKeys.following: 'متابعة',
           LocalizationKeys.follow_delete_question:
               'هل أنت متأكد من الغاء المتابعة؟',
-          LocalizationKeys.no_posts: 'المدرس لسه منزلش أخبار جديدة',
           LocalizationKeys.booking_delete_question:
-              'هل أنت متأكد من الغاء الحجز؟',
+              'هل أنت متأكد من إلغاء الحجز؟',
           LocalizationKeys.app_yes: 'نعم',
           LocalizationKeys.app_no: 'لا',
           LocalizationKeys.notifications_not_found: 'لا يوجد إشعارات',
           LocalizationKeys.loading: 'جاري التحميل ...',
           LocalizationKeys.lecture_already_booked: 'تم حجز الحصة بالفعل',
+          LocalizationKeys.no_posts: 'المدرس لسه منزلش أخبار جديدة',
           LocalizationKeys.lectures_not_found: 'لا يوجد حصص حتى الآن',
           LocalizationKeys.teachers_not_found: 'لا يوجد مدرسين',
           LocalizationKeys.bookings_not_found: 'لا يوجد حجوزات حتى الآن',
+          LocalizationKeys.teachers_news_not_found:
+              'لا يوجد أخبار حتى الآن..اعمل متابعة للمدرسين عشان تشوف أخبارهم هنا',
           LocalizationKeys.price_from: 'السعر من',
           LocalizationKeys.price_to: 'السعر إلى',
           LocalizationKeys.noFollows: 'لم تتابع أي مدرس حتى الآن',

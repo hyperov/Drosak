@@ -32,6 +32,8 @@ class LecturesScreen extends StatelessWidget {
         'firebase_screen_class': 'LecturesScreen',
       },
     );
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+
     return Obx(() => Scaffold(
           backgroundColor: ColorManager.redOrangeLight,
           body: _lecturesViewModel.isLoading.value
@@ -94,14 +96,15 @@ class LecturesScreen extends StatelessWidget {
                                             Text(
                                                 _lecturesViewModel
                                                     .lectures[index].day,
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 16)),
+                                                    fontSize:
+                                                        unitHeightValue * 2)),
                                           ],
                                         ),
                                         Container(
                                           height: 1,
-                                          width: 60,
+                                          width: Get.width * 0.14,
                                           color: Colors.black,
                                         ),
                                         Column(
@@ -111,14 +114,15 @@ class LecturesScreen extends StatelessWidget {
                                             Text(
                                                 _lecturesViewModel
                                                     .lectures[index].time,
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 16)),
+                                                    fontSize:
+                                                        unitHeightValue * 2)),
                                           ],
                                         ),
                                         Container(
                                           height: 1,
-                                          width: 60,
+                                          width: Get.width * 0.14,
                                           color: Colors.black,
                                         ),
                                         Column(
@@ -127,9 +131,10 @@ class LecturesScreen extends StatelessWidget {
                                                 AssetsManager.money),
                                             Text(
                                                 "${_lecturesViewModel.lectures[index].price.toString()}ج ",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 16)),
+                                                    fontSize:
+                                                        unitHeightValue * 2)),
                                           ],
                                         )
                                       ]),
@@ -161,9 +166,9 @@ class LecturesScreen extends StatelessWidget {
                                       child: Text(
                                         LocalizationKeys.booking.tr,
                                         style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w100),
-                                      ),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w800),
+                                      ).paddingSymmetric(vertical: 6),
                                       style: ElevatedButton.styleFrom(
                                         primary: Colors.deepPurple,
                                         shape: RoundedRectangleBorder(

@@ -26,6 +26,8 @@ class BookingsScreen extends StatelessWidget {
         'firebase_screen_class': 'BookingsScreen',
       },
     );
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+
     return Obx(() => Scaffold(
           backgroundColor: ColorManager.redOrangeLight,
           body: _bookingsViewModel.isLoading.value
@@ -50,20 +52,27 @@ class BookingsScreen extends StatelessWidget {
                                     Text(
                                       _bookingsViewModel
                                           .bookings[index].centerName,
-                                      style: const TextStyle(
-                                          fontSize: 18,
+                                      style: TextStyle(
+                                          fontSize: unitHeightValue * 2.2,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Text(_bookingsViewModel
-                                        .bookings[index].classLevel),
-                                    Text(_bookingsViewModel
-                                        .bookings[index].material),
+                                    Text(
+                                        _bookingsViewModel
+                                            .bookings[index].classLevel,
+                                        style: TextStyle(
+                                            fontSize: unitHeightValue * 2)),
+                                    Text(
+                                        _bookingsViewModel
+                                            .bookings[index].material,
+                                        style: TextStyle(
+                                            fontSize: unitHeightValue * 1.8)),
                                     Text(
                                       Jiffy(_bookingsViewModel
                                               .bookings[index].lecDate)
                                           .format("dd MMMM"),
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style: TextStyle(
+                                        fontSize: unitHeightValue * 1.8,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Row(
@@ -90,32 +99,54 @@ class BookingsScreen extends StatelessWidget {
                                             children: [
                                               SvgPicture.asset(
                                                   AssetsManager.calendar),
-                                              Text(_bookingsViewModel
-                                                  .bookings[index].day),
-                                            ],
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            width: 60,
-                                            color: Colors.black,
-                                          ),
-                                          Column(
-                                            children: [
-                                              const Icon(Icons.punch_clock),
-                                              Text(_bookingsViewModel
-                                                  .bookings[index].time),
-                                            ],
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            width: 60,
-                                            color: Colors.black,
-                                          ),
-                                          Column(
-                                            children: [
-                                              const Icon(Icons.money),
                                               Text(
-                                                  "${_bookingsViewModel.bookings[index].price.toString()}ج "),
+                                                  _bookingsViewModel
+                                                      .bookings[index].day,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          unitHeightValue *
+                                                              1.8)),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: 1,
+                                            width: Get.width * 0.14,
+                                            color: Colors.black,
+                                          ),
+                                          Column(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  AssetsManager.clock),
+                                              Text(
+                                                  _bookingsViewModel
+                                                      .bookings[index].time,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          unitHeightValue *
+                                                              1.8)),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: 1,
+                                            width: Get.width * 0.14,
+                                            color: Colors.black,
+                                          ),
+                                          Column(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  AssetsManager.money),
+                                              Text(
+                                                  "${_bookingsViewModel.bookings[index].price.toString()}ج ",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          unitHeightValue *
+                                                              1.8)),
                                             ],
                                           )
                                         ]),
@@ -144,10 +175,16 @@ class BookingsScreen extends StatelessWidget {
                                                         .bookings[index]
                                                         .lectureId);
                                               },
-                                              child: Text(LocalizationKeys
-                                                  .cancel_booking.tr),
+                                              child: Text(
+                                                  LocalizationKeys
+                                                      .cancel_booking.tr,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        unitHeightValue * 2.2,
+                                                  )),
                                               style: ElevatedButton.styleFrom(
-                                                primary: Colors.deepPurple,
+                                                backgroundColor: Colors.red,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(18),
