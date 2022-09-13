@@ -121,8 +121,10 @@ class TeachersListViewModel extends GetxController {
     });
 
     isLoading.value = false;
+    // var randomList = teachers.toList().shuffle();
     teachersList.clear();
     teachersList.addAll(teachers);
+    teachersList.shuffle();
   }
 
   Future<void> getNextTeachersList() async {
@@ -172,6 +174,8 @@ class TeachersListViewModel extends GetxController {
       return true;
     }).toList();
 
+    teachersDocs.addAll(teachersDocsNew);
+    teachersDocsNew.shuffle();
     var teachers = teachersDocsNew.map((doc) {
       var teacher = doc.data();
       teacher.id = doc.id; // set document id to lecture
@@ -179,7 +183,6 @@ class TeachersListViewModel extends GetxController {
     });
 
     isLoading.value = false;
-    teachersDocs.addAll(teachersDocsNew);
     teachersList.addAll(teachers);
   }
 

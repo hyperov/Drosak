@@ -127,9 +127,10 @@ class TeachersListScreen extends StatelessWidget {
                                                                   AssetsManager
                                                                       .teacher_empty_profile,
                                                               image: _teachersListViewModel
-                                                                  .teachersList[
-                                                                      index]
-                                                                  .photoUrl!,
+                                                                      .teachersList[
+                                                                          index]
+                                                                      .photoUrl ??
+                                                                  '',
                                                               width:
                                                                   unitHeightValue *
                                                                       8,

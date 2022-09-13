@@ -155,12 +155,13 @@ class Languages extends Translations {
           LocalizationKeys.no_posts: 'This teacher has no news yet',
           LocalizationKeys.lectures_not_found: 'No Lectures Found',
           LocalizationKeys.teachers_not_found: 'No Teachers Found',
-          LocalizationKeys.bookings_not_found: 'bookings_not_found',
+          LocalizationKeys.bookings_not_found:
+              'No Bookings Yet..if you book a lecture it will appear here',
           LocalizationKeys.teachers_news_not_found:
               'No Teachers News Found..follow some teachers to see their news here',
           LocalizationKeys.price_from: 'Price From',
           LocalizationKeys.price_to: 'Price To',
-          LocalizationKeys.noFollows: 'You  have no Teachers to follow yet',
+          LocalizationKeys.noFollows: 'You have no Teachers to follow yet',
 
           //cairo area
           LocalizationKeys.cairo_nasrCity: 'Nasr City',
@@ -329,7 +330,6 @@ class Languages extends Translations {
           LocalizationKeys.review_added: 'تمت إضافة تقييمك',
           LocalizationKeys.reviews: 'التقييمات',
           LocalizationKeys.no_reviews: 'لا يوجد تقييمات حتى الآن',
-          LocalizationKeys.noFollows: 'لا يوجد متابعين حتى الآن',
           LocalizationKeys.review_text_hint: 'اكتب تقييمك (اختياري)',
           LocalizationKeys.review_already_rated_teacher:
               'لقد قمت بالفعل بتقييم هذا المدرس من قبل',
@@ -387,7 +387,8 @@ class Languages extends Translations {
           LocalizationKeys.no_posts: 'المدرس لسه منزلش أخبار جديدة',
           LocalizationKeys.lectures_not_found: 'لا يوجد حصص حتى الآن',
           LocalizationKeys.teachers_not_found: 'لا يوجد مدرسين',
-          LocalizationKeys.bookings_not_found: 'لا يوجد حجوزات حتى الآن',
+          LocalizationKeys.bookings_not_found:
+              'لا يوجد حجوزات حتى الآن..لما تحجز أى حصة هتظهر لك هنا',
           LocalizationKeys.teachers_news_not_found:
               'لا يوجد أخبار حتى الآن..اعمل متابعة للمدرسين عشان تشوف أخبارهم هنا',
           LocalizationKeys.price_from: 'السعر من',

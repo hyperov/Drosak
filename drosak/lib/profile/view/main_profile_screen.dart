@@ -169,8 +169,13 @@ class ProfileScreen extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text(
-                              LocalizationKeys.app_logout.tr,
+                            title: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                LocalizationKeys.app_logout.tr,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                             content:
                                 Text(LocalizationKeys.logout_confirmation.tr),
@@ -182,7 +187,11 @@ class ProfileScreen extends StatelessWidget {
                                 },
                               ),
                               ElevatedButton(
-                                child: Text(LocalizationKeys.app_logout.tr),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red),
+                                child: Text(
+                                  LocalizationKeys.app_logout.tr,
+                                ),
                                 onPressed: () {
                                   Navigator.pop(context);
                                   _profileViewModel.logout();
