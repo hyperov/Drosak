@@ -50,9 +50,16 @@ class BookingsRepo {
     var teacherDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionTeachers)
         .doc(teacherId);
+
+    var appStatsDocRef = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionAppStatistics)
+        .doc(FireStoreNames.documentAppStatistics);
     // increment canceled bookings count
     batch.update(studentDocRef, {'bookings_canceled': FieldValue.increment(1)});
     batch.update(teacherDocRef, {'bookings_canceled': FieldValue.increment(1)});
+    batch
+        .update(appStatsDocRef, {'bookings_canceled': FieldValue.increment(1)});
+
     return batch.commit();
   }
 }
