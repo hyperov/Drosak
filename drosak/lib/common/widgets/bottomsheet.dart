@@ -1,6 +1,7 @@
 import 'package:drosak/bookings/viewmodel/booking_view_model.dart';
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/lectures/viewmodel/lectures_viewmodel.dart';
+import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/reviews/viewmodel/reviews_viewmodel.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
@@ -785,6 +786,156 @@ showRatingTeacherBottomSheet(
         ),
       ),
       backgroundColor: Colors.white,
+      clipBehavior: Clip.hardEdge,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+        top: Radius.circular(32),
+      )));
+}
+
+showTechnicalSupportBottomSheet(
+    ProfileViewModel profileViewModel, BuildContext context) {
+  double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
+  Get.bottomSheet(
+      DraggableScrollableSheet(
+          initialChildSize: 0.8,
+          //set this as you want
+          maxChildSize: 0.9,
+          //set this as you want
+          minChildSize: 0.6,
+          //set this as you want
+          expand: false,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return SingleChildScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 45,
+                        height: 3,
+                        color: Colors.grey,
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        LocalizationKeys.technical_support.tr,
+                        style: TextStyle(
+                            fontSize: 3 * unitHeightValue,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      const SizedBox(height: 32),
+                      Obx(() => TextField(
+                          maxLength: 70,
+                          controller: profileViewModel.nameController.value,
+                          onChanged: (value) => profileViewModel
+                              .errMessageNameTextFieldTechSupport.value = null,
+                          textInputAction: TextInputAction.next,
+                          textAlign: TextAlign.start,
+                          keyboardType: TextInputType.name,
+                          // style: const TextStyle(fontStyle: FontStyle.normal),
+                          decoration: InputDecoration(
+                              labelText: LocalizationKeys.full_name.tr,
+                              hintText: LocalizationKeys.full_name.tr,
+                              errorText: profileViewModel
+                                  .errMessageNameTextFieldTechSupport.value,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                  borderSide:
+                                      const BorderSide(color: Colors.blue))))),
+                      const SizedBox(height: 20),
+                      Obx(() => TextField(
+                          controller: profileViewModel.phoneController.value,
+                          onChanged: (value) => profileViewModel
+                              .errMessagePhoneTextFieldTechSupport.value = null,
+                          textInputAction: TextInputAction.next,
+                          textAlign: TextAlign.start,
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                              labelText: LocalizationKeys.phone_number.tr,
+                              hintText: '01xxxxxxxxx',
+                              errorText: profileViewModel
+                                  .errMessagePhoneTextFieldTechSupport.value,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                  borderSide:
+                                      const BorderSide(color: Colors.blue))))),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 200,
+                        child: Obx(() => TextField(
+                            maxLength: 4000,
+                            controller: profileViewModel
+                                .messageTechSupportController.value,
+                            onChanged: (value) => profileViewModel
+                                .errMessageTextFieldTechSupport.value = null,
+                            textInputAction: TextInputAction.done,
+                            textAlign: TextAlign.start,
+                            keyboardType: TextInputType.text,
+                            textAlignVertical: TextAlignVertical.top,
+                            expands: true,
+                            maxLines: null,
+                            minLines: null,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                labelText: LocalizationKeys
+                                    .technical_support_write_your_message.tr,
+                                hintText: LocalizationKeys
+                                    .technical_support_write_your_message.tr,
+                                errorText: profileViewModel
+                                    .errMessageTextFieldTechSupport.value,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                    borderSide:
+                                        const BorderSide(color: Colors.blue))))),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (profileViewModel.validateTechSupport() ==
+                                null) {
+                              FirebaseCrashlytics.instance
+                                  .log('send technical support message');
+                              Get.back();
+                              await profileViewModel.launchWhatsApp(
+                                  profileViewModel.nameController.value.text,
+                                  profileViewModel.phoneController.value.text,
+                                  profileViewModel
+                                      .messageTechSupportController.value.text);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Text(
+                              LocalizationKeys.send.tr,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 2 * unitHeightValue,
+                                fontFamily: AssetsManager.fontFamily,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            ),
+                          )),
+                      const SizedBox(height: 32),
+                    ]).marginSymmetric(horizontal: Get.width * 0.05),
+              ),
+            );
+          }),
+      backgroundColor: ColorManager.redOrangeLight,
       clipBehavior: Clip.hardEdge,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(

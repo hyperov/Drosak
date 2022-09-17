@@ -34,6 +34,7 @@ class LocalizationKeys {
   static const String enter_sms_code = "enter_sms_code";
   static const String resend_sms_code = "resend_sms_code";
   static const String send_otp = "send_otp";
+  static const String send = "send";
 
   static var phone_number_error = "phone_number_error";
 
@@ -169,6 +170,7 @@ class LocalizationKeys {
   static var email_error_format = 'email_error_format';
 
   static var name_error_empty = 'name_error_empty';
+  static var message_tech_support_empty = 'message_tech_support_empty';
 
   static var app_error_update_data = 'app_error_update_data';
 
@@ -321,6 +323,9 @@ class LocalizationKeys {
   static var giza_bdrshen = 'giza_bdrshen';
 
   static var teacher = 'teacher';
+  static var technical_support = 'technical_support';
+  static var technical_support_write_your_message =
+      'technical_support_write_your_message';
 
   //used giza areas
   /**

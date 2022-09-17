@@ -64,6 +64,8 @@ dependencies:
   empty_widget: ^0.0.5
   in_app_update: ^3.0.0
   argon_buttons_flutter: ^1.1.0
+  whatsapp_unilink: ^2.0.2
+  url_launcher: ^6.1.5
 
 flutter_native_splash:
   color: "#ffc2c0"

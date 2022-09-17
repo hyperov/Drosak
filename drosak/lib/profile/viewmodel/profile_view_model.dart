@@ -14,8 +14,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../common/viewmodel/network_viewmodel.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 class ProfileViewModel extends GetxController {
   final UserRepo _userRepo = Get.find();
@@ -37,6 +37,8 @@ class ProfileViewModel extends GetxController {
   var phoneController = TextEditingController().obs;
   var emailController = TextEditingController().obs;
 
+  var messageTechSupportController = TextEditingController().obs;
+
   var nameObserver = "الاسم".obs;
 
   var followsCountObserver = 0.obs;
@@ -56,9 +58,13 @@ class ProfileViewModel extends GetxController {
 
   RxString selectedGalleryPickerSheetText = LocalizationKeys.gallery.tr.obs;
 
+  final errMessageNameTextField = RxnString();
   final errMessagePhoneTextField = RxnString();
   final errMessageEmailTextField = RxnString();
-  final errMessageNameTextField = RxnString();
+
+  final errMessageNameTextFieldTechSupport = RxnString();
+  final errMessagePhoneTextFieldTechSupport = RxnString();
+  final errMessageTextFieldTechSupport = RxnString();
 
   late StudentProfileUiModel studentProfile;
   final ImagePicker _imagePicker = ImagePicker();
@@ -420,5 +426,72 @@ class ProfileViewModel extends GetxController {
     nameController.value.dispose();
     phoneController.value.dispose();
     emailController.value.dispose();
+    messageTechSupportController.value.dispose();
+  }
+
+  String? _validateTechSupportName() {
+    var name = nameController.value.text;
+    if (name.isEmpty) {
+      errMessageNameTextFieldTechSupport.value =
+          LocalizationKeys.name_error_empty.tr;
+      return LocalizationKeys.name_error_empty.tr;
+    }
+    errMessageNameTextFieldTechSupport.value = null;
+    return null;
+  }
+
+  String? _validateTechSupportPhone() {
+    var phone = phoneController.value.text;
+    if (phone.isEmpty) {
+      errMessagePhoneTextFieldTechSupport.value =
+          LocalizationKeys.phone_number_error_empty.tr;
+      if (isEmailPrimary()) {
+        return null;
+      }
+      return LocalizationKeys.phone_number_error_empty.tr;
+    }
+    if (phone.length != 11) {
+      errMessagePhoneTextFieldTechSupport.value =
+          LocalizationKeys.phone_number_error_length.tr;
+      return LocalizationKeys.phone_number_error_length.tr;
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
+      errMessagePhoneTextFieldTechSupport.value =
+          LocalizationKeys.phone_number_error_format.tr;
+      return LocalizationKeys.phone_number_error_format.tr;
+    }
+    errMessagePhoneTextFieldTechSupport.value = null;
+    return null;
+  }
+
+  String? _validateTechSupportMessage() {
+    var message = messageTechSupportController.value.text;
+    if (message.isEmpty) {
+      errMessageTextFieldTechSupport.value =
+          LocalizationKeys.message_tech_support_empty.tr;
+      return LocalizationKeys.message_tech_support_empty.tr;
+    }
+    errMessageTextFieldTechSupport.value = null;
+    return null;
+  }
+
+  String? validateTechSupport() {
+    if (_validateTechSupportName() == null &&
+        _validateTechSupportPhone() == null &&
+        _validateTechSupportMessage() == null) {
+      return null;
+    }
+    return LocalizationKeys.profile_updated_error.tr;
+  }
+
+  Future<void> launchWhatsApp(String name, String phone, String message) async {
+    final link = WhatsAppUnilink(
+      phoneNumber: '2$phone',
+      // phoneNumber: '+2-(555)1234567',
+      text: "الاسم : $name \n  \n الرسالة : $message",
+    );
+
+    await launchUrlString(link.toString(),
+        mode: LaunchMode.externalNonBrowserApplication);
   }
 }

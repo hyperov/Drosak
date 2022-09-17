@@ -106,6 +106,7 @@ class Languages extends Translations {
           LocalizationKeys.resend_sms_code: 'Resend SMS Code',
           LocalizationKeys.sms_code_not_sent_question: 'SMS Code not sent ?',
           LocalizationKeys.send_otp: 'Send OTP',
+          LocalizationKeys.send: 'Send',
           LocalizationKeys.app_cancel: 'Cancel',
           LocalizationKeys.app_ok: 'Ok',
           LocalizationKeys.app_delete: 'Delete',
@@ -142,6 +143,7 @@ class Languages extends Translations {
           LocalizationKeys.email_error_empty: 'Email is empty',
           LocalizationKeys.email_error_format: 'Email in wrong format',
           LocalizationKeys.name_error_empty: 'Name is empty',
+          LocalizationKeys.message_tech_support_empty: 'Message is empty',
           LocalizationKeys.full_name: 'Full Name',
           LocalizationKeys.app_error_update_data: 'Error updating data',
           LocalizationKeys.choose_government_error:
@@ -239,6 +241,8 @@ class Languages extends Translations {
           LocalizationKeys.giza_3zyzya: '3zyzya',
           LocalizationKeys.giza_s2ara: 'S2ara',
           LocalizationKeys.giza_bdrshen: 'Bdrshen',
+          LocalizationKeys.technical_support: 'Technical Support',
+          LocalizationKeys.technical_support_write_your_message: 'Write your message',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -341,6 +345,7 @@ class Languages extends Translations {
           LocalizationKeys.resend_sms_code: 'إعادة إرسال الكود',
           LocalizationKeys.sms_code_not_sent_question: 'لم يتم إرسال الكود؟',
           LocalizationKeys.send_otp: 'إرسل مجددا',
+          LocalizationKeys.send: 'إرسال',
           LocalizationKeys.app_cancel: 'إلغاء',
           LocalizationKeys.app_ok: 'موافق',
           LocalizationKeys.app_delete: 'حذف',
@@ -370,6 +375,7 @@ class Languages extends Translations {
           LocalizationKeys.email_error_empty: 'البريد الإلكتروني فاضى',
           LocalizationKeys.email_error_format: 'البريد الإلكتروني مش صح',
           LocalizationKeys.name_error_empty: 'الاسم فاضى',
+          LocalizationKeys.message_tech_support_empty: 'الرسالة فاضية',
           LocalizationKeys.full_name: 'الاسم الكامل',
           LocalizationKeys.app_error_update_data: 'خطأ في تحديث البيانات',
           LocalizationKeys.choose_government_error: 'يجب اختيار المحافظة',
@@ -473,6 +479,8 @@ class Languages extends Translations {
           LocalizationKeys.giza_bdrshen: 'البدرشين',
           LocalizationKeys.cairo_obor: 'العبور',
           LocalizationKeys.cairo_shrouk: 'الشروق',
+          LocalizationKeys.technical_support: 'الدعم الفني',
+          LocalizationKeys.technical_support_write_your_message: 'اكتب رسالتك هنا',
         },
       };
 }

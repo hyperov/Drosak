@@ -1,3 +1,4 @@
+import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/follows/view/follows_screen.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
@@ -5,6 +6,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import '../../utils/localization/localization_keys.dart';
 import '../../utils/managers/assets_manager.dart';
@@ -128,6 +132,26 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
+            Card(
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: InkWell(
+                onTap: () async {
+                  FirebaseCrashlytics.instance.log('WhatsApp Clicked');
+                  FirebaseAnalytics.instance
+                      .logEvent(name: "whatsapp_button_clicked");
+                  showTechnicalSupportBottomSheet(_profileViewModel, context);
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.whatsapp, color: Colors.deepPurple),
+                  title: Text(LocalizationKeys.technical_support.tr,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ),
             // Card(
             //   color: Colors.white,
             //   margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -145,21 +169,7 @@ class ProfileScreen extends StatelessWidget {
             //     ),
             //   ),
             // ),
-            // Card(
-            //   color: Colors.white,
-            //   margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(10),
-            //   ),
-            //   child: InkWell(
-            //     onTap: () {},
-            //     child: const ListTile(
-            //       leading: Icon(Icons.help, color: Colors.deepPurple),
-            //       title: Text('مساعدة',
-            //           style: TextStyle(fontWeight: FontWeight.bold)),
-            //     ),
-            //   ),
-            // ),
+
             Card(
                 color: Colors.white,
                 margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -193,7 +203,7 @@ class ProfileScreen extends StatelessWidget {
                                   LocalizationKeys.app_logout.tr,
                                 ),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Get.back();
                                   _profileViewModel.logout();
                                 },
                               ),
