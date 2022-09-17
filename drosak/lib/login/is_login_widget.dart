@@ -1,6 +1,7 @@
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/home/HomeViewModel.dart';
 import 'package:drosak/home/home_screen.dart';
+import 'package:drosak/login/model/Repo/user_repo.dart';
 import 'package:drosak/profile/view/personal_profile_screen.dart';
 import 'package:drosak/utils/storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,8 @@ class IsLoginWidget extends StatelessWidget {
 
   IsLoginWidget({Key? key}) : super(key: key);
   final _storage = GetStorage();
+
+  final UserRepo _userRepo = UserRepo();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,10 @@ class IsLoginWidget extends StatelessWidget {
         if (isFirstTimeLogin == null || isFirstTimeLogin == false) {
           Get.lazyPut<HomeViewModel>(() => HomeViewModel(), fenix: true);
           Get.lazyPut<FilterViewModel>(() => FilterViewModel(), fenix: true);
+
+          _userRepo.updateUserLoginStatus(snapshot.data!).then((value) async {
+            await _storage.write(StorageKeys.studentId, snapshot.data!.uid);
+          });
           return HomeScreen();
         }
 
