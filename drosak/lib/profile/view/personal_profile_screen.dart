@@ -90,7 +90,9 @@ class PersonalProfileScreen extends StatelessWidget {
                                         placeholder:
                                             AssetsManager.student_empty_profile,
                                         image: _profileViewModel
-                                            .selectedProfileImageUrl.value,
+                                                .selectedProfileImageUrl
+                                                .value ??
+                                            '',
                                         width: Get.width * 0.28,
                                         height: Get.width * 0.28,
                                         fit: BoxFit.cover,

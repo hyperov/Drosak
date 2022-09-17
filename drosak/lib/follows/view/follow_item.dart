@@ -35,7 +35,7 @@ class FollowItem extends StatelessWidget {
                     side: BorderSide(color: Colors.deepPurpleAccent, width: 1)),
                 child: Obx(() => FadeInImage.assetNetwork(
                     placeholder: AssetsManager.teacher_empty_profile,
-                    image: followsViewModel.follows[index].teacherPhotoUrl,
+                    image: followsViewModel.follows[index].teacherPhotoUrl??'',
                     width: 70,
                     height: 70,
                     fit: BoxFit.cover,

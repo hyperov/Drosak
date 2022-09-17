@@ -484,7 +484,8 @@ showConfirmBookingBottomSheet(
                                   placeholder:
                                       AssetsManager.teacher_empty_profile,
                                   image: lecturesViewModel
-                                      .lectures[index].teacherImageUrl,
+                                          .lectures[index].teacherImageUrl ??
+                                      '',
                                   width: 80,
                                   height: 80,
                                   fit: BoxFit.cover,

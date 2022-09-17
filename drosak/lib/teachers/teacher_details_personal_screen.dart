@@ -73,7 +73,8 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
                       : FadeInImage.assetNetwork(
                           placeholder: AssetsManager.teacher_empty_profile,
                           image:
-                              _teachersListViewModel.selectedTeacher.photoUrl!,
+                              _teachersListViewModel.selectedTeacher.photoUrl ??
+                                  '',
                           width: 100,
                           height: 100,
                           fit: BoxFit.cover,
