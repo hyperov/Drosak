@@ -63,7 +63,6 @@ class ProfileViewModel extends GetxController {
   final errMessageEmailTextField = RxnString();
 
   final errMessageNameTextFieldTechSupport = RxnString();
-  final errMessagePhoneTextFieldTechSupport = RxnString();
   final errMessageTextFieldTechSupport = RxnString();
 
   late StudentProfileUiModel studentProfile;
@@ -440,30 +439,6 @@ class ProfileViewModel extends GetxController {
     return null;
   }
 
-  String? _validateTechSupportPhone() {
-    var phone = phoneController.value.text;
-    if (phone.isEmpty) {
-      errMessagePhoneTextFieldTechSupport.value =
-          LocalizationKeys.phone_number_error_empty.tr;
-      if (isEmailPrimary()) {
-        return null;
-      }
-      return LocalizationKeys.phone_number_error_empty.tr;
-    }
-    if (phone.length != 11) {
-      errMessagePhoneTextFieldTechSupport.value =
-          LocalizationKeys.phone_number_error_length.tr;
-      return LocalizationKeys.phone_number_error_length.tr;
-    }
-    if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
-      errMessagePhoneTextFieldTechSupport.value =
-          LocalizationKeys.phone_number_error_format.tr;
-      return LocalizationKeys.phone_number_error_format.tr;
-    }
-    errMessagePhoneTextFieldTechSupport.value = null;
-    return null;
-  }
-
   String? _validateTechSupportMessage() {
     var message = messageTechSupportController.value.text;
     if (message.isEmpty) {
@@ -477,17 +452,15 @@ class ProfileViewModel extends GetxController {
 
   String? validateTechSupport() {
     if (_validateTechSupportName() == null &&
-        _validateTechSupportPhone() == null &&
         _validateTechSupportMessage() == null) {
       return null;
     }
     return LocalizationKeys.profile_updated_error.tr;
   }
 
-  Future<void> launchWhatsApp(String name, String phone, String message) async {
+  Future<void> launchWhatsApp(String name, String message) async {
     final link = WhatsAppUnilink(
-      phoneNumber: '2$phone',
-      // phoneNumber: '+2-(555)1234567',
+      phoneNumber: '201029740997',
       text: "الاسم : $name \n  \n الرسالة : $message",
     );
 

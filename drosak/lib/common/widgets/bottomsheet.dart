@@ -851,23 +851,6 @@ showTechnicalSupportBottomSheet(
                                   borderSide:
                                       const BorderSide(color: Colors.blue))))),
                       const SizedBox(height: 20),
-                      Obx(() => TextField(
-                          controller: profileViewModel.phoneController.value,
-                          onChanged: (value) => profileViewModel
-                              .errMessagePhoneTextFieldTechSupport.value = null,
-                          textInputAction: TextInputAction.next,
-                          textAlign: TextAlign.start,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                              labelText: LocalizationKeys.phone_number.tr,
-                              hintText: '01xxxxxxxxx',
-                              errorText: profileViewModel
-                                  .errMessagePhoneTextFieldTechSupport.value,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  borderSide:
-                                      const BorderSide(color: Colors.blue))))),
-                      const SizedBox(height: 20),
                       SizedBox(
                         height: 200,
                         child: Obx(() => TextField(
@@ -907,7 +890,6 @@ showTechnicalSupportBottomSheet(
                               Get.back();
                               await profileViewModel.launchWhatsApp(
                                   profileViewModel.nameController.value.text,
-                                  profileViewModel.phoneController.value.text,
                                   profileViewModel
                                       .messageTechSupportController.value.text);
                             }
