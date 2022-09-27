@@ -1,8 +1,11 @@
 import 'package:drosak/login/viewmodel/login_view_model.dart';
-import 'package:drosak/profile/view/personal_profile_screen.dart';
+import 'package:drosak/utils/localization/localization_keys.dart';
+import 'package:drosak/utils/managers/assets_manager.dart';
+import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import 'view/login_phone_or_social_screen.dart';
 
@@ -14,20 +17,7 @@ class IsLoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoginViewModel _loginViewModel = Get.put(LoginViewModel());
-
-    // ever(_loginViewModel.isLoggedIn, (callback) async {
-    //   var isFirstTimeUserLogin =
-    //       _storage.read<bool>(StorageKeys.isFirstTimeLogin);
-    //
-    //   if (isFirstTimeUserLogin!) {
-    //     Get.offAll(() => PersonalProfileScreen());
-    //   } else {
-    //     Get.offAll(() => HomeScreen(), binding: HomeBindings());
-    //   }
-    //   EasyLoading.showSuccess("You are logged in");
-    //   FirebaseCrashlytics.instance
-    //       .setUserIdentifier(FirebaseAuth.instance.currentUser!.uid);
-    // }, condition: () => _loginViewModel.isLoggedIn.value);
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
 
     return StreamBuilder<User?>(
       stream: _auth.authStateChanges(),
@@ -42,23 +32,21 @@ class IsLoginWidget extends StatelessWidget {
             .loginUserToFireStore(snapshot.data!)
             .then((value) => null);
 
-        // var isFirstTimeLogin =
-        //     _storage.read<bool>(StorageKeys.isFirstTimeLogin);
-
-        // if (isFirstTimeLogin == null || isFirstTimeLogin == false) {
-        //   Get.lazyPut<HomeViewModel>(() => HomeViewModel(), fenix: true);
-        //   Get.lazyPut<FilterViewModel>(() => FilterViewModel(), fenix: true);
-
-        // _userRepo.updateUserLoginStatus(snapshot.data!).then((value) async {
-        //   await _storage.write(StorageKeys.studentId, snapshot.data!.uid);
-        // });
-        // return HomeScreen();
         return Container(
-          color: Colors.deepPurple,
+          color: ColorManager.deepPurple,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Lottie.asset(AssetsManager.login_loading,
+                    width: unitHeightValue * 40, height: unitHeightValue * 40),
+                Text(LocalizationKeys.loading.tr,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: unitHeightValue * 2.5,
+                        fontWeight: FontWeight.bold))
+              ]),
         );
-        // }
-
-        return PersonalProfileScreen();
       },
     );
   }

@@ -3,6 +3,7 @@ class AssetsManager {
 
   static const String _assetsFolder = 'assets/';
   static const String _imagesFolder = _assetsFolder + 'images/';
+  static const String _lottieFolder = _assetsFolder + 'animation/';
 
   static const String logo = _assetsFolder + 'launcher/logo.png';
   static const String logo2 = _assetsFolder + 'launcher/logo2.png';
@@ -29,4 +30,7 @@ class AssetsManager {
       _imagesFolder + 'student_empty_profile_pic.png';
   static String teacher_empty_profile =
       _imagesFolder + 'teacher_empty_profile_pic.jpg';
+
+  //animation
+  static String login_loading = _lottieFolder + 'study_lottie.json';
 }
