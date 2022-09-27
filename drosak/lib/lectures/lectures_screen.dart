@@ -165,8 +165,8 @@ class LecturesScreen extends StatelessWidget {
                                       },
                                       child: Text(
                                         LocalizationKeys.booking.tr,
-                                        style: const TextStyle(
-                                            fontSize: 20,
+                                        style: TextStyle(
+                                            fontSize: unitHeightValue * 2,
                                             fontWeight: FontWeight.w800),
                                       ).paddingSymmetric(vertical: 6),
                                       style: ElevatedButton.styleFrom(

@@ -45,19 +45,19 @@ class PhoneOrSocialLoginScreen extends StatelessWidget {
       _loginViewModel.isCodeSent.value = false;
     }, condition: () => _loginViewModel.isCodeSent.value);
 
-    ever(_loginViewModel.isLoggedIn, (callback) async {
-      var isFirstTimeUserLogin =
-          _storage.read<bool>(StorageKeys.isFirstTimeLogin);
-
-      if (isFirstTimeUserLogin!) {
-        Get.offAll(() => PersonalProfileScreen());
-      } else {
-        Get.offAll(() => HomeScreen(), binding: HomeBindings());
-      }
-      EasyLoading.showSuccess("You are logged in");
-      FirebaseCrashlytics.instance
-          .setUserIdentifier(FirebaseAuth.instance.currentUser!.uid);
-    }, condition: () => _loginViewModel.isLoggedIn.value);
+    // ever(_loginViewModel.isLoggedIn, (callback) async {
+    //   var isFirstTimeUserLogin =
+    //       _storage.read<bool>(StorageKeys.isFirstTimeLogin);
+    //
+    //   if (isFirstTimeUserLogin!) {
+    //     Get.offAll(() => PersonalProfileScreen());
+    //   } else {
+    //     Get.offAll(() => HomeScreen(), binding: HomeBindings());
+    //   }
+    //   EasyLoading.showSuccess("You are logged in");
+    //   FirebaseCrashlytics.instance
+    //       .setUserIdentifier(FirebaseAuth.instance.currentUser!.uid);
+    // }, condition: () => _loginViewModel.isLoggedIn.value);
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFC2C0),

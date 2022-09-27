@@ -13,6 +13,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../bindings/initial_bindings.dart';
+import '../../home/home_screen.dart';
+import '../../profile/view/personal_profile_screen.dart';
+
 class LoginViewModel extends GetxController {
   final LoginRepo _loginRepository = Get.put(LoginRepo());
   final UserRepo _userRepo = Get.put(UserRepo());
@@ -48,6 +52,33 @@ class LoginViewModel extends GetxController {
   FocusNode smsCodeFocusNodeFourth = FocusNode();
   FocusNode smsCodeFocusNodeFifth = FocusNode();
   FocusNode smsCodeFocusNodeSixth = FocusNode();
+
+  @override
+  void onReady() {
+    super.onReady();
+    ever(isLoggedIn, (callback) {
+      var isFirstTimeUserLogin =
+          _storage.read<bool>(StorageKeys.isFirstTimeLogin);
+
+      if (isFirstTimeUserLogin!) {
+        Get.offAll(() => PersonalProfileScreen());
+      } else {
+        Get.offAll(() => HomeScreen(), binding: HomeBindings());
+      }
+      EasyLoading.showSuccess("You are logged in");
+      FirebaseCrashlytics.instance
+          .setUserIdentifier(FirebaseAuth.instance.currentUser!.uid);
+      // isLoggedIn.value = false;
+      isLoggedIn.value = false;
+      phoneController.clear();
+      smsCodeControllerFirst.clear();
+      smsCodeControllerSecond.clear();
+      smsCodeControllerThird.clear();
+      smsCodeControllerFourth.clear();
+      smsCodeControllerFifth.clear();
+      smsCodeControllerSixth.clear();
+    }, condition: () => isLoggedIn.value);
+  }
 
   @override
   void onClose() {
@@ -276,7 +307,7 @@ class LoginViewModel extends GetxController {
       return;
     }
 
-    await loginUserToFireStore(user!);
+    // await loginUserToFireStore(user!);
   }
 
   signInWithFacebook() async {
@@ -303,7 +334,7 @@ class LoginViewModel extends GetxController {
         return;
       }
 
-      await loginUserToFireStore(user!);
+      // await loginUserToFireStore(user!);
     } else {
       _onSnackBarError(
           Logs.log_facebook_login_error, LocalizationKeys.login_error.tr);

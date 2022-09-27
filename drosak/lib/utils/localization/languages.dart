@@ -118,7 +118,7 @@ class Languages extends Translations {
           LocalizationKeys.settings: 'Settings',
           LocalizationKeys.bookings: 'Bookings',
           LocalizationKeys.last_bookings: 'Last Bookings',
-          LocalizationKeys.booking: 'Book Now',
+          LocalizationKeys.booking: 'Book Now and Pay Later',
           LocalizationKeys.confirm_booking: 'confirm booking',
           LocalizationKeys.cancel_booking: 'cancel booking',
           LocalizationKeys.cancel_follow: 'Cancel follow',
@@ -242,7 +242,8 @@ class Languages extends Translations {
           LocalizationKeys.giza_s2ara: 'S2ara',
           LocalizationKeys.giza_bdrshen: 'Bdrshen',
           LocalizationKeys.technical_support: 'Technical Support',
-          LocalizationKeys.technical_support_write_your_message: 'Write your message',
+          LocalizationKeys.technical_support_write_your_message:
+              'Write your message',
         },
         'ar_EG': {
           LocalizationKeys.email: 'البريد الإلكتروني',
@@ -355,7 +356,7 @@ class Languages extends Translations {
           LocalizationKeys.settings: 'الإعدادات',
           LocalizationKeys.bookings: 'الحجوزات',
           LocalizationKeys.last_bookings: 'الحجوزات السابقة',
-          LocalizationKeys.booking: 'احجز الأن',
+          LocalizationKeys.booking: 'احجز الأن وادفع فى الحصة',
           LocalizationKeys.confirm_booking: 'تأكيد الحجز',
           LocalizationKeys.cancel_booking: 'إلغاء الحجز',
           LocalizationKeys.cancel_follow: 'إلغاء المتابعة',
@@ -480,7 +481,8 @@ class Languages extends Translations {
           LocalizationKeys.cairo_obor: 'العبور',
           LocalizationKeys.cairo_shrouk: 'الشروق',
           LocalizationKeys.technical_support: 'الدعم الفني',
-          LocalizationKeys.technical_support_write_your_message: 'اكتب رسالتك هنا',
+          LocalizationKeys.technical_support_write_your_message:
+              'اكتب رسالتك هنا',
         },
       };
 }
