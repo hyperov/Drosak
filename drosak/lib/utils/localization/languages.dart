@@ -362,7 +362,6 @@ class Languages extends Translations {
           LocalizationKeys.cancel_follow: 'إلغاء المتابعة',
           LocalizationKeys.lecture_booked:
               'تم حجز الحصة بنجاح! يمكنك إلاطلاع على الحجز على الصفحة الخاصة بالحجوزات',
-
           LocalizationKeys.profile_updated_error:
               'حدث خطأ أثناء تحديث الملف الشخصي',
           LocalizationKeys.profile_updated_successfully:

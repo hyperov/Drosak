@@ -6,9 +6,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import '../../utils/localization/localization_keys.dart';
 import '../../utils/managers/assets_manager.dart';
@@ -119,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  FirebaseCrashlytics.instance.log('FollowsScreen Clicked');
+                  FirebaseCrashlytics.instance.log('Follows Screen Clicked');
 
                   FirebaseAnalytics.instance
                       .logEvent(name: "follows_screen_button_clicked");
