@@ -186,18 +186,28 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             content:
                                 Text(LocalizationKeys.logout_confirmation.tr),
+                            actionsAlignment: MainAxisAlignment.center,
                             actions: [
                               ElevatedButton(
                                 child: Text(LocalizationKeys.app_cancel.tr),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.deepPurple,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    )),
                                 onPressed: () {
                                   Get.back();
                                 },
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red),
+                                    backgroundColor: Colors.red,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    )),
                                 child: Text(
                                   LocalizationKeys.app_logout.tr,
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                                 onPressed: () {
                                   Get.back();
