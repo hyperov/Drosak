@@ -189,8 +189,8 @@ class TeachersListViewModel extends GetxController {
   Future<void> followTeacher() async {
     final follow = Follow(
       teacherId: selectedTeacher.id!,
-      teacherName: selectedTeacher.name!,
-      teacherPhotoUrl: selectedTeacher.photoUrl!,
+      teacherName: selectedTeacher.name ?? '',
+      teacherPhotoUrl: selectedTeacher.photoUrl ?? '',
       rating: selectedTeacher.avgRating!,
       material: selectedTeacher.material!,
       educationalLevel: selectedTeacher.educationalLevel!,
