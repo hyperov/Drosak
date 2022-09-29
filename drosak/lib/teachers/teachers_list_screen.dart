@@ -105,52 +105,40 @@ class TeachersListScreen extends StatelessWidget {
                                                               color: Colors
                                                                   .deepPurpleAccent,
                                                               width: 1)),
-                                                      child: Obx(() => _teachersListViewModel
-                                                                  .teachersList[
-                                                                      index]
-                                                                  .photoUrl
-                                                                  .isBlank! ||
-                                                              _teachersListViewModel
-                                                                      .teachersList[
-                                                                          index]
-                                                                      .photoUrl ==
-                                                                  null
-                                                          ? Image.asset(
-                                                              AssetsManager
-                                                                  .teacher_empty_profile,
-                                                              width: 70,
-                                                              height: 70,
-                                                            )
-                                                          : FadeInImage
+                                                      child: Obx(() =>
+                                                          FadeInImage
                                                               .assetNetwork(
-                                                              placeholder:
-                                                                  AssetsManager
-                                                                      .teacher_empty_profile,
-                                                              image: _teachersListViewModel
-                                                                      .teachersList[
-                                                                          index]
-                                                                      .photoUrl ??
-                                                                  '',
-                                                              width:
-                                                                  unitHeightValue *
-                                                                      8,
-                                                              height:
-                                                                  unitHeightValue *
-                                                                      8,
-                                                              // fit: BoxFit.cover,
-                                                              imageErrorBuilder:
-                                                                  (context,
-                                                                      error,
-                                                                      stackTrace) {
-                                                                return Image
-                                                                    .asset(
-                                                                  AssetsManager
-                                                                      .teacher_empty_profile,
-                                                                  width: 70,
-                                                                  height: 70,
-                                                                );
-                                                              },
-                                                            )),
+                                                            placeholder:
+                                                                AssetsManager
+                                                                    .teacher_empty_profile,
+                                                            image: _teachersListViewModel
+                                                                    .teachersList[
+                                                                        index]
+                                                                    .photoUrl ??
+                                                                '',
+                                                            width:
+                                                                unitHeightValue *
+                                                                    8,
+                                                            height:
+                                                                unitHeightValue *
+                                                                    8,
+                                                            // fit: BoxFit.cover,
+                                                            imageErrorBuilder:
+                                                                (context, error,
+                                                                    stackTrace) {
+                                                              return Image
+                                                                  .asset(
+                                                                AssetsManager
+                                                                    .teacher_empty_profile,
+                                                                width:
+                                                                    unitHeightValue *
+                                                                        8,
+                                                                height:
+                                                                    unitHeightValue *
+                                                                        8,
+                                                              );
+                                                            },
+                                                          )),
                                                     ),
                                                   ),
                                                 ),
