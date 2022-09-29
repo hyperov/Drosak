@@ -5,8 +5,7 @@ import '../../../utils/firestore_names.dart';
 import '../entity/review.dart';
 
 class ReviewsRepo {
-  Future<QuerySnapshot<Review>> getReviews(
-      String teacherId, String orderBy) async {
+  Stream<QuerySnapshot<Review>> getReviews(String teacherId, String orderBy) {
     return FirebaseFirestore.instance
         .collection(FireStoreNames.collectionTeachers)
         .doc(teacherId)
@@ -16,7 +15,7 @@ class ReviewsRepo {
           toFirestore: (model, _) => model.toJson(),
         )
         .orderBy(orderBy, descending: true)
-        .get();
+        .snapshots();
   }
 
   Future<void> addReview(Review review) async {

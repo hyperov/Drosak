@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/teachers/model/teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +26,8 @@ class ReviewsViewModel extends GetxController {
 
   double rating = 5.0;
 
+  late StreamSubscription<QuerySnapshot<Review>> reviewListen;
+
   @override
   onReady() async {
     super.onReady();
@@ -31,18 +36,21 @@ class ReviewsViewModel extends GetxController {
     ever(orderBy, (callback) => getReviews());
   }
 
-  getReviews() async {
+  Future<void> getReviews() async {
+    isLoading.value = true;
     String? teacherId = _storage.read<String>(StorageKeys.teacherId);
-    print('teacherId: $teacherId');
-    var _localReviews =
-        await _reviewsRepo.getReviews(teacherId!, orderBy.value);
 
-    var reviewsDocs = _localReviews.docs.map((doc) {
-      return doc.data();
+    var reviewsStream = _reviewsRepo.getReviews(teacherId!, orderBy.value);
+
+    reviewListen = reviewsStream.listen((_reviews) {
+      var reviewsDocs = _reviews.docs.map((doc) => doc.data()).toList();
+      isLoading.value = false;
+      reviews.clear();
+      reviews.addAll(reviewsDocs);
+    }, onError: (e) {
+      isLoading.value = false;
+      print(e);
     });
-    isLoading.value = false;
-    reviews.clear();
-    reviews.addAll(reviewsDocs);
   }
 
   @override

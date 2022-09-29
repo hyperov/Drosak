@@ -167,10 +167,10 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
                   },
                 ).marginSymmetric(horizontal: 8),
               )),
-              Obx(() => Expanded(
-                    child: ElevatedButton(
+              Expanded(
+                child: Obx(() => ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary:
+                        backgroundColor:
                             isRated() ? Colors.grey.shade400 : Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
@@ -241,8 +241,8 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
                           );
                         }
                       },
-                    ).marginSymmetric(horizontal: 8),
-                  )),
+                    ).marginSymmetric(horizontal: 8)),
+              ),
             ],
           ).marginSymmetric(horizontal: 24),
           const SizedBox(height: 24),
