@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drosak/common/model/empty_widget.dart';
 import 'package:drosak/common/viewmodel/filter_viewmodel.dart';
 import 'package:drosak/extensions/teacher_extensions.dart';
@@ -19,7 +20,7 @@ import 'teacher_details_screen.dart';
 class TeachersListScreen extends StatelessWidget {
   TeachersListScreen({Key? key}) : super(key: key);
 
-  TeachersListViewModel get _teachersListViewModel => Get.find();
+  final TeachersListViewModel _teachersListViewModel = Get.find();
 
   FilterViewModel get _filterViewModel => Get.find();
   final _storage = GetStorage();
@@ -106,83 +107,100 @@ class TeachersListScreen extends StatelessWidget {
                                                                   .deepPurpleAccent,
                                                               width: 1)),
                                                       child: Obx(() =>
-                                                          FadeInImage
-                                                              .assetNetwork(
-                                                            placeholder:
-                                                                AssetsManager
-                                                                    .teacher_empty_profile,
-                                                            image: _teachersListViewModel
-                                                                    .teachersList[
-                                                                        index]
-                                                                    .photoUrl ??
-                                                                '',
+                                                          CachedNetworkImage(
                                                             width:
                                                                 unitHeightValue *
                                                                     8,
                                                             height:
                                                                 unitHeightValue *
                                                                     8,
-                                                            // fit: BoxFit.cover,
-                                                            imageErrorBuilder:
-                                                                (context, error,
-                                                                    stackTrace) {
-                                                              return Image
-                                                                  .asset(
-                                                                AssetsManager
-                                                                    .teacher_empty_profile,
-                                                                width:
-                                                                    unitHeightValue *
-                                                                        8,
-                                                                height:
-                                                                    unitHeightValue *
-                                                                        8,
-                                                              );
-                                                            },
+                                                            imageUrl: _teachersListViewModel
+                                                                    .teachersList[
+                                                                        index]
+                                                                    .photoUrl ??
+                                                                '',
+                                                            placeholder:
+                                                                (context,
+                                                                        url) =>
+                                                                    Image.asset(
+                                                              AssetsManager
+                                                                  .teacher_empty_profile,
+                                                              width:
+                                                                  unitHeightValue *
+                                                                      8,
+                                                              height:
+                                                                  unitHeightValue *
+                                                                      8,
+                                                            ),
+                                                            errorWidget:
+                                                                (context, url,
+                                                                        error) =>
+                                                                    Image.asset(
+                                                              AssetsManager
+                                                                  .teacher_empty_profile,
+                                                              width:
+                                                                  unitHeightValue *
+                                                                      8,
+                                                              height:
+                                                                  unitHeightValue *
+                                                                      8,
+                                                            ),
                                                           )),
                                                     ),
                                                   ),
                                                 ),
-                                                Positioned(
-                                                  child: Container(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 8,
-                                                        vertical: 2),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      border: Border.all(
-                                                          color: Colors
-                                                              .deepPurpleAccent),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .horizontal(
-                                                              left: Radius
-                                                                  .circular(16),
-                                                              right: Radius
-                                                                  .circular(
-                                                                      16)),
-                                                    ),
-                                                    child: Row(children: [
-                                                      SvgPicture.asset(
-                                                        AssetsManager.star,
-                                                        width: 16,
-                                                        height: 16,
-                                                      ),
-                                                      const SizedBox(width: 4),
-                                                      Text(
-                                                          _teachersListViewModel
+                                                Visibility(
+                                                  visible:
+                                                      _teachersListViewModel
                                                               .teachersList[
                                                                   index]
-                                                              .avgRating
-                                                              .toString(),
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: Colors
-                                                                      .black)),
-                                                    ]),
+                                                              .avgRating !=
+                                                          0,
+                                                  child: Positioned(
+                                                    child: Container(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 8,
+                                                          vertical: 2),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                            color: Colors
+                                                                .deepPurpleAccent),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .horizontal(
+                                                                left: Radius
+                                                                    .circular(
+                                                                        16),
+                                                                right: Radius
+                                                                    .circular(
+                                                                        16)),
+                                                      ),
+                                                      child: Row(children: [
+                                                        SvgPicture.asset(
+                                                          AssetsManager.star,
+                                                          width: 16,
+                                                          height: 16,
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 4),
+                                                        Text(
+                                                            _teachersListViewModel
+                                                                .teachersList[
+                                                                    index]
+                                                                .avgRating
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: Colors
+                                                                        .black)),
+                                                      ]),
+                                                    ),
+                                                    bottom: -5,
                                                   ),
-                                                  bottom: -5,
                                                 ),
                                               ],
                                             ),
