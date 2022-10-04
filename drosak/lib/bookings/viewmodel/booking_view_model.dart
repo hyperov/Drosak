@@ -78,6 +78,7 @@ class BookingsViewModel extends GetxController {
       isCanceled: false,
       lectureId: selectedLecture.id!,
       teacherId: selectedTeacher.id!,
+      teacherPhone: selectedTeacher.phone!,
     );
 
     newBooking.lecDate = newBooking.getLectureDate();

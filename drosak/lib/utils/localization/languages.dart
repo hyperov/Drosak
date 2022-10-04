@@ -11,6 +11,7 @@ class Languages extends Translations {
           LocalizationKeys.phone_confirmation:
               'you will receive a confirmation code on your phone',
           LocalizationKeys.phone_number: 'Phone number',
+          LocalizationKeys.teacher_phone: 'Teacher phone',
           LocalizationKeys.phone_number_hint: '01xxxxxxxxx',
           LocalizationKeys.phone_number_error: 'Phone number is wrong',
           LocalizationKeys.phone_number_error_empty: 'Phone number is empty',
@@ -250,6 +251,8 @@ class Languages extends Translations {
           LocalizationKeys.enter_phone_number: 'أدخل رقم هاتفك',
           LocalizationKeys.phone_confirmation: 'هيجيلك رسالة تأكيد على موبايلك',
           LocalizationKeys.phone_number: 'رقم الهاتف',
+          LocalizationKeys.teacher_phone: 'رقم هاتف المدرس',
+
           LocalizationKeys.phone_number_hint: '01xxxxxxxxx',
           LocalizationKeys.phone_number_error: 'رقم الهاتف غير صحيح',
           LocalizationKeys.phone_number_error_empty: 'رقم الهاتف فاضي',

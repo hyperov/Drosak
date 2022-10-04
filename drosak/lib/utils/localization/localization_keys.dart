@@ -27,6 +27,7 @@ class LocalizationKeys {
   static const String phone_confirmation = "phone_confirmation";
 
   static const String phone_number = "phone_number";
+  static var teacher_phone = 'teacher_phone';
   static const String phone_number_hint = "phone_number_hint";
   static const String phone_number_error_empty = "phone_number_error_empty";
 
@@ -326,7 +327,6 @@ class LocalizationKeys {
   static var technical_support = 'technical_support';
   static var technical_support_write_your_message =
       'technical_support_write_your_message';
-
   //used giza areas
   /**
   المهندسين او الدقى
