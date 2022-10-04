@@ -90,25 +90,24 @@ class BookingsScreen extends StatelessWidget {
                                     ),
                                     Text(_bookingsViewModel
                                         .bookings[index].address),
-                                    const SizedBox(height: 8),
-                                    // !_bookingsViewModel.bookings[index]
-                                    //         .teacherPhone.isBlank!
-                                    //     ? Row(
-                                    //         children: [
-                                    //           Text(LocalizationKeys
-                                    //               .teacher_phone.tr),
-                                    //           const SizedBox(width: 8),
-                                    //           Text(
-                                    //               _bookingsViewModel
-                                    //                   .bookings[index]
-                                    //                   .teacherPhone,
-                                    //               style: const TextStyle(
-                                    //                   fontSize: 16,
-                                    //                   fontWeight:
-                                    //                       FontWeight.bold)),
-                                    //         ],
-                                    //       )
-                                    //     : const SizedBox(),
+                                    !_bookingsViewModel.bookings[index]
+                                            .teacherPhone.isBlank!
+                                        ? Row(
+                                            children: [
+                                              Text(LocalizationKeys
+                                                  .teacher_phone.tr),
+                                              const SizedBox(width: 8),
+                                              Text(
+                                                  _bookingsViewModel
+                                                      .bookings[index]
+                                                      .teacherPhone,
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          )
+                                        : const SizedBox(),
                                     Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
