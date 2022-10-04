@@ -14,6 +14,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 
 showListBottomSheet(
     {required List<Icon> leadingIcons,
@@ -536,19 +537,19 @@ showConfirmBookingBottomSheet(
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                   const SizedBox(height: 4),
-                  Card(
-                      elevation: 4,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      color: Colors.white,
-                      child: const Icon(
-                        Icons.school,
-                        color: ColorManager.blueDark,
-                        size: 32,
-                      ).marginAll(14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      )),
+                  // Card(
+                  //     elevation: 4,
+                  //     margin: const EdgeInsets.symmetric(
+                  //         horizontal: 16, vertical: 16),
+                  //     color: Colors.white,
+                  //     child: const Icon(
+                  //       Icons.school,
+                  //       color: ColorManager.blueDark,
+                  //       size: 32,
+                  //     ).marginAll(14),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //     )),
                   Text(lecturesViewModel.lectures[index].centerName,
                       style: const TextStyle(
                         fontSize: 18,
@@ -569,6 +570,12 @@ showConfirmBookingBottomSheet(
                     ],
                   ),
                   const SizedBox(height: 8),
+                  Text(
+                      Jiffy(lecturesViewModel.lectures[index].getLectureDate())
+                          .format('dd MMM yyyy'),
+                      style: const TextStyle(
+                        fontSize: 15,
+                      )),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -649,7 +656,7 @@ showConfirmBookingBottomSheet(
                               fontSize: 18,
                               fontWeight: FontWeight.bold)),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple,
+                        backgroundColor: Colors.deepPurple,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

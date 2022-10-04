@@ -11,7 +11,7 @@ class Lecture {
   int price;
   String teacherName;
   String teacherImageUrl;
-  bool isEnabled =true;
+  bool isEnabled = true;
 
   Lecture(
       {required this.centerName,
@@ -57,4 +57,37 @@ class Lecture {
         'pic': teacherImageUrl,
         'is_enabled': isEnabled
       };
+
+  int getWeekDayNumber() {
+    switch (day) {
+      case 'الاثنين':
+        return 1;
+      case 'الثلاثاء':
+        return 2;
+      case 'الاربعاء':
+        return 3;
+      case 'الخميس':
+        return 4;
+      case 'الجمعة':
+        return 5;
+      case 'السبت':
+        return 6;
+      case 'الأحد':
+        return 7;
+    }
+    return 1;
+  }
+
+  DateTime getLectureDate() {
+    DateTime endDate = DateTime.now();
+    int todayDay = endDate.weekday; // today day number
+
+    var lecDay = getWeekDayNumber(); //1-7
+
+    while (todayDay != lecDay) {
+      endDate = endDate.add(const Duration(days: 1));
+      todayDay = endDate.weekday;
+    }
+    return endDate;
+  }
 }

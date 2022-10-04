@@ -98,7 +98,7 @@ class BookingsViewModel extends GetxController {
         EasyLoading.showSuccess(LocalizationKeys.lecture_booked.tr);
 
         var delayHours = newBooking.lecDate
-            ?.subtract(Duration(days: 1))
+            ?.subtract(const Duration(days: 1))
             .difference(DateTime.now())
             .inHours
             .abs();
