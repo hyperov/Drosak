@@ -510,17 +510,20 @@ showConfirmBookingBottomSheet(
                                 left: Radius.circular(16),
                                 right: Radius.circular(16)),
                           ),
-                          child: Row(children: [
-                            SvgPicture.asset(
-                              AssetsManager.star,
-                              width: 16,
-                              height: 16,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(teacher.avgRating.toString(),
-                                style: const TextStyle(
-                                    fontSize: 10, color: Colors.black)),
-                          ]),
+                          child: Visibility(
+                            visible: teacher.avgRating != 0,
+                            child: Row(children: [
+                              SvgPicture.asset(
+                                AssetsManager.star,
+                                width: 16,
+                                height: 16,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(teacher.avgRating.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 10, color: Colors.black)),
+                            ]),
+                          ),
                         ),
                         bottom: -5,
                       ),

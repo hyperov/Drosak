@@ -7,6 +7,7 @@ import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,8 +27,8 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
   }
 
   bool isRated() {
-    return _reviewsViewModel.reviews.any((review) =>
-        review.teacherId == _teachersListViewModel.selectedTeacher.id);
+    return _reviewsViewModel.reviews.any(
+        (review) => review.studentId == FirebaseAuth.instance.currentUser!.uid);
   }
 
   @override

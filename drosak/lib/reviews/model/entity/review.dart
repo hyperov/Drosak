@@ -5,12 +5,14 @@ class Review {
   double rating;
   DateTime date;
   String teacherId;
+  String studentId = '';
 
   Review({
     required this.body,
     required this.rating,
     required this.date,
     required this.teacherId,
+    required this.studentId,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
@@ -18,6 +20,7 @@ class Review {
         rating: (json["rating"])?.toDouble(),
         date: (json["date"] as Timestamp).toDate(),
         teacherId: json["teacher_id"],
+        studentId: json["student_id"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -25,5 +28,6 @@ class Review {
         "rating": rating,
         "date": date,
         "teacher_id": teacherId,
+        "student_id": studentId,
       };
 }

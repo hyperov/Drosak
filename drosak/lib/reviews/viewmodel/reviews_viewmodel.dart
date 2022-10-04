@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drosak/teachers/model/teacher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -57,6 +58,7 @@ class ReviewsViewModel extends GetxController {
   void dispose() {
     super.dispose();
     addedReviewTextController.dispose();
+    reviewListen.cancel();
   }
 
   Future<void> reviewTeacher(Teacher teacher) async {
@@ -64,7 +66,8 @@ class ReviewsViewModel extends GetxController {
         teacherId: teacher.id!,
         rating: rating,
         body: addedReviewTextController.text,
-        date: DateTime.now());
+        date: DateTime.now(),
+        studentId: FirebaseAuth.instance.currentUser!.uid);
 
     await _reviewsRepo.addReview(review);
     addedReviewTextController.clear();
