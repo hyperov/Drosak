@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drosak/common/widgets/bottomsheet.dart';
 import 'package:drosak/common/widgets/dialogs.dart';
 import 'package:drosak/follows/viewmodel/follows_viewmodel.dart';
@@ -225,7 +226,7 @@ class TeacherDetailsPersonalScreen extends StatelessWidget {
                             ).marginSymmetric(horizontal: 16),
                             confirm: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: ColorManager.goldenYellow,
+                                backgroundColor: ColorManager.goldenYellow,
                                 padding: const EdgeInsets.all(8),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),

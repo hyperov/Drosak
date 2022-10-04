@@ -119,6 +119,7 @@ class TeachersListScreen extends StatelessWidget {
                                                                         index]
                                                                     .photoUrl ??
                                                                 '',
+                                                            fit: BoxFit.cover,
                                                             placeholder:
                                                                 (context,
                                                                         url) =>

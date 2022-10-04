@@ -1,3 +1,5 @@
+import 'package:drosak/common/model/empty_widget.dart';
+import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
 import 'package:drosak/utils/storage_keys.dart';
@@ -32,151 +34,162 @@ class ReviewsScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorManager.redOrangeLight,
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Obx(() => Text(
-                    'تقييمات الطلاب (${_reviewsViewModel.reviews.length} )',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-                .marginSymmetric(horizontal: 16)),
-            Card(
-              margin: const EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              elevation: 0,
-              child: PopupMenuButton(
-                  child: Row(
-                    children: const [
-                      Text("الترتيب",
-                          style: TextStyle(
-                              fontSize: 14, color: ColorManager.blueLight)),
-                      Icon(Icons.keyboard_arrow_down,
-                          color: ColorManager.blueLight),
-                    ],
-                  ).paddingSymmetric(horizontal: 16, vertical: 16),
-                  initialValue: "الترتيب حسب الأحدث",
-                  onSelected: (selected) {
-                    _reviewsViewModel.orderBy.value = selected.toString();
-                  },
-                  itemBuilder: (context) {
-                    return [
-                      const PopupMenuItem(
-                        child: Text('حسب الأحدث',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: ColorManager.deepPurple,
-                                fontWeight: FontWeight.bold)),
-                        value: FireStoreNames
-                            .collectionTeacherReviewsSortFieldDate,
+      body: _reviewsViewModel.reviews.isNotEmpty
+          ? Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Obx(() => Text(
+                              'تقييمات الطلاب (${_reviewsViewModel.reviews.length} )',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16))
+                          .marginSymmetric(horizontal: 16)),
+                      Card(
+                        margin: const EdgeInsets.all(16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 0,
+                        child: PopupMenuButton(
+                            child: Row(
+                              children: const [
+                                Text("الترتيب",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: ColorManager.blueLight)),
+                                Icon(Icons.keyboard_arrow_down,
+                                    color: ColorManager.blueLight),
+                              ],
+                            ).paddingSymmetric(horizontal: 16, vertical: 16),
+                            initialValue: "الترتيب حسب الأحدث",
+                            onSelected: (selected) {
+                              _reviewsViewModel.orderBy.value =
+                                  selected.toString();
+                            },
+                            itemBuilder: (context) {
+                              return [
+                                const PopupMenuItem(
+                                  child: Text('حسب الأحدث',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: ColorManager.deepPurple,
+                                          fontWeight: FontWeight.bold)),
+                                  value: FireStoreNames
+                                      .collectionTeacherReviewsSortFieldDate,
+                                ),
+                                const PopupMenuItem(
+                                  child: Text('حسب الأكثر تقييما',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: ColorManager.deepPurple,
+                                          fontWeight: FontWeight.bold)),
+                                  value: FireStoreNames
+                                      .collectionTeacherReviewsSortFieldRating,
+                                ),
+                              ];
+                            }),
                       ),
-                      const PopupMenuItem(
-                        child: Text('حسب الأكثر تقييما',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: ColorManager.deepPurple,
-                                fontWeight: FontWeight.bold)),
-                        value: FireStoreNames
-                            .collectionTeacherReviewsSortFieldRating,
-                      ),
-                    ];
-                  }),
-            ),
-          ]),
-          Card(
-              margin: const EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              elevation: 0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(_storage.read(StorageKeys.teacherRating)?.toString() ??
-                      '0'),
-                  RatingBar.builder(
-                    initialRating: _storage
-                            .read<double>(StorageKeys.teacherRating)
-                            ?.toDouble() ??
-                        0.0,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    ignoreGestures: true,
-                    unratedColor: Colors.grey,
-                    itemSize: 26,
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (double value) {},
-                  ),
-                  const Text('التقييم الكلى للمدرس',
-                      style: TextStyle(color: Colors.black)),
-                ],
-              ).paddingSymmetric(horizontal: 16, vertical: 16)),
-          Expanded(
-            child: Obx(() => ListView.builder(
-                itemBuilder: (context, index) {
-                  return Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    ]),
+                Card(
+                    margin: const EdgeInsets.all(16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     elevation: 0,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            RatingBar.builder(
-                              initialRating:
-                                  _reviewsViewModel.reviews[index].rating,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              ignoreGestures: true,
-                              unratedColor: Colors.grey,
-                              itemSize: 22,
-                              maxRating: 5,
-                              itemPadding: const EdgeInsets.all(2),
-                              itemBuilder: (context, _) => SvgPicture.asset(
-                                AssetsManager.star,
-                              ),
-                              onRatingUpdate: (double value) {},
-                            ),
-                            const SizedBox(width: 8),
-                            Obx(() => Text(
-                                  _reviewsViewModel.reviews[index].rating
-                                      .toString(),
-                                  style: const TextStyle(
-                                      fontSize: 14, color: Colors.black),
-                                )),
-                          ],
+                        Text(_storage
+                                .read(StorageKeys.teacherRating)
+                                ?.toString() ??
+                            '0'),
+                        RatingBar.builder(
+                          initialRating: _storage
+                                  .read<double>(StorageKeys.teacherRating)
+                                  ?.toDouble() ??
+                              0.0,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          ignoreGestures: true,
+                          unratedColor: Colors.grey,
+                          itemSize: 26,
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (double value) {},
                         ),
-                        const SizedBox(height: 8),
-                        Obx(() => Text(_reviewsViewModel.reviews[index].body)),
-                        const SizedBox(height: 16),
-
-                        // ,TimeOfDayFormat.h_colon_mm_space_a
-                        Obx(() => Text(
-                            Jiffy(_reviewsViewModel.reviews[index].date)
-                                .format("dd MMM yyyy"),
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey))),
+                        const Text('التقييم الكلى للمدرس',
+                            style: TextStyle(color: Colors.black)),
                       ],
-                    ).paddingSymmetric(horizontal: 16, vertical: 16),
-                  );
-                },
-                physics: const BouncingScrollPhysics(),
-                itemCount: _reviewsViewModel.reviews.length)),
-          ),
-        ],
-      ),
+                    ).paddingSymmetric(horizontal: 16, vertical: 16)),
+                Expanded(
+                  child: Obx(() => ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  RatingBar.builder(
+                                    initialRating:
+                                        _reviewsViewModel.reviews[index].rating,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    ignoreGestures: true,
+                                    unratedColor: Colors.grey,
+                                    itemSize: 22,
+                                    maxRating: 5,
+                                    itemPadding: const EdgeInsets.all(2),
+                                    itemBuilder: (context, _) =>
+                                        SvgPicture.asset(
+                                      AssetsManager.star,
+                                    ),
+                                    onRatingUpdate: (double value) {},
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Obx(() => Text(
+                                        _reviewsViewModel.reviews[index].rating
+                                            .toString(),
+                                        style: const TextStyle(
+                                            fontSize: 14, color: Colors.black),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Obx(() =>
+                                  Text(_reviewsViewModel.reviews[index].body)),
+                              const SizedBox(height: 16),
+
+                              // ,TimeOfDayFormat.h_colon_mm_space_a
+                              Obx(() => Text(
+                                  Jiffy(_reviewsViewModel.reviews[index].date)
+                                      .format("dd MMM yyyy"),
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.grey))),
+                            ],
+                          ).paddingSymmetric(horizontal: 16, vertical: 16),
+                        );
+                      },
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: _reviewsViewModel.reviews.length)),
+                ),
+              ],
+            )
+          : EmptyView(title: LocalizationKeys.no_reviews.tr),
     );
   }
 }
