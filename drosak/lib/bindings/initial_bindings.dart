@@ -25,6 +25,7 @@ class InitialBindings extends Bindings {
     Get.lazyPut(() => LoginViewModel(), fenix: true);
     Get.lazyPut<TeachersListViewModel>(() => TeachersListViewModel(),
         fenix: true);
+    Get.lazyPut<HomeViewModel>(() => HomeViewModel(), fenix: true);
   }
 }
 

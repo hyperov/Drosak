@@ -63,7 +63,7 @@ class LoginViewModel extends GetxController {
       if (isFirstTimeUserLogin!) {
         Get.offAll(() => PersonalProfileScreen());
       } else {
-        Get.offAll(() => HomeScreen(), binding: HomeBindings());
+        Get.offAll(() => HomeScreen(), binding: InitialBindings());
       }
       EasyLoading.showSuccess("You are logged in");
       FirebaseCrashlytics.instance
