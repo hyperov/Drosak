@@ -22,8 +22,6 @@ class BookingsViewModel extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  int selectedIndex = -1;
-
   late StreamSubscription<QuerySnapshot<Booking>> bookingsListener;
 
   late Teacher selectedTeacher;
