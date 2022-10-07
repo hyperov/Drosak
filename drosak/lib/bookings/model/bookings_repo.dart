@@ -43,6 +43,20 @@ class BookingsRepo {
 
     batch.update(docBooking, {'is_canceled': true});
 
+    // teacher booking info
+    var docBookingInfoTeacher = FirebaseFirestore.instance
+        .collection(FireStoreNames.collectionTeachers)
+        .doc(teacherId)
+        .collection(FireStoreNames.collectionTeacherBookingsInfo)
+        .doc(bookingId);
+
+    var bookingSnapshot = await docBookingInfoTeacher.get();
+    var isBookingInfoDocFound = bookingSnapshot.exists;
+
+    if (isBookingInfoDocFound) {
+      batch.update(docBookingInfoTeacher, {'is_canceled': true});
+    }
+
     var studentDocRef = FirebaseFirestore.instance
         .collection(FireStoreNames.collectionStudents)
         .doc(_storage.read(StorageKeys.studentId));

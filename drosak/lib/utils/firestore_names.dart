@@ -5,6 +5,7 @@ class FireStoreNames {
   static const String collectionTeacherPosts = 'posts';
   static const String collectionTeacherReviews = 'reviews';
   static const String collectionTeacherLectures = 'lectures'; //الحصص
+  static const String collectionTeacherBookingsInfo = 'bookings_info'; //الحصص
 
   static const String collectionStudentFollows = 'follows';
   static const String collectionStudentBookings = 'bookings';
@@ -15,6 +16,7 @@ class FireStoreNames {
   static const String studentDocFieldLastSignInTime = 'lastSignInTime';
   static const String studentDocFieldFcmToken = 'fcm_token';
   static const String studentDocFieldFcmTokenTimeStamp = 'fcm_date';
+  static const String studentDocFieldStudentId = 'student_id';
 
   //reviews fields
   static const String collectionTeacherReviewsSortFieldDate = 'date';
@@ -28,6 +30,7 @@ class FireStoreNames {
   static const String teacherDocFieldMaterial = 'material';
   static const String teacherDocFieldAreas = 'areas';
   static const String teacherDocFieldName = 'name';
+
   //booking fields
   static const String bookingDocFieldLecDate = 'lec_date';
 
