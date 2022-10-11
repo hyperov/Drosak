@@ -7,6 +7,7 @@ import 'package:drosak/teachers/teachers_list_screen.dart';
 import 'package:drosak/utils/localization/localization_keys.dart';
 import 'package:drosak/utils/managers/assets_manager.dart';
 import 'package:drosak/utils/managers/color_manager.dart';
+import 'package:drosak/videos/videos_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends StatelessWidget {
     TeachersListScreen(),
     const BookingsScreen(),
     const NotificationsScreen(),
+    VideosScreen(),
     const ProfileScreen(),
   ];
 
@@ -31,6 +33,7 @@ class HomeScreen extends StatelessWidget {
     LocalizationKeys.home.tr,
     LocalizationKeys.last_bookings.tr,
     LocalizationKeys.news_teachers.tr,
+    'Videos',
     LocalizationKeys.profile.tr,
   ];
 
@@ -123,6 +126,10 @@ class HomeScreen extends StatelessWidget {
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.notifications),
                     label: LocalizationKeys.news.tr,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.video_collection),
+                    label: 'Videos',
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.person),

@@ -68,6 +68,9 @@ dependencies:
   url_launcher: ^6.1.5
   lottie: ^1.4.3
   cached_network_image: ^3.2.2
+  better_player: ^0.0.83
+  webview_flutter: ^3.0.4
+  flutter_html: ^3.0.0-alpha.6
 
 flutter_native_splash:
   color: "#ffc2c0"
