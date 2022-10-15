@@ -71,6 +71,7 @@ dependencies:
   better_player: ^0.0.83
   webview_flutter: ^3.0.4
   flutter_html: ^3.0.0-alpha.6
+  retrofit: ^3.3.1
 
 flutter_native_splash:
   color: "#ffc2c0"
@@ -89,6 +90,9 @@ flutter_icons:
   adaptive_icon_foreground: "assets/launcher/foreground.png"
 
 dev_dependencies:
+  retrofit_generator: '4.2.0'
+  build_runner: '2.3.0'
+  json_serializable: '6.5.1'
   flutter_test:
     sdk: flutter
 
