@@ -34,7 +34,6 @@ class HomeScreen extends StatelessWidget {
     LocalizationKeys.last_bookings.tr,
     LocalizationKeys.news_teachers.tr,
     'Videos BunnyCDN',
-    'Videos Wasabi',
     LocalizationKeys.profile.tr,
   ];
 

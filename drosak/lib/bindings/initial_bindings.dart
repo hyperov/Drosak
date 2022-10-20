@@ -7,9 +7,11 @@ import 'package:drosak/login/viewmodel/login_view_model.dart';
 import 'package:drosak/notifications/viewmodel/notifications_viewmodel.dart';
 import 'package:drosak/profile/viewmodel/profile_view_model.dart';
 import 'package:drosak/reviews/viewmodel/reviews_viewmodel.dart';
+import 'package:drosak/videos/api/api_client.dart';
 import 'package:get/get.dart';
 
 import '../teachers/viewmodel/teachers_list_viewmodel.dart';
+import '../videos/api/dio_client.dart';
 
 class InitialBindings extends Bindings {
   @override
@@ -26,6 +28,8 @@ class InitialBindings extends Bindings {
     Get.lazyPut<TeachersListViewModel>(() => TeachersListViewModel(),
         fenix: true);
     Get.lazyPut<HomeViewModel>(() => HomeViewModel(), fenix: true);
+    Get.lazyPut<ApiClient>(() => ApiClient(buildDioClient(ApiClient.baseUrl)),
+        fenix: true);
   }
 }
 

@@ -72,6 +72,9 @@ dependencies:
   webview_flutter: ^3.0.4
   flutter_html: ^3.0.0-alpha.6
   retrofit: ^3.3.1
+  dio_logging_interceptor: ^1.0.1
+  awesome_dio_interceptor: 0.0.2+4
+  freezed: ^2.2.0
 
 flutter_native_splash:
   color: "#ffc2c0"
