@@ -19,11 +19,8 @@ class _VideosScreenBunnyCdnState extends State<VideosScreenBunnyCdn> {
     super.initState();
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
         BetterPlayerDataSourceType.network,
-        // "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
-        // "https://playready.ezdrm.com/cency/preauth.aspx?pX=ECD463");
         // "https://vz-a3e1effb-e16.b-cdn.net/6fad0400-3380-40c9-978a-f34f3aa69780/playlist.m3u8", //bunny
         "https://vz-a3e1effb-e16.b-cdn.net/46c9e6de-b26a-43bc-882c-6902de73fe70/playlist.m3u8",
-        //bunny
         // "https://vz-a3e1effb-e16.b-cdn.net/00454a03-48c7-4d64-aa06-c6ee8b333471/playlist.m3u8", //bunny
         // "https://vz-a3e1effb-e16.b-cdn.net/c61bd346-f8a1-4679-9b59-34c4b61eaec2/playlist.m3u8", //bunny
         videoFormat: BetterPlayerVideoFormat.hls,
